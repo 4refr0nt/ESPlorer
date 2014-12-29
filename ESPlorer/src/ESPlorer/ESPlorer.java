@@ -43,7 +43,7 @@ public class ESPlorer extends javax.swing.JFrame {
     private static SerialPort serialPort;
     public static boolean pOpen = false;
     public static boolean sOpen = false;
-    public static final String version="v0.1 build 205";
+    public static final String version="v0.1 build pre205";
 /**
      * Creates new form MainWindows
      */
@@ -322,8 +322,6 @@ public class ESPlorer extends javax.swing.JFrame {
         SendCommand = new javax.swing.JButton();
         CR = new javax.swing.JCheckBox();
         Command = new javax.swing.JComboBox();
-        LogLabel = new javax.swing.JLabel();
-        TerminalLabel = new javax.swing.JLabel();
         SnippetsPane = new javax.swing.JLayeredPane();
         ButtonSnippet0 = new javax.swing.JButton();
         ButtonSnippet1 = new javax.swing.JButton();
@@ -341,17 +339,6 @@ public class ESPlorer extends javax.swing.JFrame {
         ButtonSnippet13 = new javax.swing.JButton();
         ButtonSnippet14 = new javax.swing.JButton();
         ButtonSnippet15 = new javax.swing.JButton();
-        IPPanel = new javax.swing.JLayeredPane();
-        ConnectionLabel = new javax.swing.JLabel();
-        IP = new javax.swing.JTextField();
-        TCPport = new javax.swing.JTextField();
-        Connect = new javax.swing.JToggleButton();
-        AutoScroll1 = new javax.swing.JCheckBox();
-        RightBottomPane1 = new javax.swing.JLayeredPane();
-        LF1 = new javax.swing.JCheckBox();
-        IPSendCommand = new javax.swing.JButton();
-        CR1 = new javax.swing.JCheckBox();
-        IPCommand = new javax.swing.JComboBox();
         MainMenuBar = new javax.swing.JMenuBar();
         MenuFile = new javax.swing.JMenu();
         MenuItemFileNew = new javax.swing.JMenuItem();
@@ -3751,10 +3738,6 @@ public class ESPlorer extends javax.swing.JFrame {
         RightBottomPane.setLayer(Command, javax.swing.JLayeredPane.DEFAULT_LAYER);
         Command.getAccessibleContext().setAccessibleName("Command");
 
-        LogLabel.setText("jLabel1");
-
-        TerminalLabel.setText("jLabel1");
-
         SnippetsPane.setLayout(new java.awt.FlowLayout());
 
         ButtonSnippet0.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
@@ -3917,189 +3900,32 @@ public class ESPlorer extends javax.swing.JFrame {
         });
         SnippetsPane.add(ButtonSnippet15);
 
-        IPPanel.setLayout(new javax.swing.BoxLayout(IPPanel, javax.swing.BoxLayout.LINE_AXIS));
-
-        ConnectionLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        ConnectionLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/led_grey.png"))); // NOI18N
-        ConnectionLabel.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        ConnectionLabel.setMaximumSize(new java.awt.Dimension(25, 25));
-        ConnectionLabel.setMinimumSize(new java.awt.Dimension(25, 25));
-        ConnectionLabel.setPreferredSize(new java.awt.Dimension(20, 25));
-        IPPanel.add(ConnectionLabel);
-
-        IP.setText("192.168.1.50");
-        IP.setPreferredSize(new java.awt.Dimension(20, 20));
-        IPPanel.add(IP);
-
-        TCPport.setText("2323");
-        TCPport.setToolTipText("");
-        TCPport.setPreferredSize(new java.awt.Dimension(10, 25));
-        IPPanel.add(TCPport);
-
-        Connect.setText("Connect");
-        Connect.setPreferredSize(new java.awt.Dimension(85, 25));
-        Connect.addChangeListener(new javax.swing.event.ChangeListener() {
-            public void stateChanged(javax.swing.event.ChangeEvent evt) {
-                ConnectStateChanged(evt);
-            }
-        });
-        Connect.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ConnectActionPerformed(evt);
-            }
-        });
-        IPPanel.add(Connect);
-
-        AutoScroll1.setFont(new java.awt.Font("Tahoma", 0, 8)); // NOI18N
-        AutoScroll1.setSelected(true);
-        AutoScroll1.setText("AutoScroll");
-        AutoScroll1.setToolTipText("Terminal AutoScroll Enable/Disable");
-        AutoScroll1.setMinimumSize(new java.awt.Dimension(70, 25));
-        AutoScroll1.setPreferredSize(new java.awt.Dimension(70, 25));
-        IPPanel.add(AutoScroll1);
-
-        RightBottomPane1.setAlignmentX(0.0F);
-        RightBottomPane1.setAlignmentY(0.0F);
-
-        LF1.setFont(LF1.getFont().deriveFont(LF1.getFont().getSize()-4f));
-        LF1.setSelected(true);
-        LF1.setText("LF");
-        LF1.setToolTipText("Add LF at end of line");
-        LF1.setAlignmentY(0.0F);
-        LF1.setEnabled(false);
-        LF1.setIconTextGap(0);
-        LF1.setMargin(new java.awt.Insets(0, 0, 0, 0));
-
-        IPSendCommand.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
-        IPSendCommand.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/left.png"))); // NOI18N
-        IPSendCommand.setToolTipText("Press to send command");
-        IPSendCommand.setAlignmentY(0.0F);
-        IPSendCommand.setEnabled(false);
-        IPSendCommand.setLabel("Send");
-        IPSendCommand.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        IPSendCommand.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                IPSendCommandActionPerformed(evt);
-            }
-        });
-
-        CR1.setFont(CR1.getFont().deriveFont(CR1.getFont().getSize()-4f));
-        CR1.setSelected(true);
-        CR1.setText("CR");
-        CR1.setToolTipText("Add CR at end of line");
-        CR1.setAlignmentY(0.0F);
-        CR1.setEnabled(false);
-        CR1.setIconTextGap(0);
-        CR1.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        CR1.setName(""); // NOI18N
-        CR1.setNextFocusableComponent(Command);
-
-        IPCommand.setEditable(true);
-        IPCommand.setMaximumRowCount(20);
-        IPCommand.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "AT", "AT+GMR", "AT+RST", "" }));
-        IPCommand.setToolTipText("Command to send");
-        IPCommand.setAlignmentX(0.0F);
-        IPCommand.setAlignmentY(0.0F);
-        IPCommand.setAutoscrolls(true);
-        IPCommand.setEnabled(false);
-        IPCommand.setName("Command"); // NOI18N
-        IPCommand.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                IPCommandItemStateChanged(evt);
-            }
-        });
-        IPCommand.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                IPCommandActionPerformed(evt);
-            }
-        });
-        IPCommand.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                IPCommandKeyPressed(evt);
-            }
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                IPCommandKeyReleased(evt);
-            }
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                IPCommandKeyTyped(evt);
-            }
-        });
-
-        javax.swing.GroupLayout RightBottomPane1Layout = new javax.swing.GroupLayout(RightBottomPane1);
-        RightBottomPane1.setLayout(RightBottomPane1Layout);
-        RightBottomPane1Layout.setHorizontalGroup(
-            RightBottomPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(RightBottomPane1Layout.createSequentialGroup()
-                .addComponent(IPCommand, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(IPSendCommand, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(RightBottomPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(CR1)
-                    .addComponent(LF1))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        RightBottomPane1Layout.setVerticalGroup(
-            RightBottomPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(RightBottomPane1Layout.createSequentialGroup()
-                .addComponent(CR1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(LF1)
-                .addGap(0, 0, Short.MAX_VALUE))
-            .addComponent(IPCommand)
-            .addComponent(IPSendCommand, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-        RightBottomPane1.setLayer(LF1, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        RightBottomPane1.setLayer(IPSendCommand, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        RightBottomPane1.setLayer(CR1, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        RightBottomPane1.setLayer(IPCommand, javax.swing.JLayeredPane.DEFAULT_LAYER);
-
         javax.swing.GroupLayout RightBasePaneLayout = new javax.swing.GroupLayout(RightBasePane);
         RightBasePane.setLayout(RightBasePaneLayout);
         RightBasePaneLayout.setHorizontalGroup(
             RightBasePaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(RightBasePaneLayout.createSequentialGroup()
-                .addComponent(RightSplitPane)
+                .addComponent(RightSplitPane, javax.swing.GroupLayout.DEFAULT_SIZE, 240, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(SnippetsPane, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addComponent(SerialPanel, javax.swing.GroupLayout.Alignment.TRAILING)
-            .addGroup(RightBasePaneLayout.createSequentialGroup()
-                .addGroup(RightBasePaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(RightBottomPane, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(LogLabel)
-                    .addComponent(TerminalLabel)
-                    .addComponent(RightBottomPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(59, Short.MAX_VALUE))
-            .addComponent(IPPanel, javax.swing.GroupLayout.Alignment.TRAILING)
+            .addComponent(RightBottomPane)
         );
         RightBasePaneLayout.setVerticalGroup(
             RightBasePaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(RightBasePaneLayout.createSequentialGroup()
                 .addComponent(SerialPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(IPPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(RightBottomPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(RightBasePaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(SnippetsPane)
-                    .addComponent(RightSplitPane, javax.swing.GroupLayout.DEFAULT_SIZE, 337, Short.MAX_VALUE))
+                    .addComponent(RightSplitPane, javax.swing.GroupLayout.DEFAULT_SIZE, 503, Short.MAX_VALUE)
+                    .addComponent(SnippetsPane))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(TerminalLabel)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(LogLabel)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(RightBottomPane, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(53, 53, 53))
+                .addComponent(RightBottomPane, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         RightBasePane.setLayer(SerialPanel, javax.swing.JLayeredPane.DEFAULT_LAYER);
         RightBasePane.setLayer(RightSplitPane, javax.swing.JLayeredPane.DEFAULT_LAYER);
         RightBasePane.setLayer(RightBottomPane, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        RightBasePane.setLayer(LogLabel, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        RightBasePane.setLayer(TerminalLabel, javax.swing.JLayeredPane.DEFAULT_LAYER);
         RightBasePane.setLayer(SnippetsPane, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        RightBasePane.setLayer(IPPanel, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        RightBasePane.setLayer(RightBottomPane1, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         HorizontSplit.setRightComponent(RightBasePane);
 
@@ -6246,12 +6072,6 @@ public class ESPlorer extends javax.swing.JFrame {
     }//GEN-LAST:event_SpeedItemStateChanged
 
     private void LogCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_LogCaretUpdate
-        if ( debug ) {
-            try {
-                TerminalLabel.setText("Term Lines:"+Integer.toString(Terminal.getLineCount())+" Bytes:"+Integer.toString(Terminal.getText().length()));
-                LogLabel.setText("Log Lines:"+Integer.toString(Log.getLineCount())+" Bytes:"+Integer.toString(Log.getText().length()));
-            } catch (Exception e) {}
-        }
     }//GEN-LAST:event_LogCaretUpdate
 
     private void LogMaxSizeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LogMaxSizeActionPerformed
@@ -6309,70 +6129,6 @@ public class ESPlorer extends javax.swing.JFrame {
         SnippetName.setText("");
         SnippetText.setBackground(SnippetTopPane.getBackground());
     }//GEN-LAST:event_SnippetCancelEditActionPerformed
-
-    private void ConnectStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_ConnectStateChanged
-        // TODO add your handling code here:
-    }//GEN-LAST:event_ConnectStateChanged
-    private void UpdateSocketButtons () {
-        IPCommand.setEnabled(sOpen);
-        IPSendCommand.setEnabled(sOpen);
-    }
-    private void ConnectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ConnectActionPerformed
-        if ( Connect.isSelected() ) {
-            try{
-                socket = new Socket(IP.getText(), Integer.parseInt(TCPport.getText()));
-                out = new PrintWriter(socket.getOutputStream(),  true);
-                in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-                ConnectionLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/led_green.png")));
-                log("TCP/IP Client connect to "+IP.getText()+":"+TCPport.getText()+" Success.");
-                sOpen = true;
-                UpdateSocketButtons();
-            } catch  (Exception e) {
-                Connect.setSelected(false);
-                ConnectionLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/led_grey.png")));
-                log("TCP/IP Client connect to "+IP.getText()+":"+TCPport.getText()+" FAIL.");
-                sOpen = false;
-                UpdateSocketButtons();
-                return;
-            }            
-        } else {
-            sOpen = false;
-            try{
-                socket.close();
-                log("TCP/IP Client disconnect: Success.");
-            } catch  (Exception e) {
-                log(e.toString());
-                log("TCP/IP Client disconnected.");
-            }            
-            ConnectionLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/led_grey.png")));
-        }
-        UpdateSocketButtons();
-    }//GEN-LAST:event_ConnectActionPerformed
-
-    private void IPSendCommandActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_IPSendCommandActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_IPSendCommandActionPerformed
-
-    private void IPCommandItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_IPCommandItemStateChanged
-        // TODO add your handling code here:
-    }//GEN-LAST:event_IPCommandItemStateChanged
-
-    private void IPCommandActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_IPCommandActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_IPCommandActionPerformed
-
-    private void IPCommandKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_IPCommandKeyPressed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_IPCommandKeyPressed
-
-    private void IPCommandKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_IPCommandKeyReleased
-        // TODO add your handling code here:
-    }//GEN-LAST:event_IPCommandKeyReleased
-
-    private void IPCommandKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_IPCommandKeyTyped
-        // TODO add your handling code here:
-    }//GEN-LAST:event_IPCommandKeyTyped
-
     private void TurboModeItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_TurboModeItemStateChanged
         // TODO add your handling code here:
     }//GEN-LAST:event_TurboModeItemStateChanged
@@ -6454,7 +6210,6 @@ public class ESPlorer extends javax.swing.JFrame {
     private javax.swing.JLabel AppName;
     private javax.swing.JLabel Author;
     private javax.swing.JCheckBox AutoScroll;
-    private javax.swing.JCheckBox AutoScroll1;
     private javax.swing.JLayeredPane BasicATcommandsPane;
     private javax.swing.JLabel Busy;
     private javax.swing.JButton ButtonCopy;
@@ -6487,11 +6242,8 @@ public class ESPlorer extends javax.swing.JFrame {
     private javax.swing.JButton ButtonSnippet9;
     private javax.swing.JButton ButtonUndo;
     private javax.swing.JCheckBox CR;
-    private javax.swing.JCheckBox CR1;
     private javax.swing.JLabel ComingSoon1;
     private javax.swing.JComboBox Command;
-    private javax.swing.JToggleButton Connect;
-    private javax.swing.JLabel ConnectionLabel;
     private javax.swing.JPopupMenu ContextMenuEditor;
     private javax.swing.JPopupMenu ContextMenuLog;
     private javax.swing.JPopupMenu ContextMenuTerminal;
@@ -6524,12 +6276,7 @@ public class ESPlorer extends javax.swing.JFrame {
     private javax.swing.JButton GSLP;
     private javax.swing.JButton HomePage;
     private javax.swing.JSplitPane HorizontSplit;
-    private javax.swing.JTextField IP;
-    private javax.swing.JComboBox IPCommand;
-    private javax.swing.JLayeredPane IPPanel;
-    private javax.swing.JButton IPSendCommand;
     private javax.swing.JCheckBox LF;
-    private javax.swing.JCheckBox LF1;
     private javax.swing.JLayeredPane LeftBasePane;
     private javax.swing.JLayeredPane LeftBottomPane;
     private javax.swing.JLayeredPane LeftSnippetsPane;
@@ -6537,7 +6284,6 @@ public class ESPlorer extends javax.swing.JFrame {
     private javax.swing.JSlider LineDelay;
     private javax.swing.JLabel LineDelayLabel;
     private javax.swing.JTextArea Log;
-    private javax.swing.JLabel LogLabel;
     private javax.swing.JTextField LogMaxSize;
     private javax.swing.JPopupMenu.Separator LogSeparator;
     private javax.swing.JFormattedTextField MAC;
@@ -6617,7 +6363,6 @@ public class ESPlorer extends javax.swing.JFrame {
     private javax.swing.JScrollPane RighMiddleScroll;
     private javax.swing.JLayeredPane RightBasePane;
     private javax.swing.JLayeredPane RightBottomPane;
-    private javax.swing.JLayeredPane RightBottomPane1;
     private javax.swing.JSplitPane RightSplitPane;
     private javax.swing.JTextField SSID;
     private javax.swing.JTextField SSIDsoftAP;
@@ -6659,10 +6404,8 @@ public class ESPlorer extends javax.swing.JFrame {
     private javax.swing.Box.Filler TCPServerTopFiller;
     private javax.swing.JLayeredPane TCP_common;
     private javax.swing.JLayeredPane TCPclientBottomPane;
-    private javax.swing.JTextField TCPport;
     private javax.swing.JTabbedPane TabAT;
     private javax.swing.JTextArea Terminal;
-    private javax.swing.JLabel TerminalLabel;
     private javax.swing.JTextField TerminalMaxSize;
     private javax.swing.JPopupMenu.Separator TerminalSeparator1;
     private javax.swing.JPopupMenu.Separator TerminalSeparator2;
@@ -7051,9 +6794,6 @@ public class ESPlorer extends javax.swing.JFrame {
         
         LoadPrefs();
         LoadSnippets();
-
-        LogLabel.setVisible(debug);
-        TerminalLabel.setVisible(debug);
 
         AddTab(); // iTab = 0
                 
