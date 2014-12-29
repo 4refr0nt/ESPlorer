@@ -1,0 +1,3 @@
+org.jdesktop.swingbinding.adapters.JSpinnerAdapterProvider$Adapter
+org.jdesktop.swingbinding.adapters.JSpinnerAdapterProvider$Adapter$Handler
+org.jdesktop.swingbinding.adapters.JSpinnerAdapterProvider

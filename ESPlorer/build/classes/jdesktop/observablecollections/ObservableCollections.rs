@@ -1,0 +1,6 @@
+org.jdesktop.observablecollections.ObservableCollections
+org.jdesktop.observablecollections.ObservableCollections$ObservableMapImpl$EntryIterator
+org.jdesktop.observablecollections.ObservableCollections$ObservableListImpl
+org.jdesktop.observablecollections.ObservableCollections$ObservableMapImpl
+org.jdesktop.observablecollections.ObservableCollections$ObservableListHelper
+org.jdesktop.observablecollections.ObservableCollections$ObservableMapImpl$EntrySet

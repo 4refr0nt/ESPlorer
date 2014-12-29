@@ -1,0 +1,3 @@
+org.jdesktop.swingbinding.adapters.JTextComponentAdapterProvider$Adapter$Handler
+org.jdesktop.swingbinding.adapters.JTextComponentAdapterProvider
+org.jdesktop.swingbinding.adapters.JTextComponentAdapterProvider$Adapter

@@ -1,0 +1,1 @@
+org.jdesktop.swingbinding.adapters.BeanAdapterBase

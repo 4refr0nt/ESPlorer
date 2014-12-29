@@ -1,0 +1,3 @@
+org.jdesktop.swingbinding.adapters.JComboBoxAdapterProvider$Adapter
+org.jdesktop.swingbinding.adapters.JComboBoxAdapterProvider
+org.jdesktop.swingbinding.adapters.JComboBoxAdapterProvider$Adapter$Handler

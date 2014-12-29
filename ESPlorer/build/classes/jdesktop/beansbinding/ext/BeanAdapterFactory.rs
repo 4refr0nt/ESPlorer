@@ -1,0 +1,2 @@
+org.jdesktop.beansbinding.ext.BeanAdapterFactory$VendedAdapter
+org.jdesktop.beansbinding.ext.BeanAdapterFactory

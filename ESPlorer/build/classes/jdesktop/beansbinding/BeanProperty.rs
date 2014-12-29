@@ -1,0 +1,2 @@
+org.jdesktop.beansbinding.BeanProperty
+org.jdesktop.beansbinding.BeanProperty$SourceEntry

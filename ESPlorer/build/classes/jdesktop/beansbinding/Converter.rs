@@ -1,0 +1,12 @@
+org.jdesktop.beansbinding.Converter$7
+org.jdesktop.beansbinding.Converter
+org.jdesktop.beansbinding.Converter$6
+org.jdesktop.beansbinding.Converter$9
+org.jdesktop.beansbinding.Converter$8
+org.jdesktop.beansbinding.Converter$3
+org.jdesktop.beansbinding.Converter$2
+org.jdesktop.beansbinding.Converter$11
+org.jdesktop.beansbinding.Converter$5
+org.jdesktop.beansbinding.Converter$10
+org.jdesktop.beansbinding.Converter$4
+org.jdesktop.beansbinding.Converter$1

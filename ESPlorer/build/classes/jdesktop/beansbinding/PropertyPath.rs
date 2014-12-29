@@ -1,0 +1,3 @@
+org.jdesktop.beansbinding.PropertyPath
+org.jdesktop.beansbinding.PropertyPath$SinglePropertyPath
+org.jdesktop.beansbinding.PropertyPath$MultiPropertyPath
