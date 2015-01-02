@@ -43,7 +43,7 @@ public class ESPlorer extends javax.swing.JFrame {
     private static SerialPort serialPort;
     public static boolean pOpen = false;
     public static boolean sOpen = false;
-    public static final String version="v0.1 build pre205";
+    public static final String version="v0.1 build 205";
 /**
      * Creates new form MainWindows
      */
@@ -313,8 +313,10 @@ public class ESPlorer extends javax.swing.JFrame {
         Open = new javax.swing.JToggleButton();
         AutoScroll = new javax.swing.JCheckBox();
         RightSplitPane = new javax.swing.JSplitPane();
-        RighMiddleScroll = new javax.swing.JScrollPane();
+        TerminalPane = new javax.swing.JScrollPane();
         Terminal = new javax.swing.JTextArea();
+        TerminalPane1 = new org.fife.ui.rtextarea.RTextScrollPane();
+        Terminal1 = new org.fife.ui.rsyntaxtextarea.RSyntaxTextArea();
         ScrollLog = new javax.swing.JScrollPane();
         Log = new javax.swing.JTextArea();
         RightBottomPane = new javax.swing.JLayeredPane();
@@ -1886,12 +1888,16 @@ public class ESPlorer extends javax.swing.JFrame {
         });
 
         TurboMode.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
-        TurboMode.setSelected(true);
         TurboMode.setText("\"Turbo Mode\"");
         TurboMode.setToolTipText("");
         TurboMode.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 TurboModeItemStateChanged(evt);
+            }
+        });
+        TurboMode.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                TurboModeActionPerformed(evt);
             }
         });
 
@@ -3541,7 +3547,7 @@ public class ESPlorer extends javax.swing.JFrame {
         Open.setMargin(new java.awt.Insets(2, 2, 2, 2));
         Open.setMaximumSize(new java.awt.Dimension(100, 25));
         Open.setMinimumSize(new java.awt.Dimension(85, 25));
-        Open.setPreferredSize(new java.awt.Dimension(85, 25));
+        Open.setPreferredSize(new java.awt.Dimension(80, 25));
         Open.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 OpenActionPerformed(evt);
@@ -3554,7 +3560,7 @@ public class ESPlorer extends javax.swing.JFrame {
         AutoScroll.setText("AutoScroll");
         AutoScroll.setToolTipText("Terminal AutoScroll Enable/Disable");
         AutoScroll.setMinimumSize(new java.awt.Dimension(70, 25));
-        AutoScroll.setPreferredSize(new java.awt.Dimension(70, 25));
+        AutoScroll.setPreferredSize(new java.awt.Dimension(60, 25));
         SerialPanel.add(AutoScroll);
 
         RightSplitPane.setBorder(null);
@@ -3566,11 +3572,11 @@ public class ESPlorer extends javax.swing.JFrame {
         RightSplitPane.setName(""); // NOI18N
         RightSplitPane.setOneTouchExpandable(true);
 
-        RighMiddleScroll.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        RighMiddleScroll.setToolTipText("Terminal");
-        RighMiddleScroll.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-        RighMiddleScroll.setAlignmentX(0.0F);
-        RighMiddleScroll.setAlignmentY(0.0F);
+        TerminalPane.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        TerminalPane.setToolTipText("Terminal");
+        TerminalPane.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+        TerminalPane.setAlignmentX(0.0F);
+        TerminalPane.setAlignmentY(0.0F);
 
         Terminal.setEditable(false);
         Terminal.setBackground(new java.awt.Color(0, 51, 51));
@@ -3597,12 +3603,23 @@ public class ESPlorer extends javax.swing.JFrame {
                 TerminalMouseClicked(evt);
             }
         });
-        RighMiddleScroll.setViewportView(Terminal);
+        TerminalPane.setViewportView(Terminal);
         Terminal.getAccessibleContext().setAccessibleName("Terminal");
 
-        RightSplitPane.setLeftComponent(RighMiddleScroll);
+        RightSplitPane.setLeftComponent(TerminalPane);
 
-        ScrollLog.setBorder(RighMiddleScroll.getBorder());
+        Terminal1.setEditable(false);
+        Terminal1.setColumns(20);
+        Terminal1.setRows(5);
+        Terminal1.setComponentPopupMenu(ContextMenuTerminal);
+        Terminal1.setPopupMenu(ContextMenuTerminal);
+        Terminal1.setSyntaxEditingStyle("text/LUA");
+        Terminal1.setTabsEmulated(true);
+        TerminalPane1.setViewportView(Terminal1);
+
+        RightSplitPane.setTopComponent(TerminalPane1);
+
+        ScrollLog.setBorder(TerminalPane.getBorder());
         ScrollLog.setToolTipText("Log");
         ScrollLog.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
         ScrollLog.setAlignmentX(0.0F);
@@ -3711,24 +3728,23 @@ public class ESPlorer extends javax.swing.JFrame {
         RightBottomPaneLayout.setHorizontalGroup(
             RightBottomPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(RightBottomPaneLayout.createSequentialGroup()
-                .addComponent(Command, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(Command, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(SendCommand, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(RightBottomPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(CR)
                     .addComponent(LF))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
         RightBottomPaneLayout.setVerticalGroup(
             RightBottomPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+            .addComponent(SendCommand, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, RightBottomPaneLayout.createSequentialGroup()
                 .addComponent(CR)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(LF)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addComponent(LF))
             .addComponent(Command, javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(SendCommand, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         RightBottomPane.setLayer(LF, javax.swing.JLayeredPane.DEFAULT_LAYER);
         RightBottomPane.setLayer(SendCommand, javax.swing.JLayeredPane.DEFAULT_LAYER);
@@ -3905,11 +3921,15 @@ public class ESPlorer extends javax.swing.JFrame {
         RightBasePaneLayout.setHorizontalGroup(
             RightBasePaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(RightBasePaneLayout.createSequentialGroup()
-                .addComponent(RightSplitPane, javax.swing.GroupLayout.DEFAULT_SIZE, 240, Short.MAX_VALUE)
+                .addComponent(RightSplitPane)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(SnippetsPane, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addComponent(SerialPanel, javax.swing.GroupLayout.Alignment.TRAILING)
-            .addComponent(RightBottomPane)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, RightBasePaneLayout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(SerialPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 339, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(RightBasePaneLayout.createSequentialGroup()
+                .addComponent(RightBottomPane, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         RightBasePaneLayout.setVerticalGroup(
             RightBasePaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -4351,7 +4371,7 @@ public class ESPlorer extends javax.swing.JFrame {
                 log("Try to reconnect with baud "+Integer.toString(nSpeed)+"...");
                 btnSend("print(uart.setup(0, " + nSpeed + ", 8, 0, 1, 1 ))");
                 try {
-                    Thread.sleep(100L);
+                    Thread.sleep(200L);
                 } catch (Exception e) {}
             } else {
                 return;
@@ -4671,11 +4691,11 @@ public class ESPlorer extends javax.swing.JFrame {
 
     private void ContextMenuTerminalPopupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {//GEN-FIRST:event_ContextMenuTerminalPopupMenuWillBecomeVisible
         try {
-            MenuItemTerminalCopy.setEnabled(Terminal.getSelectedText().length() > 0);
+            MenuItemTerminalCopy.setEnabled(Terminal1.getSelectedText().length() > 0);
         } catch (Exception e) {
             MenuItemTerminalCopy.setEnabled(false);
         }
-        int size = Terminal.getFont().getSize();
+        int size = Terminal1.getFont().getSize();
         String inc, dec;
         if ( size < TERMINAL_FONT_SIZE_MAX ) {
             inc = "Change font size from " + Integer.toString( size ) + " to " + Integer.toString( size + 1 );
@@ -4692,11 +4712,11 @@ public class ESPlorer extends javax.swing.JFrame {
     }//GEN-LAST:event_ContextMenuTerminalPopupMenuWillBecomeVisible
 
     private void MenuItemTerminalCopyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuItemTerminalCopyActionPerformed
-        Terminal.copy();
+        Terminal1.copy();
     }//GEN-LAST:event_MenuItemTerminalCopyActionPerformed
 
     private void MenuItemTerminalClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuItemTerminalClearActionPerformed
-        Terminal.setText("");
+        Terminal1.setText("");
     }//GEN-LAST:event_MenuItemTerminalClearActionPerformed
 
     private void cmdGetCIFSRActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdGetCIFSRActionPerformed
@@ -5316,7 +5336,7 @@ public class ESPlorer extends javax.swing.JFrame {
         btnSend("node.restart()");
         if ( pOpen ) { // reconnect
             int speed = prefs.getInt(SERIAL_BAUD, 3);
-            int old_speed = Speed.getSelectedIndex();
+            old_speed = Speed.getSelectedIndex();
             if (speed == old_speed) { // reconnect not needed
                 return;
             }
@@ -5513,22 +5533,9 @@ public class ESPlorer extends javax.swing.JFrame {
     }//GEN-LAST:event_FileListESPActionPerformed
 
     private void FileCatESPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FileCatESPActionPerformed
-        String cmd = "if file.open(\"" + iFile.get(iTab).getName() +"\",\"r\") then do\r\n" +
-                     "  _content = \"\"\r\n" +
-                     "  repeat\r\n" +
-                     "      _line = file.readline()\r\n" +
-                     "      if (_line~=nil) then\r\n" +
-                     "          _content = _content .. _line\r\n" +
-                     "      end\r\n" +
-                     "  until _line == nil\r\n" +
-                     "  file.close()\r\n" +
-                     "  _line=''\r\n" +
-                     "  print(\"File content start from next line\")\r\n" +
-                     "  print(_content)\r\n" +
-                     "  _content=''\r\n" +
-                     "end else\r\n" +
-                     "  print(\"Can't open file " + iFile.get(iTab).getName() + "\")\r\n" +
-                     "end\r\n";
+        String cmd = "if file.open(\"" + iFile.get(iTab).getName() +"\",\"r\") then do print(\"-- File content start from next line\")\r\n" +
+                     "repeat _line = file.readline() if (_line~=nil) then print(string.sub(_line,1,-2)) end until _line == nil\r\n" +
+                     "file.close() _line=nil collectgarbage() print(\"-- File content end\") end else print(\"-- Can't open file " + iFile.get(iTab).getName() + "\") end\r\n";
         SendToESP(cmd);
     }//GEN-LAST:event_FileCatESPActionPerformed
 
@@ -5911,6 +5918,8 @@ public class ESPlorer extends javax.swing.JFrame {
             AnswerDelay.setEnabled(false);
             LineDelayLabel.setEnabled(true);
             LineDelay.setEnabled(true);
+            TurboMode.setSelected(false);
+            TurboMode.setEnabled(false);
         } else {
             DelayLabel.setEnabled(true);
             Delay.setEnabled(true);
@@ -5918,6 +5927,7 @@ public class ESPlorer extends javax.swing.JFrame {
             AnswerDelay.setEnabled(true);
             LineDelayLabel.setEnabled(false);
             LineDelay.setEnabled(false);
+            TurboMode.setEnabled(true);
         }
         prefs.putBoolean(DUMB_MODE, DumbMode.isSelected());
         PrefsFlush();
@@ -5973,24 +5983,24 @@ public class ESPlorer extends javax.swing.JFrame {
     }//GEN-LAST:event_MenuItemTerminalFontIncActionPerformed
 
     private void MenuItemViewTermFontIncActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuItemViewTermFontIncActionPerformed
-        int size = Terminal.getFont().getSize();
+        int size = Terminal1.getFont().getSize();
         if ( size < TERMINAL_FONT_SIZE_MAX ) {
-           Terminal.setFont(Terminal.getFont().deriveFont(Terminal.getFont().getSize()+1f));
+           Terminal1.setFont(Terminal1.getFont().deriveFont(Terminal1.getFont().getSize()+1f));
         } else {
-           Terminal.setFont(Terminal.getFont().deriveFont(TERMINAL_FONT_SIZE_MIN));
+           Terminal1.setFont(Terminal1.getFont().deriveFont(TERMINAL_FONT_SIZE_MIN));
         }
-        prefs.putFloat(TERMINAL_FONT_SIZE, Terminal.getFont().getSize());
+        prefs.putFloat(TERMINAL_FONT_SIZE, Terminal1.getFont().getSize());
         PrefsFlush();
     }//GEN-LAST:event_MenuItemViewTermFontIncActionPerformed
 
     private void MenuItemViewTermFontDecActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuItemViewTermFontDecActionPerformed
         int size = Terminal.getFont().getSize();
         if ( size > TERMINAL_FONT_SIZE_MIN ) {
-           Terminal.setFont(Terminal.getFont().deriveFont(Terminal.getFont().getSize()-1f));
+           Terminal1.setFont(Terminal1.getFont().deriveFont(Terminal1.getFont().getSize()-1f));
         } else {
-           Terminal.setFont(Terminal.getFont().deriveFont(TERMINAL_FONT_SIZE_MAX));
+           Terminal1.setFont(Terminal1.getFont().deriveFont(TERMINAL_FONT_SIZE_MAX));
         }
-        prefs.putFloat(TERMINAL_FONT_SIZE, Terminal.getFont().getSize());
+        prefs.putFloat(TERMINAL_FONT_SIZE, Terminal1.getFont().getSize());
         PrefsFlush();
     }//GEN-LAST:event_MenuItemViewTermFontDecActionPerformed
 
@@ -6024,7 +6034,7 @@ public class ESPlorer extends javax.swing.JFrame {
         prefs.putFloat(LOG_FONT_SIZE, LOG_FONT_SIZE_DEFAULT);
         PrefsFlush();
         SetTheme(prefs.getInt(COLOR_THEME, 0), true); // for all        
-        Terminal.setFont(Terminal.getFont().deriveFont(TERMINAL_FONT_SIZE_DEFAULT));
+        Terminal1.setFont(Terminal1.getFont().deriveFont(TERMINAL_FONT_SIZE_DEFAULT));
         Log.setFont(Log.getFont().deriveFont(LOG_FONT_SIZE_DEFAULT));
     }//GEN-LAST:event_MenuItemViewFontDefaultActionPerformed
 
@@ -6130,8 +6140,19 @@ public class ESPlorer extends javax.swing.JFrame {
         SnippetText.setBackground(SnippetTopPane.getBackground());
     }//GEN-LAST:event_SnippetCancelEditActionPerformed
     private void TurboModeItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_TurboModeItemStateChanged
-        // TODO add your handling code here:
+
     }//GEN-LAST:event_TurboModeItemStateChanged
+
+    private void TurboModeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TurboModeActionPerformed
+        if ( TurboMode.isSelected() ) {
+            DumbMode.setEnabled(false);
+            DumbMode.setSelected(false);
+        } else {
+            DumbMode.setEnabled(true);
+        }
+        prefs.putBoolean(TURBO_MODE, TurboMode.isSelected());
+        PrefsFlush();        
+    }//GEN-LAST:event_TurboModeActionPerformed
     private void DoSnippet( int n ) {
         //iSnippets = n;
         //SnippetName.setText(prefs.get("Snippet"+Integer.toString(n)+"name", "Snippet"+Integer.toString(n)));
@@ -6360,7 +6381,6 @@ public class ESPlorer extends javax.swing.JFrame {
     private javax.swing.JLabel PortOpenLabel;
     private javax.swing.JProgressBar ProgressBar;
     private javax.swing.JButton ReScan;
-    private javax.swing.JScrollPane RighMiddleScroll;
     private javax.swing.JLayeredPane RightBasePane;
     private javax.swing.JLayeredPane RightBottomPane;
     private javax.swing.JSplitPane RightSplitPane;
@@ -6406,7 +6426,10 @@ public class ESPlorer extends javax.swing.JFrame {
     private javax.swing.JLayeredPane TCPclientBottomPane;
     private javax.swing.JTabbedPane TabAT;
     private javax.swing.JTextArea Terminal;
+    private org.fife.ui.rsyntaxtextarea.RSyntaxTextArea Terminal1;
     private javax.swing.JTextField TerminalMaxSize;
+    private javax.swing.JScrollPane TerminalPane;
+    private org.fife.ui.rtextarea.RTextScrollPane TerminalPane1;
     private javax.swing.JPopupMenu.Separator TerminalSeparator1;
     private javax.swing.JPopupMenu.Separator TerminalSeparator2;
     private org.fife.ui.rsyntaxtextarea.RSyntaxTextArea TextEditor;
@@ -6524,6 +6547,7 @@ public class ESPlorer extends javax.swing.JFrame {
     private int iTab = 0;
     /* Files tab end */
     public int nSpeed = 9600;
+    private int old_speed = 9600;
     public static final Logger logger = Logger.getLogger(ESPlorer.class.getName());
   //  String s = new String();
     int save; // editor var
@@ -6561,6 +6585,7 @@ public class ESPlorer extends javax.swing.JFrame {
     public URI homepage_uri;
     private static int LogMax = 10 * 1024;
     private static int TerminalMax = 100 * 1024;
+    private long startTime = System.currentTimeMillis();
     private static final float TERMINAL_FONT_SIZE_DEFAULT = 16f;
     private static final float TERMINAL_FONT_SIZE_MAX = 40f;
     private static final float TERMINAL_FONT_SIZE_MIN = 5f;
@@ -6584,6 +6609,7 @@ public class ESPlorer extends javax.swing.JFrame {
     private static final String DELAY = "delay";
     private static final String TIMEOUT = "timeout";
     private static final String DUMB_MODE = "dumb_mode";
+    private static final String TURBO_MODE = "turbo_mode";
     private static final String LINE_DELAY = "line_delay";
     private static final String TERMINAL_FONT_SIZE = "terminal_font_size";
     private static final String EDITOR_FONT_SIZE = "editor_font_size";
@@ -6596,10 +6622,6 @@ public class ESPlorer extends javax.swing.JFrame {
     private static String[] Snippets = new String[16];
     private static int iSnippets = 0;
  
-    /* Sockets */
-    private static Socket socket;
-    private static PrintWriter out;
-    private static BufferedReader in;
     
     public void inc_j() {
         j++;
@@ -6703,7 +6725,7 @@ public class ESPlorer extends javax.swing.JFrame {
         }
         pOpen = success;
         if ( pOpen ) {
-            Document doc = Terminal.getDocument();
+            Document doc = Terminal1.getDocument();
             try {
                 doc.insertString(doc.getLength(), "\r\nPORT OPEN " + Speed.getSelectedItem() + "\r\n", null);
             } catch (Exception e) {}
@@ -6720,7 +6742,7 @@ public class ESPlorer extends javax.swing.JFrame {
             log(ex.toString());
         }
         if (success) {
-            Document doc = Terminal.getDocument();
+            Document doc = Terminal1.getDocument();
             try {
                 doc.insertString(doc.getLength(), "\r\nPORT CLOSED\r\n", null);
             } catch (Exception e) {}
@@ -6766,6 +6788,11 @@ public class ESPlorer extends javax.swing.JFrame {
         r += (char)10;
         return r;
     }
+    public String addCR(String s) {
+        String r = s;
+        r += (char)13;
+        return r;
+    }
     public void btnSend(String s) {
         send(addCRLF(s), true);
     }
@@ -6794,6 +6821,8 @@ public class ESPlorer extends javax.swing.JFrame {
         
         LoadPrefs();
         LoadSnippets();
+
+        Terminal1.setSyntaxEditingStyle(SyntaxConstants.SYNTAX_STYLE_LUA);
 
         AddTab(); // iTab = 0
                 
@@ -6830,9 +6859,10 @@ public class ESPlorer extends javax.swing.JFrame {
         Delay.setValue(prefs.getInt(DELAY, 0));
         AnswerDelay.setValue(prefs.getInt(TIMEOUT, 3));
         DumbMode.setSelected(prefs.getBoolean(DUMB_MODE, false));
+        TurboMode.setSelected(prefs.getBoolean(TURBO_MODE, true));
         LineDelay.setValue(prefs.getInt(LINE_DELAY, 200));
         // Font size
-        Terminal.setFont(Terminal.getFont().deriveFont( prefs.getFloat(TERMINAL_FONT_SIZE, TERMINAL_FONT_SIZE_DEFAULT) ));
+        Terminal1.setFont(Terminal1.getFont().deriveFont( prefs.getFloat(TERMINAL_FONT_SIZE, TERMINAL_FONT_SIZE_DEFAULT) ));
         SnippetText.setFont(SnippetText.getFont().deriveFont( prefs.getFloat(EDITOR_FONT_SIZE, EDITOR_FONT_SIZE_DEFAULT) ));
         Log.setFont(Log.getFont().deriveFont( prefs.getFloat(LOG_FONT_SIZE, LOG_FONT_SIZE_DEFAULT) ));        
         LogMax = prefs.getInt(LOG_MAX_SIZE, LogMax);
@@ -6936,6 +6966,8 @@ public class ESPlorer extends javax.swing.JFrame {
                 }
                 theme.apply(SnippetText);            
                 SnippetText.setFont(SnippetText.getFont().deriveFont( prefs.getFloat(EDITOR_FONT_SIZE, EDITOR_FONT_SIZE_DEFAULT) ));
+                theme.apply(Terminal1);            
+                Terminal1.setFont(Terminal1.getFont().deriveFont( prefs.getFloat(TERMINAL_FONT_SIZE, TERMINAL_FONT_SIZE_DEFAULT) ));
                 themeTextBackground = SnippetText.getBackground();
                 SnippetText.setBackground(SnippetTopPane.getBackground());
                 log("Set new color theme: Success.");
@@ -7148,7 +7180,7 @@ public class ESPlorer extends javax.swing.JFrame {
             if(event.isRXCHAR() && event.getEventValue() > 0){
                 try {
                     String data = serialPort.readString(event.getEventValue());
-                    Document doc = Terminal.getDocument();
+                    Document doc = Terminal1.getDocument();
                     if ( doc.getLength() >  TerminalMax ) {
                         try {
                             doc.remove(0, 1024);
@@ -7158,7 +7190,7 @@ public class ESPlorer extends javax.swing.JFrame {
                         doc.insertString(doc.getLength(), data, null);
                     } catch (Exception e) {}
                     if ( AutoScroll.isSelected() ) {
-                        Terminal.setCaretPosition(Terminal.getText().length());
+                        Terminal1.setCaretPosition(Terminal1.getText().length());
                     }
                 }
                 catch (SerialPortException ex) {
@@ -7171,7 +7203,7 @@ public class ESPlorer extends javax.swing.JFrame {
 
         public void serialEvent(SerialPortEvent event) {
             if(event.isRXCHAR() && event.getEventValue() > 0) {
-                Document doc = Terminal.getDocument();
+                Document doc = Terminal1.getDocument();
                 String data = "";
                 try {
                     data = serialPort.readString(event.getEventValue());
@@ -7183,12 +7215,11 @@ public class ESPlorer extends javax.swing.JFrame {
                 data = data.replace("\r\n\r\n", "\r\n");
                 rcvBuf = rcvBuf + data;
                 log("recv:" + data.replace("\r\n", "<CR><LF>"));
-//                Terminal.setText(Terminal.getText()+ data);
                 try {
                     doc.insertString(doc.getLength(), data, null);
                 } catch (Exception e) {}
                 if ( AutoScroll.isSelected() ) {
-                    Terminal.setCaretPosition(Terminal.getText().length());
+                    Terminal1.setCaretPosition(Terminal1.getText().length());
                 }
                 if ( rcvBuf.contains( sendBuf.get(j).trim() )  ) {
                     // first, reset watchdog timer
@@ -7226,7 +7257,7 @@ public class ESPlorer extends javax.swing.JFrame {
 
         public void serialEvent(SerialPortEvent event) {
             if(event.isRXCHAR() && event.getEventValue() > 0) {
-                Document doc = Terminal.getDocument();
+                Document doc = Terminal1.getDocument();
                 String data = "";
                 try {
                     data = serialPort.readString(event.getEventValue());
@@ -7234,17 +7265,19 @@ public class ESPlorer extends javax.swing.JFrame {
                     log(ex.toString());
                 }
                 rcvBuf = rcvBuf + data;
-                log("recv:" + data.replace("\r\n", "<CR><LF>"));
+                String l = data.replace("\r", "<CR>");
+                l = l.replace("\n", "<LF>");
+                l = l.replace("`", "<OK>");
+                log("recv:" + l);
                 try {
                     doc.insertString(doc.getLength(), data, null);
                 } catch (Exception e) {}
                 if ( AutoScroll.isSelected() ) {
-                    Terminal.setCaretPosition(Terminal.getText().length());
+                    Terminal1.setCaretPosition(Terminal1.getText().length());
                 }
-                if ( rcvBuf.contains( ">" )  ) {
-                    // first, reset watchdog timer
+                if ( rcvBuf.contains( "> " ) ) {
                     try {
-                        timeout.stop();
+                        timeout.stop(); // first, reset watchdog timer
                     } catch (Exception e) {}
                     rcvBuf = "";
                     if ( j < sendBuf.size()-1 ) {
@@ -7261,11 +7294,6 @@ public class ESPlorer extends javax.swing.JFrame {
                         StopSend();
                     }
                 }
-                if ( rcvBuf.contains( "powered by Lua 5." ) ) {
-                   StopSend();
-                   String msg[] = {"ESP module reboot detected!", "Event: internal NodeMCU exception or power fail.","Please, try again."};
-                   JOptionPane.showMessageDialog(null, msg);
-                }
             }
         }
     }
@@ -7279,7 +7307,7 @@ public class ESPlorer extends javax.swing.JFrame {
         try {
             timeout.stop();
         } catch (Exception e) {}
-        Document doc = Terminal.getDocument();
+        Document doc = Terminal1.getDocument();
         if ( doc.getLength() >  TerminalMax ) {
             try {
                 doc.remove(0, 1024);
@@ -7289,7 +7317,8 @@ public class ESPlorer extends javax.swing.JFrame {
              serialPort.addEventListener(new PortReader(), SerialPort.MASK_RXCHAR);
         } catch (SerialPortException e) { }
         SendUnLock();
-        log("DataSender: Done.");
+        long duration  = System.currentTimeMillis() - startTime;
+        log("DataSender: Done. Duration = " + Long.toString(duration)+ " ms");
     }
     private boolean SendToESP ( String str ) {
         boolean success = false;
@@ -7300,7 +7329,7 @@ public class ESPlorer extends javax.swing.JFrame {
         sendBuf = new ArrayList<String>();
         s = str.split("\r?\n");
         sendBuf.addAll(Arrays.asList(s));
-        success = SendTimerStart(sendBuf);
+        success = SendTimerStart();
         log("SendToESP: Starting...");
         return success;
     }
@@ -7337,13 +7366,11 @@ public class ESPlorer extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Can't save file to ESP without name.");
             return success;
         }
+        sendBuf = new ArrayList<String>();
         if (TurboMode.isSelected()) {
             return SaveFileESPTurbo(ft);
         }
-        sendBuf = new ArrayList<String>();
-//        sendBuf.add("print(\"Starting...\")");
         sendBuf.add("file.remove(\""+ft+"\");");
-//        sendBuf.add("print(\"File " + ft + " removed\")");
         sendBuf.add("file.open(\""+ft+"\",\"w+\");");
         sendBuf.add("w = file.writeline\r\n");
         s = TextEditor1.get(iTab).getText().split("\r?\n");
@@ -7352,33 +7379,42 @@ public class ESPlorer extends javax.swing.JFrame {
         }
         sendBuf.add("file.close();");
         if (FileAutoRun.isSelected()) {
-//            sendBuf.add("print(\"Try ...\");");
             sendBuf.add("dofile(\""+ft+"\");");
         }
         // data ready
-        success = SendTimerStart(sendBuf);
+        success = SendTimerStart();
         log("FileSaveESP: Starting...");
         return success;
     }
     private boolean SaveFileESPTurbo (String ft) {
         boolean success = false;
         log("FileSaveESP-Turbo: Try to save file to ESP in Turbo Mode...");
-        sendBuf = new ArrayList<String>();
-        sendBuf.add("dofile(\"ESPlorerUploader.lua\")"); // without /r/n
-        sendBuf.add("espcmd-file-open "+ft); // without /r/n
-        s = TextEditor1.get(iTab).getText().split("\r?\n");
-        for(String subs : s) {
-            sendBuf.add(subs);
+        sendBuf.add("FILE=\""+ft+"\" file.remove(FILE) file.open(FILE,\"w+\") uart.setup(0,"+Integer.toString(nSpeed)+",8,0,1,0)");
+        sendBuf.add("ESP_Receiver=function(rcvBuf) if string.match(rcvBuf,\"^ESP_cmd_close\")==nil then file.write(string.gsub(rcvBuf, \'\\r\', \'\')) uart.write(0, \"> \") else uart.on(\"data\") ");
+        sendBuf.add("file.flush() file.close() FILE=nil rcvBuf=nil ESP_Receiver=nil uart.setup(0,"+Integer.toString(nSpeed)+",8,0,1,1) str=\"\\r\\n--Done--\\r\\n> \" print(str) str=nil collectgarbage() end end uart.on(\"data\",'\\r',ESP_Receiver,0)");
+        int pos1 = 0;
+        int pos2 = 0;
+        int size = 254;
+        int l    = TextEditor1.get(iTab).getText().length();
+        String fragment;
+        while ( pos1 <= l ) {
+            pos2 = pos1 + size;
+            if (pos2 > l)  pos2 = l;
+            fragment = new String( TextEditor1.get(iTab).getText().substring(pos1, pos2) );
+            sendBuf.add(fragment);
+            pos1 += size;
         }
-        sendBuf.add("espcmd-file-close");  // without /r/n
+        sendBuf.add("ESP_cmd_close");
+        sendBuf.add("\r\n");
         if (FileAutoRun.isSelected()) {
-            sendBuf.add("dofile(\""+ft+"\");");
+            sendBuf.add("dofile(\""+ft+"\")");
         }
-        success = SendTurboTimerStart(sendBuf);
+        success = SendTurboTimerStart();
         log("FileSaveESP-Turbo: Starting...");
         return success;
     }
-    public boolean SendTurboTimerStart( ArrayList<String> buf ) {
+    public boolean SendTurboTimerStart() {
+        startTime = System.currentTimeMillis();
         SendLock();
         rcvBuf = "";
         try {
@@ -7397,19 +7433,20 @@ public class ESPlorer extends javax.swing.JFrame {
         taskPerformer = new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
                 if ( j < sendBuf.size() ) {
-                    send( addCRLF( buf.get(j) ), false );
+                    send( addCR ( sendBuf.get(j) ), false );
                 }
             }
         };
         timer = new Timer(delay, taskPerformer);
         timer.setRepeats(false);
-        timer.setInitialDelay(delay);
-        timer.start();
         log("DataTurboSender: start \"Smart Mode\"");
+        timer.setInitialDelay(delay);
         WatchDog();
+        timer.start();
         return true;
     }
-    public boolean SendTimerStart( ArrayList<String> buf ) {
+    public boolean SendTimerStart() {
+        startTime = System.currentTimeMillis();
         SendLock();
         rcvBuf = "";
         try {
@@ -7432,10 +7469,10 @@ public class ESPlorer extends javax.swing.JFrame {
             taskPerformer = new ActionListener() {
                 public void actionPerformed(ActionEvent evt) {
                     if ( j < sendBuf.size() ) {
-                        send( addCRLF( buf.get(j).trim() ), false );
+                        send( addCRLF( sendBuf.get(j).trim() ), false );
                         inc_j();
                         int div = sendBuf.size()-1;
-                        if (div == 0) div = 1;
+                        if (div == 0) div = 1; // for non-zero divide
                         ProgressBar.setValue((j*100)/div);
                         if ( j > sendBuf.size()-1 ) {
                             timer.stop();
@@ -7455,7 +7492,7 @@ public class ESPlorer extends javax.swing.JFrame {
             taskPerformer = new ActionListener() {
                 public void actionPerformed(ActionEvent evt) {
                     if ( j < sendBuf.size() ) {
-                        send( addCRLF( buf.get(j).trim() ), false );
+                        send( addCRLF( sendBuf.get(j).trim() ), false );
                     }
                 }
             };

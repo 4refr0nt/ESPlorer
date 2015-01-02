@@ -2890,12 +2890,12 @@
                                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                                       <Font name="Tahoma" size="10" style="0"/>
                                     </Property>
-                                    <Property name="selected" type="boolean" value="true"/>
                                     <Property name="text" type="java.lang.String" value="&quot;Turbo Mode&quot;"/>
                                     <Property name="toolTipText" type="java.lang.String" value=""/>
                                   </Properties>
                                   <Events>
                                     <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="TurboModeItemStateChanged"/>
+                                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="TurboModeActionPerformed"/>
                                   </Events>
                                 </Component>
                               </SubComponents>
@@ -5269,12 +5269,18 @@
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
-                      <Component id="RightSplitPane" pref="240" max="32767" attributes="0"/>
+                      <Component id="RightSplitPane" max="32767" attributes="0"/>
                       <EmptySpace min="-2" max="-2" attributes="0"/>
                       <Component id="SnippetsPane" min="-2" pref="93" max="-2" attributes="0"/>
                   </Group>
-                  <Component id="SerialPanel" alignment="1" max="32767" attributes="0"/>
-                  <Component id="RightBottomPane" alignment="0" max="32767" attributes="0"/>
+                  <Group type="102" alignment="1" attributes="0">
+                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                      <Component id="SerialPanel" min="-2" pref="339" max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="0" attributes="0">
+                      <Component id="RightBottomPane" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                  </Group>
               </Group>
             </DimensionLayout>
             <DimensionLayout dim="1">
@@ -5422,7 +5428,7 @@
                       <Dimension value="[85, 25]"/>
                     </Property>
                     <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                      <Dimension value="[85, 25]"/>
+                      <Dimension value="[80, 25]"/>
                     </Property>
                   </Properties>
                   <Events>
@@ -5441,7 +5447,7 @@
                       <Dimension value="[70, 25]"/>
                     </Property>
                     <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                      <Dimension value="[70, 25]"/>
+                      <Dimension value="[60, 25]"/>
                     </Property>
                   </Properties>
                 </Component>
@@ -5463,7 +5469,7 @@
 
               <Layout class="org.netbeans.modules.form.compat2.layouts.support.JSplitPaneSupportLayout"/>
               <SubComponents>
-                <Container class="javax.swing.JScrollPane" name="RighMiddleScroll">
+                <Container class="javax.swing.JScrollPane" name="TerminalPane">
                   <Properties>
                     <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                       <Border info="org.netbeans.modules.form.compat2.border.SoftBevelBorderInfo">
@@ -5538,10 +5544,36 @@
                     </Component>
                   </SubComponents>
                 </Container>
+                <Container class="org.fife.ui.rtextarea.RTextScrollPane" name="TerminalPane1">
+                  <Constraints>
+                    <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JSplitPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JSplitPaneSupportLayout$JSplitPaneConstraintsDescription">
+                      <JSplitPaneConstraints position="top"/>
+                    </Constraint>
+                  </Constraints>
+
+                  <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+                  <SubComponents>
+                    <Component class="org.fife.ui.rsyntaxtextarea.RSyntaxTextArea" name="Terminal1">
+                      <Properties>
+                        <Property name="editable" type="boolean" value="false"/>
+                        <Property name="columns" type="int" value="20"/>
+                        <Property name="rows" type="int" value="5"/>
+                        <Property name="componentPopupMenu" type="javax.swing.JPopupMenu" editor="org.netbeans.modules.form.ComponentChooserEditor">
+                          <ComponentRef name="ContextMenuTerminal"/>
+                        </Property>
+                        <Property name="popupMenu" type="javax.swing.JPopupMenu" editor="org.netbeans.modules.form.ComponentChooserEditor">
+                          <ComponentRef name="ContextMenuTerminal"/>
+                        </Property>
+                        <Property name="syntaxEditingStyle" type="java.lang.String" value="text/LUA"/>
+                        <Property name="tabsEmulated" type="boolean" value="true"/>
+                      </Properties>
+                    </Component>
+                  </SubComponents>
+                </Container>
                 <Container class="javax.swing.JScrollPane" name="ScrollLog">
                   <Properties>
                     <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                      <Connection component="RighMiddleScroll" name="border" type="property"/>
+                      <Connection component="TerminalPane" name="border" type="property"/>
                     </Property>
                     <Property name="toolTipText" type="java.lang.String" value="Log"/>
                     <Property name="verticalScrollBarPolicy" type="int" value="22"/>
@@ -5624,7 +5656,7 @@
                 <DimensionLayout dim="0">
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
-                          <Component id="Command" min="-2" pref="157" max="-2" attributes="0"/>
+                          <Component id="Command" min="-2" pref="190" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="SendCommand" min="-2" pref="76" max="-2" attributes="0"/>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
@@ -5632,20 +5664,19 @@
                               <Component id="CR" min="-2" max="-2" attributes="0"/>
                               <Component id="LF" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace max="32767" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
                 <DimensionLayout dim="1">
                   <Group type="103" groupAlignment="1" attributes="0">
+                      <Component id="SendCommand" alignment="1" max="32767" attributes="0"/>
                       <Group type="102" alignment="0" attributes="0">
                           <Component id="CR" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="LF" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                       </Group>
                       <Component id="Command" alignment="0" max="32767" attributes="0"/>
-                      <Component id="SendCommand" alignment="1" max="32767" attributes="0"/>
                   </Group>
                 </DimensionLayout>
               </Layout>
