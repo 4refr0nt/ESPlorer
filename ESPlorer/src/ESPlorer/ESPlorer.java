@@ -4522,11 +4522,14 @@ public class ESPlorer extends javax.swing.JFrame {
     }//GEN-LAST:event_CommandKeyTyped
 
     private void SendCommandActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SendCommandActionPerformed
-        SendCommand();
+        SendCommand();  
     }//GEN-LAST:event_SendCommandActionPerformed
 
     private void CommandActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CommandActionPerformed
+        //System.out.println("CommandActionPerformed " + evt.getActionCommand());
+        if ("comboBoxEdited".equals(evt.getActionCommand())) { // Hit Enter
         SendCommand.doClick();
+        }
     }//GEN-LAST:event_CommandActionPerformed
 
     private void CommandKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_CommandKeyPressed
@@ -5652,6 +5655,7 @@ public class ESPlorer extends javax.swing.JFrame {
                     }
                     Snippets[i] = prefs.get("Snippet" + n, "");
                 }
+                SetSnippetEditButtonsTooltip();
                 log("Snippets (LUA) load: Success.");
             } else {
                 SnippetText.setSyntaxEditingStyle(SyntaxConstants.SYNTAX_STYLE_PYTHON); 
@@ -5736,6 +5740,7 @@ public class ESPlorer extends javax.swing.JFrame {
             ButtonSnippet15.setText(SnippetName.getText());
             iSnippets = 15;
         }
+        SetSnippetEditButtonsTooltip();
         Snippets[iSnippets] = SnippetText.getText();
         prefs.put("Snippet"+Integer.toString(iSnippets)+"name", SnippetName.getText());
         prefs.put("Snippet"+Integer.toString(iSnippets), Snippets[iSnippets]);
@@ -6766,7 +6771,35 @@ public class ESPlorer extends javax.swing.JFrame {
         } catch (Exception e) {
                 cmd = "";
         }
-        Command.addItem(cmd); // Add to History
+
+        //Autoclean History --ADDED by Mike, DL2ZAP -- 
+        //if (Autoclean.isSelected()) {   // ToDo: create Checkbox "Autoclean & uncomment this line
+          if (true) { // ToDo: After creating Checkbox delete this line
+            int eintraege = Command.getItemCount();
+            //System.out.println("Start cleaning");
+            for (int lv1=0;lv1<eintraege;lv1++)
+            {   
+               //System.out.print("Eintrag:" + lv1 +" : "+Command.getItemAt(lv1));
+                    if (Command.getItemAt(lv1)==cmd)
+                {
+                   // System.out.println(" Doppelt, entfernt!");
+                    Command.removeItemAt(lv1);
+                    lv1--;  // re-read this Entry because List has moved up the Follower
+                } else {
+                    // System.out.println(" OK.");
+                }
+            }
+        }    
+        
+       // System.out.println("Adding Command:" + cmd );
+        int eintraege = Command.getItemCount();
+        
+        Command.setSelectedIndex(Command.getItemCount()-1); // Place Index on last Entry
+        Command.addItem(cmd); // Add to History after last Position
+        Command.setSelectedIndex(Command.getItemCount()-1); // Place Index on new last Entry
+        // End of Autoclean-Procedure
+        
+        //Command.addItem(cmd); // Add to History
         if (CR.isSelected()) {
             cmd += (char)13;
         }
@@ -7601,4 +7634,25 @@ public class ESPlorer extends javax.swing.JFrame {
         FileSaveESP.setSelected(false);
         FileSendESP.setSelected(false);
    }
+  public void SetSnippetEditButtonsTooltip() {
+      // should be called after loading, setting or editing any of the Snippet-Names
+      // eg after SnippetSaveActionPerformed() and LoadSnippets ()
+      // Mike, DL2ZAP 2015-01-04
+      SnippetEdit0.setToolTipText(ButtonSnippet0.getText());
+      SnippetEdit1.setToolTipText(ButtonSnippet1.getText());
+      SnippetEdit2.setToolTipText(ButtonSnippet2.getText());
+      SnippetEdit3.setToolTipText(ButtonSnippet3.getText());
+      SnippetEdit4.setToolTipText(ButtonSnippet4.getText());
+      SnippetEdit5.setToolTipText(ButtonSnippet5.getText());
+      SnippetEdit6.setToolTipText(ButtonSnippet6.getText());
+      SnippetEdit7.setToolTipText(ButtonSnippet7.getText());
+      SnippetEdit8.setToolTipText(ButtonSnippet8.getText());
+      SnippetEdit9.setToolTipText(ButtonSnippet9.getText());
+      SnippetEdit10.setToolTipText(ButtonSnippet10.getText());
+      SnippetEdit11.setToolTipText(ButtonSnippet11.getText());
+      SnippetEdit13.setToolTipText(ButtonSnippet13.getText());
+      SnippetEdit13.setToolTipText(ButtonSnippet13.getText());
+      SnippetEdit14.setToolTipText(ButtonSnippet14.getText());
+      SnippetEdit15.setToolTipText(ButtonSnippet15.getText());
+    }
 }
