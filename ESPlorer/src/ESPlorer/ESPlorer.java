@@ -43,7 +43,7 @@ public class ESPlorer extends javax.swing.JFrame {
     private static SerialPort serialPort;
     public static boolean pOpen = false;
     public static boolean sOpen = false;
-    public static final String version="v0.1 build pre206";
+    public static final String version="v0.1 build 206";
 /**
      * Creates new form MainWindows
      */
@@ -83,6 +83,7 @@ public class ESPlorer extends javax.swing.JFrame {
         MenuItemTerminalFontDec = new javax.swing.JMenuItem();
         TerminalSeparator2 = new javax.swing.JPopupMenu.Separator();
         MenuItemTerminalReset = new javax.swing.JMenuItem();
+        MenuItemTerminalFormat = new javax.swing.JMenuItem();
         ContextMenuEditor = new javax.swing.JPopupMenu();
         MenuItemEditorUndo = new javax.swing.JMenuItem();
         MenuItemEditorRedo = new javax.swing.JMenuItem();
@@ -372,6 +373,9 @@ public class ESPlorer extends javax.swing.JFrame {
         jSeparator5 = new javax.swing.JPopupMenu.Separator();
         MenuItemEditSendSelected = new javax.swing.JMenuItem();
         MenuItemEditSendLine = new javax.swing.JMenuItem();
+        MenuESP = new javax.swing.JMenu();
+        MenuItemESPReset = new javax.swing.JMenuItem();
+        MenuItemESPFormat = new javax.swing.JMenuItem();
         MenuView = new javax.swing.JMenu();
         AlwaysOnTop = new javax.swing.JCheckBoxMenuItem();
         MenuItemViewLog = new javax.swing.JCheckBoxMenuItem();
@@ -456,6 +460,17 @@ public class ESPlorer extends javax.swing.JFrame {
             }
         });
         ContextMenuTerminal.add(MenuItemTerminalReset);
+
+        MenuItemTerminalFormat.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/file manager (delete).png"))); // NOI18N
+        MenuItemTerminalFormat.setText("Format ESP");
+        MenuItemTerminalFormat.setToolTipText("Remove All files from ESP flash memory");
+        MenuItemTerminalFormat.setEnabled(false);
+        MenuItemTerminalFormat.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MenuItemTerminalFormatActionPerformed(evt);
+            }
+        });
+        ContextMenuTerminal.add(MenuItemTerminalFormat);
 
         MenuItemEditorUndo.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_Z, java.awt.event.InputEvent.CTRL_MASK));
         MenuItemEditorUndo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/undo1.png"))); // NOI18N
@@ -4200,6 +4215,33 @@ public class ESPlorer extends javax.swing.JFrame {
 
         MainMenuBar.add(MenuEdit);
 
+        MenuESP.setText("ESP");
+        MenuESP.setToolTipText("");
+
+        MenuItemESPReset.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/reset.png"))); // NOI18N
+        MenuItemESPReset.setText("Restart ESP module");
+        MenuItemESPReset.setToolTipText("Send RESET command (firmware depended)");
+        MenuItemESPReset.setEnabled(false);
+        MenuItemESPReset.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MenuItemESPResetActionPerformed(evt);
+            }
+        });
+        MenuESP.add(MenuItemESPReset);
+
+        MenuItemESPFormat.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/file manager (delete).png"))); // NOI18N
+        MenuItemESPFormat.setText("Format ESP");
+        MenuItemESPFormat.setToolTipText("Remove All files from ESP flash memory");
+        MenuItemESPFormat.setEnabled(false);
+        MenuItemESPFormat.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MenuItemESPFormatActionPerformed(evt);
+            }
+        });
+        MenuESP.add(MenuItemESPFormat);
+
+        MainMenuBar.add(MenuESP);
+
         MenuView.setText("View");
 
         AlwaysOnTop.setText("Always On Top");
@@ -4437,6 +4479,9 @@ public class ESPlorer extends javax.swing.JFrame {
             ButtonSendLine.setEnabled(true);
             NodeReset.setEnabled(true);
             MenuItemTerminalReset.setEnabled(true);
+            MenuItemTerminalFormat.setEnabled(true);
+            MenuItemESPReset.setEnabled(true);
+            MenuItemESPFormat.setEnabled(true);
             SnippetRun.setEnabled(true);
             ButtonSendLine.setEnabled(true);
             ButtonSnippet0.setEnabled(true);
@@ -4487,6 +4532,9 @@ public class ESPlorer extends javax.swing.JFrame {
             ButtonSendLine.setEnabled(false);
             NodeReset.setEnabled(false);
             MenuItemTerminalReset.setEnabled(false);
+            MenuItemTerminalFormat.setEnabled(false);
+            MenuItemESPReset.setEnabled(false);
+            MenuItemESPFormat.setEnabled(false);
             SnippetRun.setEnabled(false);
             ButtonSnippet0.setEnabled(false);
             ButtonSnippet1.setEnabled(false);
@@ -5560,11 +5608,7 @@ public class ESPlorer extends javax.swing.JFrame {
     }//GEN-LAST:event_MenuItemLogCloseActionPerformed
 
     private void MenuItemTerminalResetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuItemTerminalResetActionPerformed
-        if (LeftTab.getSelectedIndex() == 0) {              // NodeMCU TAB
-            cmdNodeRestart.doClick();
-        }   else if (LeftTab.getSelectedIndex() == 1) {     // AT TAB
-            AT_Restart.doClick();
-        }
+        MenuItemESPReset.doClick();
     }//GEN-LAST:event_MenuItemTerminalResetActionPerformed
 
     private void DonateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DonateActionPerformed
@@ -6158,6 +6202,27 @@ public class ESPlorer extends javax.swing.JFrame {
         prefs.putBoolean(TURBO_MODE, TurboMode.isSelected());
         PrefsFlush();        
     }//GEN-LAST:event_TurboModeActionPerformed
+
+    private void MenuItemESPResetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuItemESPResetActionPerformed
+        if (LeftTab.getSelectedIndex() == 0) {              // NodeMCU TAB
+            cmdNodeRestart.doClick();
+        }   else if (LeftTab.getSelectedIndex() == 1) {     // AT TAB
+            AT_Restart.doClick();
+        }
+    }//GEN-LAST:event_MenuItemESPResetActionPerformed
+
+    private void MenuItemESPFormatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuItemESPFormatActionPerformed
+        if (LeftTab.getSelectedIndex() == 0) {              // NodeMCU TAB
+            int isFormat = Dialog("Format ESP flash data area and remove ALL files. Are you sure?", JOptionPane.YES_NO_OPTION);
+            if ( isFormat == JOptionPane.YES_OPTION ) {
+                btnSend("file.format()");
+            }
+        }
+    }//GEN-LAST:event_MenuItemESPFormatActionPerformed
+
+    private void MenuItemTerminalFormatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuItemTerminalFormatActionPerformed
+        MenuItemESPFormat.doClick();
+    }//GEN-LAST:event_MenuItemTerminalFormatActionPerformed
     private void DoSnippet( int n ) {
         //iSnippets = n;
         //SnippetName.setText(prefs.get("Snippet"+Integer.toString(n)+"name", "Snippet"+Integer.toString(n)));
@@ -6166,11 +6231,22 @@ public class ESPlorer extends javax.swing.JFrame {
     }
     private void CommandsSetNodeMCU() {
             Command.removeAllItems();
-            Command.addItem(new String("print(node.heap())"));
-            Command.addItem(new String("print(node.chipid())"));
+            Command.addItem(new String("=node.heap()"));
+            Command.addItem(new String("=node.chipid()"));
             Command.addItem(new String("file.close()"));
             Command.addItem(new String("file.remove(\"\")"));
             Command.addItem(new String("dofile(\"\")"));        
+            Command.addItem(new String("wifi.setmode(wifi.STATION)"));
+            Command.addItem(new String("wifi.setmode(wifi.SOFTAP)"));
+            Command.addItem(new String("wifi.setmode(wifi.STATIONAP)"));
+            Command.addItem(new String("=wifi.getmode()"));
+            Command.addItem(new String("wifi.sta.config(\"myssid\",\"mypassword\")"));
+            Command.addItem(new String("=wifi.sta.getip()"));
+            Command.addItem(new String("=wifi.ap.getip()"));
+            Command.addItem(new String("=wifi.sta.getmac()"));
+            Command.addItem(new String("=wifi.ap.getmac()"));
+            Command.addItem(new String("=wifi.sta.status()"));
+            Command.addItem(new String("=tmr.now()"));            
     }   
     private void CommandsSetAT() {
             Command.removeAllItems();
@@ -6316,9 +6392,12 @@ public class ESPlorer extends javax.swing.JFrame {
     private javax.swing.JFormattedTextField MAC1;
     private javax.swing.ButtonGroup MUXGroup;
     private javax.swing.JMenuBar MainMenuBar;
+    private javax.swing.JMenu MenuESP;
     private javax.swing.JMenu MenuEdit;
     private javax.swing.JMenu MenuFile;
     private javax.swing.JMenu MenuHelp;
+    private javax.swing.JMenuItem MenuItemESPFormat;
+    private javax.swing.JMenuItem MenuItemESPReset;
     private javax.swing.JMenuItem MenuItemEditCopy;
     private javax.swing.JMenuItem MenuItemEditCut;
     private javax.swing.JMenuItem MenuItemEditPaste;
@@ -6357,6 +6436,7 @@ public class ESPlorer extends javax.swing.JFrame {
     private javax.swing.JMenuItem MenuItemTerminalCopy;
     private javax.swing.JMenuItem MenuItemTerminalFontDec;
     private javax.swing.JMenuItem MenuItemTerminalFontInc;
+    private javax.swing.JMenuItem MenuItemTerminalFormat;
     private javax.swing.JMenuItem MenuItemTerminalReset;
     private javax.swing.JMenuItem MenuItemViewClearLog;
     private javax.swing.JMenuItem MenuItemViewClearTerminal;

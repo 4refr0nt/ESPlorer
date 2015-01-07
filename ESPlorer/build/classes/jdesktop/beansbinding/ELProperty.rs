@@ -1,3 +1,0 @@
-org.jdesktop.beansbinding.ELProperty$RegisteredListener
-org.jdesktop.beansbinding.ELProperty
-org.jdesktop.beansbinding.ELProperty$SourceEntry

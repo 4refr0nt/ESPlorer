@@ -1,3 +1,0 @@
-org.jdesktop.swingbinding.JComboBoxBinding$BindingComboBoxModel
-org.jdesktop.swingbinding.JComboBoxBinding$Handler
-org.jdesktop.swingbinding.JComboBoxBinding

@@ -1,3 +1,0 @@
-org.jdesktop.swingbinding.adapters.AbstractButtonAdapterProvider$Adapter
-org.jdesktop.swingbinding.adapters.AbstractButtonAdapterProvider
-org.jdesktop.swingbinding.adapters.AbstractButtonAdapterProvider$Adapter$Handler

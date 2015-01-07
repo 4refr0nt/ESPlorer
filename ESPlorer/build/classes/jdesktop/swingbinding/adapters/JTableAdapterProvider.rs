@@ -1,3 +1,0 @@
-org.jdesktop.swingbinding.adapters.JTableAdapterProvider$Adapter
-org.jdesktop.swingbinding.adapters.JTableAdapterProvider
-org.jdesktop.swingbinding.adapters.JTableAdapterProvider$Adapter$Handler

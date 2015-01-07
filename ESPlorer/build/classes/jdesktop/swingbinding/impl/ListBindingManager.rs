@@ -1,4 +1,0 @@
-org.jdesktop.swingbinding.impl.ListBindingManager$ReusableBinding
-org.jdesktop.swingbinding.impl.ListBindingManager
-org.jdesktop.swingbinding.impl.ListBindingManager$ColumnDescriptionManager$EntryWrapper
-org.jdesktop.swingbinding.impl.ListBindingManager$ColumnDescriptionManager
