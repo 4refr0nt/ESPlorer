@@ -3,8 +3,8 @@ ESPlorer
 Integrated Development Environment (IDE) for ESP8266 developers
 
 ###Package Description
-The essential multiplatforms tools for any ESP8266 developer from luatool author’s, including a LUA for NodeMCU and MicroPython. Also, all AT commands are supported.
-Required [JAVA](http://java.com/download) (Standart Edition - SE ver 7 and above) installed.
+The essential multiplatforms tools for any ESP8266 developer from luatool authorâ€™s, including a LUA for NodeMCU and MicroPython. Also, all AT commands are supported.
+Required [JAVA](http://java.com/download) (Standard Edition - SE ver 7 and above) installed.
 
 ###Supported platforms
 Windows(x86, x86-64)
@@ -20,7 +20,7 @@ Code Autocomplete (Ctrl+Space)
 Smart send data to ESP8266 (without dumb send with fixed line delay), check correct answer from ESP8266 after every lines.
 Code snippets
 Detailed logging
-and more, more more…
+and more, more moreâ€¦
 
 ###Required libraries for build
 [jSSC](https://code.google.com/p/java-simple-serial-connector/)
