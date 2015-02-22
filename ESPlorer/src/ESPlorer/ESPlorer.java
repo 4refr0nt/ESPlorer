@@ -6776,26 +6776,27 @@ public class ESPlorer extends javax.swing.JFrame {
         pOpen = false;
         try {
             success = serialPort.openPort();
+            if (!success) {
+                log("ERROR open serial port " + portName);
+            }
             if (success) {
                 success = serialPort.setParams(nSpeed,
                         // SerialPort.BAUDRATE_115200,
                                          SerialPort.DATABITS_8,
                                          SerialPort.STOPBITS_1,
                                          SerialPort.PARITY_NONE);
-            } else {
-                log("ERROR open serial port " + portName);
+                if (!success) {
+                    log("ERROR setting port " + portName + " parameters.");
+                }
             }
             if (success) {
-            //serialPort.setFlowControlMode(SerialPort.FLOWCONTROL_RTSCTS_IN | 
-            //                              SerialPort.FLOWCONTROL_RTSCTS_OUT);
                 success = serialPort.setFlowControlMode(SerialPort.FLOWCONTROL_NONE); 
-            } else {
-                log("ERROR setting port " + portName + " parameters.");
+                if (!success) {
+                    log("ERROR setting port " + portName + " NOFLOW control mode.");
+                }
             }
             if (success) {
                 serialPort.addEventListener(new PortReader(), SerialPort.MASK_RXCHAR);
-            } else {
-                log("ERROR setting port " + portName + " NOFLOW control mode.");
             }
             if (success) {
                 log("Open port " + portName +" - Success.");
