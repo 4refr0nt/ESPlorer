@@ -4419,7 +4419,7 @@ public class ESPlorer extends javax.swing.JFrame {
                 return;
             }
             try {
-                if ( serialPort.setParams(nSpeed, SerialPort.DATABITS_8, SerialPort.STOPBITS_1, SerialPort.PARITY_NONE) ) {
+                if ( serialPort.setParams(nSpeed, SerialPort.DATABITS_8, SerialPort.STOPBITS_1, SerialPort.PARITY_NONE, false, false) ) {
                     log("Reconnect: Success.");
                 }
             } catch (Exception e) {
@@ -5399,7 +5399,7 @@ public class ESPlorer extends javax.swing.JFrame {
             }
             log("Try to reconnect with saved baud "+Integer.toString(nSpeed)+"...");
             try {
-                if ( serialPort.setParams(nSpeed, SerialPort.DATABITS_8, SerialPort.STOPBITS_1, SerialPort.PARITY_NONE) ) {
+                if ( serialPort.setParams(nSpeed, SerialPort.DATABITS_8, SerialPort.STOPBITS_1, SerialPort.PARITY_NONE, false, false) ) {
                     log("Reconnect: Success. Now we waiting for ESP reboot...");
                     // Now, we can ready to reconnect on old_speed
                     taskSleep = new ActionListener() {
@@ -6776,26 +6776,32 @@ public class ESPlorer extends javax.swing.JFrame {
         pOpen = false;
         try {
             success = serialPort.openPort();
+            if (!success) {
+                log("ERROR open serial port " + portName);
+            }
             if (success) {
                 success = serialPort.setParams(nSpeed,
                         // SerialPort.BAUDRATE_115200,
                                          SerialPort.DATABITS_8,
                                          SerialPort.STOPBITS_1,
-                                         SerialPort.PARITY_NONE);
-            } else {
-                log("ERROR open serial port " + portName);
+                                         SerialPort.PARITY_NONE,
+                                         false, // Disable RTS
+                                         false); // Disable DTR
+                if (!success) {
+                    log("ERROR setting port " + portName + " parameters.");
+                }
             }
+        	// This enables RTS as a side effect, and FLOWCONTROL_NONE is default anyway. Just skip it.
+            /*
             if (success) {
-            //serialPort.setFlowControlMode(SerialPort.FLOWCONTROL_RTSCTS_IN | 
-            //                              SerialPort.FLOWCONTROL_RTSCTS_OUT);
                 success = serialPort.setFlowControlMode(SerialPort.FLOWCONTROL_NONE); 
-            } else {
-                log("ERROR setting port " + portName + " parameters.");
+                if (!success) {
+                    log("ERROR setting port " + portName + " NOFLOW control mode.");
+                }
             }
+            */
             if (success) {
                 serialPort.addEventListener(new PortReader(), SerialPort.MASK_RXCHAR);
-            } else {
-                log("ERROR setting port " + portName + " NOFLOW control mode.");
             }
             if (success) {
                 log("Open port " + portName +" - Success.");
