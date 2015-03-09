@@ -263,7 +263,7 @@ public class DefaultCompletionProvider extends AbstractCompletionProvider {
 	 * @return Whether the character is valid.
 	 */
 	protected boolean isValidChar(char ch) {
-		return Character.isLetterOrDigit(ch) || ch=='_';
+		return Character.isLetterOrDigit(ch) || ch=='_' || ch=='.';
 	}
 
 

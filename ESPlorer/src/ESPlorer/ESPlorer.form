@@ -983,6 +983,59 @@
             </MenuItem>
           </SubComponents>
         </Menu>
+        <Menu class="javax.swing.JMenu" name="MenuLinks">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Links"/>
+            <Property name="toolTipText" type="java.lang.String" value=""/>
+          </Properties>
+          <SubComponents>
+            <MenuItem class="javax.swing.JMenuItem" name="MenuItemLinksAPIcn">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="NodeMCU API cn"/>
+                <Property name="toolTipText" type="java.lang.String" value="Open doc NodeMCU API English in browser"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="MenuItemLinksAPIcnActionPerformed"/>
+              </Events>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="MenuItemLinksAPIen">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="NodeMCU API en"/>
+                <Property name="toolTipText" type="java.lang.String" value="Open doc NodeMCU API English in browser"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="MenuItemLinksAPIenActionPerformed"/>
+              </Events>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="MenuItemLinksAPIru">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="NodeMCU API ru"/>
+                <Property name="toolTipText" type="java.lang.String" value="Open doc NodeMCU API English in browser"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="MenuItemLinksAPIruActionPerformed"/>
+              </Events>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="MenuItemLinksChangelog">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="NodeMCU changelog"/>
+                <Property name="toolTipText" type="java.lang.String" value="Open doc NodeMCU API English in browser"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="MenuItemLinksChangelogActionPerformed"/>
+              </Events>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="MenuItemLinksDownloadLatest">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="NodeMCU download latest"/>
+                <Property name="toolTipText" type="java.lang.String" value="Open doc NodeMCU API English in browser"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="MenuItemLinksDownloadLatestActionPerformed"/>
+              </Events>
+            </MenuItem>
+          </SubComponents>
+        </Menu>
         <Menu class="javax.swing.JMenu" name="MenuHelp">
           <Properties>
             <Property name="text" type="java.lang.String" value="?"/>
@@ -2561,8 +2614,11 @@
                                           <Component id="OptionsFileSendMode" alignment="0" pref="0" max="32767" attributes="0"/>
                                       </Group>
                                       <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="jLayeredPane2" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace pref="67" max="32767" attributes="0"/>
+                                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                          <Component id="jLayeredPane2" max="32767" attributes="0"/>
+                                          <Component id="jLayeredPane3" max="32767" attributes="0"/>
+                                      </Group>
+                                      <EmptySpace pref="40" max="32767" attributes="0"/>
                                   </Group>
                               </Group>
                             </DimensionLayout>
@@ -2570,14 +2626,22 @@
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Group type="102" alignment="0" attributes="0">
                                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                          <Component id="OptionsFirmware" max="32767" attributes="0"/>
-                                          <Component id="jLayeredPane2" max="32767" attributes="0"/>
+                                          <Component id="OptionsFirmware" min="-2" pref="63" max="-2" attributes="0"/>
+                                          <Component id="jLayeredPane2" pref="0" max="32767" attributes="0"/>
                                       </Group>
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="OptionsOther" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace max="-2" attributes="0"/>
+                                      <EmptySpace min="-2" pref="5" max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Group type="102" attributes="0">
+                                              <Component id="OptionsOther" min="-2" max="-2" attributes="0"/>
+                                              <EmptySpace min="-2" pref="17" max="-2" attributes="0"/>
+                                          </Group>
+                                          <Group type="102" alignment="1" attributes="0">
+                                              <Component id="jLayeredPane3" min="-2" max="-2" attributes="0"/>
+                                              <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
+                                          </Group>
+                                      </Group>
                                       <Component id="OptionsFileSendMode" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace pref="70" max="32767" attributes="0"/>
+                                      <EmptySpace min="0" pref="44" max="32767" attributes="0"/>
                                   </Group>
                               </Group>
                             </DimensionLayout>
@@ -2620,6 +2684,9 @@
                                     <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
                                       <ComponentRef name="Firmware"/>
                                     </Property>
+                                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                                      <Font name="Tahoma" size="10" style="0"/>
+                                    </Property>
                                     <Property name="selected" type="boolean" value="true"/>
                                     <Property name="text" type="java.lang.String" value="NodeMCU"/>
                                     <Property name="toolTipText" type="java.lang.String" value=""/>
@@ -2632,6 +2699,9 @@
                                   <Properties>
                                     <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
                                       <ComponentRef name="Firmware"/>
+                                    </Property>
+                                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                                      <Font name="Tahoma" size="10" style="0"/>
                                     </Property>
                                     <Property name="text" type="java.lang.String" value="MicroPython"/>
                                     <Property name="enabled" type="boolean" value="false"/>
@@ -2659,14 +2729,12 @@
                                       <Component id="FileAutoSaveDisk" alignment="0" max="32767" attributes="0"/>
                                       <Component id="FileAutoSaveESP" alignment="0" max="32767" attributes="0"/>
                                       <Group type="102" attributes="0">
-                                          <Component id="FileAutoRun" min="-2" pref="197" max="-2" attributes="0"/>
-                                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                                      </Group>
-                                      <Group type="102" attributes="0">
                                           <Component id="EditorThemeLabel" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace max="-2" attributes="0"/>
                                           <Component id="EditorTheme" max="32767" attributes="0"/>
                                       </Group>
+                                      <Component id="FileAutoRun" max="32767" attributes="0"/>
+                                      <Component id="FileAutoRun1" alignment="0" max="32767" attributes="0"/>
                                   </Group>
                                 </DimensionLayout>
                                 <DimensionLayout dim="1">
@@ -2677,6 +2745,8 @@
                                           <Component id="FileAutoSaveESP" min="-2" pref="21" max="-2" attributes="0"/>
                                           <EmptySpace max="-2" attributes="0"/>
                                           <Component id="FileAutoRun" min="-2" max="-2" attributes="0"/>
+                                          <EmptySpace max="-2" attributes="0"/>
+                                          <Component id="FileAutoRun1" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace max="-2" attributes="0"/>
                                           <Group type="103" groupAlignment="3" attributes="0">
                                               <Component id="EditorThemeLabel" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -2758,6 +2828,20 @@
                                   </Properties>
                                   <Events>
                                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="EditorThemeActionPerformed"/>
+                                  </Events>
+                                </Component>
+                                <Component class="javax.swing.JCheckBox" name="FileAutoRun1">
+                                  <Properties>
+                                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                                      <Font name="Tahoma" size="10" style="0"/>
+                                    </Property>
+                                    <Property name="text" type="java.lang.String" value="AutoCompile before Do"/>
+                                    <Property name="toolTipText" type="java.lang.String" value=""/>
+                                    <Property name="horizontalAlignment" type="int" value="2"/>
+                                    <Property name="horizontalTextPosition" type="int" value="4"/>
+                                  </Properties>
+                                  <Events>
+                                    <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="FileAutoRun1ItemStateChanged"/>
                                   </Events>
                                 </Component>
                               </SubComponents>
@@ -3051,6 +3135,94 @@
                                   <Properties>
                                     <Property name="text" type="java.lang.String" value="kb"/>
                                   </Properties>
+                                </Component>
+                              </SubComponents>
+                            </Container>
+                            <Container class="javax.swing.JLayeredPane" name="jLayeredPane3">
+                              <Properties>
+                                <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+                                  <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
+                                    <TitledBorder title="SerialPort">
+                                      <Font PropertyName="font" name="Tahoma" size="10" style="0"/>
+                                    </TitledBorder>
+                                  </Border>
+                                </Property>
+                              </Properties>
+
+                              <Layout>
+                                <DimensionLayout dim="0">
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="UseCustomPortName" max="32767" attributes="0"/>
+                                      <Component id="jLabel10" max="32767" attributes="0"/>
+                                      <Component id="CustomPortName" alignment="0" max="32767" attributes="0"/>
+                                      <Component id="FileAutoRun2" alignment="0" pref="161" max="32767" attributes="0"/>
+                                  </Group>
+                                </DimensionLayout>
+                                <DimensionLayout dim="1">
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Group type="102" alignment="0" attributes="0">
+                                          <Component id="UseCustomPortName" min="-2" max="-2" attributes="0"/>
+                                          <EmptySpace max="-2" attributes="0"/>
+                                          <Component id="jLabel10" min="-2" pref="15" max="-2" attributes="0"/>
+                                          <EmptySpace max="-2" attributes="0"/>
+                                          <Component id="CustomPortName" min="-2" max="-2" attributes="0"/>
+                                          <EmptySpace max="-2" attributes="0"/>
+                                          <Component id="FileAutoRun2" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                  </Group>
+                                </DimensionLayout>
+                              </Layout>
+                              <SubComponents>
+                                <Component class="javax.swing.JTextField" name="CustomPortName">
+                                  <Properties>
+                                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                                      <Font name="Tahoma" size="10" style="0"/>
+                                    </Property>
+                                    <Property name="horizontalAlignment" type="int" value="2"/>
+                                    <Property name="text" type="java.lang.String" value="/dev/AnySerialDevice"/>
+                                    <Property name="toolTipText" type="java.lang.String" value=""/>
+                                    <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                                      <Dimension value="[50, 19]"/>
+                                    </Property>
+                                  </Properties>
+                                  <Events>
+                                    <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="CustomPortNameFocusLost"/>
+                                  </Events>
+                                </Component>
+                                <Component class="javax.swing.JCheckBox" name="UseCustomPortName">
+                                  <Properties>
+                                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                                      <Font name="Tahoma" size="10" style="0"/>
+                                    </Property>
+                                    <Property name="text" type="java.lang.String" value="Use custom serial port name"/>
+                                    <Property name="toolTipText" type="java.lang.String" value="Use custom serial port name (AutoScan will be disabled)"/>
+                                  </Properties>
+                                </Component>
+                                <Component class="javax.swing.JLabel" name="jLabel10">
+                                  <Properties>
+                                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                                      <Font name="Tahoma" size="10" style="0"/>
+                                    </Property>
+                                    <Property name="horizontalAlignment" type="int" value="0"/>
+                                    <Property name="text" type="java.lang.String" value="(AutoScan will be disabled)"/>
+                                    <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                                      <Dimension value="[17, 23]"/>
+                                    </Property>
+                                  </Properties>
+                                </Component>
+                                <Component class="javax.swing.JCheckBox" name="FileAutoRun2">
+                                  <Properties>
+                                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                                      <Font name="Tahoma" size="10" style="0"/>
+                                    </Property>
+                                    <Property name="text" type="java.lang.String" value="Reset ESP8266 after connect"/>
+                                    <Property name="toolTipText" type="java.lang.String" value="USB-TTL RTS must be connected to esp8266 REST"/>
+                                    <Property name="horizontalAlignment" type="int" value="2"/>
+                                    <Property name="horizontalTextPosition" type="int" value="4"/>
+                                  </Properties>
+                                  <Events>
+                                    <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="FileAutoRun2ItemStateChanged"/>
+                                  </Events>
                                 </Component>
                               </SubComponents>
                             </Container>
@@ -5416,6 +5588,9 @@
                       <Dimension value="[25, 25]"/>
                     </Property>
                   </Properties>
+                  <BindingProperties>
+                    <BindingProperty name="enabled" source="UseCustomPortName" sourcePath="${!selected}" target="ReScan" targetPath="enabled" updateStrategy="0" immediately="false"/>
+                  </BindingProperties>
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ReScanActionPerformed"/>
                   </Events>

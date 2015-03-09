@@ -43,7 +43,7 @@ public class ESPlorer extends javax.swing.JFrame {
     private static SerialPort serialPort;
     public static boolean pOpen = false;
     public static boolean sOpen = false;
-    public static final String version="v0.1 build 206";
+    public static final String version="v0.2 beta1";
 /**
      * Creates new form MainWindows
      */
@@ -194,6 +194,7 @@ public class ESPlorer extends javax.swing.JFrame {
         FileAutoRun = new javax.swing.JCheckBox();
         EditorThemeLabel = new javax.swing.JLabel();
         EditorTheme = new javax.swing.JComboBox();
+        FileAutoRun1 = new javax.swing.JCheckBox();
         OptionsFileSendMode = new javax.swing.JLayeredPane();
         DelayLabel = new javax.swing.JLabel();
         Delay = new javax.swing.JSlider();
@@ -210,6 +211,11 @@ public class ESPlorer extends javax.swing.JFrame {
         LogMaxSize = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
+        jLayeredPane3 = new javax.swing.JLayeredPane();
+        CustomPortName = new javax.swing.JTextField();
+        UseCustomPortName = new javax.swing.JCheckBox();
+        jLabel10 = new javax.swing.JLabel();
+        FileAutoRun2 = new javax.swing.JCheckBox();
         ATvXX = new javax.swing.JLayeredPane();
         BasicATcommandsPane = new javax.swing.JLayeredPane();
         cmdAT = new javax.swing.JButton();
@@ -392,6 +398,12 @@ public class ESPlorer extends javax.swing.JFrame {
         MenuItemViewLogFontDec = new javax.swing.JMenuItem();
         jSeparator12 = new javax.swing.JPopupMenu.Separator();
         MenuItemViewFontDefault = new javax.swing.JMenuItem();
+        MenuLinks = new javax.swing.JMenu();
+        MenuItemLinksAPIcn = new javax.swing.JMenuItem();
+        MenuItemLinksAPIen = new javax.swing.JMenuItem();
+        MenuItemLinksAPIru = new javax.swing.JMenuItem();
+        MenuItemLinksChangelog = new javax.swing.JMenuItem();
+        MenuItemLinksDownloadLatest = new javax.swing.JMenuItem();
         MenuHelp = new javax.swing.JMenu();
         MenuItemHelpAbout = new javax.swing.JMenuItem();
 
@@ -1704,6 +1716,7 @@ public class ESPlorer extends javax.swing.JFrame {
         OptionsFirmware.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
 
         Firmware.add(OptionNodeMCU);
+        OptionNodeMCU.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         OptionNodeMCU.setSelected(true);
         OptionNodeMCU.setText("NodeMCU");
         OptionNodeMCU.setToolTipText("");
@@ -1714,6 +1727,7 @@ public class ESPlorer extends javax.swing.JFrame {
         });
 
         Firmware.add(OptionMicroPython);
+        OptionMicroPython.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         OptionMicroPython.setText("MicroPython");
         OptionMicroPython.setEnabled(false);
         OptionMicroPython.addItemListener(new java.awt.event.ItemListener() {
@@ -1788,6 +1802,17 @@ public class ESPlorer extends javax.swing.JFrame {
             }
         });
 
+        FileAutoRun1.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        FileAutoRun1.setText("AutoCompile before Do");
+        FileAutoRun1.setToolTipText("");
+        FileAutoRun1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        FileAutoRun1.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        FileAutoRun1.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                FileAutoRun1ItemStateChanged(evt);
+            }
+        });
+
         javax.swing.GroupLayout OptionsOtherLayout = new javax.swing.GroupLayout(OptionsOther);
         OptionsOther.setLayout(OptionsOtherLayout);
         OptionsOtherLayout.setHorizontalGroup(
@@ -1795,12 +1820,11 @@ public class ESPlorer extends javax.swing.JFrame {
             .addComponent(FileAutoSaveDisk, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(FileAutoSaveESP, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(OptionsOtherLayout.createSequentialGroup()
-                .addComponent(FileAutoRun, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
-            .addGroup(OptionsOtherLayout.createSequentialGroup()
                 .addComponent(EditorThemeLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(EditorTheme, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(FileAutoRun, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(FileAutoRun1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         OptionsOtherLayout.setVerticalGroup(
             OptionsOtherLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1811,6 +1835,8 @@ public class ESPlorer extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(FileAutoRun)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(FileAutoRun1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(OptionsOtherLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(EditorThemeLabel)
                     .addComponent(EditorTheme, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -1820,6 +1846,7 @@ public class ESPlorer extends javax.swing.JFrame {
         OptionsOther.setLayer(FileAutoRun, javax.swing.JLayeredPane.DEFAULT_LAYER);
         OptionsOther.setLayer(EditorThemeLabel, javax.swing.JLayeredPane.DEFAULT_LAYER);
         OptionsOther.setLayer(EditorTheme, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        OptionsOther.setLayer(FileAutoRun1, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         OptionsFileSendMode.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Send", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 10))); // NOI18N
         OptionsFileSendMode.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
@@ -2042,6 +2069,64 @@ public class ESPlorer extends javax.swing.JFrame {
         jLayeredPane2.setLayer(jLabel8, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPane2.setLayer(jLabel9, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
+        jLayeredPane3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "SerialPort", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 10))); // NOI18N
+
+        CustomPortName.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        CustomPortName.setHorizontalAlignment(javax.swing.JTextField.LEFT);
+        CustomPortName.setText("/dev/AnySerialDevice");
+        CustomPortName.setToolTipText("");
+        CustomPortName.setMinimumSize(new java.awt.Dimension(50, 19));
+        CustomPortName.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                CustomPortNameFocusLost(evt);
+            }
+        });
+
+        UseCustomPortName.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        UseCustomPortName.setText("Use custom serial port name");
+        UseCustomPortName.setToolTipText("Use custom serial port name (AutoScan will be disabled)");
+
+        jLabel10.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel10.setText("(AutoScan will be disabled)");
+        jLabel10.setPreferredSize(new java.awt.Dimension(17, 23));
+
+        FileAutoRun2.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        FileAutoRun2.setText("Reset ESP8266 after connect");
+        FileAutoRun2.setToolTipText("USB-TTL RTS must be connected to esp8266 REST");
+        FileAutoRun2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        FileAutoRun2.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        FileAutoRun2.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                FileAutoRun2ItemStateChanged(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jLayeredPane3Layout = new javax.swing.GroupLayout(jLayeredPane3);
+        jLayeredPane3.setLayout(jLayeredPane3Layout);
+        jLayeredPane3Layout.setHorizontalGroup(
+            jLayeredPane3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(UseCustomPortName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(CustomPortName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(FileAutoRun2, javax.swing.GroupLayout.DEFAULT_SIZE, 161, Short.MAX_VALUE)
+        );
+        jLayeredPane3Layout.setVerticalGroup(
+            jLayeredPane3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jLayeredPane3Layout.createSequentialGroup()
+                .addComponent(UseCustomPortName)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(CustomPortName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(FileAutoRun2))
+        );
+        jLayeredPane3.setLayer(CustomPortName, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane3.setLayer(UseCustomPortName, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane3.setLayer(jLabel10, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane3.setLayer(FileAutoRun2, javax.swing.JLayeredPane.DEFAULT_LAYER);
+
         javax.swing.GroupLayout NodeMCUSettingsLayout = new javax.swing.GroupLayout(NodeMCUSettings);
         NodeMCUSettings.setLayout(NodeMCUSettingsLayout);
         NodeMCUSettingsLayout.setHorizontalGroup(
@@ -2052,25 +2137,33 @@ public class ESPlorer extends javax.swing.JFrame {
                     .addComponent(OptionsFirmware)
                     .addComponent(OptionsFileSendMode, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLayeredPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(67, Short.MAX_VALUE))
+                .addGroup(NodeMCUSettingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLayeredPane2)
+                    .addComponent(jLayeredPane3))
+                .addContainerGap(40, Short.MAX_VALUE))
         );
         NodeMCUSettingsLayout.setVerticalGroup(
             NodeMCUSettingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(NodeMCUSettingsLayout.createSequentialGroup()
                 .addGroup(NodeMCUSettingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(OptionsFirmware)
-                    .addComponent(jLayeredPane2))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(OptionsOther, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(OptionsFirmware, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLayeredPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                .addGap(5, 5, 5)
+                .addGroup(NodeMCUSettingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(NodeMCUSettingsLayout.createSequentialGroup()
+                        .addComponent(OptionsOther, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(17, 17, 17))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, NodeMCUSettingsLayout.createSequentialGroup()
+                        .addComponent(jLayeredPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(31, 31, 31)))
                 .addComponent(OptionsFileSendMode, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(70, Short.MAX_VALUE))
+                .addGap(0, 44, Short.MAX_VALUE))
         );
         NodeMCUSettings.setLayer(OptionsFirmware, javax.swing.JLayeredPane.DEFAULT_LAYER);
         NodeMCUSettings.setLayer(OptionsOther, javax.swing.JLayeredPane.DEFAULT_LAYER);
         NodeMCUSettings.setLayer(OptionsFileSendMode, javax.swing.JLayeredPane.DEFAULT_LAYER);
         NodeMCUSettings.setLayer(jLayeredPane2, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        NodeMCUSettings.setLayer(jLayeredPane3, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         TextTab.addTab("Settings", new javax.swing.ImageIcon(getClass().getResource("/resources/settings2.png")), NodeMCUSettings, "Settings for file sending"); // NOI18N
 
@@ -3526,6 +3619,10 @@ public class ESPlorer extends javax.swing.JFrame {
         ReScan.setMaximumSize(new java.awt.Dimension(25, 25));
         ReScan.setMinimumSize(new java.awt.Dimension(25, 25));
         ReScan.setPreferredSize(new java.awt.Dimension(25, 25));
+
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, UseCustomPortName, org.jdesktop.beansbinding.ELProperty.create("${!selected}"), ReScan, org.jdesktop.beansbinding.BeanProperty.create("enabled"));
+        bindingGroup.addBinding(binding);
+
         ReScan.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ReScanActionPerformed(evt);
@@ -4362,6 +4459,56 @@ public class ESPlorer extends javax.swing.JFrame {
 
         MainMenuBar.add(MenuView);
 
+        MenuLinks.setText("Links");
+        MenuLinks.setToolTipText("");
+
+        MenuItemLinksAPIcn.setText("NodeMCU API cn");
+        MenuItemLinksAPIcn.setToolTipText("Open doc NodeMCU API English in browser");
+        MenuItemLinksAPIcn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MenuItemLinksAPIcnActionPerformed(evt);
+            }
+        });
+        MenuLinks.add(MenuItemLinksAPIcn);
+
+        MenuItemLinksAPIen.setText("NodeMCU API en");
+        MenuItemLinksAPIen.setToolTipText("Open doc NodeMCU API English in browser");
+        MenuItemLinksAPIen.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MenuItemLinksAPIenActionPerformed(evt);
+            }
+        });
+        MenuLinks.add(MenuItemLinksAPIen);
+
+        MenuItemLinksAPIru.setText("NodeMCU API ru");
+        MenuItemLinksAPIru.setToolTipText("Open doc NodeMCU API English in browser");
+        MenuItemLinksAPIru.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MenuItemLinksAPIruActionPerformed(evt);
+            }
+        });
+        MenuLinks.add(MenuItemLinksAPIru);
+
+        MenuItemLinksChangelog.setText("NodeMCU changelog");
+        MenuItemLinksChangelog.setToolTipText("Open doc NodeMCU API English in browser");
+        MenuItemLinksChangelog.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MenuItemLinksChangelogActionPerformed(evt);
+            }
+        });
+        MenuLinks.add(MenuItemLinksChangelog);
+
+        MenuItemLinksDownloadLatest.setText("NodeMCU download latest");
+        MenuItemLinksDownloadLatest.setToolTipText("Open doc NodeMCU API English in browser");
+        MenuItemLinksDownloadLatest.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MenuItemLinksDownloadLatestActionPerformed(evt);
+            }
+        });
+        MenuLinks.add(MenuItemLinksDownloadLatest);
+
+        MainMenuBar.add(MenuLinks);
+
         MenuHelp.setText("?");
 
         MenuItemHelpAbout.setText("About");
@@ -4848,7 +4995,7 @@ public class ESPlorer extends javax.swing.JFrame {
     }//GEN-LAST:event_cmdSetCWDHCPActionPerformed
 
     private void cmdGetCWLIFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdGetCWLIFActionPerformed
-        btnSend("AP+CWLIF");
+        btnSend("AT+CWLIF");
     }//GEN-LAST:event_cmdGetCWLIFActionPerformed
 
     private void PASSsoftAPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PASSsoftAPActionPerformed
@@ -5612,11 +5759,7 @@ public class ESPlorer extends javax.swing.JFrame {
     }//GEN-LAST:event_MenuItemTerminalResetActionPerformed
 
     private void DonateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DonateActionPerformed
-        try {
-            Desktop.getDesktop().browse(donate_uri);
-        } catch (IOException ex) {
-            Logger.getLogger(ESPlorer.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        goLink(donate_uri);
     }//GEN-LAST:event_DonateActionPerformed
 
     private void MenuItemHelpAboutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuItemHelpAboutActionPerformed
@@ -5629,11 +5772,7 @@ public class ESPlorer extends javax.swing.JFrame {
     }//GEN-LAST:event_AboutFocusLost
 
     private void HomePageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_HomePageActionPerformed
-        try {
-            Desktop.getDesktop().browse(homepage_uri);
-        } catch (IOException ex) {
-            Logger.getLogger(ESPlorer.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        goLink(homepage_uri);
     }//GEN-LAST:event_HomePageActionPerformed
 
     private void CommandItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_CommandItemStateChanged
@@ -6223,6 +6362,45 @@ public class ESPlorer extends javax.swing.JFrame {
     private void MenuItemTerminalFormatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuItemTerminalFormatActionPerformed
         MenuItemESPFormat.doClick();
     }//GEN-LAST:event_MenuItemTerminalFormatActionPerformed
+
+    private void MenuItemLinksAPIenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuItemLinksAPIenActionPerformed
+        goLink(api_en_uri);
+    }//GEN-LAST:event_MenuItemLinksAPIenActionPerformed
+
+    private void MenuItemLinksAPIruActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuItemLinksAPIruActionPerformed
+        goLink(api_ru_uri);
+    }//GEN-LAST:event_MenuItemLinksAPIruActionPerformed
+
+    private void MenuItemLinksChangelogActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuItemLinksChangelogActionPerformed
+        goLink(changelog_uri);
+    }//GEN-LAST:event_MenuItemLinksChangelogActionPerformed
+
+    private void MenuItemLinksDownloadLatestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuItemLinksDownloadLatestActionPerformed
+        goLink(download_latest_uri);
+    }//GEN-LAST:event_MenuItemLinksDownloadLatestActionPerformed
+
+    private void MenuItemLinksAPIcnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuItemLinksAPIcnActionPerformed
+        goLink(api_cn_uri);
+    }//GEN-LAST:event_MenuItemLinksAPIcnActionPerformed
+
+    private void CustomPortNameFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_CustomPortNameFocusLost
+        // TODO add your handling code here:
+    }//GEN-LAST:event_CustomPortNameFocusLost
+
+    private void FileAutoRun1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_FileAutoRun1ItemStateChanged
+        // TODO add your handling code here:
+    }//GEN-LAST:event_FileAutoRun1ItemStateChanged
+
+    private void FileAutoRun2ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_FileAutoRun2ItemStateChanged
+        // TODO add your handling code here:
+    }//GEN-LAST:event_FileAutoRun2ItemStateChanged
+    private void goLink ( URI link ) {
+        try {
+            Desktop.getDesktop().browse(link);
+        } catch (IOException ex) {
+            Logger.getLogger(ESPlorer.class.getName()).log(Level.SEVERE, null, ex);
+        }        
+    }
     private void DoSnippet( int n ) {
         //iSnippets = n;
         //SnippetName.setText(prefs.get("Snippet"+Integer.toString(n)+"name", "Snippet"+Integer.toString(n)));
@@ -6349,6 +6527,7 @@ public class ESPlorer extends javax.swing.JFrame {
     private javax.swing.JPopupMenu ContextMenuEditor;
     private javax.swing.JPopupMenu ContextMenuLog;
     private javax.swing.JPopupMenu ContextMenuTerminal;
+    private javax.swing.JTextField CustomPortName;
     private javax.swing.JComboBox DHCP;
     private javax.swing.JComboBox DHCPmode;
     private javax.swing.JSlider Delay;
@@ -6361,6 +6540,8 @@ public class ESPlorer extends javax.swing.JFrame {
     private javax.swing.JComboBox EditorTheme;
     private javax.swing.JLabel EditorThemeLabel;
     private javax.swing.JCheckBox FileAutoRun;
+    private javax.swing.JCheckBox FileAutoRun1;
+    private javax.swing.JCheckBox FileAutoRun2;
     private javax.swing.JCheckBox FileAutoSaveDisk;
     private javax.swing.JCheckBox FileAutoSaveESP;
     private javax.swing.JButton FileCatESP;
@@ -6428,6 +6609,11 @@ public class ESPlorer extends javax.swing.JFrame {
     private javax.swing.JMenuItem MenuItemFileSaveESP;
     private javax.swing.JMenuItem MenuItemFileSendESP;
     private javax.swing.JMenuItem MenuItemHelpAbout;
+    private javax.swing.JMenuItem MenuItemLinksAPIcn;
+    private javax.swing.JMenuItem MenuItemLinksAPIen;
+    private javax.swing.JMenuItem MenuItemLinksAPIru;
+    private javax.swing.JMenuItem MenuItemLinksChangelog;
+    private javax.swing.JMenuItem MenuItemLinksDownloadLatest;
     private javax.swing.JMenuItem MenuItemLogClear;
     private javax.swing.JMenuItem MenuItemLogClose;
     private javax.swing.JMenuItem MenuItemLogFontDec;
@@ -6448,6 +6634,7 @@ public class ESPlorer extends javax.swing.JFrame {
     private javax.swing.JMenuItem MenuItemViewLogFontInc;
     private javax.swing.JMenuItem MenuItemViewTermFontDec;
     private javax.swing.JMenuItem MenuItemViewTermFontInc;
+    private javax.swing.JMenu MenuLinks;
     private javax.swing.JMenu MenuView;
     private javax.swing.JPanel NodeMCU;
     private javax.swing.JLayeredPane NodeMCUCommands;
@@ -6527,6 +6714,7 @@ public class ESPlorer extends javax.swing.JFrame {
     private javax.swing.JCheckBox TurboMode;
     private javax.swing.JLayeredPane UDP;
     private javax.swing.JButton UPDATE;
+    private javax.swing.JCheckBox UseCustomPortName;
     private javax.swing.JLabel Version;
     private javax.swing.JLayeredPane WiFiStationPane;
     private javax.swing.JLayeredPane WiFi_common;
@@ -6581,6 +6769,7 @@ public class ESPlorer extends javax.swing.JFrame {
     private javax.swing.JTextArea data;
     private javax.swing.JComboBox encryption;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -6591,6 +6780,7 @@ public class ESPlorer extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JLayeredPane jLayeredPane1;
     private javax.swing.JLayeredPane jLayeredPane2;
+    private javax.swing.JLayeredPane jLayeredPane3;
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem7;
     private javax.swing.JScrollPane jScrollData;
@@ -6667,6 +6857,11 @@ public class ESPlorer extends javax.swing.JFrame {
     public static boolean busyIcon = false;
     public URI donate_uri;
     public URI homepage_uri;
+    public URI api_cn_uri;
+    public URI api_en_uri;
+    public URI api_ru_uri;
+    public URI changelog_uri;
+    public URI download_latest_uri;
     private static int LogMax = 10 * 1024;
     private static int TerminalMax = 100 * 1024;
     private long startTime = System.currentTimeMillis();
@@ -6945,8 +7140,14 @@ public class ESPlorer extends javax.swing.JFrame {
         AddTab(); // iTab = 0
                 
         try {
-            donate_uri   = new URI("https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=4refr0nt%40gmail%2ecom&lc=US&item_name=ESPlorer&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donateCC_LG%2egif%3aNonHosted");
-            homepage_uri = new URI("http://esp8266.ru/esplorer/");
+            donate_uri          = new URI("https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=4refr0nt%40gmail%2ecom&lc=US&item_name=ESPlorer&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donateCC_LG%2egif%3aNonHosted");
+            homepage_uri        = new URI("http://esp8266.ru/esplorer/");
+            api_cn_uri          = new URI("https://github.com/nodemcu/nodemcu-firmware/wiki/nodemcu_api_cn");
+            api_en_uri          = new URI("https://github.com/nodemcu/nodemcu-firmware/wiki/nodemcu_api_en");
+            api_ru_uri          = new URI("https://github.com/nodemcu/nodemcu-firmware/wiki/nodemcu_api_ru");
+            changelog_uri       = new URI("https://github.com/nodemcu/nodemcu-firmware/wiki");
+            download_latest_uri = new URI("https://github.com/nodemcu/nodemcu-firmware/blob/master/pre_build/latest/nodemcu_latest.bin?raw=true");
+            
         } catch (Exception e){}
     }
     private void LoadPrefs() {
