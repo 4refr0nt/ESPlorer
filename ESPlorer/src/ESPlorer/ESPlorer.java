@@ -142,14 +142,10 @@ public class ESPlorer extends javax.swing.JFrame {
         LeftBottomPane = new javax.swing.JLayeredPane();
         FileSaveESP = new javax.swing.JToggleButton();
         FileSendESP = new javax.swing.JToggleButton();
-        FileCatESP = new javax.swing.JButton();
-        FileListESP = new javax.swing.JButton();
         FileDo = new javax.swing.JButton();
-        FileDo1 = new javax.swing.JButton();
-        FileListESP1 = new javax.swing.JButton();
-        FileCatESP1 = new javax.swing.JButton();
-        FileCatESP2 = new javax.swing.JButton();
-        FileCatESP3 = new javax.swing.JButton();
+        FileCompile = new javax.swing.JButton();
+        FileCompileDoLC = new javax.swing.JButton();
+        FileUpload = new javax.swing.JButton();
         Busy = new javax.swing.JLabel();
         FilePathLabel = new javax.swing.JLabel();
         ProgressBar = new javax.swing.JProgressBar();
@@ -198,7 +194,6 @@ public class ESPlorer extends javax.swing.JFrame {
         FileAutoRun = new javax.swing.JCheckBox();
         EditorThemeLabel = new javax.swing.JLabel();
         EditorTheme = new javax.swing.JComboBox();
-        FileAutoRun1 = new javax.swing.JCheckBox();
         OptionsFileSendMode = new javax.swing.JLayeredPane();
         DelayLabel = new javax.swing.JLabel();
         Delay = new javax.swing.JSlider();
@@ -219,7 +214,6 @@ public class ESPlorer extends javax.swing.JFrame {
         CustomPortName = new javax.swing.JTextField();
         UseCustomPortName = new javax.swing.JCheckBox();
         jLabel10 = new javax.swing.JLabel();
-        FileAutoRun2 = new javax.swing.JCheckBox();
         ATvXX = new javax.swing.JLayeredPane();
         BasicATcommandsPane = new javax.swing.JLayeredPane();
         cmdAT = new javax.swing.JButton();
@@ -385,9 +379,7 @@ public class ESPlorer extends javax.swing.JFrame {
         MenuItemFileSendESP = new javax.swing.JMenuItem();
         jMenuItem7 = new javax.swing.JMenuItem();
         jSeparator4 = new javax.swing.JPopupMenu.Separator();
-        MenuItemFileCatESP = new javax.swing.JMenuItem();
         MenuItemFileDo = new javax.swing.JMenuItem();
-        MenuItemFileListESP = new javax.swing.JMenuItem();
         jSeparator3 = new javax.swing.JPopupMenu.Separator();
         MenuItemFileRemoveESP = new javax.swing.JMenuItem();
         jSeparator2 = new javax.swing.JPopupMenu.Separator();
@@ -1157,7 +1149,7 @@ public class ESPlorer extends javax.swing.JFrame {
         );
         FileLayeredPaneLayout.setVerticalGroup(
             FileLayeredPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(TextScroll, javax.swing.GroupLayout.DEFAULT_SIZE, 414, Short.MAX_VALUE)
+            .addComponent(TextScroll, javax.swing.GroupLayout.DEFAULT_SIZE, 466, Short.MAX_VALUE)
         );
         FileLayeredPane.setLayer(TextScroll, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
@@ -1192,33 +1184,11 @@ public class ESPlorer extends javax.swing.JFrame {
             }
         });
 
-        FileCatESP.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/script (edit).png"))); // NOI18N
-        FileCatESP.setText("<html>ESP <u>C</u>at");
-        FileCatESP.setMaximumSize(new java.awt.Dimension(120, 30));
-        FileCatESP.setMinimumSize(new java.awt.Dimension(120, 30));
-        FileCatESP.setPreferredSize(new java.awt.Dimension(120, 30));
-        FileCatESP.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                FileCatESPActionPerformed(evt);
-            }
-        });
-
-        FileListESP.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/file manager.png"))); // NOI18N
-        FileListESP.setText("File List");
-        FileListESP.setMaximumSize(new java.awt.Dimension(120, 30));
-        FileListESP.setMinimumSize(new java.awt.Dimension(120, 30));
-        FileListESP.setPreferredSize(new java.awt.Dimension(120, 30));
-        FileListESP.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                FileListESPActionPerformed(evt);
-            }
-        });
-
         FileDo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/play.png"))); // NOI18N
-        FileDo.setText("Do lua");
+        FileDo.setText("Do LUA");
         FileDo.setToolTipText("Do lua script");
-        FileDo.setIconTextGap(2);
-        FileDo.setMargin(new java.awt.Insets(2, 1, 2, 1));
+        FileDo.setIconTextGap(12);
+        FileDo.setMargin(new java.awt.Insets(2, 4, 2, 4));
         FileDo.setMaximumSize(new java.awt.Dimension(60, 30));
         FileDo.setMinimumSize(new java.awt.Dimension(60, 30));
         FileDo.setPreferredSize(new java.awt.Dimension(60, 30));
@@ -1228,58 +1198,38 @@ public class ESPlorer extends javax.swing.JFrame {
             }
         });
 
-        FileDo1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/play.png"))); // NOI18N
-        FileDo1.setText("lc");
-        FileDo1.setToolTipText("Recompile lua script and do lua bytecode lc file");
-        FileDo1.setIconTextGap(2);
-        FileDo1.setMargin(new java.awt.Insets(2, 2, 2, 2));
-        FileDo1.setMaximumSize(new java.awt.Dimension(60, 30));
-        FileDo1.setMinimumSize(new java.awt.Dimension(60, 30));
-        FileDo1.setPreferredSize(new java.awt.Dimension(60, 30));
-        FileDo1.addActionListener(new java.awt.event.ActionListener() {
+        FileCompile.setText("Compile LUA");
+        FileCompile.setToolTipText("Recompile lua script and do lua bytecode lc file");
+        FileCompile.setIconTextGap(2);
+        FileCompile.setMargin(new java.awt.Insets(2, 2, 2, 2));
+        FileCompile.setMaximumSize(new java.awt.Dimension(60, 30));
+        FileCompile.setMinimumSize(new java.awt.Dimension(60, 30));
+        FileCompile.setPreferredSize(new java.awt.Dimension(60, 30));
+        FileCompile.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                FileDo1ActionPerformed(evt);
+                FileCompileActionPerformed(evt);
             }
         });
 
-        FileListESP1.setText("File compile");
-        FileListESP1.setMaximumSize(new java.awt.Dimension(120, 30));
-        FileListESP1.setMinimumSize(new java.awt.Dimension(120, 30));
-        FileListESP1.setPreferredSize(new java.awt.Dimension(120, 30));
-        FileListESP1.addActionListener(new java.awt.event.ActionListener() {
+        FileCompileDoLC.setText("Compile & Do LC");
+        FileCompileDoLC.setMargin(new java.awt.Insets(2, 2, 2, 2));
+        FileCompileDoLC.setMaximumSize(new java.awt.Dimension(120, 30));
+        FileCompileDoLC.setMinimumSize(new java.awt.Dimension(120, 30));
+        FileCompileDoLC.setPreferredSize(new java.awt.Dimension(120, 30));
+        FileCompileDoLC.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                FileListESP1ActionPerformed(evt);
+                FileCompileDoLCActionPerformed(evt);
             }
         });
 
-        FileCatESP1.setText("Upload LUA/LC ...");
-        FileCatESP1.setMaximumSize(new java.awt.Dimension(120, 30));
-        FileCatESP1.setMinimumSize(new java.awt.Dimension(120, 30));
-        FileCatESP1.setPreferredSize(new java.awt.Dimension(120, 30));
-        FileCatESP1.addActionListener(new java.awt.event.ActionListener() {
+        FileUpload.setLabel("Upload ANY file...");
+        FileUpload.setMargin(new java.awt.Insets(2, 4, 2, 4));
+        FileUpload.setMaximumSize(new java.awt.Dimension(120, 30));
+        FileUpload.setMinimumSize(new java.awt.Dimension(120, 30));
+        FileUpload.setPreferredSize(new java.awt.Dimension(120, 30));
+        FileUpload.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                FileCatESP1ActionPerformed(evt);
-            }
-        });
-
-        FileCatESP2.setText("Upload LC file...");
-        FileCatESP2.setMaximumSize(new java.awt.Dimension(120, 30));
-        FileCatESP2.setMinimumSize(new java.awt.Dimension(120, 30));
-        FileCatESP2.setPreferredSize(new java.awt.Dimension(120, 30));
-        FileCatESP2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                FileCatESP2ActionPerformed(evt);
-            }
-        });
-
-        FileCatESP3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/script (edit).png"))); // NOI18N
-        FileCatESP3.setText("<html>ESP <u>C</u>at");
-        FileCatESP3.setMaximumSize(new java.awt.Dimension(120, 30));
-        FileCatESP3.setMinimumSize(new java.awt.Dimension(120, 30));
-        FileCatESP3.setPreferredSize(new java.awt.Dimension(120, 30));
-        FileCatESP3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                FileCatESP3ActionPerformed(evt);
+                FileUploadActionPerformed(evt);
             }
         });
 
@@ -1288,63 +1238,38 @@ public class ESPlorer extends javax.swing.JFrame {
         LeftBottomPaneLayout.setHorizontalGroup(
             LeftBottomPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(LeftBottomPaneLayout.createSequentialGroup()
+                .addGroup(LeftBottomPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(FileSaveESP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(FileSendESP, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(FileDo, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(FileCompile, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(LeftBottomPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(LeftBottomPaneLayout.createSequentialGroup()
-                        .addGroup(LeftBottomPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(FileSaveESP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(FileSendESP, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(LeftBottomPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(LeftBottomPaneLayout.createSequentialGroup()
-                                .addComponent(FileCatESP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(FileDo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addGroup(LeftBottomPaneLayout.createSequentialGroup()
-                                .addGap(126, 126, 126)
-                                .addComponent(FileListESP1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(LeftBottomPaneLayout.createSequentialGroup()
-                                .addComponent(FileCatESP1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(FileDo1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                    .addGroup(LeftBottomPaneLayout.createSequentialGroup()
-                        .addComponent(FileListESP, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(FileCatESP2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(FileCatESP3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(FileUpload, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(FileCompileDoLC, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
         LeftBottomPaneLayout.setVerticalGroup(
             LeftBottomPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(LeftBottomPaneLayout.createSequentialGroup()
                 .addGroup(LeftBottomPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(FileSaveESP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(FileListESP1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(LeftBottomPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(FileDo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(FileCatESP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(FileSendESP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(FileCompile, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(FileCompileDoLC, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(LeftBottomPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(FileDo1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(FileCatESP1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 7, Short.MAX_VALUE)
-                .addGroup(LeftBottomPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(FileListESP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(FileCatESP2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(FileCatESP3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(FileSendESP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(FileUpload, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(21, Short.MAX_VALUE))
         );
         LeftBottomPane.setLayer(FileSaveESP, javax.swing.JLayeredPane.DEFAULT_LAYER);
         LeftBottomPane.setLayer(FileSendESP, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        LeftBottomPane.setLayer(FileCatESP, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        LeftBottomPane.setLayer(FileListESP, javax.swing.JLayeredPane.DEFAULT_LAYER);
         LeftBottomPane.setLayer(FileDo, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        LeftBottomPane.setLayer(FileDo1, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        LeftBottomPane.setLayer(FileListESP1, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        LeftBottomPane.setLayer(FileCatESP1, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        LeftBottomPane.setLayer(FileCatESP2, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        LeftBottomPane.setLayer(FileCatESP3, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        LeftBottomPane.setLayer(FileCompile, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        LeftBottomPane.setLayer(FileCompileDoLC, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        LeftBottomPane.setLayer(FileUpload, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         Busy.setBackground(new java.awt.Color(0, 153, 0));
         Busy.setForeground(new java.awt.Color(255, 255, 255));
@@ -1364,16 +1289,15 @@ public class ESPlorer extends javax.swing.JFrame {
         SriptsTabLayout.setHorizontalGroup(
             SriptsTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(FilesTabbedPane)
-            .addComponent(ProgressBar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(LeftBottomPane, javax.swing.GroupLayout.DEFAULT_SIZE, 531, Short.MAX_VALUE)
+            .addComponent(ProgressBar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(SriptsTabLayout.createSequentialGroup()
-                .addGroup(SriptsTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(FilesToolBar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(SriptsTabLayout.createSequentialGroup()
-                        .addComponent(Busy, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(FilePathLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addComponent(FilesToolBar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
+            .addGroup(SriptsTabLayout.createSequentialGroup()
+                .addComponent(Busy, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(FilePathLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         SriptsTabLayout.setVerticalGroup(
             SriptsTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1388,7 +1312,7 @@ public class ESPlorer extends javax.swing.JFrame {
                     .addComponent(Busy)
                     .addComponent(FilePathLabel))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(LeftBottomPane, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(LeftBottomPane, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         SriptsTab.setLayer(FilesToolBar, javax.swing.JLayeredPane.PALETTE_LAYER);
         SriptsTab.setLayer(FilesTabbedPane, javax.swing.JLayeredPane.DEFAULT_LAYER);
@@ -1947,7 +1871,6 @@ public class ESPlorer extends javax.swing.JFrame {
         });
 
         FileAutoRun.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
-        FileAutoRun.setSelected(true);
         FileAutoRun.setText("AutoRun file after save to ESP");
         FileAutoRun.setToolTipText("");
         FileAutoRun.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
@@ -1969,29 +1892,18 @@ public class ESPlorer extends javax.swing.JFrame {
             }
         });
 
-        FileAutoRun1.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
-        FileAutoRun1.setText("AutoCompile before Do LUA");
-        FileAutoRun1.setToolTipText("");
-        FileAutoRun1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        FileAutoRun1.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
-        FileAutoRun1.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                FileAutoRun1ItemStateChanged(evt);
-            }
-        });
-
         javax.swing.GroupLayout OptionsOtherLayout = new javax.swing.GroupLayout(OptionsOther);
         OptionsOther.setLayout(OptionsOtherLayout);
         OptionsOtherLayout.setHorizontalGroup(
             OptionsOtherLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(FileAutoSaveDisk, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(FileAutoSaveESP, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(FileAutoRun, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(OptionsOtherLayout.createSequentialGroup()
                 .addComponent(EditorThemeLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(EditorTheme, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addComponent(FileAutoRun, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(FileAutoRun1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(EditorTheme, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         OptionsOtherLayout.setVerticalGroup(
             OptionsOtherLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -2002,8 +1914,6 @@ public class ESPlorer extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(FileAutoRun)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(FileAutoRun1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(OptionsOtherLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(EditorThemeLabel)
                     .addComponent(EditorTheme, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -2013,7 +1923,6 @@ public class ESPlorer extends javax.swing.JFrame {
         OptionsOther.setLayer(FileAutoRun, javax.swing.JLayeredPane.DEFAULT_LAYER);
         OptionsOther.setLayer(EditorThemeLabel, javax.swing.JLayeredPane.DEFAULT_LAYER);
         OptionsOther.setLayer(EditorTheme, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        OptionsOther.setLayer(FileAutoRun1, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         OptionsFileSendMode.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Send", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 10))); // NOI18N
         OptionsFileSendMode.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
@@ -2258,25 +2167,13 @@ public class ESPlorer extends javax.swing.JFrame {
         jLabel10.setText("(AutoScan will be disabled)");
         jLabel10.setPreferredSize(new java.awt.Dimension(17, 23));
 
-        FileAutoRun2.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
-        FileAutoRun2.setText("Hard reset after connect");
-        FileAutoRun2.setToolTipText("USB-TTL RTS must be connected to esp8266 REST");
-        FileAutoRun2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        FileAutoRun2.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
-        FileAutoRun2.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                FileAutoRun2ItemStateChanged(evt);
-            }
-        });
-
         javax.swing.GroupLayout jLayeredPane3Layout = new javax.swing.GroupLayout(jLayeredPane3);
         jLayeredPane3.setLayout(jLayeredPane3Layout);
         jLayeredPane3Layout.setHorizontalGroup(
             jLayeredPane3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(UseCustomPortName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(UseCustomPortName, javax.swing.GroupLayout.DEFAULT_SIZE, 161, Short.MAX_VALUE)
             .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(CustomPortName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(FileAutoRun2, javax.swing.GroupLayout.DEFAULT_SIZE, 161, Short.MAX_VALUE)
         );
         jLayeredPane3Layout.setVerticalGroup(
             jLayeredPane3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -2284,15 +2181,13 @@ public class ESPlorer extends javax.swing.JFrame {
                 .addComponent(UseCustomPortName)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(CustomPortName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(FileAutoRun2))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(CustomPortName, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jLayeredPane3.setLayer(CustomPortName, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPane3.setLayer(UseCustomPortName, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPane3.setLayer(jLabel10, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jLayeredPane3.setLayer(FileAutoRun2, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout NodeMCUSettingsLayout = new javax.swing.GroupLayout(NodeMCUSettings);
         NodeMCUSettings.setLayout(NodeMCUSettingsLayout);
@@ -2315,16 +2210,16 @@ public class ESPlorer extends javax.swing.JFrame {
                 .addGroup(NodeMCUSettingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLayeredPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(OptionsFirmware, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(NodeMCUSettingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(NodeMCUSettingsLayout.createSequentialGroup()
-                        .addComponent(OptionsOther, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(17, 17, 17))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(OptionsOther, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, NodeMCUSettingsLayout.createSequentialGroup()
-                        .addComponent(jLayeredPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(31, 31, 31)))
+                        .addGap(12, 12, 12)
+                        .addComponent(jLayeredPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(OptionsFileSendMode, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 203, Short.MAX_VALUE))
+                .addGap(0, 235, Short.MAX_VALUE))
         );
         NodeMCUSettings.setLayer(OptionsFirmware, javax.swing.JLayeredPane.DEFAULT_LAYER);
         NodeMCUSettings.setLayer(OptionsOther, javax.swing.JLayeredPane.DEFAULT_LAYER);
@@ -4366,8 +4261,8 @@ public class ESPlorer extends javax.swing.JFrame {
             RightBigPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(RightBigPaneLayout.createSequentialGroup()
                 .addComponent(RightFilesSplitPane)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(SnippetsPane, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(SnippetsPane, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         RightBigPane.setLayer(RightFilesSplitPane, javax.swing.JLayeredPane.DEFAULT_LAYER);
         RightBigPane.setLayer(SnippetsPane, javax.swing.JLayeredPane.DEFAULT_LAYER);
@@ -4628,16 +4523,6 @@ public class ESPlorer extends javax.swing.JFrame {
         MenuFile.add(jMenuItem7);
         MenuFile.add(jSeparator4);
 
-        MenuItemFileCatESP.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_C, java.awt.event.InputEvent.ALT_MASK));
-        MenuItemFileCatESP.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/script (edit).png"))); // NOI18N
-        MenuItemFileCatESP.setText("<html>File <u>C</u>at ESP");
-        MenuItemFileCatESP.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                MenuItemFileCatESPActionPerformed(evt);
-            }
-        });
-        MenuFile.add(MenuItemFileCatESP);
-
         MenuItemFileDo.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_D, java.awt.event.InputEvent.ALT_MASK));
         MenuItemFileDo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/play.png"))); // NOI18N
         MenuItemFileDo.setText("<html><u>D</u>oFile on ESP");
@@ -4647,25 +4532,11 @@ public class ESPlorer extends javax.swing.JFrame {
             }
         });
         MenuFile.add(MenuItemFileDo);
-
-        MenuItemFileListESP.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_M, java.awt.event.InputEvent.ALT_MASK));
-        MenuItemFileListESP.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/file manager.png"))); // NOI18N
-        MenuItemFileListESP.setText("<html>File List ESP <sup>file <u>m</u>anager");
-        MenuItemFileListESP.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                MenuItemFileListESPActionPerformed(evt);
-            }
-        });
-        MenuFile.add(MenuItemFileListESP);
         MenuFile.add(jSeparator3);
 
         MenuItemFileRemoveESP.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_R, java.awt.event.InputEvent.ALT_MASK));
         MenuItemFileRemoveESP.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/trash.png"))); // NOI18N
         MenuItemFileRemoveESP.setText("<html><u>R</u>emove from ESP");
-
-        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, new javax.swing.JButton(), org.jdesktop.beansbinding.ELProperty.create("${enabled}"), MenuItemFileRemoveESP, org.jdesktop.beansbinding.BeanProperty.create("enabled"));
-        bindingGroup.addBinding(binding);
-
         MenuItemFileRemoveESP.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 MenuItemFileRemoveESPActionPerformed(evt);
@@ -5075,10 +4946,6 @@ public class ESPlorer extends javax.swing.JFrame {
             FileSendESP.setEnabled(true);
             MenuItemFileSendESP.setEnabled(true);
             MenuItemFileRemoveESP.setEnabled(true);
-            FileCatESP.setEnabled(true);
-            MenuItemFileCatESP.setEnabled(true);
-            FileListESP.setEnabled(true);
-            MenuItemFileListESP.setEnabled(true);
             FileDo.setEnabled(true);
             MenuItemFileDo.setEnabled(true);
             MenuItemEditorSendLine.setEnabled(true);
@@ -5127,10 +4994,6 @@ public class ESPlorer extends javax.swing.JFrame {
             FileSendESP.setSelected(false);
             MenuItemFileSendESP.setEnabled(false);
             MenuItemFileRemoveESP.setEnabled(false);
-            FileCatESP.setEnabled(false);
-            MenuItemFileCatESP.setEnabled(false);
-            FileListESP.setEnabled(false);
-            MenuItemFileListESP.setEnabled(false);
             FileDo.setEnabled(false);
             MenuItemFileDo.setEnabled(false);
             MenuItemEditorSendLine.setEnabled(false);
@@ -6249,17 +6112,6 @@ public class ESPlorer extends javax.swing.JFrame {
         btnSend(cmd);
     }//GEN-LAST:event_cmdTimerStopActionPerformed
 
-    private void FileListESPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FileListESPActionPerformed
-        cmdListFiles.doClick();
-    }//GEN-LAST:event_FileListESPActionPerformed
-
-    private void FileCatESPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FileCatESPActionPerformed
-        String cmd = "if file.open(\"" + iFile.get(iTab).getName() +"\",\"r\") then do print(\"-- File content start from next line\")\r\n" +
-                     "repeat _line = file.readline() if (_line~=nil) then print(string.sub(_line,1,-2)) end until _line == nil\r\n" +
-                     "file.close() _line=nil collectgarbage() print(\"-- File content end\") end else print(\"-- Can't open file " + iFile.get(iTab).getName() + "\") end\r\n";
-        SendToESP(cmd);
-    }//GEN-LAST:event_FileCatESPActionPerformed
-
     private void NodeResetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NodeResetActionPerformed
         cmdNodeRestart.doClick();
     }//GEN-LAST:event_NodeResetActionPerformed
@@ -6268,10 +6120,6 @@ public class ESPlorer extends javax.swing.JFrame {
         String cmd = "dofile('" + iFile.get(iTab).getName() +"')";
         btnSend(cmd);
     }//GEN-LAST:event_FileDoActionPerformed
-
-    private void MenuItemFileCatESPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuItemFileCatESPActionPerformed
-        FileCatESP.doClick();
-    }//GEN-LAST:event_MenuItemFileCatESPActionPerformed
 
     private void MenuItemLogCloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuItemLogCloseActionPerformed
         MenuItemViewLog.doClick();
@@ -6669,10 +6517,6 @@ public class ESPlorer extends javax.swing.JFrame {
         MenuItemEditSendLine.doClick();
     }//GEN-LAST:event_MenuItemEditorSendLineActionPerformed
 
-    private void MenuItemFileListESPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuItemFileListESPActionPerformed
-        FileListESP.doClick();
-    }//GEN-LAST:event_MenuItemFileListESPActionPerformed
-
     private void MenuFileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuFileActionPerformed
 
     }//GEN-LAST:event_MenuFileActionPerformed
@@ -6910,21 +6754,17 @@ public class ESPlorer extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_CustomPortNameFocusLost
 
-    private void FileAutoRun1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_FileAutoRun1ItemStateChanged
-        // TODO add your handling code here:
-    }//GEN-LAST:event_FileAutoRun1ItemStateChanged
+    private void FileCompileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FileCompileActionPerformed
+        String cmd = "node.compile('" + iFile.get(iTab).getName() +"')";
+        btnSend(cmd);
+    }//GEN-LAST:event_FileCompileActionPerformed
 
-    private void FileAutoRun2ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_FileAutoRun2ItemStateChanged
-        // TODO add your handling code here:
-    }//GEN-LAST:event_FileAutoRun2ItemStateChanged
-
-    private void FileDo1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FileDo1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_FileDo1ActionPerformed
-
-    private void FileListESP1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FileListESP1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_FileListESP1ActionPerformed
+    private void FileCompileDoLCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FileCompileDoLCActionPerformed
+        String fn = iFile.get(iTab).getName();
+        String[] part = fn.split(".");
+        String cmd = "node.compile('" + fn +"')\r\ndofile(\"" + part[0] + ".lc" + "\")";
+        btnSend(cmd);
+    }//GEN-LAST:event_FileCompileDoLCActionPerformed
 
     private void MenuItemESPFileDoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuItemESPFileDoActionPerformed
         
@@ -6962,17 +6802,9 @@ public class ESPlorer extends javax.swing.JFrame {
 
     }//GEN-LAST:event_formComponentResized
 
-    private void FileCatESP1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FileCatESP1ActionPerformed
+    private void FileUploadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FileUploadActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_FileCatESP1ActionPerformed
-
-    private void FileCatESP2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FileCatESP2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_FileCatESP2ActionPerformed
-
-    private void FileCatESP3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FileCatESP3ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_FileCatESP3ActionPerformed
+    }//GEN-LAST:event_FileUploadActionPerformed
 
     private void FileListReloadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FileListReloadActionPerformed
         cmdListFiles.doClick();
@@ -7161,26 +6993,20 @@ public class ESPlorer extends javax.swing.JFrame {
     private javax.swing.JLabel EditorThemeLabel;
     private javax.swing.JButton FileAsButton1;
     private javax.swing.JCheckBox FileAutoRun;
-    private javax.swing.JCheckBox FileAutoRun1;
-    private javax.swing.JCheckBox FileAutoRun2;
     private javax.swing.JCheckBox FileAutoSaveDisk;
     private javax.swing.JCheckBox FileAutoSaveESP;
-    private javax.swing.JButton FileCatESP;
-    private javax.swing.JButton FileCatESP1;
-    private javax.swing.JButton FileCatESP2;
-    private javax.swing.JButton FileCatESP3;
+    private javax.swing.JButton FileCompile;
+    private javax.swing.JButton FileCompileDoLC;
     private javax.swing.JButton FileDo;
-    private javax.swing.JButton FileDo1;
     private javax.swing.JButton FileFormat;
     private javax.swing.JLayeredPane FileLayeredPane;
-    private javax.swing.JButton FileListESP;
-    private javax.swing.JButton FileListESP1;
     private javax.swing.JButton FileListReload;
     private javax.swing.JLayeredPane FileManagerPane;
     private javax.swing.JScrollPane FileManagerScrollPane;
     private javax.swing.JLabel FilePathLabel;
     private javax.swing.JToggleButton FileSaveESP;
     private javax.swing.JToggleButton FileSendESP;
+    private javax.swing.JButton FileUpload;
     private javax.swing.JTabbedPane FilesTabbedPane;
     private javax.swing.JToolBar FilesToolBar;
     private javax.swing.ButtonGroup Firmware;
@@ -7227,11 +7053,9 @@ public class ESPlorer extends javax.swing.JFrame {
     private javax.swing.JMenuItem MenuItemEditorSendLine;
     private javax.swing.JMenuItem MenuItemEditorSendSelected;
     private javax.swing.JMenuItem MenuItemEditorUndo;
-    private javax.swing.JMenuItem MenuItemFileCatESP;
     private javax.swing.JMenuItem MenuItemFileClose;
     private javax.swing.JMenuItem MenuItemFileDo;
     private javax.swing.JMenuItem MenuItemFileExit;
-    private javax.swing.JMenuItem MenuItemFileListESP;
     private javax.swing.JMenuItem MenuItemFileNew;
     private javax.swing.JMenuItem MenuItemFileOpen;
     private javax.swing.JMenuItem MenuItemFileReload;
@@ -8580,11 +8404,7 @@ public class ESPlorer extends javax.swing.JFrame {
        ProgressBar.setVisible(true);
        FileSendESP.setEnabled(false);
        MenuItemFileSendESP.setEnabled(false);
-       FileCatESP.setEnabled(false);
-       MenuItemFileCatESP.setEnabled(false);
        MenuItemFileRemoveESP.setEnabled(false);
-       FileListESP.setEnabled(false);
-       MenuItemFileListESP.setEnabled(false);
        NodeReset.setEnabled(false);
        FileDo.setEnabled(false);
        MenuItemFileDo.setEnabled(false);
@@ -8659,3 +8479,8 @@ public class ESPlorer extends javax.swing.JFrame {
       SnippetEdit15.setToolTipText(ButtonSnippet15.getText());
     }
 }
+// cat
+//        String cmd = "if file.open(\"" + iFile.get(iTab).getName() +"\",\"r\") then do print(\"-- File content start from next line\")\r\n" +
+//                     "repeat _line = file.readline() if (_line~=nil) then print(string.sub(_line,1,-2)) end until _line == nil\r\n" +
+//                     "file.close() _line=nil collectgarbage() print(\"-- File content end\") end else print(\"-- Can't open file " + iFile.get(iTab).getName() + "\") end\r\n";
+//        SendToESP(cmd);
