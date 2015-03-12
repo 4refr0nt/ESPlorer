@@ -1905,7 +1905,7 @@
                                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                                       <Image iconType="3" name="/resources/play.png"/>
                                     </Property>
-                                    <Property name="text" type="java.lang.String" value="Do LUA"/>
+                                    <Property name="text" type="java.lang.String" value="Run"/>
                                     <Property name="toolTipText" type="java.lang.String" value="Do lua script"/>
                                     <Property name="iconTextGap" type="int" value="12"/>
                                     <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
@@ -1949,7 +1949,7 @@
                                 </Component>
                                 <Component class="javax.swing.JButton" name="FileCompileDoLC">
                                   <Properties>
-                                    <Property name="text" type="java.lang.String" value="Compile &amp; Do LC"/>
+                                    <Property name="text" type="java.lang.String" value="Compile &amp; Run LC"/>
                                     <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
                                       <Insets value="[2, 2, 2, 2]"/>
                                     </Property>
@@ -2015,7 +2015,7 @@
                                 </Component>
                                 <Component class="javax.swing.JButton" name="FileSaveCompileDoLC">
                                   <Properties>
-                                    <Property name="text" type="java.lang.String" value="Save-&gt;Compile-&gt;Do LC"/>
+                                    <Property name="text" type="java.lang.String" value="Save-&gt;Compile-&gt;RunLC"/>
                                     <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
                                       <Insets value="[2, 2, 2, 2]"/>
                                     </Property>
@@ -5672,7 +5672,6 @@
                                   <Component id="jToggleButton1" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Component id="jToggleButton2" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace max="32767" attributes="0"/>
                               </Group>
                               <Group type="102" alignment="0" attributes="0">
                                   <Component id="PortOpenLabel" min="-2" max="-2" attributes="0"/>

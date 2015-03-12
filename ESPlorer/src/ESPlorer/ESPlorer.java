@@ -1184,7 +1184,7 @@ public class ESPlorer extends javax.swing.JFrame {
         });
 
         FileDo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/play.png"))); // NOI18N
-        FileDo.setText("Do LUA");
+        FileDo.setText("Run");
         FileDo.setToolTipText("Do lua script");
         FileDo.setIconTextGap(12);
         FileDo.setMargin(new java.awt.Insets(2, 4, 2, 4));
@@ -1210,7 +1210,7 @@ public class ESPlorer extends javax.swing.JFrame {
             }
         });
 
-        FileCompileDoLC.setText("Compile & Do LC");
+        FileCompileDoLC.setText("Compile & Run LC");
         FileCompileDoLC.setMargin(new java.awt.Insets(2, 2, 2, 2));
         FileCompileDoLC.setMaximumSize(new java.awt.Dimension(120, 30));
         FileCompileDoLC.setMinimumSize(new java.awt.Dimension(120, 30));
@@ -1245,7 +1245,7 @@ public class ESPlorer extends javax.swing.JFrame {
             }
         });
 
-        FileSaveCompileDoLC.setText("Save->Compile->Do LC");
+        FileSaveCompileDoLC.setText("Save->Compile->RunLC");
         FileSaveCompileDoLC.setMargin(new java.awt.Insets(2, 2, 2, 2));
         FileSaveCompileDoLC.setMaximumSize(new java.awt.Dimension(120, 30));
         FileSaveCompileDoLC.setMinimumSize(new java.awt.Dimension(120, 30));
@@ -3790,8 +3790,7 @@ public class ESPlorer extends javax.swing.JFrame {
                     .addGroup(LEDPanelLayout.createSequentialGroup()
                         .addComponent(jToggleButton1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jToggleButton2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(jToggleButton2))
                     .addGroup(LEDPanelLayout.createSequentialGroup()
                         .addComponent(PortOpenLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
