@@ -1081,7 +1081,7 @@
             <MenuItem class="javax.swing.JMenuItem" name="MenuItemLinksAPIcn">
               <Properties>
                 <Property name="text" type="java.lang.String" value="NodeMCU API cn"/>
-                <Property name="toolTipText" type="java.lang.String" value="Open doc NodeMCU API English in browser"/>
+                <Property name="toolTipText" type="java.lang.String" value="Open doc NodeMCU API Chinese in browser"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="MenuItemLinksAPIcnActionPerformed"/>
@@ -1099,7 +1099,7 @@
             <MenuItem class="javax.swing.JMenuItem" name="MenuItemLinksAPIru">
               <Properties>
                 <Property name="text" type="java.lang.String" value="NodeMCU API ru"/>
-                <Property name="toolTipText" type="java.lang.String" value="Open doc NodeMCU API English in browser"/>
+                <Property name="toolTipText" type="java.lang.String" value="Open doc NodeMCU API Russian in browser"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="MenuItemLinksAPIruActionPerformed"/>
@@ -1108,7 +1108,7 @@
             <MenuItem class="javax.swing.JMenuItem" name="MenuItemLinksChangelog">
               <Properties>
                 <Property name="text" type="java.lang.String" value="NodeMCU changelog"/>
-                <Property name="toolTipText" type="java.lang.String" value="Open doc NodeMCU API English in browser"/>
+                <Property name="toolTipText" type="java.lang.String" value="Open NodeMCU changelog in browser"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="MenuItemLinksChangelogActionPerformed"/>
@@ -1119,7 +1119,7 @@
             <MenuItem class="javax.swing.JMenuItem" name="MenuItemLinksDownloadLatestFirmware">
               <Properties>
                 <Property name="text" type="java.lang.String" value="NodeMCU download latest firmware"/>
-                <Property name="toolTipText" type="java.lang.String" value="Open doc NodeMCU API English in browser"/>
+                <Property name="toolTipText" type="java.lang.String" value="Download NodeMCU latest firmware (stable version)"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="MenuItemLinksDownloadLatestFirmwareActionPerformed"/>
@@ -1128,7 +1128,7 @@
             <MenuItem class="javax.swing.JMenuItem" name="MenuItemLinksDownloadLatestDev">
               <Properties>
                 <Property name="text" type="java.lang.String" value="NodeMCU download latest dev firmware"/>
-                <Property name="toolTipText" type="java.lang.String" value="Open doc NodeMCU API English in browser"/>
+                <Property name="toolTipText" type="java.lang.String" value="Download NodeMCU latest firmware (dev version)"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="MenuItemLinksDownloadLatestDevActionPerformed"/>
@@ -1137,7 +1137,7 @@
             <MenuItem class="javax.swing.JMenuItem" name="MenuItemLinksDownloadLatestFlasher">
               <Properties>
                 <Property name="text" type="java.lang.String" value="NodeMCU download latest FLASHER"/>
-                <Property name="toolTipText" type="java.lang.String" value="Open doc NodeMCU API English in browser"/>
+                <Property name="toolTipText" type="java.lang.String" value="Download latest version of NodeMCU Flasher x32 or x64"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="MenuItemLinksDownloadLatestFlasherActionPerformed"/>
@@ -1148,7 +1148,7 @@
             <MenuItem class="javax.swing.JMenuItem" name="MenuItemLinksBuyDevBoard">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Buy NodeMCU dev board"/>
-                <Property name="toolTipText" type="java.lang.String" value="Open doc NodeMCU API English in browser"/>
+                <Property name="toolTipText" type="java.lang.String" value="Buy NodeMCU development boards on Aliexpress"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="MenuItemLinksBuyDevBoardActionPerformed"/>
@@ -1157,7 +1157,7 @@
             <MenuItem class="javax.swing.JMenuItem" name="MenuItemLinksBuyESP8266">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Buy ESP8266 ESP-01 - ESP12 modules"/>
-                <Property name="toolTipText" type="java.lang.String" value="Open doc NodeMCU API English in browser"/>
+                <Property name="toolTipText" type="java.lang.String" value="Buy ESP8266 ESP-01 ESP-02 ... ESP-12 modules on Aliexpress"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="MenuItemLinksBuyESP8266ActionPerformed"/>
@@ -1166,7 +1166,7 @@
             <MenuItem class="javax.swing.JMenuItem" name="MenuItemLinksBuyESD12">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Buy ESP8266 ESD-12 4M module"/>
-                <Property name="toolTipText" type="java.lang.String" value="Open doc NodeMCU API English in browser"/>
+                <Property name="toolTipText" type="java.lang.String" value="Buy ESP8266 ESD-12 4M flash board"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="MenuItemLinksBuyESD12ActionPerformed"/>
@@ -1175,7 +1175,7 @@
             <MenuItem class="javax.swing.JMenuItem" name="MenuItemLinksBuyOther">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Buy other usefull parts"/>
-                <Property name="toolTipText" type="java.lang.String" value="Open doc NodeMCU API English in browser"/>
+                <Property name="toolTipText" type="java.lang.String" value="Buy any electronics and other on Aliexpress"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="MenuItemLinksBuyOtherActionPerformed"/>
@@ -1186,7 +1186,7 @@
             <MenuItem class="javax.swing.JMenuItem" name="MenuItemLinksESPlorerForumEn">
               <Properties>
                 <Property name="text" type="java.lang.String" value="ESPlorer discuss, bug report en"/>
-                <Property name="toolTipText" type="java.lang.String" value="Open doc NodeMCU API English in browser"/>
+                <Property name="toolTipText" type="java.lang.String" value="Link to ESP8266.COM forum, ESPlorer topic, English"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="MenuItemLinksESPlorerForumEnActionPerformed"/>
@@ -1195,7 +1195,7 @@
             <MenuItem class="javax.swing.JMenuItem" name="MenuItemLinksESPlorerForumRu">
               <Properties>
                 <Property name="text" type="java.lang.String" value="ESPlorer discuss, bug report ru"/>
-                <Property name="toolTipText" type="java.lang.String" value="Open doc NodeMCU API English in browser"/>
+                <Property name="toolTipText" type="java.lang.String" value="Link to ESP8266.RU forum, ESPlorer topic, Russian"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="MenuItemLinksESPlorerForumRuActionPerformed"/>
@@ -1204,7 +1204,7 @@
             <MenuItem class="javax.swing.JMenuItem" name="MenuItemLinksESPlorerLatest">
               <Properties>
                 <Property name="text" type="java.lang.String" value="ESPlorer download latest stable"/>
-                <Property name="toolTipText" type="java.lang.String" value="Open doc NodeMCU API English in browser"/>
+                <Property name="toolTipText" type="java.lang.String" value="Link to ESP8266.RU, download ESPlorer latest"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="MenuItemLinksESPlorerLatestActionPerformed"/>
@@ -1213,7 +1213,7 @@
             <MenuItem class="javax.swing.JMenuItem" name="MenuItemLinksESPlorerSource">
               <Properties>
                 <Property name="text" type="java.lang.String" value="ESPlorer download source code from github"/>
-                <Property name="toolTipText" type="java.lang.String" value="Open doc NodeMCU API English in browser"/>
+                <Property name="toolTipText" type="java.lang.String" value="Link to GITHUB for download ESPlorer source code"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="MenuItemLinksESPlorerSourceActionPerformed"/>
@@ -1222,7 +1222,7 @@
             <MenuItem class="javax.swing.JMenuItem" name="MenuItemLinksESPlorerHome">
               <Properties>
                 <Property name="text" type="java.lang.String" value="ESPlorer home page on esp8266.ru"/>
-                <Property name="toolTipText" type="java.lang.String" value="Open doc NodeMCU API English in browser"/>
+                <Property name="toolTipText" type="java.lang.String" value="Link to ESP8266.RU, ESPlorer HomePage"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="MenuItemLinksESPlorerHomeActionPerformed"/>
@@ -1231,7 +1231,7 @@
             <MenuItem class="javax.swing.JMenuItem" name="MenuItemLinksDonate">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Make donation for ESPlorer developer"/>
-                <Property name="toolTipText" type="java.lang.String" value="Open doc NodeMCU API English in browser"/>
+                <Property name="toolTipText" type="java.lang.String" value="You can make donation for ESPlorer developer"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="MenuItemLinksDonateActionPerformed"/>
@@ -5951,9 +5951,9 @@
                       <EmptySpace min="-2" pref="5" max="-2" attributes="0"/>
                       <Component id="RightExtraButtons" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="1" attributes="0">
-                          <Component id="RightBottomPane" min="-2" max="-2" attributes="0"/>
-                          <Component id="DonateSmall" min="-2" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                          <Component id="RightBottomPane" max="32767" attributes="0"/>
+                          <Component id="DonateSmall" max="32767" attributes="0"/>
                       </Group>
                   </Group>
               </Group>
@@ -6636,7 +6636,8 @@
                                   <Image iconType="3" name="/resources/file manager (delete).png"/>
                                 </Property>
                                 <Property name="text" type="java.lang.String" value="Format"/>
-                                <Property name="toolTipText" type="java.lang.String" value="Format NodeMCU file system (All files will be delete!)"/>
+                                <Property name="toolTipText" type="java.lang.String" value="Format (erase) NodeMCU file system. All files will be removed!"/>
+                                <Property name="horizontalAlignment" type="int" value="2"/>
                                 <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
                                   <Insets value="[2, 4, 2, 4]"/>
                                 </Property>
@@ -6656,15 +6657,13 @@
                             </Component>
                             <Component class="javax.swing.JButton" name="FileSystemInfo">
                               <Properties>
-                                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                                  <Font name="Tahoma" size="12" style="0"/>
-                                </Property>
                                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                                   <Image iconType="3" name="/resources/file manager.png"/>
                                 </Property>
-                                <Property name="text" type="java.lang.String" value="FS info"/>
+                                <Property name="text" type="java.lang.String" value="FS Info"/>
                                 <Property name="toolTipText" type="java.lang.String" value="Execute command file.fsinfo() and show total, used and remainig space on the ESP filesystem"/>
                                 <Property name="alignmentX" type="float" value="0.5"/>
+                                <Property name="horizontalAlignment" type="int" value="2"/>
                                 <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
                                   <Insets value="[2, 2, 2, 2]"/>
                                 </Property>
@@ -6689,6 +6688,7 @@
                                 </Property>
                                 <Property name="text" type="java.lang.String" value="Reload"/>
                                 <Property name="alignmentX" type="float" value="0.5"/>
+                                <Property name="horizontalAlignment" type="int" value="2"/>
                                 <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
                                   <Insets value="[2, 2, 2, 2]"/>
                                 </Property>
@@ -6708,11 +6708,16 @@
                                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                                   <Font name="Tahoma" size="12" style="0"/>
                                 </Property>
+                                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                                  <Image iconType="3" name="/resources/file.png"/>
+                                </Property>
                                 <Property name="text" type="java.lang.String" value="File 1"/>
+                                <Property name="toolTipText" type="java.lang.String" value="Left click"/>
                                 <Property name="alignmentX" type="float" value="0.5"/>
                                 <Property name="componentPopupMenu" type="javax.swing.JPopupMenu" editor="org.netbeans.modules.form.ComponentChooserEditor">
                                   <ComponentRef name="ContextMenuESPFileLUA"/>
                                 </Property>
+                                <Property name="horizontalAlignment" type="int" value="2"/>
                                 <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
                                   <Insets value="[2, 2, 2, 2]"/>
                                 </Property>
@@ -6768,8 +6773,8 @@
                                 <Component class="javax.swing.JLabel" name="FileRenameLabel">
                                   <Properties>
                                     <Property name="horizontalAlignment" type="int" value="0"/>
-                                    <Property name="text" type="java.lang.String" value="New file name:"/>
-                                    <Property name="toolTipText" type="java.lang.String" value="Input new file name and hit Enter to completed"/>
+                                    <Property name="text" type="java.lang.String" value="Old file name"/>
+                                    <Property name="toolTipText" type="java.lang.String" value="Input new file name and hit Enter to completed or press Reload for cancel"/>
                                     <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
                                       <Dimension value="[130, 14]"/>
                                     </Property>
@@ -6784,7 +6789,7 @@
                                 <Component class="javax.swing.JTextField" name="FileRename">
                                   <Properties>
                                     <Property name="text" type="java.lang.String" value="NewFileName"/>
-                                    <Property name="toolTipText" type="java.lang.String" value="Input new file name and hit Enter to completed"/>
+                                    <Property name="toolTipText" type="java.lang.String" value="Input new file name and hit Enter to completed or press Reload for cancel"/>
                                     <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
                                       <Dimension value="[130, 25]"/>
                                     </Property>
