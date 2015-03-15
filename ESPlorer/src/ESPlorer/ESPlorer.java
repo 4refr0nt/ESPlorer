@@ -4097,7 +4097,6 @@ public class ESPlorer extends javax.swing.JFrame {
         Terminal.setPopupMenu(ContextMenuTerminal);
         Terminal.setSyntaxEditingStyle("text/LUA");
         Terminal.setTabsEmulated(true);
-        Terminal.setWhitespaceVisible(true);
         Terminal.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
             public void propertyChange(java.beans.PropertyChangeEvent evt) {
                 TerminalPropertyChange(evt);
@@ -4244,7 +4243,6 @@ public class ESPlorer extends javax.swing.JFrame {
 
         FileRenamePanel.setMaximumSize(new java.awt.Dimension(130, 45));
         FileRenamePanel.setMinimumSize(new java.awt.Dimension(130, 45));
-        FileRenamePanel.setPreferredSize(new java.awt.Dimension(130, 45));
 
         FileRenameLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         FileRenameLabel.setText("Old file name");
@@ -6492,7 +6490,7 @@ public class ESPlorer extends javax.swing.JFrame {
             log("ERROR: Communication with MCU not yet established.");
             return;
         }
-        String cmd = "print(\"$$$File \"..\"list START$$$\") for k,v in pairs(file.list()) do l = string.format(\"%-15s\",k) print(l..\" - \"..v..\" bytes\") end l=nil k=nil v=nil print(\"$$$File \"..\"list END$$$\")";
+        String cmd = "print(\"~~~File \"..\"list START~~~\") for k,v in pairs(file.list()) do l = string.format(\"%-15s\",k) print(l..\" - \"..v..\" bytes\") end l=nil k=nil v=nil print(\"~~~File \"..\"list END~~~\")";
         rx_data = "";
         try { serialPort.removeEventListener(); } catch (Exception e) { log( e.toString() ); }
         try {
@@ -6526,12 +6524,12 @@ public class ESPlorer extends javax.swing.JFrame {
                 try {
                     String data = serialPort.readString(event.getEventValue());
                     rx_data = rx_data + data;
-                    if ( rx_data.contains("$$$File list END$$$") ) {
+                    if ( rx_data.contains("~~~File list END~~~") ) {
                         log("FileManager: File list found! Do parsing...");
                         try {
                             // parsing answer
-                            int start = rx_data.indexOf("$$$File list START$$$");
-                            rx_data = rx_data.substring(start + 23, rx_data.indexOf("$$$File list END$$$") );
+                            int start = rx_data.indexOf("~~~File list START~~~");
+                            rx_data = rx_data.substring(start + 23, rx_data.indexOf("~~~File list END~~~") );
                             //log(rx_data.replaceAll("\r?\n", "<CR+LF>\r\n"));
                             s = rx_data.split("\r?\n");
                             Arrays.sort(s);
@@ -6590,29 +6588,29 @@ public class ESPlorer extends javax.swing.JFrame {
         //sendBuf.add("w = file.writeline\r\n");
         String cmd = "_dl=function() " +
 "  file.open(\""+FileName+"\", \"r\")\n" +
-"  local buf\n" +
-"  local i=0\n" +
+"  local buf " +
+"  local i=0 " +
 "  local checksum\n" +
-"  repeat\n" +
-"     buf = file.read(1024)\n" +
-"     if buf ~= nil then\n" +
-"          i = i + 1\n" +
-"          checksum = 0\n" +
+"  repeat " +
+"     buf = file.read(1024) " +
+"     if buf ~= nil then " +
+"          i = i + 1 " +
+"          checksum = 0 " +
 "          for j=1, string.len(buf) do\n" +
-"               checksum = checksum + (buf:byte(j)*20)%19\n" +
-"          end\n" +
-"          buf='$$$DATA-START$$$'..buf..'$$$DATA-LENGTH$$$'..string.len(buf)..'$$$DATA-N$$$'..i..'$$$DATA-CRC$$$'..checksum..'$$$DATA-END'\n" +
-"          uart.write(0,buf)\n" +
-"     end\n" +
-"     tmr.wdclr()\n" +
-"  until(buf == nil)\n" +
+"               checksum = checksum + (buf:byte(j)*20)%19 " +
+"          end " +
+"          buf='~~~'..'DATA-START~~~'..buf..'~~~'..'DATA-LENGTH~~~'..string.len(buf)..'~~~'..'DATA-N~~~'..i..'~~~'..'DATA-CRC~~~'..checksum..'~~~'..'DATA-END~~~'\n" +
+"          uart.write(0,buf) " +
+"     end " +
+"     tmr.wdclr() " +
+"  until(buf == nil) " +
 "  file.close()\n" +
-"  buf='$$$DATA-TOTAL-START$$$'..i..'$$$DATA-TOTAL-END'\n" +
-"  uart.write(0,buf)\n" +
-"end\n" +
-"_dl()\n" +
-"_dl=nil";
-        s = cmd.split("\n");
+"  buf='~~~'..'DATA-TOTAL-START~~~'..i..'~~~'..'DATA-TOTAL-END~~~'\n" +
+"  uart.write(0,buf) " +
+"end " +
+"_dl() " +
+"_dl=nil\n";
+        s = cmd.split("\r?\n");
         for(String subs : s) {
             sendBuf.add(subs);
         }
@@ -6649,43 +6647,80 @@ public class ESPlorer extends javax.swing.JFrame {
     private class PortFileDownloader implements SerialPortEventListener {
 
         public void serialEvent(SerialPortEvent event) {
+            String data;
             if(event.isRXCHAR() && event.getEventValue() > 0){
                 try {
-                    String data = serialPort.readString(event.getEventValue());
+                    data = serialPort.readString();
+                    rcvBuf = rcvBuf + data;
                     rx_data = rx_data + data;
-                    TerminalAdd(data);
-                rcvBuf = rcvBuf + data;
+                    //TerminalAdd(data);
+                }
+                catch (SerialPortException e) {
+                    data = "";
+                    log( e.toString() );
+                }
+                if ( rcvBuf.contains( "> " ) ) {
+                    try {
+                        timeout.stop(); // first, reset watchdog timer
+                    } catch (Exception e) { log( e.toString() ); }
+                    rcvBuf = "";
+                    if ( j < sendBuf.size()-1 ) {
+                        if ( timer.isRunning() ) {
+                            //
+                        } else {
+                           inc_j();
+                           timer.start();
+                        }
+                    } else { // send done
+                        try {
+                            timer.stop();
+                        } catch (Exception e) {}
+                        try {
+                            timeout.stop();
+                        } catch (Exception e) {}
+                    }
+                }
                 /*
                 String l = data.replace("\r", "<CR>");
                 l = l.replace("\n", "<LF>");
                 l = l.replace("`", "<OK>");
                 log("recv:" + l);
                 */
-                if ( rcvBuf.contains( "> " ) ) {
-                    try {
-                        timeout.stop(); // first, reset watchdog timer
-                    } catch (Exception e) {}
-                    rcvBuf = "";
-                    if ( j < sendBuf.size()-1 ) {
-                        if ( timer.isRunning() ) {
-                            // waiting
-                        } else {
-                               inc_j();
-                               timer.start();
-                        }
-                    } else { // send done
-                        StopSend();
+                if ( rx_data.lastIndexOf("~~~DATA-TOTAL-END~~~") >= 0 ) { // we receive full file
+                   ProgressBar.setValue(100);
+                   log("TOTAL-END, data:" + data );
+                } else if ( rx_data.lastIndexOf("~~~DATA-END") >= 0 ) {
+                    int nPacket = rx_data.split("~~~DATA-END").length - 1;
+                    if ( packets > 0 && nPacket > 0 ) {
+                        ProgressBar.setValue( nPacket * 100 / packets );
                     }
+                   log("DATA-END data:" + data);
+                } else {
+                    ///
                 }
-                    if ( rx_data.contains("$$$DATA-TOTAL-END") ) { // we receive full file
-                        ProgressBar.setValue(100);
+                /*
+                    if ( rx_data.contains("~~~DATA-START~~~") && rx_data.contains("~~~DATA-END~~~") ) { // we receive full block
+                        log("Downloader: full DATA-block found, do parsing...");
+                        //  ~~~DATA-START~~~buf~~~DATA-LENGTH~~~string.len(buf)~~~DATA-N~~~i~~~DATA-CRC~~~CheckSum~~~DATA-END
+                        //0        1                  2                               3            4                     5
+                        //rcvBuf.lastIndexOf("~~~DATA-END");
+                        s = rx_data.split("~~~DATA");
+                        String packetData = s[1].substring(9);
+                        int packetLen = Integer.parseInt( s[2].substring(10) );
+                        int packetNum = Integer.parseInt( s[3].substring(5) );
+                        int checksum = Integer.parseInt( s[4].substring(7) );
+                        log("Receive packetNum = " + Integer.toString(packetNum) + ", packetLen = " + Integer.toString(packetLen) + ", checksum = " + Integer.toString(checksum) + "\r\ncalc cs=" + Integer.toString( CalcCheckSum( packetData ) )  );
+                        //log("packetData = " + packetData );
+//                            for(String subs : s) {
+//                                log("\r\nsubs=" + subs);
+//                            }                      
                     }
-                    if ( rx_data.contains("$$$DATA-END") ) { // we receive full block
-                        log("Downloader: DATA-END found");
-                        try {
+                */
+/*
+                    try {
                             // parsing answer
-                            int start = rx_data.indexOf("$$$DATA-END");
-                            rx_data = rx_data.substring(start + 23, rx_data.indexOf("$$$File list END$$$") );
+                        int start = rx_data.indexOf("~~~DATA-END");
+                            rx_data = rx_data.substring(start + 23, rx_data.indexOf("~~~File list END~~~") );
                             //log(rx_data.replaceAll("\r?\n", "<CR+LF>\r\n"));
                             s = rx_data.split("\r?\n");
                             Arrays.sort(s);
@@ -6717,16 +6752,24 @@ public class ESPlorer extends javax.swing.JFrame {
                         serialPort.addEventListener(new PortReader(), portMask );
                         FileSystemInfo();
                     }
-                }
-                catch (SerialPortException ex) {
-                    log(ex.toString());
-                }
+                    */
             } else if ( event.isCTS() ) {
                 UpdateLedCTS();
             } else if ( event.isERR() ) {
                 log("Downloader: Unknown serial port error received.");
             }
         }
+    }
+    private int CalcCheckSum( String s ) {
+        int cs = 0;
+        byte[] b;
+        try {
+            b = s.getBytes();
+            for (int i = 0; i < b.length; i++) {
+                cs = cs + (b[i]*20)%19;
+            }
+        } catch (Exception e) { log(e.toString() ); }
+        return cs;
     }
     private void UpdateLedCTS() {
                 try {
