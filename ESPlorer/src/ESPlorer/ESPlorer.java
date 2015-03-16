@@ -6582,7 +6582,12 @@ public class ESPlorer extends javax.swing.JFrame {
         int size = Integer.parseInt(param.split("Size:")[1]);
         packets = size / 1024;
         if (size % 1024 > 0) packets ++;
-        sendBuf = new ArrayList<String>();
+        sendBuf     = new ArrayList<String>();
+        rcvPackets  = new ArrayList<String>();
+        PacketsData = new ArrayList<String>();
+        PacketsSize = new ArrayList<Integer>();
+        PacketsCRC  = new ArrayList<Integer>();
+        
         //sendBuf.add("file.remove(\""+ft+"\");");
         //sendBuf.add("file.open(\""+ft+"\",\"w+\");");
         //sendBuf.add("w = file.writeline\r\n");
@@ -6675,9 +6680,7 @@ public class ESPlorer extends javax.swing.JFrame {
                         try {
                             timer.stop();
                         } catch (Exception e) {}
-                        try {
-                            timeout.stop();
-                        } catch (Exception e) {}
+                        try { timeout.stop(); } catch (Exception e) {}
                     }
                 }
                 /*
@@ -6686,23 +6689,25 @@ public class ESPlorer extends javax.swing.JFrame {
                 l = l.replace("`", "<OK>");
                 log("recv:" + l);
                 */
-                if ( rx_data.lastIndexOf("~~~DATA-TOTAL-END~~~") >= 0 ) { // we receive full file
-                   ProgressBar.setValue(100);
-                   log("TOTAL-END, data:" + data );
-                } else if ( rx_data.lastIndexOf("~~~DATA-END") >= 0 ) {
-                    int nPacket = rx_data.split("~~~DATA-END").length - 1;
-                    if ( packets > 0 && nPacket > 0 ) {
-                        ProgressBar.setValue( nPacket * 100 / packets );
+                if ( rx_data.lastIndexOf("~~~DATA-END") >= 0 ) {
+                    try { timeout.stop(); } catch (Exception e) {}
+                    rcvPackets.add(rx_data.split("~~~DATA-END")[0]); // store RAW data
+                    rx_data = rx_data.substring(rx_data.indexOf("~~~DATA-END") + 11); // and remove it from buf
+                    if ( packets > 0 && rcvPackets.size() > 0 ) {
+                        ProgressBar.setValue( rcvPackets.size() * 100 / packets );
                     }
-                   log("DATA-END data:" + data);
-                } else {
-                    ///
+                    log("Downloader: Receive packets:" + Integer.toString( rcvPackets.size() ) );
+                    // split packet & check crc
+                    //  ~~~DATA-START~~~buf~~~DATA-LENGTH~~~string.len(buf)~~~DATA-N~~~i~~~DATA-CRC~~~CheckSum~~~DATA-END
+                    //0        1                  2                               3            4                     5
+                } else if ( (rx_data.lastIndexOf("~~~DATA-TOTAL-END~~~") >= 0) && (rcvPackets.size() ==  packets) )  { 
+                        // we receive full file, do parsing
+                        ProgressBar.setValue(100);
+                        log("Downloader: Receive final sequense.");
                 }
                 /*
                     if ( rx_data.contains("~~~DATA-START~~~") && rx_data.contains("~~~DATA-END~~~") ) { // we receive full block
                         log("Downloader: full DATA-block found, do parsing...");
-                        //  ~~~DATA-START~~~buf~~~DATA-LENGTH~~~string.len(buf)~~~DATA-N~~~i~~~DATA-CRC~~~CheckSum~~~DATA-END
-                        //0        1                  2                               3            4                     5
                         //rcvBuf.lastIndexOf("~~~DATA-END");
                         s = rx_data.split("~~~DATA");
                         String packetData = s[1].substring(9);
@@ -8301,7 +8306,13 @@ public class ESPlorer extends javax.swing.JFrame {
     public static String rcvBuf = "";
     public static String rx_data = "";
     public ArrayList<String> sendBuf;
+    // downloader
     public int packets = 0;
+    public ArrayList<String>  rcvPackets;
+    public ArrayList<String>  PacketsData;
+    public ArrayList<Integer> PacketsSize;
+    public ArrayList<Integer> PacketsCRC;
+    // downloader end
     public static int req = 0;
     public static boolean busyIcon = false;
     public URI donate_uri;
