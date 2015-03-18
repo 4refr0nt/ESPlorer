@@ -5954,7 +5954,12 @@ public class ESPlorer extends javax.swing.JFrame {
             return;
         }
         AddTab(s);
-        log("New empty file ready.");    }
+        if ( s.isEmpty() ) {
+            log("New empty file ready."); 
+        } else {
+            log("New file ready, content load: Success."); 
+        }
+    }
     private void MenuItemEditCutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuItemEditCutActionPerformed
         if (UseExternalEditor.isSelected()) {
             return;
@@ -6577,7 +6582,7 @@ public class ESPlorer extends javax.swing.JFrame {
             return;
         }
         // param  init.luaSize:100
-        String FileName = param.split("Size:")[0];
+        DownloadedFileName = param.split("Size:")[0];
         int size = Integer.parseInt(param.split("Size:")[1]);
         packets = size / 1024;
         if (size % 1024 > 0) packets ++;
@@ -6587,12 +6592,14 @@ public class ESPlorer extends javax.swing.JFrame {
         PacketsSize = new ArrayList<Integer>();
         PacketsCRC  = new ArrayList<Integer>();
         PacketsNum  = new ArrayList<Integer>();
-        rcvFile = "";
+        rcvFile     = "";
+        PacketsByte = new byte[0];
+        rx_byte     = new byte[0];
         //sendBuf.add("file.remove(\""+ft+"\");");
         //sendBuf.add("file.open(\""+ft+"\",\"w+\");");
         //sendBuf.add("w = file.writeline\r\n");
         String cmd = "_dl=function() " +
-"  file.open(\""+FileName+"\", \"r\")\n" +
+"  file.open(\""+DownloadedFileName+"\", \"r\")\n" +
 "  local buf " +
 "  local i=0 " +
 "  local checksum\n" +
@@ -6624,6 +6631,7 @@ public class ESPlorer extends javax.swing.JFrame {
         startTime = System.currentTimeMillis();
         SendLock();
         rcvBuf = "";
+        rx_byte = null;
         try { serialPort.removeEventListener(); } catch (Exception e) { log( e.toString() ); }
         try {
             serialPort.addEventListener(new PortFileDownloader(), portMask );
@@ -6644,34 +6652,57 @@ public class ESPlorer extends javax.swing.JFrame {
         timer = new Timer(delay, taskPerformer);
         timer.setRepeats(false);
         log("Downloader: Start");
-        TerminalAdd("\r\nDownload file...");
+        TerminalAdd("\r\nDownload file \"" + DownloadedFileName + "\"...");
         timer.setInitialDelay(delay);
         WatchDog();
         timer.start();
         return;
     }
-    private void FileDownloadFinisher() {
-        try { serialPort.removeEventListener(); } catch (Exception e) {}
+    private void FileDownloadFinisher( boolean success ) {
+        try { 
+            serialPort.removeEventListener(); 
+        } catch (Exception e) {
+            log(e.toString());
+        }
         try {
             serialPort.addEventListener(new PortReader(), portMask );
         } catch (SerialPortException e) {
             log("Downloader: Can't Add OldEventListener.");
         }
         SendUnLock();
-        TerminalAdd("Success.\r\n");
-        if (DownloadCommand.startsWith("EDIT")) {
-            FileNew(rcvFile);
+        if ( success ) {
+            TerminalAdd("Success.\r\n");
+            if (DownloadCommand.startsWith("EDIT")) {
+                FileNew(rcvFile);
+            } else if (DownloadCommand.startsWith("DOWNLOAD")) {
+                SaveDownloadedFile();
+            } else {
+                // nothing, reserved
+            }
         } else {
-            //
+            TerminalAdd("FAIL.\r\n");
         }
     }
+    private byte[] concatArray(byte[] a, byte[] b) {
+	if (a == null)
+		return b;
+	if (b == null)
+		return a;
+	byte[] r = new byte[a.length + b.length];
+	System.arraycopy(a, 0, r, 0, a.length);
+	System.arraycopy(b, 0, r, a.length, b.length);
+	return r;
+    }    
     private class PortFileDownloader implements SerialPortEventListener {
 
         public void serialEvent(SerialPortEvent event) {
             String data;
+            byte[] b;
             if(event.isRXCHAR() && event.getEventValue() > 0){
                 try {
-                    data = serialPort.readString();
+                    b = serialPort.readBytes();
+                    rx_byte = concatArray(rx_byte, b);
+                    data = new String(b);
                     rcvBuf = rcvBuf + data;
                     rx_data = rx_data + data;
                     //TerminalAdd(data);
@@ -6681,9 +6712,7 @@ public class ESPlorer extends javax.swing.JFrame {
                     log( e.toString() );
                 }
                 if ( rcvBuf.contains( "> " ) ) {
-                    try {
-                        timeout.stop(); // first, reset watchdog timer
-                    } catch (Exception e) { log( e.toString() ); }
+                    try { timeout.stop(); } catch (Exception e) { log( e.toString() ); }
                     rcvBuf = "";
                     if ( j < sendBuf.size()-1 ) {
                         if ( timer.isRunning() ) {
@@ -6696,7 +6725,6 @@ public class ESPlorer extends javax.swing.JFrame {
                         try {
                             timer.stop();
                         } catch (Exception e) {}
-                        try { timeout.stop(); } catch (Exception e) {}
                     }
                 }
                 /*
@@ -6707,7 +6735,7 @@ public class ESPlorer extends javax.swing.JFrame {
                 */
                 if ( (rx_data.lastIndexOf("~~~DATA-END") >= 0 ) && (rx_data.lastIndexOf("~~~DATA-START") >= 0 )) {
                     // we got full packet
-                    try { timeout.stop(); } catch (Exception e) {}
+                    try { timeout.stop(); } catch (Exception e) { log( e.toString() ); }
                     rcvPackets.add(rx_data.split("~~~DATA-END")[0]); // store RAW data
                     rx_data = rx_data.substring(rx_data.indexOf("~~~DATA-END") + 11); // and remove it from buf
                     if ( packets > 0 ) { // exclude div by zero
@@ -6728,18 +6756,37 @@ public class ESPlorer extends javax.swing.JFrame {
                     left = part[0];
                     part = left.split("~~~DATA-START~~~");
                     PacketsData.add( part[1] );
-                    if (PacketsCRC.get(i) == CalcCheckSum( PacketsData.get(i) ) ) {                        
-                        log("Downloader: Receive packets: " + Integer.toString(PacketsNum.get(i)) +"/" + Integer.toString(packets) +", size:"+ Integer.toString( PacketsSize.get(i) ) + ", CRC check: Success" );
+                    byte[] x = copyPartArray(rx_byte, FindPacketID(), PacketsSize.get(i) );
+                    rx_byte = new byte[0];
+                    if (PacketsCRC.get(i) == CRC( x ) ) {                        
                         rcvFile = rcvFile + PacketsData.get(i);
-                    } else {
-                        log("Downloader: Receive packets: " + Integer.toString(PacketsNum.get(i)) +"/" + Integer.toString(packets) +", size:"+ Integer.toString( PacketsSize.get(i) ) + ", CRC check: Fail" );
+                        PacketsByte = concatArray(PacketsByte, x);
+                        log("Downloader: Receive packets: " + Integer.toString(PacketsNum.get(i)) + "/" + Integer.toString(packets) +
+                                ", size:"+ Integer.toString( PacketsSize.get(i) ) + 
+                                ", CRC check: Success" );
+                    } else {                        
+                        log("Downloader: Receive packets: " + Integer.toString(PacketsNum.get(i)) +"/" + Integer.toString(packets) +
+                            ", size expected:" + Integer.toString( PacketsSize.get(i) ) + 
+                            ", size received:" + Integer.toString( PacketsByte.length ) +
+                        "\r\n, CRC expected :" + Integer.toString( PacketsCRC.get(i)) + 
+                            "  CRC received :" + Integer.toString( CRC( x ) ) );
+                        log("Downloader: FAIL.");
+                        PacketsCRC.clear();
+                        PacketsNum.clear();
+                        PacketsSize.clear();
+                        PacketsData.clear();
+                        rcvPackets.clear();
+                        rcvFile = "";
+                        PacketsByte = new byte[0];
+                        FileDownloadFinisher(false);
                     }
-                } else if ( (rx_data.lastIndexOf("~~~DATA-TOTAL-END~~~") >= 0) && (rcvPackets.size() ==  packets) )  { 
+                } else if ( (rx_data.lastIndexOf("~~~DATA-TOTAL-END~~~") >= 0) && (PacketsNum.size() ==  packets) )  { 
+                        try { timeout.stop(); } catch (Exception e) { log( e.toString() ); }
                         // we receive full file, do parsing
                         ProgressBar.setValue(100);
                         log("Downloader: Receive final sequense. File download: Success");
                         //log(rx_data);
-                        FileDownloadFinisher();
+                        FileDownloadFinisher(true);
                 }
             } else if ( event.isCTS() ) {
                 UpdateLedCTS();
@@ -6748,14 +6795,51 @@ public class ESPlorer extends javax.swing.JFrame {
             }
         }
     }
-    private int CalcCheckSum( String s ) {
-        int cs = 0;
-        byte[] b;
+    private byte[] copyPartArray(byte[] a, int start, int len) {
+	if (a == null)
+		return null;
+	if (start > a.length)
+		return null;
+	byte[] r = new byte[len];
         try {
-            b = s.getBytes();
-            for (int i = 0; i < b.length; i++) {
-                cs = cs + (b[i]*20)%19;
+            System.arraycopy(a, start, r, 0, len);
+        } catch (Exception e) {
+            log(e.toString());
+        }
+	return r;
+    }   
+    private int FindPacketID() {
+        int i, j, ret = -1;
+        boolean success;
+        String s = "~~~DATA-START~~~";
+        i = 0;
+        while ( i < rx_byte.length - s.length() ) {
+            success = true;
+            for (j = 0; j < s.length(); j++) {
+                if (!(rx_byte[i+j] == s.charAt(j))) {
+                    success = false;
+                    break;
+                }  
             }
+            if (success) {
+                ret = i + s.length();
+                break;
+            }
+            i++;
+        }
+        //log("FindPacketID=" + Integer.toString(ret));
+        return ret;
+    }
+    private int CRC( byte[] s ) {
+        int cs = 0;
+        int x;
+        try {
+            for (int i = 0; i < s.length; i++) {
+                x = s[i] & 0xFF;
+                //log( Integer.toHexString(x) );
+                cs = cs + ( x * 20 ) % 19;
+            } 
+            //log("\r\nCRC size= " + Integer.toString(s.length)+ ", CRC="+Integer.toString(cs));
         } catch (Exception e) { log(e.toString() ); }
         return cs;
     }
@@ -8301,13 +8385,14 @@ public class ESPlorer extends javax.swing.JFrame {
   //  String s = new String();
     int save; // editor var
     String FileName = "script"; // without ext
+    String DownloadedFileName = ""; 
     String NewFile = "New";
     int FileCount = 0;
     String workDir = "";
     JFileChooser chooser;
-    static final String[] EXTENSION_LUA = new String[] { "lua" };
+    static final String[] EXTENSION_LUA = new String[] { "lua","lc" };
     static final String[] EXTENSION_PY  = new String[] { "py" };
-    static final FileNameExtensionFilter filterLUA = new FileNameExtensionFilter("LUA files (*.lua)", EXTENSION_LUA);
+    static final FileNameExtensionFilter filterLUA = new FileNameExtensionFilter("LUA files (*.lua, *.lc)", EXTENSION_LUA);
     static final FileNameExtensionFilter filterPY  = new FileNameExtensionFilter("Python files (*.py)", EXTENSION_PY);
     FileInputStream    fis = null;
     FileOutputStream   fos = null;
@@ -8329,6 +8414,7 @@ public class ESPlorer extends javax.swing.JFrame {
     public Color themeTextBackground;
     public static String rcvBuf = "";
     public static String rx_data = "";
+    public static byte[] rx_byte;
     public ArrayList<String> sendBuf;
     // downloader
     public int packets = 0;
@@ -8338,6 +8424,7 @@ public class ESPlorer extends javax.swing.JFrame {
     public ArrayList<Integer> PacketsSize;
     public ArrayList<Integer> PacketsCRC;
     public ArrayList<Integer> PacketsNum;
+    public byte[] PacketsByte;
     public static String DownloadCommand;
     // downloader end
     public static int req = 0;
@@ -9500,10 +9587,10 @@ public class ESPlorer extends javax.swing.JFrame {
         watchDog = new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
                 StopSend ();
-                log("SendToESP: Waiting answer from ESP - Timeout reached. Send aborted.");                
-                log("ESP SAFE: try to close file anyway for ESP filesystem good health");
-                btnSend("file.close();");
-                JOptionPane.showMessageDialog(null, "Waiting answer from ESP - Timeout reached. Send aborted.");
+//                log("SendToESP: Waiting answer from ESP - Timeout reached. Send aborted.");                
+//                log("ESP SAFE: try to close file anyway for ESP filesystem good health");
+//                btnSend("file.close();");
+                TerminalAdd( "Waiting answer from ESP - Timeout reached. Send aborted.");
             }
         };
         int delay = AnswerDelay.getValue()*1000;
@@ -9811,6 +9898,71 @@ public class ESPlorer extends javax.swing.JFrame {
       SnippetEdit13.setToolTipText(ButtonSnippet13.getText());
       SnippetEdit14.setToolTipText(ButtonSnippet14.getText());
       SnippetEdit15.setToolTipText(ButtonSnippet15.getText());
+    }
+    boolean SaveDownloadedFile() {
+        boolean success = false;
+        log("Saving downloaded file...");
+//            FileCount ++;
+//            iFile.set(iTab, new File("script" + Integer.toString(FileCount) + ".lua") );
+        chooser.rescanCurrentDirectory();
+        File f = new File(DownloadedFileName);
+        javax.swing.filechooser.FileFilter flt = chooser.getFileFilter();
+        chooser.resetChoosableFileFilters();
+        chooser.setSelectedFile( f );
+        chooser.setDialogTitle("Save downloaded from ESP file \"" + DownloadedFileName + "\" As...");
+        int returnVal = chooser.showSaveDialog(null);
+        chooser.setFileFilter(flt);
+        if(returnVal != JFileChooser.APPROVE_OPTION) {
+             log("Saving abort by user.");
+             return success;
+        }
+        SavePath();
+        f = chooser.getSelectedFile();
+        DownloadedFileName = f.getName();
+        if (f.exists()) {
+           log("File "+ DownloadedFileName + " already exist, waiting user choice");
+           int shouldWrite = Dialog("File " + DownloadedFileName + " already exist. Overwrite?", JOptionPane.YES_NO_OPTION);
+           if ( shouldWrite != JOptionPane.YES_OPTION ) {
+              log("Saving canceled by user, because file " + DownloadedFileName + " already exist");
+              return success;
+           } else {
+              log("File "+ DownloadedFileName + " will be overwriten by user choice");
+           }
+        } else { // we saving file, when open
+            log("We saving new file " + DownloadedFileName);
+        }
+        try {
+            log("Try to saving file "+ DownloadedFileName + " ...");
+            fos = new FileOutputStream(f);
+            //FileWriter fos = new FileWriter(f.getAbsoluteFile());
+            //FileOutputStream fos = new FileOutputStream(DownloadedFileName);
+            fos.write(PacketsByte);
+            //RandomAccessFile raf = null;
+            //raf = new RandomAccessFile(fn, "rw");
+            //raf.write(PacketsByte);
+            //raf.close();
+            //osw = new OutputStreamWriter(fos,"UTF-8");
+            //bw  = new BufferedWriter(fos);
+            //bw.w .write(rcvFile);
+            //fos.write(PacketsByte);
+            //bw.flush();
+            //osw.flush();
+            fos.flush();
+            log("Save file " + DownloadedFileName + ": Success, size:" + Long.toString(f.length()) );
+            success = true;
+        } catch (IOException e) {
+            log("Save file " + DownloadedFileName + ": FAIL.");
+            log(e.toString());
+            JOptionPane.showMessageDialog(null, "Error, file " + DownloadedFileName + " not saved!");
+        }
+        try {
+            //if (bw != null) bw.close();
+            //if (osw != null) osw.close();
+            if (fos != null) fos.close();
+        } catch (IOException e) {
+            log(e.toString());
+        }
+        return success;
     }
 }
 // cat
