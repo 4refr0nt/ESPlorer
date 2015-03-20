@@ -91,9 +91,11 @@ public class TokenImpl implements Token {
 	 * @param startOffset The offset into the document at which this
 	 *        token begins.
 	 * @param type A token type listed as "generic" above.
+	 * @param languageIndex The language index for this token.
 	 */
-	public TokenImpl(Segment line, int beg, int end, int startOffset, int type){
-		this(line.array, beg,end, startOffset, type);
+	public TokenImpl(Segment line, int beg, int end, int startOffset, int type,
+			int languageIndex) {
+		this(line.array, beg,end, startOffset, type, languageIndex);
 	}
 
 
@@ -106,10 +108,13 @@ public class TokenImpl implements Token {
 	 * @param startOffset The offset into the document at which this
 	 *        token begins.
 	 * @param type A token type listed as "generic" above.
+	 * @param languageIndex The language index for this token.
 	 */
-	public TokenImpl(char[] line, int beg, int end, int startOffset, int type) {
+	public TokenImpl(char[] line, int beg, int end, int startOffset, int type,
+			int languageIndex) {
 		this();
 		set(line, beg,end, startOffset, type);
+		setLanguageIndex(languageIndex);
 	}
 
 
@@ -143,19 +148,23 @@ public class TokenImpl implements Token {
 		if (font.isItalic()) sb.append("<em>");
 		if (scheme.underline || isHyperlink()) sb.append("<u>");
 
-		sb.append("<font");
-		if (fontFamily) {
-			sb.append(" face=\"").append(font.getFamily()).append("\"");
+		if (!isWhitespace()) {
+			sb.append("<font");
+			if (fontFamily) {
+				sb.append(" face=\"").append(font.getFamily()).append("\"");
+			}
+			sb.append(" color=\"").
+				append(getHTMLFormatForColor(scheme.foreground)).
+				append("\">");
 		}
-		sb.append(" color=\"").
-			append(getHTMLFormatForColor(scheme.foreground)).
-			append("\">");
 
 		// NOTE: Don't use getLexeme().trim() because whitespace tokens will
 		// be turned into NOTHING.
 		appendHtmlLexeme(textArea, sb, tabsToSpaces);
 
-		sb.append("</font>");
+		if (!isWhitespace()) {
+			sb.append("</font>");
+		}
 		if (scheme.underline || isHyperlink()) sb.append("</u>");
 		if (font.isItalic()) sb.append("</em>");
 		if (font.isBold()) sb.append("</b>");

@@ -1288,7 +1288,9 @@
   <Events>
     <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="formFocusGained"/>
     <EventHandler event="componentResized" listener="java.awt.event.ComponentListener" parameters="java.awt.event.ComponentEvent" handler="formComponentResized"/>
+    <EventHandler event="windowGainedFocus" listener="java.awt.event.WindowFocusListener" parameters="java.awt.event.WindowEvent" handler="formWindowGainedFocus"/>
     <EventHandler event="propertyChange" listener="java.beans.PropertyChangeListener" parameters="java.beans.PropertyChangeEvent" handler="formPropertyChange"/>
+    <EventHandler event="windowClosing" listener="java.awt.event.WindowListener" parameters="java.awt.event.WindowEvent" handler="formWindowClosing"/>
     <EventHandler event="windowOpened" listener="java.awt.event.WindowListener" parameters="java.awt.event.WindowEvent" handler="formWindowOpened"/>
   </Events>
   <AuxValues>
@@ -1344,7 +1346,7 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="LeftTab" alignment="0" pref="549" max="32767" attributes="0"/>
+                  <Component id="LeftTab" alignment="0" pref="542" max="32767" attributes="0"/>
               </Group>
             </DimensionLayout>
             <DimensionLayout dim="1">
@@ -1406,7 +1408,7 @@
                   <Layout>
                     <DimensionLayout dim="0">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="TextTab" alignment="0" pref="540" max="32767" attributes="0"/>
+                          <Component id="TextTab" alignment="0" pref="533" max="32767" attributes="0"/>
                       </Group>
                     </DimensionLayout>
                     <DimensionLayout dim="1">
@@ -1955,6 +1957,12 @@
                                     <Container class="org.fife.ui.rtextarea.RTextScrollPane" name="TextScroll">
                                       <Properties>
                                         <Property name="verticalScrollBarPolicy" type="int" value="20"/>
+                                        <Property name="viewportBorder" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+                                          <Border info="org.netbeans.modules.form.compat2.border.EtchedBorderInfo">
+                                            <EtchetBorder/>
+                                          </Border>
+                                        </Property>
+                                        <Property name="foldIndicatorEnabled" type="boolean" value="true"/>
                                         <Property name="lineNumbersEnabled" type="boolean" value="true"/>
                                         <Property name="viewportView" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
                                           <ComponentRef name="TextEditor"/>
@@ -1967,6 +1975,7 @@
                                           <Properties>
                                             <Property name="columns" type="int" value="20"/>
                                             <Property name="rows" type="int" value="5"/>
+                                            <Property name="codeFoldingEnabled" type="boolean" value="true"/>
                                             <Property name="dragEnabled" type="boolean" value="false"/>
                                             <Property name="fadeCurrentLineHighlight" type="boolean" value="true"/>
                                             <Property name="paintMarkOccurrencesBorder" type="boolean" value="true"/>
@@ -3057,7 +3066,7 @@
                                           <Component id="jLayeredPane2" max="32767" attributes="0"/>
                                           <Component id="jLayeredPane3" max="32767" attributes="0"/>
                                       </Group>
-                                      <EmptySpace pref="135" max="32767" attributes="0"/>
+                                      <EmptySpace pref="128" max="32767" attributes="0"/>
                                   </Group>
                               </Group>
                             </DimensionLayout>

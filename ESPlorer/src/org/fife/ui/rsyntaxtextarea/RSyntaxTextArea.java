@@ -132,7 +132,7 @@ import org.fife.ui.rtextarea.RecordableTextAction;
  * bookmarks easily to your text area.
  *
  * @author Robert Futrell
- * @version 2.5.3
+ * @version 2.5.6
  * @see TextEditorPane
  */
 public class RSyntaxTextArea extends RTextArea implements SyntaxConstants {
@@ -1651,7 +1651,7 @@ private boolean fractionalFontMetricsEnabled;
 				// in getTokenListFor()
 				int docOffs = map.getElement(line).getEndOffset()-1;
 				t = new TokenImpl(new char[] { '\n' }, 0,0, docOffs,
-								Token.WHITESPACE);
+								Token.WHITESPACE, 0);
 				lastToken.setNextToken(t);
 				lastToken = t;
 			}
@@ -2367,7 +2367,13 @@ private boolean fractionalFontMetricsEnabled;
 			throw new IllegalArgumentException("Documents for " +
 					"RSyntaxTextArea must be instances of " +
 					"RSyntaxDocument!");
+		if (markOccurrencesSupport != null) {
+			markOccurrencesSupport.clear();
+		}
 		super.setDocument(document);
+		if (markOccurrencesSupport != null) {
+			markOccurrencesSupport.doMarkOccurrences();
+		}
 	}
 
 

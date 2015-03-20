@@ -10,7 +10,7 @@ package org.fife.ui.rsyntaxtextarea;
 
 import java.util.Set;
 
-import org.fife.ui.rsyntaxtextarea.modes.PlainTextTokenMaker1;
+import org.fife.ui.rsyntaxtextarea.modes.PlainTextTokenMaker;
 
 
 /**
@@ -78,7 +78,7 @@ public abstract class TokenMakerFactory {
 	public final TokenMaker getTokenMaker(String key) {
 		TokenMaker tm = getTokenMakerImpl(key);
 		if (tm==null) {
-			tm = new PlainTextTokenMaker1();
+			tm = new PlainTextTokenMaker();
 		}
 		return tm;
 	}
