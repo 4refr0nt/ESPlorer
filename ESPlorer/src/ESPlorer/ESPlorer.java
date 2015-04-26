@@ -41,7 +41,10 @@ public class ESPlorer extends javax.swing.JFrame {
     public static boolean pOpen = false;
     public static boolean sOpen = false;
     public static boolean portJustOpen = false;
-    public static final String version="v0.2.0-rc1";
+    public static final String version="v0.2.0-rc2";
+    public static ArrayList<String> LAF;
+    public static ArrayList<String> LAFclass;
+    public static Preferences prefs;
 /**
      * Creates new form MainWindows
      */
@@ -113,6 +116,7 @@ public class ESPlorer extends javax.swing.JFrame {
         MenuItemESPFileDo = new javax.swing.JMenuItem();
         TerminalSeparator3 = new javax.swing.JPopupMenu.Separator();
         MenuItemESPFileDelete = new javax.swing.JMenuItem();
+        buttonGroupLF = new javax.swing.ButtonGroup();
         HorizontSplit = new javax.swing.JSplitPane();
         LeftBasePane = new javax.swing.JLayeredPane();
         LeftTab = new javax.swing.JTabbedPane();
@@ -224,6 +228,7 @@ public class ESPlorer extends javax.swing.JFrame {
         CustomPortName = new javax.swing.JTextField();
         UseCustomPortName = new javax.swing.JCheckBox();
         jLabel10 = new javax.swing.JLabel();
+        AutodetectFirmware = new javax.swing.JCheckBox();
         ATvXX = new javax.swing.JLayeredPane();
         BasicATcommandsPane = new javax.swing.JLayeredPane();
         cmdAT = new javax.swing.JButton();
@@ -434,6 +439,8 @@ public class ESPlorer extends javax.swing.JFrame {
         MenuItemViewLogFontDec = new javax.swing.JMenuItem();
         jSeparator12 = new javax.swing.JPopupMenu.Separator();
         MenuItemViewFontDefault = new javax.swing.JMenuItem();
+        jSeparator17 = new javax.swing.JPopupMenu.Separator();
+        MenuItemViewLF1 = new javax.swing.JRadioButtonMenuItem();
         MenuLinks = new javax.swing.JMenu();
         MenuItemLinksAPIcn = new javax.swing.JMenuItem();
         MenuItemLinksAPIen = new javax.swing.JMenuItem();
@@ -791,7 +798,7 @@ public class ESPlorer extends javax.swing.JFrame {
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         setFocusCycleRoot(false);
         setLocationByPlatform(true);
-        setMinimumSize(new java.awt.Dimension(1024, 768));
+        setMinimumSize(new java.awt.Dimension(100, 100));
         setName("ESPlorer"); // NOI18N
         setPreferredSize(new java.awt.Dimension(1024, 768));
         addFocusListener(new java.awt.event.FocusAdapter() {
@@ -1944,6 +1951,7 @@ public class ESPlorer extends javax.swing.JFrame {
 
         TextTab.addTab("Snippets", NodeMCUSnippets);
 
+        NodeMCUSettings.setAutoscrolls(true);
         NodeMCUSettings.setOpaque(true);
 
         OptionsFirmware.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Select firmware", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 10))); // NOI18N
@@ -2334,6 +2342,15 @@ public class ESPlorer extends javax.swing.JFrame {
         jLabel10.setText("(AutoScan will be disabled)");
         jLabel10.setPreferredSize(new java.awt.Dimension(17, 23));
 
+        AutodetectFirmware.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        AutodetectFirmware.setText("Autodetect firmware");
+        AutodetectFirmware.setToolTipText("Use custom serial port name (AutoScan will be disabled)");
+        AutodetectFirmware.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                AutodetectFirmwareItemStateChanged(evt);
+            }
+        });
+
         javax.swing.GroupLayout jLayeredPane3Layout = new javax.swing.GroupLayout(jLayeredPane3);
         jLayeredPane3.setLayout(jLayeredPane3Layout);
         jLayeredPane3Layout.setHorizontalGroup(
@@ -2341,6 +2358,7 @@ public class ESPlorer extends javax.swing.JFrame {
             .addComponent(UseCustomPortName, javax.swing.GroupLayout.DEFAULT_SIZE, 161, Short.MAX_VALUE)
             .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(CustomPortName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(AutodetectFirmware, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jLayeredPane3Layout.setVerticalGroup(
             jLayeredPane3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -2350,11 +2368,13 @@ public class ESPlorer extends javax.swing.JFrame {
                 .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(CustomPortName, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(22, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(AutodetectFirmware))
         );
         jLayeredPane3.setLayer(CustomPortName, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPane3.setLayer(UseCustomPortName, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPane3.setLayer(jLabel10, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane3.setLayer(AutodetectFirmware, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout NodeMCUSettingsLayout = new javax.swing.GroupLayout(NodeMCUSettings);
         NodeMCUSettings.setLayout(NodeMCUSettingsLayout);
@@ -2369,7 +2389,7 @@ public class ESPlorer extends javax.swing.JFrame {
                 .addGroup(NodeMCUSettingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLayeredPane2)
                     .addComponent(jLayeredPane3))
-                .addContainerGap(128, Short.MAX_VALUE))
+                .addContainerGap(135, Short.MAX_VALUE))
         );
         NodeMCUSettingsLayout.setVerticalGroup(
             NodeMCUSettingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -4933,6 +4953,7 @@ public class ESPlorer extends javax.swing.JFrame {
         MainMenuBar.add(MenuESP);
 
         MenuView.setText("View");
+        buttonGroupLF.add(MenuView);
         MenuView.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 MenuViewActionPerformed(evt);
@@ -5150,6 +5171,18 @@ public class ESPlorer extends javax.swing.JFrame {
             }
         });
         MenuView.add(MenuItemViewFontDefault);
+        MenuView.add(jSeparator17);
+
+        buttonGroupLF.add(MenuItemViewLF1);
+        MenuItemViewLF1.setText("Nimbus");
+        MenuItemViewLF1.setToolTipText("");
+        MenuItemViewLF1.setActionCommand("0");
+        MenuItemViewLF1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MenuItemViewLF1ActionPerformed(evt);
+            }
+        });
+        MenuView.add(MenuItemViewLF1);
 
         MainMenuBar.add(MenuView);
 
@@ -8121,6 +8154,20 @@ public class ESPlorer extends javax.swing.JFrame {
     private void CondensedItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_CondensedItemStateChanged
         prefs.putBoolean(CONDENSED, Condensed.isSelected());
     }//GEN-LAST:event_CondensedItemStateChanged
+
+    private void AutodetectFirmwareItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_AutodetectFirmwareItemStateChanged
+        prefs.putBoolean(AUTODETECT, AutodetectFirmware.isSelected());
+    }//GEN-LAST:event_AutodetectFirmwareItemStateChanged
+
+    private void MenuItemViewLF1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuItemViewLF1ActionPerformed
+        String lclass = LAFclass.get( Integer.parseInt( evt.getActionCommand() ) );
+        prefs.put("LAF", lclass);
+        log("Set New LookAndFeel to:" + lclass);
+        int isExit = Dialog("New LookAndFeel skin will be appled after program restart. Exit now?", JOptionPane.YES_NO_OPTION);
+        if ( isExit == JOptionPane.YES_OPTION ) {
+            AppClose();
+        }
+    }//GEN-LAST:event_MenuItemViewLF1ActionPerformed
     private void FileSystemInfo() {
         String cmd = "r,u,t=file.fsinfo() print(\"Total : \"..t..\" bytes\\r\\nUsed  : \"..u..\" bytes\\r\\nRemain: \"..r..\" bytes\\r\\n\") r=nil u=nil t=nil";
         LocalEcho = false;
@@ -8179,21 +8226,35 @@ public class ESPlorer extends javax.swing.JFrame {
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
          */
+        //private javax.swing.JRadioButtonMenuItem MenuItemViewLF2;
+        LAF = new ArrayList<String>();
+        LAFclass = new ArrayList<String>();
+        String laf;
+        prefs = Preferences.userRoot().node(nodeRoot);        
+        laf = prefs.get("LAF", "javax.swing.plaf.nimbus.NimbusLookAndFeel");
+        LAF.add("Nimbus");
+        LAFclass.add("javax.swing.plaf.nimbus.NimbusLookAndFeel");
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
+                if (laf.equals(info.getClassName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
+                    java.util.logging.Logger.getLogger(ESPlorer.class.getName()).log(java.util.logging.Level.INFO, "DEFAULT: L&F " + info.getName() + " class:" + info.getClassName());
+                } else {
+                    java.util.logging.Logger.getLogger(ESPlorer.class.getName()).log(java.util.logging.Level.INFO, "Installed: L&F " + info.getName() + " class:" + info.getClassName());
                 }
+                if ( !"Nimbus".equals(info.getName()) ) {
+                   LAF.add(info.getName());
+                   LAFclass.add(info.getClassName());
+                } 
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ESPlorer.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ESPlorer.class.getName()).log(java.util.logging.Level.INFO, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ESPlorer.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ESPlorer.class.getName()).log(java.util.logging.Level.INFO, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ESPlorer.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ESPlorer.class.getName()).log(java.util.logging.Level.INFO, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ESPlorer.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ESPlorer.class.getName()).log(java.util.logging.Level.INFO, null, ex);
         }
         //</editor-fold>
     try {
@@ -8205,10 +8266,19 @@ public class ESPlorer extends javax.swing.JFrame {
             }
         });
     } catch (Exception ex) {
-            java.util.logging.Logger.getLogger(ESPlorer.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ESPlorer.class.getName()).log(java.util.logging.Level.INFO, null, ex);
     }
     }
 
+    private javax.swing.JRadioButtonMenuItem MenuItemViewLF2;
+    private javax.swing.JRadioButtonMenuItem MenuItemViewLF3;
+    private javax.swing.JRadioButtonMenuItem MenuItemViewLF4;
+    private javax.swing.JRadioButtonMenuItem MenuItemViewLF5;
+    private javax.swing.JRadioButtonMenuItem MenuItemViewLF6;
+    private javax.swing.JRadioButtonMenuItem MenuItemViewLF7;
+    private javax.swing.JRadioButtonMenuItem MenuItemViewLF8;
+    private javax.swing.JRadioButtonMenuItem MenuItemViewLF9;
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton ATE0;
     private javax.swing.JButton ATE1;
@@ -8226,6 +8296,7 @@ public class ESPlorer extends javax.swing.JFrame {
     private javax.swing.JLabel AppName;
     private javax.swing.JLabel Author;
     private javax.swing.JCheckBox AutoScroll;
+    private javax.swing.JCheckBox AutodetectFirmware;
     private javax.swing.JLayeredPane BasicATcommandsPane;
     private javax.swing.JLabel Busy;
     private javax.swing.JButton ButtonCopy;
@@ -8399,6 +8470,7 @@ public class ESPlorer extends javax.swing.JFrame {
     private javax.swing.JMenuItem MenuItemViewEditorFontInc;
     private javax.swing.JCheckBoxMenuItem MenuItemViewFileManager;
     private javax.swing.JMenuItem MenuItemViewFontDefault;
+    private javax.swing.JRadioButtonMenuItem MenuItemViewLF1;
     private javax.swing.JCheckBoxMenuItem MenuItemViewLeftExtra;
     private javax.swing.JCheckBoxMenuItem MenuItemViewLog;
     private javax.swing.JMenuItem MenuItemViewLogFontDec;
@@ -8503,6 +8575,7 @@ public class ESPlorer extends javax.swing.JFrame {
     private javax.swing.JLayeredPane WiFiStationPane;
     private javax.swing.JLayeredPane WiFi_common;
     private javax.swing.JLayeredPane WiFisoftAPPane;
+    private javax.swing.ButtonGroup buttonGroupLF;
     private javax.swing.JComboBox channel;
     private javax.swing.JButton cmdAT;
     private javax.swing.JButton cmdCIPSEND;
@@ -8576,6 +8649,7 @@ public class ESPlorer extends javax.swing.JFrame {
     private javax.swing.JPopupMenu.Separator jSeparator14;
     private javax.swing.JPopupMenu.Separator jSeparator15;
     private javax.swing.JPopupMenu.Separator jSeparator16;
+    private javax.swing.JPopupMenu.Separator jSeparator17;
     private javax.swing.JPopupMenu.Separator jSeparator2;
     private javax.swing.JPopupMenu.Separator jSeparator3;
     private javax.swing.JPopupMenu.Separator jSeparator4;
@@ -8701,7 +8775,6 @@ public class ESPlorer extends javax.swing.JFrame {
     private static final float LOG_FONT_SIZE_MAX = 40f;
     private static final float LOG_FONT_SIZE_MIN = 5f;
     /*  Prefs */
-    private static Preferences prefs;
     private static final String nodeRoot = "/com/esp8266.ru/ESPlorer/config";
     private static final String SERIAL_PORT = "serial_port";
     private static final String SERIAL_BAUD = "serial_baud";
@@ -8744,6 +8817,7 @@ public class ESPlorer extends javax.swing.JFrame {
     private static final String WIN_H = "win_h";
     private static final String WIN_W = "win_w";
     private static final String CONDENSED = "condensed";
+    private static final String AUTODETECT = "autodetect_firmware";
     /*  Prefs end */
     
     /* Snippets */
@@ -8910,7 +8984,11 @@ public class ESPlorer extends javax.swing.JFrame {
         
 }
     public void CheckComm() {
-       portJustOpen = true;
+        if ( !AutodetectFirmware.isSelected() ) {
+            portJustOpen = false;
+            return;
+        }
+        portJustOpen = true;
            TerminalAdd("\r\nCommunication with MCU..");
            checker = new ActionListener() {
                 public void actionPerformed(ActionEvent evt) {
@@ -9031,6 +9109,138 @@ public class ESPlorer extends javax.swing.JFrame {
         
         setLocationRelativeTo(null); // window centered
 
+        if ( LAFclass.get(0).equals( prefs.get("LAF","") ) ) {  // First for Nimbus
+           MenuItemViewLF1.setSelected(true);
+        }
+        int x = 1;
+        if ( LAF.size() >= x + 1 ) {
+            MenuItemViewLF2 = new javax.swing.JRadioButtonMenuItem();
+            buttonGroupLF.add(MenuItemViewLF2);
+            MenuItemViewLF2.setText(LAF.get(x));
+            if ( LAFclass.get(x).equals( prefs.get("LAF","") ) ) {
+               MenuItemViewLF2.setSelected(true);
+            }
+            MenuItemViewLF2.setActionCommand(Integer.toString(x));
+            MenuItemViewLF2.addActionListener(new java.awt.event.ActionListener() {
+                public void actionPerformed(java.awt.event.ActionEvent evt) {
+                    MenuItemViewLF1ActionPerformed(evt);
+            }
+            });
+            MenuView.add(MenuItemViewLF2);
+        }
+        x++;
+        if ( LAF.size() >= x + 1 ) {
+            MenuItemViewLF3 = new javax.swing.JRadioButtonMenuItem();
+            buttonGroupLF.add(MenuItemViewLF3);
+            MenuItemViewLF3.setText(LAF.get(x));
+            if ( LAFclass.get(x).equals( prefs.get("LAF","") ) ) {
+               MenuItemViewLF3.setSelected(true);
+            }
+            MenuItemViewLF3.setActionCommand(Integer.toString(x));
+            MenuItemViewLF3.addActionListener(new java.awt.event.ActionListener() {
+                public void actionPerformed(java.awt.event.ActionEvent evt) {
+                    MenuItemViewLF1ActionPerformed(evt);
+            }
+            });
+            MenuView.add(MenuItemViewLF3);
+        }
+        x++;
+        if ( LAF.size() >= x + 1 ) {
+            MenuItemViewLF4 = new javax.swing.JRadioButtonMenuItem();
+            buttonGroupLF.add(MenuItemViewLF4);
+            MenuItemViewLF4.setText(LAF.get(x));
+            if ( LAFclass.get(x).equals( prefs.get("LAF","") ) ) {
+               MenuItemViewLF4.setSelected(true);
+            }
+            MenuItemViewLF4.setActionCommand(Integer.toString(x));
+            MenuItemViewLF4.addActionListener(new java.awt.event.ActionListener() {
+                public void actionPerformed(java.awt.event.ActionEvent evt) {
+                    MenuItemViewLF1ActionPerformed(evt);
+            }
+            });
+            MenuView.add(MenuItemViewLF4);
+        }
+        x++;
+        if ( LAF.size() >= x + 1 ) {
+            MenuItemViewLF5 = new javax.swing.JRadioButtonMenuItem();
+            buttonGroupLF.add(MenuItemViewLF5);
+            MenuItemViewLF5.setText(LAF.get(x));
+            if ( LAFclass.get(x).equals( prefs.get("LAF","") ) ) {
+               MenuItemViewLF5.setSelected(true);
+            }
+            MenuItemViewLF5.setActionCommand(Integer.toString(x));
+            MenuItemViewLF5.addActionListener(new java.awt.event.ActionListener() {
+                public void actionPerformed(java.awt.event.ActionEvent evt) {
+                    MenuItemViewLF1ActionPerformed(evt);
+            }
+            });
+            MenuView.add(MenuItemViewLF5);
+        }
+        x++;
+        if ( LAF.size() >= x + 1 ) {
+            MenuItemViewLF6 = new javax.swing.JRadioButtonMenuItem();
+            buttonGroupLF.add(MenuItemViewLF6);
+            MenuItemViewLF6.setText(LAF.get(x));
+            if ( LAFclass.get(x).equals( prefs.get("LAF","") ) ) {
+               MenuItemViewLF6.setSelected(true);
+            }
+            MenuItemViewLF6.setActionCommand(Integer.toString(x));
+            MenuItemViewLF6.addActionListener(new java.awt.event.ActionListener() {
+                public void actionPerformed(java.awt.event.ActionEvent evt) {
+                    MenuItemViewLF1ActionPerformed(evt);
+            }
+            });
+            MenuView.add(MenuItemViewLF6);
+        }
+        x++;
+        if ( LAF.size() >= x + 1 ) {
+            MenuItemViewLF7 = new javax.swing.JRadioButtonMenuItem();
+            buttonGroupLF.add(MenuItemViewLF7);
+            MenuItemViewLF7.setText(LAF.get(x));
+            if ( LAFclass.get(x).equals( prefs.get("LAF","") ) ) {
+               MenuItemViewLF7.setSelected(true);
+            }
+            MenuItemViewLF7.setActionCommand(Integer.toString(x));
+            MenuItemViewLF7.addActionListener(new java.awt.event.ActionListener() {
+                public void actionPerformed(java.awt.event.ActionEvent evt) {
+                    MenuItemViewLF1ActionPerformed(evt);
+            }
+            });
+            MenuView.add(MenuItemViewLF7);
+        }
+        x++;
+        if ( LAF.size() >= x + 1 ) {
+            MenuItemViewLF8 = new javax.swing.JRadioButtonMenuItem();
+            buttonGroupLF.add(MenuItemViewLF8);
+            MenuItemViewLF8.setText(LAF.get(x));
+            if ( LAFclass.get(x).equals( prefs.get("LAF","") ) ) {
+               MenuItemViewLF8.setSelected(true);
+            }
+            MenuItemViewLF8.setActionCommand(Integer.toString(x));
+            MenuItemViewLF8.addActionListener(new java.awt.event.ActionListener() {
+                public void actionPerformed(java.awt.event.ActionEvent evt) {
+                    MenuItemViewLF1ActionPerformed(evt);
+            }
+            });
+            MenuView.add(MenuItemViewLF8);
+        }
+        x++;
+        if ( LAF.size() >= x + 1 ) {
+            MenuItemViewLF9 = new javax.swing.JRadioButtonMenuItem();
+            buttonGroupLF.add(MenuItemViewLF9);
+            MenuItemViewLF9.setText(LAF.get(x));
+            if ( LAFclass.get(x).equals( prefs.get("LAF","") ) ) {
+               MenuItemViewLF9.setSelected(true);
+            }
+            MenuItemViewLF9.setActionCommand(Integer.toString(x));
+            MenuItemViewLF9.addActionListener(new java.awt.event.ActionListener() {
+                public void actionPerformed(java.awt.event.ActionEvent evt) {
+                    MenuItemViewLF1ActionPerformed(evt);
+            }
+            });
+            MenuView.add(MenuItemViewLF9);
+        }
+
         LED_GREY    = new javax.swing.ImageIcon(getClass().getResource("/resources/led_grey.png"));
         LED_GREEN   = new javax.swing.ImageIcon(getClass().getResource("/resources/led_green.png"));
         LED_RED     = new javax.swing.ImageIcon(getClass().getResource("/resources/led_red.png"));
@@ -9091,8 +9301,7 @@ public class ESPlorer extends javax.swing.JFrame {
         FileRenamePanel.setVisible(false);
     }
     private void LoadPrefs() {
-        prefs = Preferences.userRoot().node(nodeRoot);        
-        log("Load saved settings...");
+//        log("Load saved settings...");
         // Settings - Firmware
         workDir = prefs.get(PATH, "");
         chooser = new JFileChooser(workDir);
@@ -9144,6 +9353,7 @@ public class ESPlorer extends javax.swing.JFrame {
         UseExternalEditor.setSelected(prefs.getBoolean(USE_EXT_EDITOR, false));
         EOL.setSelected(prefs.getBoolean(SHOW_EOL, false));
         Condensed.setSelected(prefs.getBoolean(CONDENSED, false));
+        AutodetectFirmware.setSelected(prefs.getBoolean(AUTODETECT, true));
         log("Load saved settings: DONE.");
     }
     private void AddFileButton( String FileName, int size ) {
@@ -10029,10 +10239,6 @@ public class ESPlorer extends javax.swing.JFrame {
            log("DataSender: Serial port not open, operation FAILED.");
            return;
         }
-//        if ( portJustOpen ) {
-//            log("ERROR: Communication with MCU not yet established.");
-//            return;
-//        }
         if (busyIcon) {
             Busy.setIcon(LED_BLUE);
             SnippetsBusy.setIcon(LED_BLUE);
