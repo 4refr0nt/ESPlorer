@@ -1,3 +1,4 @@
+[![Build Status](https://travis-ci.org/ddm/ESPlorer.svg?branch=migrate-to-maven)](https://travis-ci.org/ddm/ESPlorer)
 [![Stories in Ready](https://badge.waffle.io/4refr0nt/ESPlorer.png?label=ready&title=Ready)](https://waffle.io/4refr0nt/ESPlorer)
 ESPlorer
 ========
