@@ -85,6 +85,7 @@
                 <version>1.0.2</version>
                 <configuration>
                     <mainClass>ru.esp8266.ESPlorer</mainClass>
+                    <iconFile>src/main/resources/ru/esp8266/ESP8266-96x96.icns</iconFile>
                 </configuration>
                 <executions>
                     <execution>
