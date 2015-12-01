@@ -6628,6 +6628,7 @@ public class ESPlorer extends javax.swing.JFrame {
                 if ( j < sendBuf.size() ) {
                    LocalEcho = false;
                    send( addCR ( sendBuf.get(j) ), false );
+                   sendPending = false;
                 }
             }
         };
@@ -6668,10 +6669,11 @@ public class ESPlorer extends javax.swing.JFrame {
                     try { timeout.restart(); } catch (Exception e) { log( e.toString() ); }
                     rcvBuf = "";
                     if ( j < sendBuf.size()-1 ) {
-                        if ( timer.isRunning() ) {
+                        if ( timer.isRunning() || sendPending ) {
                             //
                         } else {
                            inc_j();
+                           sendPending = true;
                            timer.start();
                         }
                     } else { // send done
@@ -6802,6 +6804,7 @@ public class ESPlorer extends javax.swing.JFrame {
             public void actionPerformed(ActionEvent evt) {
                 if ( j < sendBuf.size() ) {
                     send( addCR ( sendBuf.get(j) ), false );
+                    sendPending = false;
                 }
             }
         };
@@ -6872,10 +6875,11 @@ public class ESPlorer extends javax.swing.JFrame {
                     try { timeout.restart(); } catch (Exception e) { log( e.toString() ); }
                     rcvBuf = "";
                     if ( j < sendBuf.size()-1 ) {
-                        if ( timer.isRunning() ) {
+                        if ( timer.isRunning() || sendPending ) {
                             //
                         } else {
                            inc_j();
+                           sendPending = true;
                            timer.start();
                         }
                     } else { // send done
@@ -8711,6 +8715,7 @@ public class ESPlorer extends javax.swing.JFrame {
     BufferedReader     br  = null;
     BufferedWriter     bw  = null;
     public static int j = 0;
+    public static boolean sendPending = false;
     public static String s[];
     public ActionListener taskPerformer;
     public ActionListener watchDog;
@@ -9953,10 +9958,11 @@ public class ESPlorer extends javax.swing.JFrame {
                     }
                     rcvBuf = "";
                     if ( j < sendBuf.size()-1 ) {
-                        if ( timer.isRunning() ) {
+                        if ( timer.isRunning() || sendPending ) {
                             // waiting
                         } else {
                                inc_j();
+                               sendPending = true;
                                int div = sendBuf.size()-1;
                                if ( div == 0 ) div = 1;
                                ProgressBar.setValue((j*100)/div);
@@ -10000,10 +10006,11 @@ public class ESPlorer extends javax.swing.JFrame {
                     } catch (Exception e) {}
                     rcvBuf = "";
                     if ( j < sendBuf.size()-1 ) {
-                        if ( timer.isRunning() ) {
+                        if ( timer.isRunning() || sendPending ) {
                             // waiting
                         } else {
                                inc_j();
+                               sendPending = true;
                                int div = sendBuf.size()-1;
                                if ( div == 0 ) div = 1;
                                ProgressBar.setValue((j*100)/div);
@@ -10163,6 +10170,7 @@ public class ESPlorer extends javax.swing.JFrame {
             public void actionPerformed(ActionEvent evt) {
                 if ( j < sendBuf.size() ) {
                     send( addCR ( sendBuf.get(j) ), false );
+                    sendPending = false;
                 }
             }
         };
@@ -10221,7 +10229,9 @@ public class ESPlorer extends javax.swing.JFrame {
             taskPerformer = new ActionListener() {
                 public void actionPerformed(ActionEvent evt) {
                     if ( j < sendBuf.size() ) {
+                        log(Integer.toString(j));
                         send( addCRLF( sendBuf.get(j).trim() ), false );
+                        sendPending = false;
                     }
                 }
             };
@@ -10536,9 +10546,11 @@ public class ESPlorer extends javax.swing.JFrame {
                 //log("send j="+Integer.toString(j));
                 if ( j < sendBuf.size() ) {
                     send( addCR ( sendBuf.get(j) ), false );
+                    sendPending = false;
                 } else {
                     if ((j-sendBuf.size()) < sendPackets.size()) {
                         sendBytes( sendPackets.get(j - sendBuf.size() ) );
+                        sendPending = false;
                     } else {
                         log("Sorry, bug found: j overflow");
                     }
@@ -10674,10 +10686,11 @@ public class ESPlorer extends javax.swing.JFrame {
                     try { timeout.restart(); } catch (Exception e) { log( e.toString() ); }
                     ProgressBar.setValue(j*100/(sendBuf.size() + sendPackets.size()-1 ));
                     if ( j < (sendBuf.size() + sendPackets.size() ) ) {
-                        if ( timer.isRunning() ) {
+                        if ( timer.isRunning() || sendPending ) {
                             //
                         } else {
                            inc_j();
+                           sendPending = true;
                            timer.start();
                         }
                     } else { try { timer.stop(); } catch (Exception e) {} }
