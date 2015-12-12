@@ -10111,7 +10111,7 @@ public class ESPlorer extends javax.swing.JFrame {
         sendBuf.add("w = file.writeline\r\n");
         s = TextEditor1.get(iTab).getText().split("\r?\n");
         for(String subs : s) {
-            sendBuf.add("w([[" + subs + "]]);");
+            sendBuf.add("w([==[" + subs + "]==]);");
         }
         sendBuf.add("file.close();");
         if (FileAutoRun.isSelected()) {
