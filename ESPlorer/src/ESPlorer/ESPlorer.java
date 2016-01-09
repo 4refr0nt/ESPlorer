@@ -1401,7 +1401,7 @@ public class ESPlorer extends javax.swing.JFrame {
         });
         LeftMainButtons.add(FileDo);
 
-        FilesUpload.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/uploadLUA.png"))); // NOI18N
+        FilesUpload.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/upload.png"))); // NOI18N
         FilesUpload.setText("Upload ...");
         FilesUpload.setToolTipText("Upload file from disk to ESP flash memory");
         FilesUpload.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
