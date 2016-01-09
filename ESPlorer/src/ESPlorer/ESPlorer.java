@@ -10450,12 +10450,12 @@ public class ESPlorer extends javax.swing.JFrame {
         javax.swing.filechooser.FileFilter flt = chooser.getFileFilter();
         chooser.resetChoosableFileFilters();
         chooser.setDialogTitle("Select file to upload to ESP");
-        //chooser.setMultiSelectionEnabled(true);
+        chooser.setMultiSelectionEnabled(true);
         int returnVal = chooser.showOpenDialog(LeftBasePane);
         mFile = new ArrayList<File>();
         log("Uploader: chooser selected file:" + chooser.getSelectedFiles().length );
-//        if ( mFile.addAll(Arrays.asList(chooser.getSelectedFiles())) ) {
-        if ( mFile.add(chooser.getSelectedFile()) ) {
+        if ( mFile.addAll(Arrays.asList(chooser.getSelectedFiles())) ) {
+//        if ( mFile.add(chooser.getSelectedFile()) ) {
             mFileIndex = 0;
         } else {
             mFileIndex = -1;
@@ -10463,7 +10463,7 @@ public class ESPlorer extends javax.swing.JFrame {
             return;
         }
         chooser.setFileFilter(flt);
-        chooser.setMultiSelectionEnabled(false);
+//        chooser.setMultiSelectionEnabled(false);
         if ( !( returnVal == JFileChooser.APPROVE_OPTION ) ) {
             log("Uploader: canceled by user");
             return;
@@ -10717,6 +10717,10 @@ public class ESPlorer extends javax.swing.JFrame {
                    try { serialPort.removeEventListener(); } catch (Exception e) {log( e.toString() );}
                    try { serialPort.addEventListener(new PortReader(), portMask ); } catch (Exception e) {log( e.toString() );}
                    StopSend();
+                   if (mFileIndex != -1 && mFileIndex++ < mFile.size())
+                   {
+						UploadFilesStart();
+                   }
                 }
             } else if ( event.isCTS() ) {
                 UpdateLedCTS();
