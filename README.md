@@ -41,4 +41,4 @@ Required [JAVA](http://java.com/download) (Standard Edition - SE ver 7 and above
 [esp8266.ru](http://esp8266.ru/esplorer/#download)
 
 ###How to build ESPlorer from sources
-[ESPlorer build from sources, howto from @devyte](https://github.com/devyte/nodemcu-platform/wiki/How-to-build-ESPlorer-from-sources)
+[ESPlorer build from sources](https://github.com/devyte/nodemcu-platform/wiki/How-to-build-ESPlorer-from-sources), howto from devyte
