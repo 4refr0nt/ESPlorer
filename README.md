@@ -28,7 +28,7 @@ Required [JAVA](http://java.com/download) (Standard Edition - SE ver 7 and above
 
 ###Required libraries for build
 * [jSSC](https://code.google.com/p/java-simple-serial-connector/)
-* [rSyntaxTextArea](http://fifesoft.com/rsyntaxtextarea/)
+* [rSyntaxTextArea](http://bobbylight.github.io/RSyntaxTextArea/)
 
 ###Discuss
 * [English esp8266.com](http://www.esp8266.com/viewtopic.php?f=22&t=882)
