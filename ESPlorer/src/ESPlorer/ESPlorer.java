@@ -9822,6 +9822,44 @@ public class ESPlorer extends javax.swing.JFrame {
       provider.addCompletion(new BasicCompletion(provider, "tmr.stop(id)"));
       provider.addCompletion(new BasicCompletion(provider, "tmr.wdclr()"));
       provider.addCompletion(new BasicCompletion(provider, "dofile(\"\")"));
+      
+      /* For Constraint */
+      
+      // Wifi: wifi.STATION, wifi.SOFTAP, wifi.STATIONAP, wifi.NONE_SLEEP, wifi.LIGHT_SLEEP, wifi.MODEM_SLEEP
+      provider.addCompletion(new BasicCompletion(provider, "wifi.STATION"));
+      provider.addCompletion(new BasicCompletion(provider, "wifi.SOFTAP"));
+      provider.addCompletion(new BasicCompletion(provider, "wifi.STATIONAP"));
+      provider.addCompletion(new BasicCompletion(provider, "wifi.NONE_SLEEP"));
+      provider.addCompletion(new BasicCompletion(provider, "wifi.LIGHT_SLEEP"));
+      provider.addCompletion(new BasicCompletion(provider, "wifi.MODEM_SLEEP"));
+      
+      // GPIO gpio.OUTPUT, gpio.INPUT, gpio.INT, gpio.HIGH, gpio.LOW
+      provider.addCompletion(new BasicCompletion(provider, "gpio.OUTPUT"));
+      provider.addCompletion(new BasicCompletion(provider, "gpio.INPUT"));
+      provider.addCompletion(new BasicCompletion(provider, "gpio.INT"));
+      provider.addCompletion(new BasicCompletion(provider, "gpio.HIGH"));
+      provider.addCompletion(new BasicCompletion(provider, "gpio.LOW"));
+      
+      // Net net.TCP, net.UDP
+      provider.addCompletion(new BasicCompletion(provider, "net.TCP"));
+      provider.addCompletion(new BasicCompletion(provider, "net.UDP"));
+      
+      // I2C i2c.SLOW, i2c.TRANSMITTER, i2c. RECEIVER. FAST
+      provider.addCompletion(new BasicCompletion(provider, "i2c.SLOW"));
+      provider.addCompletion(new BasicCompletion(provider, "i2c.TRANSMITTER"));
+      provider.addCompletion(new BasicCompletion(provider, "i2c.RECEIVER"));
+      
+      // SPI MASTER, SLAVE, CPHA_LOW, CPHA_HIGH, CPOL_LOW, CPOL_HIGH, DATABITS_8, DATABITS_16
+      provider.addCompletion(new BasicCompletion(provider, "MASTER"));
+      provider.addCompletion(new BasicCompletion(provider, "SLAVE"));
+      provider.addCompletion(new BasicCompletion(provider, "CPHA_LOW"));
+      provider.addCompletion(new BasicCompletion(provider, "CPHA_HIGH"));
+      provider.addCompletion(new BasicCompletion(provider, "CPOL_LOW"));
+      provider.addCompletion(new BasicCompletion(provider, "CPOL_HIGH"));
+      provider.addCompletion(new BasicCompletion(provider, "DATABITS_8"));
+      provider.addCompletion(new BasicCompletion(provider, "DATABITS_16"));
+      
+      
       /*
       provider.addCompletion(new ShorthandCompletion(provider, "sysout",
             "System.out.println(", "System.out.println("));
