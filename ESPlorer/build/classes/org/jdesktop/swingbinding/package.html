@@ -1,0 +1,243 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<!--
+ Copyright (C) 2007 Sun Microsystems, Inc. All rights reserved. Use is
+ subject to license terms.
+-->
+
+<html>
+    <head>
+        <title></title>
+    </head>
+    <body>
+        <p>
+            Provides support for binding to complex Swing components, and
+            documentation on the interesting Swing properties to bind to.
+        </p>
+        <a name="SWING_PROPS"><h3>Interesting Swing Properties</h3></a>
+        <p>
+            Any Swing component property that conforms to the Java Beans specification
+            is an excellent candidate for use by {@code BeanProperty}, {@code ELProperty}
+            and other {@code Property} implementations that resolve properties in a
+            similar manner. In addition, adapters have been pre-registered for a handful
+            of properties that don't correctly conform to the specification
+            (in this case, don't fire property change notificiation), and a handful
+            of synthetic properties, so that they can be used in the same way.
+            The complete list of adapted and synthetic properties is below:
+        </p>
+        <table border="1">
+            <tr>
+                <th align="left">Component</th><th align="left">Property</th><th align="left">Description</th>
+            </tr>
+            <tr>
+                <td><b>{@code AbstractButton}</b></td>
+                <td>{@code "selected"}</td>
+                <td>The selected state of a button.</td>
+            </tr>
+            <tr><td colspan="3">&nbsp;</td></tr>
+            <tr>
+                <td><b>{@code JComboBox}</b></td>
+                <td>{@code "selectedItem"}</td>
+                <td>The selected item of a {@code JComboBox}.</td>
+            </tr>
+            <tr><td colspan="3">&nbsp;</td></tr>
+            <tr>
+                <td><b>{@code JSpinner}</b></td>
+                <td>{@code "value"}</td>
+                <td>The value of a {@code JSpinner}.</td>
+            </tr>
+            <tr><td colspan="3">&nbsp;</td></tr>
+            <tr>
+                <td><b>{@code JSlider}</b></td>
+                <td>{@code "value"}</td>
+                <td>The value of a {@code JSlider}; notifies of all changes.</td>
+            </tr>
+            <tr>
+                <td>&nbsp;</td>
+                <td>{@code "value_IGNORE_ADJUSTING"}</td>
+                <td>Same as {@code "value"} but does not notify of change while the slider is adjusting its value.</td>
+            </tr>
+            <tr><td colspan="3">&nbsp;</td></tr>
+            <tr>
+                <td><b>{@code JList}</b></td>
+                <td>{@code "selectedElement"}<br><font color="red">&nbsp;&nbsp;(Currently read-only)</font></td>
+                <td>The selected element of a {@code JList}; notifies of all changes.
+                    If there is a {@code JListBinding}
+                    with the {@code JList} as the target, the selected element is reported as an element
+                    from the binding's source list. Otherwise, the selected element is reported as an
+                    object from the list's model. If nothing is selected, the property evaluates to
+                    {@code null}.
+                </td>
+            </tr>
+            <tr>
+                <td>&nbsp;</td>
+                <td>{@code "selectedElements"}<br><font color="red">&nbsp;&nbsp;(Currently read-only)</font></td>
+                <td>A list containing the selected elements of a {@code JList}; notifies of all changes.
+                    If there is a {@code JListBinding} with the {@code JList} as the target, the
+                    selected elements are reported as elements from the binding's source list.
+                    Otherwise, the selected elements are reported as objects from the list's
+                    model. If nothing is selected, the property evaluates to an empty list.
+                </td>
+            </tr>
+            <tr>
+                <td>&nbsp;</td>
+                <td>{@code "selectedElement_IGNORE_ADJUSTING"}<br><font color="red">&nbsp;&nbsp;(Currently read-only)</font></td>
+                <td>Same as "selectedElement" but does not notify of change while the list selection
+                    is being updated.
+                </td>
+            </tr>
+            <tr>
+                <td>&nbsp;</td>
+                <td>{@code "selectedElements_IGNORE_ADJUSTING"}<br><font color="red">&nbsp;&nbsp;(Currently read-only)</font></td>
+                <td>Same as "selectedElements" but does not notify of change while the list selection
+                    is being updated.
+                </td>
+            </tr>
+            <tr><td colspan="3">&nbsp;</td></tr>
+            <tr>
+                <td><b>{@code JTable}</b></td>
+                <td>{@code "selectedElement"}<br><font color="red">&nbsp;&nbsp;(Currently read-only)</font></td>
+                <td>The selected element of a {@code JTable}; notifies of all changes.
+                    If there is a {@code JTableBinding}
+                    with the {@code JTable} as the target, the selected element is reported as an element
+                    from the binding's source list. Otherwise, the selected element is reported as a map
+                    where the keys are composed of the string "column" plus the column index and the values
+                    are the model values for that column.
+                    Example: {@code {column0=column0value, column1=column1value, ...}}
+                    If nothing is selected, the property evaluates to {@code null}.
+                </td>
+            </tr>
+            <tr>
+                <td>&nbsp;</td>
+                <td>{@code "selectedElements"}<br><font color="red">&nbsp;&nbsp;(Currently read-only)</font></td>
+                <td>A list containing the selected elements of a {@code JTable};
+                    notifies of all changes.
+                    If there is a {@code JTableBinding} with the {@code JTable} as the target, the
+                    selected elements are reported as elements from the binding's source list.
+                    Otherwise, each selected element is reported as a map where the keys are composed
+                    of the string "column" plus the column index and the values are the model values
+                    for that column.
+                    Example: {@code {column0=column0value, column1=column1value, ...}}
+                    If nothing is selected, the property evaluates to an empty list.
+                </td>
+            </tr>
+            <tr>
+                <td>&nbsp;</td>
+                <td>{@code "selectedElement_IGNORE_ADJUSTING"}<br><font color="red">&nbsp;&nbsp;(Currently read-only)</font></td>
+                <td>Same as "selectedElement" but does notify of change while the table selection
+                    is being updated.
+                </td>
+            </tr>
+            <tr>
+                <td>&nbsp;</td>
+                <td>{@code "selectedElements_IGNORE_ADJUSTING"}<br><font color="red">&nbsp;&nbsp;(Currently read-only)</font></td>
+                <td>Same as "selectedElements" but does not notify of change while the table selection
+                    is being updated.
+                </td>
+            </tr>
+            <tr><td colspan="3">&nbsp;</td></tr>
+            <tr>
+                <td><b>{@code JTextComponent}</b></td>
+                <td>{@code "text"}</td>
+                <td>The text property of a {@code JTextComponent}; notifies of all changes (including typing).</td>
+            </tr>
+            <tr>
+                <td>&nbsp;</td>
+                <td>{@code "text_ON_FOCUS_LOST"}</td>
+                <td>The text property of a {@code JTextComponent}; notifies of change only when focus is lost on the component.
+            </tr>
+            <tr>
+                <td>&nbsp;</td>
+                <td>{@code "text_ON_ACTION_OR_FOCUS_LOST"}</td>
+                <td>The text property of a {@code JTextComponent}; notifies of change only when
+                    the component notifies of {@code actionPerformed} or when focus is lost on the
+                    component.
+                </td>
+            </tr>
+        </table>
+        <a name="SWING_BINDS"><h3>Swing Binding Subclasses</h3></a>
+        <p>
+            This package supports binding to the more complex Swing components by providing
+            custom {@code Binding} subclasses tailored to the needs of these components.
+            These subclasses are:
+        </p>
+        <table border="1">
+            <tr>
+                <th align="left">Binding class</th><th align="left">Description</th>
+            </tr>
+            <tr>
+                <td><b>{@link org.jdesktop.swingbinding.JComboBoxBinding}</b></td>
+                <td>Bind a {@code java.util.List} of items to be used as the
+                    items in a {@code JComboBox}.
+                </td>
+            </tr>
+            <tr>
+                <td><b>{@link org.jdesktop.swingbinding.JListBinding}</b></td>
+                <td>Bind a {@code java.util.List} of elements to be the elements
+                    of a {@code JList}, and specify how the elements are displayed.
+                </td>
+            </tr>
+            <tr>
+                <td><b>{@link org.jdesktop.swingbinding.JTableBinding}</b></td>
+                <td>Bind a {@code java.util.List} of elements to be the elements
+                    of a {@code JTable}, and specify how properties of the elements
+                    are mapped to columns.
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2"><font color="red"><b>&nbsp;&nbsp;more to come...</b></font></td>
+            </tr>
+        </table>
+        <p>
+            Instances of these classes are obtained by invoking the static {@code create}
+            methods provided by the {@link org.jdesktop.swingbinding.SwingBindings} class.
+        </p>
+        <h3>Examples</h3>
+        <p>
+            Bind a list of {@code Person} beans to a {@code JTable} and have it show
+            the {@code "firstName"} property of each bean in column 0 and the {@code "lastName"}
+            property in column 1:
+        </p>
+        <pre><code>
+    // create the person list
+    List<Person> people = createPersonList();
+            
+    // create the binding from list to table
+    JTableBinding tb = SwingBindings.createJTableBinding(READ, people, table);
+
+    // configure how the properties map to columns
+    tb.addColumnBinding(BeanProperty.create("firstName"));
+    tb.addColumnBinding(BeanProperty.create("lastName"));
+
+    // realize the binding
+    tb.bind();
+        </code></pre>
+        <p>
+            Given the binding above, create a second set of bindings that bind
+            the {@code "firstName"} property of the table's selected element to one
+            {@code JTextField} and the {@code "lastName"} property of the selected
+            element to another. Furthermore, specify that we want the text fields to
+            report change (and therefore have their values committed back to the
+            selected element) only on when focus is lost from the field:
+        </p>
+        <pre><code>
+    // create properties representing the selected person's first name and last name
+    Property selectedFirstP = BeanProperty.create("selectedElement.firstName");
+    Property selectedLastP = BeanProperty.create("selectedElement.lastName");
+
+    // create a property representing a text field's text with change reported only on focus lost
+    Property textP = BeanProperty.create("text_ON_FOCUS_LOST");
+
+    // bind the selected first name and last name to the two text fields
+    Binding b1 = Bindings.createAutoBinding(READ_WRITE, table, selectedFirstP, field1, textP);
+    Binding b2 = Bindings.createAutoBinding(READ_WRITE, table, selectedLastP, field2, textP);
+    
+    // realize the bindings
+    b1.bind();
+    b2.bind();
+        </code></pre>
+        <p>
+            What you've seen above is actually the simple building blocks of a typical master-detail application.
+        </p>
+    </body>
+</html>

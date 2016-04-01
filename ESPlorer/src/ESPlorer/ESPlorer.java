@@ -8682,7 +8682,7 @@ public class ESPlorer extends javax.swing.JFrame {
     private ArrayList<org.fife.ui.rsyntaxtextarea.RSyntaxTextArea> TextEditor1;
     private ArrayList<org.fife.ui.rtextarea.RTextScrollPane> TextScroll1;
     private ArrayList<javax.swing.GroupLayout> FileLayeredPaneLayout1;
-    private ArrayList<CompletionProvider> provider;
+    private ArrayList<CompletionProviderBase> provider;
     private ArrayList<AutoCompletion> ac;
     private ArrayList<File> iFile; // for files in tab
     private ArrayList<File> mFile; // for multifile op
@@ -9262,7 +9262,7 @@ public class ESPlorer extends javax.swing.JFrame {
         TextScroll1             = new ArrayList<org.fife.ui.rtextarea.RTextScrollPane>();
         TextEditor1             = new ArrayList<org.fife.ui.rsyntaxtextarea.RSyntaxTextArea>();
         FileLayeredPaneLayout1  = new ArrayList<javax.swing.GroupLayout>();
-        provider                = new ArrayList<CompletionProvider>();
+        provider                = new ArrayList<CompletionProviderBase>();
         ac                      = new ArrayList<AutoCompletion>();
         iFile                   = new ArrayList<File>();
         FileChanged             = new ArrayList<Boolean>();
@@ -9561,20 +9561,26 @@ public class ESPlorer extends javax.swing.JFrame {
         iFile.add           ( new File("") );
         FileChanged.add     ( false );
         provider.add        ( createCompletionProvider() );
+        provider.get(i).setAutoActivationRules(true, null);
+        
         ac.add              ( new AutoCompletion(provider.get(i)));
         ac.get(i).install(TextEditor1.get(i));
+        ac.get(i).setAutoActivationEnabled(true);
+        ac.get(i).setAutoCompleteEnabled(true);
+        ac.get(i).setAutoActivationDelay(100);
+        ac.get(i).setAutoCompleteSingleChoices(true);
         
         FileLayeredPaneLayout1.add ( new javax.swing.GroupLayout(FileLayeredPane1.get(i) ));
 
         TextEditor1.get(i).setSyntaxEditingStyle(SyntaxConstants.SYNTAX_STYLE_LUA);
         TextEditor1.get(i).setColumns(20);
         TextEditor1.get(i).setRows(5);
-        TextEditor1.get(i).setDragEnabled(false);
+        TextEditor1.get(i).setDragEnabled(true);
         TextEditor1.get(i).setFadeCurrentLineHighlight(true);
         TextEditor1.get(i).setPaintMarkOccurrencesBorder(true);
         TextEditor1.get(i).setPaintMatchedBracketPair(true);
         TextEditor1.get(i).setPopupMenu(ContextMenuEditor);
-        TextEditor1.get(i).setCodeFoldingEnabled(false);
+        TextEditor1.get(i).setCodeFoldingEnabled(true);
         TextEditor1.get(i).setAntiAliasingEnabled(true);
         TextEditor1.get(i).setTabsEmulated(true);
         TextEditor1.get(i).setBracketMatchingEnabled(true);
@@ -9730,10 +9736,10 @@ public class ESPlorer extends javax.swing.JFrame {
         this.setAlwaysOnTop(AlwaysOnTop.isSelected());
         return returnVal;
     }
-    private CompletionProvider createCompletionProvider() {
+    private CompletionProviderBase createCompletionProvider() {
 
       DefaultCompletionProvider provider = new DefaultCompletionProvider();
-
+      
       provider.addCompletion(new BasicCompletion(provider, "function end"));
       provider.addCompletion(new BasicCompletion(provider, "function"));
       provider.addCompletion(new BasicCompletion(provider, "function return end"));

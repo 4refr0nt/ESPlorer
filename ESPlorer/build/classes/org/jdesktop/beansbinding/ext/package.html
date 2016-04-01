@@ -1,0 +1,53 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<!--
+ Copyright (C) 2007 Sun Microsystems, Inc. All rights reserved. Use is
+ subject to license terms.
+-->
+
+<html>
+    <head>
+        <title></title>
+    </head>
+    <body>
+        <p>
+            Provides support for customizing Beans Binding, and for
+            determining the synthetic properties available for binding.
+            Tool vendors and component authors are the expected audience
+            of this package.
+        </p>
+        <p>
+            Some {@code Property} implementations, such as {@code BeanProperty}
+            and {@code ELProperty}, resolve properties of an object at runtime
+            as per the Java Beans specification. Sometimes, properties of interest aren't
+            exposed according to this specification (for example, Swing's
+            {@code JTextField.text}, {@code JSlider.value}, {@code AbstractButton.selected}).
+            At other times, we may want to extend an object's set of properties
+            with synthetic properties that may be interesting for the purposes of
+            binding (for example {@code selectedElement(s)}) on Swing's {@code JTable}
+            and {@code JList}.
+        </p>
+        <p>
+            This package provides for these scenarios by allowing you to provide
+            adapters to adapt these objects and expose such properties as proper
+            Java Beans properties. This is done by writing one or more
+            {@link org.jdesktop.beansbinding.ext.BeanAdapterProvider}
+            classes and registering them via the service provider mechanism
+            <font color="red">(to be implemented)</font> with the {@link
+            org.jdesktop.beansbinding.ext.BeanAdapterFactory}.
+        </p>
+        <p>
+            {@code Property} implementations can then query the {@code BeanAdapterFactory}
+            for adapters to take the place of the source object for the purposes
+            of property resolution. This is exactly what {@code BeanProperty} and
+            {@code ELProperty} do. In addition, tools can query the factory for
+            the set of additional properties exposed for a particular class by
+            the set of loaded providers.
+        </p>
+        <p>
+            Note: Adapters for many Swing properties are already registered with the
+            factory. See the <a href="../../swingbinding/package-summary.html">swingbinding</a>
+            package level documentation for details.
+        </p>
+    </body>
+</html>
