@@ -4300,9 +4300,9 @@
                                               <Component id="jLayeredPane2" min="-2" max="-2" attributes="0"/>
                                           </Group>
                                       </Group>
-                                      <EmptySpace max="-2" attributes="0"/>
+                                      <EmptySpace min="-2" pref="45" max="-2" attributes="0"/>
                                       <Component id="OptionsFileSendMode" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace min="0" pref="173" max="32767" attributes="0"/>
+                                      <EmptySpace min="0" pref="134" max="32767" attributes="0"/>
                                   </Group>
                               </Group>
                             </DimensionLayout>
@@ -4821,6 +4821,7 @@
                                       <Component id="jLabel10" max="32767" attributes="0"/>
                                       <Component id="CustomPortName" alignment="0" max="32767" attributes="0"/>
                                       <Component id="AutodetectFirmware" alignment="0" max="32767" attributes="0"/>
+                                      <Component id="CommandEcho" alignment="0" max="32767" attributes="0"/>
                                   </Group>
                                 </DimensionLayout>
                                 <DimensionLayout dim="1">
@@ -4831,8 +4832,11 @@
                                           <Component id="jLabel10" min="-2" pref="15" max="-2" attributes="0"/>
                                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                           <Component id="CustomPortName" min="-2" pref="26" max="-2" attributes="0"/>
-                                          <EmptySpace max="32767" attributes="0"/>
+                                          <EmptySpace max="-2" attributes="0"/>
                                           <Component id="AutodetectFirmware" min="-2" max="-2" attributes="0"/>
+                                          <EmptySpace max="-2" attributes="0"/>
+                                          <Component id="CommandEcho" min="-2" max="-2" attributes="0"/>
+                                          <EmptySpace max="32767" attributes="0"/>
                                       </Group>
                                   </Group>
                                 </DimensionLayout>
@@ -4889,6 +4893,19 @@
                                   </Properties>
                                   <Events>
                                     <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="AutodetectFirmwareItemStateChanged"/>
+                                  </Events>
+                                </Component>
+                                <Component class="javax.swing.JCheckBox" name="CommandEcho">
+                                  <Properties>
+                                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                                      <Font name="Tahoma" size="10" style="0"/>
+                                    </Property>
+                                    <Property name="selected" type="boolean" value="true"/>
+                                    <Property name="text" type="java.lang.String" value="Command Echo"/>
+                                    <Property name="toolTipText" type="java.lang.String" value="Use custom serial port name (AutoScan will be disabled)"/>
+                                  </Properties>
+                                  <Events>
+                                    <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="CommandEchoItemStateChanged"/>
                                   </Events>
                                 </Component>
                               </SubComponents>
@@ -7076,6 +7093,1323 @@
                     </Container>
                   </SubComponents>
                 </Container>
+                <Container class="javax.swing.JLayeredPane" name="RN2483">
+                  <Properties>
+                    <Property name="opaque" type="boolean" value="true"/>
+                  </Properties>
+                  <Constraints>
+                    <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
+                      <JTabbedPaneConstraints tabName=" RN2483 ">
+                        <Property name="tabTitle" type="java.lang.String" value=" RN2483 "/>
+                      </JTabbedPaneConstraints>
+                    </Constraint>
+                  </Constraints>
+
+                  <Layout>
+                    <DimensionLayout dim="0">
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="RN2483jTab" alignment="0" pref="544" max="32767" attributes="0"/>
+                      </Group>
+                    </DimensionLayout>
+                    <DimensionLayout dim="1">
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="RN2483jTab" alignment="0" pref="716" max="32767" attributes="0"/>
+                      </Group>
+                    </DimensionLayout>
+                  </Layout>
+                  <SubComponents>
+                    <Container class="javax.swing.JTabbedPane" name="RN2483jTab">
+
+                      <Layout class="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout"/>
+                      <SubComponents>
+                        <Container class="javax.swing.JScrollPane" name="MacPane">
+                          <Properties>
+                            <Property name="horizontalScrollBarPolicy" type="int" value="31"/>
+                          </Properties>
+                          <Constraints>
+                            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
+                              <JTabbedPaneConstraints tabName=" MAC &amp; Radio">
+                                <Property name="tabTitle" type="java.lang.String" value=" MAC &amp; Radio"/>
+                              </JTabbedPaneConstraints>
+                            </Constraint>
+                          </Constraints>
+
+                          <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+                          <SubComponents>
+                            <Container class="javax.swing.JLayeredPane" name="LoRaMAC">
+                              <Properties>
+                                <Property name="opaque" type="boolean" value="true"/>
+                                <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                                  <Dimension value="[729, 600]"/>
+                                </Property>
+                              </Properties>
+
+                              <Layout>
+                                <DimensionLayout dim="0">
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Group type="102" attributes="0">
+                                          <Group type="103" groupAlignment="0" attributes="0">
+                                              <Component id="MacCommon" max="32767" attributes="0"/>
+                                              <Component id="RadioPane" alignment="0" max="32767" attributes="0"/>
+                                              <Component id="SendUnconfirmed" alignment="0" max="32767" attributes="0"/>
+                                              <Component id="jLayeredPane1" alignment="0" max="32767" attributes="0"/>
+                                          </Group>
+                                          <EmptySpace min="-2" pref="199" max="-2" attributes="0"/>
+                                      </Group>
+                                  </Group>
+                                </DimensionLayout>
+                                <DimensionLayout dim="1">
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Group type="102" alignment="0" attributes="0">
+                                          <Component id="MacCommon" min="-2" max="-2" attributes="0"/>
+                                          <EmptySpace max="-2" attributes="0"/>
+                                          <Component id="RadioPane" min="-2" max="-2" attributes="0"/>
+                                          <EmptySpace max="-2" attributes="0"/>
+                                          <Component id="SendUnconfirmed" min="-2" max="-2" attributes="0"/>
+                                          <EmptySpace max="-2" attributes="0"/>
+                                          <Component id="jLayeredPane1" min="-2" max="-2" attributes="0"/>
+                                          <EmptySpace min="0" pref="276" max="32767" attributes="0"/>
+                                      </Group>
+                                  </Group>
+                                </DimensionLayout>
+                              </Layout>
+                              <SubComponents>
+                                <Container class="javax.swing.JLayeredPane" name="MacCommon">
+                                  <Properties>
+                                    <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+                                      <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
+                                        <TitledBorder title="Parameters"/>
+                                      </Border>
+                                    </Property>
+                                  </Properties>
+
+                                  <Layout>
+                                    <DimensionLayout dim="0">
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Group type="102" alignment="0" attributes="0">
+                                              <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                                                  <Component id="cmdMacGetStatus" alignment="0" pref="180" max="32767" attributes="0"/>
+                                                  <Component id="cmdMacSetPwrIdx" alignment="0" pref="0" max="32767" attributes="0"/>
+                                                  <Component id="cmdMacSetDR" alignment="0" pref="0" max="32767" attributes="0"/>
+                                                  <Component id="cmdMacSetAdrOn" pref="0" max="32767" attributes="0"/>
+                                              </Group>
+                                              <EmptySpace max="-2" attributes="0"/>
+                                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                                  <Component id="cmdMacSetAdrOff" min="-2" pref="100" max="-2" attributes="0"/>
+                                                  <Component id="MacDR" max="32767" attributes="0"/>
+                                                  <Component id="MacPower" alignment="0" max="32767" attributes="0"/>
+                                              </Group>
+                                              <EmptySpace max="-2" attributes="0"/>
+                                              <Group type="103" groupAlignment="0" attributes="0">
+                                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                                      <Component id="cmdMacGetDR" min="-2" pref="100" max="-2" attributes="0"/>
+                                                      <Component id="cmdMacGetAdr" pref="0" max="32767" attributes="0"/>
+                                                  </Group>
+                                                  <Component id="cmdMacGetPwrIdx" min="-2" pref="100" max="-2" attributes="0"/>
+                                              </Group>
+                                              <EmptySpace max="32767" attributes="0"/>
+                                          </Group>
+                                      </Group>
+                                    </DimensionLayout>
+                                    <DimensionLayout dim="1">
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Group type="102" alignment="0" attributes="0">
+                                              <Group type="103" groupAlignment="3" attributes="0">
+                                                  <Component id="cmdMacSetAdrOn" alignment="3" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="cmdMacSetAdrOff" alignment="3" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="cmdMacGetAdr" alignment="3" min="-2" max="-2" attributes="0"/>
+                                              </Group>
+                                              <EmptySpace max="-2" attributes="0"/>
+                                              <Group type="103" groupAlignment="3" attributes="0">
+                                                  <Component id="cmdMacSetDR" alignment="3" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="MacDR" alignment="3" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="cmdMacGetDR" alignment="3" min="-2" max="-2" attributes="0"/>
+                                              </Group>
+                                              <EmptySpace max="-2" attributes="0"/>
+                                              <Group type="103" groupAlignment="3" attributes="0">
+                                                  <Component id="cmdMacSetPwrIdx" alignment="3" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="MacPower" alignment="3" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="cmdMacGetPwrIdx" alignment="3" min="-2" max="-2" attributes="0"/>
+                                              </Group>
+                                              <EmptySpace max="-2" attributes="0"/>
+                                              <Component id="cmdMacGetStatus" min="-2" max="-2" attributes="0"/>
+                                          </Group>
+                                      </Group>
+                                    </DimensionLayout>
+                                  </Layout>
+                                  <SubComponents>
+                                    <Component class="javax.swing.JButton" name="cmdMacSetAdrOn">
+                                      <Properties>
+                                        <Property name="text" type="java.lang.String" value="mac set adr on"/>
+                                        <Property name="toolTipText" type="java.lang.String" value="sys reset"/>
+                                        <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
+                                          <Insets value="[2, 2, 2, 2]"/>
+                                        </Property>
+                                        <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                                          <Dimension value="[210, 23]"/>
+                                        </Property>
+                                        <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                                          <Dimension value="[210, 23]"/>
+                                        </Property>
+                                        <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                                          <Dimension value="[210, 23]"/>
+                                        </Property>
+                                      </Properties>
+                                      <Events>
+                                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cmdMacSetAdrOnActionPerformed"/>
+                                      </Events>
+                                    </Component>
+                                    <Component class="javax.swing.JButton" name="cmdMacSetDR">
+                                      <Properties>
+                                        <Property name="text" type="java.lang.String" value="mac set dr (Data Rate)"/>
+                                        <Property name="toolTipText" type="java.lang.String" value="sys reset"/>
+                                        <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
+                                          <Insets value="[2, 2, 2, 2]"/>
+                                        </Property>
+                                        <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                                          <Dimension value="[210, 23]"/>
+                                        </Property>
+                                        <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                                          <Dimension value="[210, 23]"/>
+                                        </Property>
+                                        <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                                          <Dimension value="[210, 23]"/>
+                                        </Property>
+                                      </Properties>
+                                      <Events>
+                                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cmdMacSetDRActionPerformed"/>
+                                      </Events>
+                                    </Component>
+                                    <Component class="javax.swing.JButton" name="cmdMacSetPwrIdx">
+                                      <Properties>
+                                        <Property name="text" type="java.lang.String" value="mac set pwridx (Power)"/>
+                                        <Property name="toolTipText" type="java.lang.String" value="sys reset"/>
+                                        <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
+                                          <Insets value="[2, 2, 2, 2]"/>
+                                        </Property>
+                                        <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                                          <Dimension value="[210, 23]"/>
+                                        </Property>
+                                        <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                                          <Dimension value="[210, 23]"/>
+                                        </Property>
+                                        <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                                          <Dimension value="[210, 23]"/>
+                                        </Property>
+                                      </Properties>
+                                      <Events>
+                                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cmdMacSetPwrIdxActionPerformed"/>
+                                      </Events>
+                                    </Component>
+                                    <Component class="javax.swing.JButton" name="cmdMacGetStatus">
+                                      <Properties>
+                                        <Property name="text" type="java.lang.String" value="mac get status"/>
+                                        <Property name="toolTipText" type="java.lang.String" value="sys reset"/>
+                                        <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
+                                          <Insets value="[2, 2, 2, 2]"/>
+                                        </Property>
+                                        <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                                          <Dimension value="[210, 23]"/>
+                                        </Property>
+                                        <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                                          <Dimension value="[210, 23]"/>
+                                        </Property>
+                                        <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                                          <Dimension value="[210, 23]"/>
+                                        </Property>
+                                      </Properties>
+                                      <Events>
+                                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cmdMacGetStatusActionPerformed"/>
+                                      </Events>
+                                    </Component>
+                                    <Component class="javax.swing.JButton" name="cmdMacSetAdrOff">
+                                      <Properties>
+                                        <Property name="text" type="java.lang.String" value="mac set adr off"/>
+                                        <Property name="toolTipText" type="java.lang.String" value="sys reset"/>
+                                        <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
+                                          <Insets value="[2, 2, 2, 2]"/>
+                                        </Property>
+                                        <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                                          <Dimension value="[210, 23]"/>
+                                        </Property>
+                                        <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                                          <Dimension value="[210, 23]"/>
+                                        </Property>
+                                        <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                                          <Dimension value="[210, 23]"/>
+                                        </Property>
+                                      </Properties>
+                                      <Events>
+                                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cmdMacSetAdrOffActionPerformed"/>
+                                      </Events>
+                                    </Component>
+                                    <Component class="javax.swing.JButton" name="cmdMacGetAdr">
+                                      <Properties>
+                                        <Property name="text" type="java.lang.String" value="mac get adr"/>
+                                        <Property name="toolTipText" type="java.lang.String" value="sys reset"/>
+                                        <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
+                                          <Insets value="[2, 2, 2, 2]"/>
+                                        </Property>
+                                        <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                                          <Dimension value="[210, 23]"/>
+                                        </Property>
+                                        <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                                          <Dimension value="[210, 23]"/>
+                                        </Property>
+                                        <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                                          <Dimension value="[210, 23]"/>
+                                        </Property>
+                                      </Properties>
+                                      <Events>
+                                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cmdMacGetAdrActionPerformed"/>
+                                      </Events>
+                                    </Component>
+                                    <Component class="javax.swing.JTextField" name="MacDR">
+                                      <Properties>
+                                        <Property name="text" type="java.lang.String" value="5"/>
+                                      </Properties>
+                                      <Events>
+                                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="MacDRActionPerformed"/>
+                                      </Events>
+                                    </Component>
+                                    <Component class="javax.swing.JTextField" name="MacPower">
+                                      <Properties>
+                                        <Property name="text" type="java.lang.String" value="1"/>
+                                      </Properties>
+                                      <Events>
+                                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="MacPowerActionPerformed"/>
+                                      </Events>
+                                    </Component>
+                                    <Component class="javax.swing.JButton" name="cmdMacGetDR">
+                                      <Properties>
+                                        <Property name="text" type="java.lang.String" value="mac get dr"/>
+                                        <Property name="toolTipText" type="java.lang.String" value="sys reset"/>
+                                        <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
+                                          <Insets value="[2, 2, 2, 2]"/>
+                                        </Property>
+                                        <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                                          <Dimension value="[210, 23]"/>
+                                        </Property>
+                                        <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                                          <Dimension value="[210, 23]"/>
+                                        </Property>
+                                        <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                                          <Dimension value="[210, 23]"/>
+                                        </Property>
+                                      </Properties>
+                                      <Events>
+                                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cmdMacGetDRActionPerformed"/>
+                                      </Events>
+                                    </Component>
+                                    <Component class="javax.swing.JButton" name="cmdMacGetPwrIdx">
+                                      <Properties>
+                                        <Property name="text" type="java.lang.String" value="mac get pwridx"/>
+                                        <Property name="toolTipText" type="java.lang.String" value="sys reset"/>
+                                        <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
+                                          <Insets value="[2, 2, 2, 2]"/>
+                                        </Property>
+                                        <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                                          <Dimension value="[210, 23]"/>
+                                        </Property>
+                                        <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                                          <Dimension value="[210, 23]"/>
+                                        </Property>
+                                        <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                                          <Dimension value="[210, 23]"/>
+                                        </Property>
+                                      </Properties>
+                                      <Events>
+                                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cmdMacGetPwrIdxActionPerformed"/>
+                                      </Events>
+                                    </Component>
+                                  </SubComponents>
+                                </Container>
+                                <Container class="javax.swing.JLayeredPane" name="SendUnconfirmed">
+                                  <Properties>
+                                    <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+                                      <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
+                                        <TitledBorder title="Send Data"/>
+                                      </Border>
+                                    </Property>
+                                  </Properties>
+
+                                  <Layout>
+                                    <DimensionLayout dim="0">
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Group type="102" alignment="0" attributes="0">
+                                              <Component id="cmdMacTX" min="-2" pref="120" max="-2" attributes="0"/>
+                                              <EmptySpace max="-2" attributes="0"/>
+                                              <Component id="TxConfirmed" min="-2" pref="100" max="-2" attributes="0"/>
+                                              <EmptySpace max="-2" attributes="0"/>
+                                              <Component id="MacTxPort" min="-2" pref="50" max="-2" attributes="0"/>
+                                              <EmptySpace max="-2" attributes="0"/>
+                                              <Group type="103" groupAlignment="0" attributes="0">
+                                                  <Component id="jLabel13" max="32767" attributes="0"/>
+                                                  <Component id="MacTxData" max="32767" attributes="0"/>
+                                              </Group>
+                                              <EmptySpace max="-2" attributes="0"/>
+                                          </Group>
+                                      </Group>
+                                    </DimensionLayout>
+                                    <DimensionLayout dim="1">
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Group type="103" groupAlignment="3" attributes="0">
+                                              <Component id="cmdMacTX" alignment="3" min="-2" pref="40" max="-2" attributes="0"/>
+                                              <Group type="102" alignment="3" attributes="0">
+                                                  <Component id="jLabel13" min="-2" max="-2" attributes="0"/>
+                                                  <EmptySpace max="32767" attributes="0"/>
+                                                  <Group type="103" groupAlignment="3" attributes="0">
+                                                      <Component id="MacTxData" alignment="3" min="-2" max="-2" attributes="0"/>
+                                                      <Component id="MacTxPort" alignment="3" min="-2" max="-2" attributes="0"/>
+                                                  </Group>
+                                              </Group>
+                                              <Component id="TxConfirmed" alignment="3" min="-2" pref="40" max="-2" attributes="0"/>
+                                          </Group>
+                                      </Group>
+                                    </DimensionLayout>
+                                  </Layout>
+                                  <SubComponents>
+                                    <Component class="javax.swing.JButton" name="cmdMacTX">
+                                      <Properties>
+                                        <Property name="text" type="java.lang.String" value="Transmit data"/>
+                                        <Property name="toolTipText" type="java.lang.String" value="sys reset"/>
+                                        <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
+                                          <Insets value="[2, 2, 2, 2]"/>
+                                        </Property>
+                                        <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                                          <Dimension value="[210, 23]"/>
+                                        </Property>
+                                        <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                                          <Dimension value="[210, 23]"/>
+                                        </Property>
+                                        <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                                          <Dimension value="[210, 23]"/>
+                                        </Property>
+                                      </Properties>
+                                      <Events>
+                                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cmdMacTXActionPerformed"/>
+                                      </Events>
+                                    </Component>
+                                    <Component class="javax.swing.JTextField" name="MacTxPort">
+                                      <Properties>
+                                        <Property name="text" type="java.lang.String" value="16"/>
+                                      </Properties>
+                                    </Component>
+                                    <Component class="javax.swing.JTextField" name="MacTxData">
+                                      <Properties>
+                                        <Property name="text" type="java.lang.String" value="48454c4c4f"/>
+                                      </Properties>
+                                    </Component>
+                                    <Component class="javax.swing.JComboBox" name="TxConfirmed">
+                                      <Properties>
+                                        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+                                          <StringArray count="3">
+                                            <StringItem index="0" value="uncnf"/>
+                                            <StringItem index="1" value="cnf"/>
+                                            <StringItem index="2" value=" "/>
+                                          </StringArray>
+                                        </Property>
+                                      </Properties>
+                                      <Events>
+                                        <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="TxConfirmedItemStateChanged"/>
+                                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="TxConfirmedActionPerformed"/>
+                                      </Events>
+                                      <AuxValues>
+                                        <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+                                      </AuxValues>
+                                    </Component>
+                                    <Component class="javax.swing.JLabel" name="jLabel13">
+                                      <Properties>
+                                        <Property name="text" type="java.lang.String" value="default: HELLO"/>
+                                      </Properties>
+                                    </Component>
+                                  </SubComponents>
+                                </Container>
+                                <Container class="javax.swing.JLayeredPane" name="RadioPane">
+                                  <Properties>
+                                    <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+                                      <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
+                                        <TitledBorder title="Radio"/>
+                                      </Border>
+                                    </Property>
+                                  </Properties>
+
+                                  <Layout>
+                                    <DimensionLayout dim="0">
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Group type="102" attributes="0">
+                                              <Group type="103" groupAlignment="0" attributes="0">
+                                                  <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                                                      <Component id="jLabel11" alignment="0" max="32767" attributes="0"/>
+                                                      <Component id="cmdRadiosetRxBw" min="-2" pref="180" max="-2" attributes="0"/>
+                                                      <Component id="cmdRadioSetFreq" min="-2" pref="180" max="-2" attributes="0"/>
+                                                  </Group>
+                                                  <Component id="jLabel12" alignment="1" max="32767" attributes="0"/>
+                                              </Group>
+                                              <EmptySpace max="-2" attributes="0"/>
+                                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                                  <Component id="MacSF" alignment="0" max="32767" attributes="0"/>
+                                                  <Component id="RadioRxBandWidth" alignment="0" max="32767" attributes="0"/>
+                                                  <Component id="RadioFreq" alignment="0" pref="100" max="32767" attributes="0"/>
+                                                  <Component id="MacBandWidth" alignment="0" max="32767" attributes="0"/>
+                                              </Group>
+                                              <EmptySpace max="-2" attributes="0"/>
+                                              <Group type="103" groupAlignment="0" attributes="0">
+                                                  <Component id="cmdRadioGetSF" pref="0" max="32767" attributes="0"/>
+                                                  <Component id="cmdRadioGetBw" pref="0" max="32767" attributes="0"/>
+                                                  <Component id="cmdRadioGetRxBw" alignment="0" pref="0" max="32767" attributes="0"/>
+                                                  <Component id="cmdRadioGetFreq" alignment="0" pref="0" max="32767" attributes="0"/>
+                                              </Group>
+                                              <EmptySpace min="-2" pref="92" max="-2" attributes="0"/>
+                                          </Group>
+                                      </Group>
+                                    </DimensionLayout>
+                                    <DimensionLayout dim="1">
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Group type="102" alignment="0" attributes="0">
+                                              <Group type="103" groupAlignment="0" attributes="0">
+                                                  <Group type="103" groupAlignment="3" attributes="0">
+                                                      <Component id="jLabel11" alignment="3" min="-2" max="-2" attributes="0"/>
+                                                      <Component id="MacSF" alignment="3" min="-2" max="-2" attributes="0"/>
+                                                  </Group>
+                                                  <Component id="cmdRadioGetSF" alignment="0" min="-2" max="-2" attributes="0"/>
+                                              </Group>
+                                              <EmptySpace max="-2" attributes="0"/>
+                                              <Group type="103" groupAlignment="3" attributes="0">
+                                                  <Component id="cmdRadioGetBw" alignment="3" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="MacBandWidth" alignment="3" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="jLabel12" alignment="3" min="-2" max="-2" attributes="0"/>
+                                              </Group>
+                                              <EmptySpace max="-2" attributes="0"/>
+                                              <Group type="103" groupAlignment="3" attributes="0">
+                                                  <Component id="cmdRadiosetRxBw" alignment="3" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="RadioRxBandWidth" alignment="3" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="cmdRadioGetRxBw" alignment="3" min="-2" max="-2" attributes="0"/>
+                                              </Group>
+                                              <EmptySpace max="-2" attributes="0"/>
+                                              <Group type="103" groupAlignment="3" attributes="0">
+                                                  <Component id="cmdRadioSetFreq" alignment="3" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="RadioFreq" alignment="3" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="cmdRadioGetFreq" alignment="3" min="-2" max="-2" attributes="0"/>
+                                              </Group>
+                                          </Group>
+                                      </Group>
+                                    </DimensionLayout>
+                                  </Layout>
+                                  <SubComponents>
+                                    <Component class="javax.swing.JComboBox" name="MacSF">
+                                      <Properties>
+                                        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+                                          <StringArray count="7">
+                                            <StringItem index="0" value="sf7"/>
+                                            <StringItem index="1" value="sf8"/>
+                                            <StringItem index="2" value="sf9"/>
+                                            <StringItem index="3" value="sf10"/>
+                                            <StringItem index="4" value="sf11"/>
+                                            <StringItem index="5" value="sf12"/>
+                                            <StringItem index="6" value=" "/>
+                                          </StringArray>
+                                        </Property>
+                                      </Properties>
+                                      <Events>
+                                        <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="MacSFItemStateChanged"/>
+                                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="MacSFActionPerformed"/>
+                                      </Events>
+                                      <AuxValues>
+                                        <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+                                      </AuxValues>
+                                    </Component>
+                                    <Component class="javax.swing.JLabel" name="jLabel11">
+                                      <Properties>
+                                        <Property name="horizontalAlignment" type="int" value="0"/>
+                                        <Property name="text" type="java.lang.String" value="Spread Factor"/>
+                                      </Properties>
+                                    </Component>
+                                    <Component class="javax.swing.JTextField" name="RadioRxBandWidth">
+                                      <Properties>
+                                        <Property name="text" type="java.lang.String" value="25"/>
+                                      </Properties>
+                                    </Component>
+                                    <Component class="javax.swing.JTextField" name="RadioFreq">
+                                      <Properties>
+                                        <Property name="text" type="java.lang.String" value="868100000"/>
+                                      </Properties>
+                                    </Component>
+                                    <Component class="javax.swing.JButton" name="cmdRadiosetRxBw">
+                                      <Properties>
+                                        <Property name="text" type="java.lang.String" value=" set rx band widh"/>
+                                        <Property name="toolTipText" type="java.lang.String" value="sys reset"/>
+                                        <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
+                                          <Insets value="[2, 2, 2, 2]"/>
+                                        </Property>
+                                        <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                                          <Dimension value="[210, 23]"/>
+                                        </Property>
+                                        <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                                          <Dimension value="[210, 23]"/>
+                                        </Property>
+                                        <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                                          <Dimension value="[210, 23]"/>
+                                        </Property>
+                                      </Properties>
+                                      <Events>
+                                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cmdRadiosetRxBwActionPerformed"/>
+                                      </Events>
+                                    </Component>
+                                    <Component class="javax.swing.JButton" name="cmdRadioSetFreq">
+                                      <Properties>
+                                        <Property name="text" type="java.lang.String" value="radio set freq"/>
+                                        <Property name="toolTipText" type="java.lang.String" value="sys reset"/>
+                                        <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
+                                          <Insets value="[2, 2, 2, 2]"/>
+                                        </Property>
+                                        <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                                          <Dimension value="[210, 23]"/>
+                                        </Property>
+                                        <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                                          <Dimension value="[210, 23]"/>
+                                        </Property>
+                                        <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                                          <Dimension value="[210, 23]"/>
+                                        </Property>
+                                      </Properties>
+                                      <Events>
+                                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cmdRadioSetFreqActionPerformed"/>
+                                      </Events>
+                                    </Component>
+                                    <Component class="javax.swing.JButton" name="cmdRadioGetSF">
+                                      <Properties>
+                                        <Property name="text" type="java.lang.String" value="radio get sf"/>
+                                        <Property name="toolTipText" type="java.lang.String" value="sys reset"/>
+                                        <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
+                                          <Insets value="[2, 2, 2, 2]"/>
+                                        </Property>
+                                        <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                                          <Dimension value="[210, 23]"/>
+                                        </Property>
+                                        <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                                          <Dimension value="[210, 23]"/>
+                                        </Property>
+                                        <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                                          <Dimension value="[210, 23]"/>
+                                        </Property>
+                                      </Properties>
+                                      <Events>
+                                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cmdRadioGetSFActionPerformed"/>
+                                      </Events>
+                                    </Component>
+                                    <Component class="javax.swing.JButton" name="cmdRadioGetBw">
+                                      <Properties>
+                                        <Property name="text" type="java.lang.String" value="radio get bw"/>
+                                        <Property name="toolTipText" type="java.lang.String" value="sys reset"/>
+                                        <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
+                                          <Insets value="[2, 2, 2, 2]"/>
+                                        </Property>
+                                        <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                                          <Dimension value="[210, 23]"/>
+                                        </Property>
+                                        <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                                          <Dimension value="[210, 23]"/>
+                                        </Property>
+                                        <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                                          <Dimension value="[210, 23]"/>
+                                        </Property>
+                                      </Properties>
+                                      <Events>
+                                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cmdRadioGetBwActionPerformed"/>
+                                      </Events>
+                                    </Component>
+                                    <Component class="javax.swing.JButton" name="cmdRadioGetRxBw">
+                                      <Properties>
+                                        <Property name="text" type="java.lang.String" value="radio get rxbw"/>
+                                        <Property name="toolTipText" type="java.lang.String" value="sys reset"/>
+                                        <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
+                                          <Insets value="[2, 2, 2, 2]"/>
+                                        </Property>
+                                        <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                                          <Dimension value="[210, 23]"/>
+                                        </Property>
+                                        <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                                          <Dimension value="[210, 23]"/>
+                                        </Property>
+                                        <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                                          <Dimension value="[210, 23]"/>
+                                        </Property>
+                                      </Properties>
+                                      <Events>
+                                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cmdRadioGetRxBwActionPerformed"/>
+                                      </Events>
+                                    </Component>
+                                    <Component class="javax.swing.JButton" name="cmdRadioGetFreq">
+                                      <Properties>
+                                        <Property name="text" type="java.lang.String" value="radio get freq"/>
+                                        <Property name="toolTipText" type="java.lang.String" value="sys reset"/>
+                                        <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
+                                          <Insets value="[2, 2, 2, 2]"/>
+                                        </Property>
+                                        <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                                          <Dimension value="[210, 23]"/>
+                                        </Property>
+                                        <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                                          <Dimension value="[210, 23]"/>
+                                        </Property>
+                                        <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                                          <Dimension value="[210, 23]"/>
+                                        </Property>
+                                      </Properties>
+                                      <Events>
+                                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cmdRadioGetFreqActionPerformed"/>
+                                      </Events>
+                                    </Component>
+                                    <Component class="javax.swing.JComboBox" name="MacBandWidth">
+                                      <Properties>
+                                        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+                                          <StringArray count="4">
+                                            <StringItem index="0" value="125"/>
+                                            <StringItem index="1" value="250"/>
+                                            <StringItem index="2" value="500"/>
+                                            <StringItem index="3" value=" "/>
+                                          </StringArray>
+                                        </Property>
+                                      </Properties>
+                                      <Events>
+                                        <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="MacBandWidthItemStateChanged"/>
+                                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="MacBandWidthActionPerformed"/>
+                                      </Events>
+                                      <AuxValues>
+                                        <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+                                      </AuxValues>
+                                    </Component>
+                                    <Component class="javax.swing.JLabel" name="jLabel12">
+                                      <Properties>
+                                        <Property name="horizontalAlignment" type="int" value="0"/>
+                                        <Property name="text" type="java.lang.String" value="Band Width"/>
+                                      </Properties>
+                                    </Component>
+                                  </SubComponents>
+                                </Container>
+                                <Container class="javax.swing.JLayeredPane" name="jLayeredPane1">
+                                  <Properties>
+                                    <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+                                      <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
+                                        <TitledBorder title="System"/>
+                                      </Border>
+                                    </Property>
+                                  </Properties>
+
+                                  <Layout>
+                                    <DimensionLayout dim="0">
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Group type="102" alignment="0" attributes="0">
+                                              <Component id="cmdSysReset" min="-2" pref="120" max="-2" attributes="0"/>
+                                              <EmptySpace max="-2" attributes="0"/>
+                                              <Component id="cmdSysFactoryReset" min="-2" pref="120" max="-2" attributes="0"/>
+                                              <EmptySpace max="-2" attributes="0"/>
+                                              <Component id="cmdSysGetVer" min="-2" pref="120" max="-2" attributes="0"/>
+                                              <EmptySpace max="-2" attributes="0"/>
+                                              <Component id="cmdSysGetHwEui" min="-2" pref="120" max="-2" attributes="0"/>
+                                              <EmptySpace pref="20" max="32767" attributes="0"/>
+                                          </Group>
+                                      </Group>
+                                    </DimensionLayout>
+                                    <DimensionLayout dim="1">
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Group type="103" groupAlignment="3" attributes="0">
+                                              <Component id="cmdSysReset" alignment="3" min="-2" max="-2" attributes="0"/>
+                                              <Component id="cmdSysGetVer" alignment="3" min="-2" max="-2" attributes="0"/>
+                                              <Component id="cmdSysFactoryReset" alignment="3" min="-2" max="-2" attributes="0"/>
+                                              <Component id="cmdSysGetHwEui" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          </Group>
+                                      </Group>
+                                    </DimensionLayout>
+                                  </Layout>
+                                  <SubComponents>
+                                    <Component class="javax.swing.JButton" name="cmdSysReset">
+                                      <Properties>
+                                        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                                          <Font name="Tahoma" size="12" style="0"/>
+                                        </Property>
+                                        <Property name="text" type="java.lang.String" value="sys reset"/>
+                                        <Property name="toolTipText" type="java.lang.String" value="sys reset"/>
+                                        <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
+                                          <Insets value="[2, 2, 2, 2]"/>
+                                        </Property>
+                                        <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                                          <Dimension value="[210, 30]"/>
+                                        </Property>
+                                        <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                                          <Dimension value="[210, 23]"/>
+                                        </Property>
+                                        <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                                          <Dimension value="[210, 40]"/>
+                                        </Property>
+                                      </Properties>
+                                      <Events>
+                                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cmdSysResetActionPerformed"/>
+                                      </Events>
+                                    </Component>
+                                    <Component class="javax.swing.JButton" name="cmdSysFactoryReset">
+                                      <Properties>
+                                        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                                          <Font name="Tahoma" size="12" style="0"/>
+                                        </Property>
+                                        <Property name="text" type="java.lang.String" value="sys factoryRESET"/>
+                                        <Property name="toolTipText" type="java.lang.String" value=""/>
+                                        <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
+                                          <Insets value="[2, 2, 2, 2]"/>
+                                        </Property>
+                                        <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                                          <Dimension value="[210, 30]"/>
+                                        </Property>
+                                        <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                                          <Dimension value="[210, 23]"/>
+                                        </Property>
+                                        <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                                          <Dimension value="[210, 40]"/>
+                                        </Property>
+                                      </Properties>
+                                      <Events>
+                                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cmdSysFactoryResetActionPerformed"/>
+                                      </Events>
+                                    </Component>
+                                    <Component class="javax.swing.JButton" name="cmdSysGetVer">
+                                      <Properties>
+                                        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                                          <Font name="Tahoma" size="12" style="0"/>
+                                        </Property>
+                                        <Property name="text" type="java.lang.String" value="sys get ver"/>
+                                        <Property name="toolTipText" type="java.lang.String" value=""/>
+                                        <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
+                                          <Insets value="[2, 2, 2, 2]"/>
+                                        </Property>
+                                        <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                                          <Dimension value="[210, 30]"/>
+                                        </Property>
+                                        <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                                          <Dimension value="[210, 23]"/>
+                                        </Property>
+                                        <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                                          <Dimension value="[210, 40]"/>
+                                        </Property>
+                                      </Properties>
+                                      <Events>
+                                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cmdSysGetVerActionPerformed"/>
+                                      </Events>
+                                    </Component>
+                                    <Component class="javax.swing.JButton" name="cmdSysGetHwEui">
+                                      <Properties>
+                                        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                                          <Font name="Tahoma" size="12" style="0"/>
+                                        </Property>
+                                        <Property name="text" type="java.lang.String" value="sys get hweui"/>
+                                        <Property name="toolTipText" type="java.lang.String" value=""/>
+                                        <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
+                                          <Insets value="[2, 2, 2, 2]"/>
+                                        </Property>
+                                        <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                                          <Dimension value="[210, 30]"/>
+                                        </Property>
+                                        <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                                          <Dimension value="[210, 23]"/>
+                                        </Property>
+                                        <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                                          <Dimension value="[210, 40]"/>
+                                        </Property>
+                                      </Properties>
+                                      <Events>
+                                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cmdSysGetHwEuiActionPerformed"/>
+                                      </Events>
+                                    </Component>
+                                  </SubComponents>
+                                </Container>
+                              </SubComponents>
+                            </Container>
+                          </SubComponents>
+                        </Container>
+                        <Container class="javax.swing.JScrollPane" name="ActivationScrollPane">
+                          <Constraints>
+                            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
+                              <JTabbedPaneConstraints tabName=" Activation ">
+                                <Property name="tabTitle" type="java.lang.String" value=" Activation "/>
+                              </JTabbedPaneConstraints>
+                            </Constraint>
+                          </Constraints>
+
+                          <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+                          <SubComponents>
+                            <Container class="javax.swing.JLayeredPane" name="ActivationPane">
+                              <Properties>
+                                <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                                  <Dimension value="[537, 600]"/>
+                                </Property>
+                              </Properties>
+
+                              <Layout>
+                                <DimensionLayout dim="0">
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Group type="102" alignment="0" attributes="0">
+                                          <Group type="103" groupAlignment="1" attributes="0">
+                                              <Component id="OTAAPane" alignment="0" max="32767" attributes="0"/>
+                                              <Component id="ABPPane" alignment="0" max="32767" attributes="0"/>
+                                              <Component id="cmdMacSave" alignment="0" max="32767" attributes="0"/>
+                                          </Group>
+                                          <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
+                                      </Group>
+                                  </Group>
+                                </DimensionLayout>
+                                <DimensionLayout dim="1">
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Group type="102" alignment="0" attributes="0">
+                                          <Component id="ABPPane" min="-2" max="-2" attributes="0"/>
+                                          <EmptySpace min="-2" pref="1" max="-2" attributes="0"/>
+                                          <Component id="cmdMacSave" min="-2" pref="40" max="-2" attributes="0"/>
+                                          <EmptySpace max="-2" attributes="0"/>
+                                          <Component id="OTAAPane" min="-2" max="-2" attributes="0"/>
+                                          <EmptySpace min="0" pref="317" max="32767" attributes="0"/>
+                                      </Group>
+                                  </Group>
+                                </DimensionLayout>
+                              </Layout>
+                              <SubComponents>
+                                <Container class="javax.swing.JLayeredPane" name="ABPPane">
+                                  <Properties>
+                                    <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+                                      <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
+                                        <TitledBorder title="Activation By Personalization"/>
+                                      </Border>
+                                    </Property>
+                                  </Properties>
+
+                                  <Layout>
+                                    <DimensionLayout dim="0">
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Group type="102" alignment="0" attributes="0">
+                                              <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                                                  <Component id="cmdMacSetAppSKey" alignment="0" pref="0" max="32767" attributes="0"/>
+                                                  <Component id="cmdMacSetNwkSKey" pref="0" max="32767" attributes="0"/>
+                                                  <Component id="cmdMacSetDevAddr" min="-2" pref="180" max="-2" attributes="0"/>
+                                                  <Component id="cmdMacjoinABP" alignment="0" pref="0" max="32767" attributes="0"/>
+                                              </Group>
+                                              <EmptySpace max="-2" attributes="0"/>
+                                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                                  <Component id="NwkSKey" max="32767" attributes="0"/>
+                                                  <Component id="DevAddr" alignment="0" max="32767" attributes="0"/>
+                                                  <Component id="AppSKey" alignment="0" max="32767" attributes="0"/>
+                                              </Group>
+                                              <EmptySpace max="-2" attributes="0"/>
+                                              <Component id="cmdMacGetDevAddr" min="-2" pref="100" max="-2" attributes="0"/>
+                                              <EmptySpace min="0" pref="10" max="32767" attributes="0"/>
+                                          </Group>
+                                      </Group>
+                                    </DimensionLayout>
+                                    <DimensionLayout dim="1">
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Group type="102" alignment="1" attributes="0">
+                                              <Group type="103" groupAlignment="3" attributes="0">
+                                                  <Component id="cmdMacSetDevAddr" alignment="3" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="DevAddr" alignment="3" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="cmdMacGetDevAddr" alignment="3" min="-2" max="-2" attributes="0"/>
+                                              </Group>
+                                              <EmptySpace max="-2" attributes="0"/>
+                                              <Group type="103" groupAlignment="3" attributes="0">
+                                                  <Component id="cmdMacSetNwkSKey" alignment="3" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="NwkSKey" alignment="3" min="-2" max="-2" attributes="0"/>
+                                              </Group>
+                                              <EmptySpace max="-2" attributes="0"/>
+                                              <Group type="103" groupAlignment="3" attributes="0">
+                                                  <Component id="cmdMacSetAppSKey" alignment="3" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="AppSKey" alignment="3" min="-2" max="-2" attributes="0"/>
+                                              </Group>
+                                              <EmptySpace max="32767" attributes="0"/>
+                                              <Component id="cmdMacjoinABP" min="-2" pref="40" max="-2" attributes="0"/>
+                                              <EmptySpace max="-2" attributes="0"/>
+                                          </Group>
+                                      </Group>
+                                    </DimensionLayout>
+                                  </Layout>
+                                  <SubComponents>
+                                    <Component class="javax.swing.JButton" name="cmdMacSetDevAddr">
+                                      <Properties>
+                                        <Property name="text" type="java.lang.String" value="mac set devaddr"/>
+                                        <Property name="toolTipText" type="java.lang.String" value="sys reset"/>
+                                        <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
+                                          <Insets value="[2, 2, 2, 2]"/>
+                                        </Property>
+                                        <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                                          <Dimension value="[210, 23]"/>
+                                        </Property>
+                                        <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                                          <Dimension value="[210, 23]"/>
+                                        </Property>
+                                        <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                                          <Dimension value="[210, 23]"/>
+                                        </Property>
+                                      </Properties>
+                                      <Events>
+                                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cmdMacSetDevAddrActionPerformed"/>
+                                      </Events>
+                                    </Component>
+                                    <Component class="javax.swing.JButton" name="cmdMacSetNwkSKey">
+                                      <Properties>
+                                        <Property name="text" type="java.lang.String" value="mac set nwkskey"/>
+                                        <Property name="toolTipText" type="java.lang.String" value="sys reset"/>
+                                        <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
+                                          <Insets value="[2, 2, 2, 2]"/>
+                                        </Property>
+                                        <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                                          <Dimension value="[210, 23]"/>
+                                        </Property>
+                                        <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                                          <Dimension value="[210, 23]"/>
+                                        </Property>
+                                        <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                                          <Dimension value="[210, 23]"/>
+                                        </Property>
+                                      </Properties>
+                                      <Events>
+                                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cmdMacSetNwkSKeyActionPerformed"/>
+                                      </Events>
+                                    </Component>
+                                    <Component class="javax.swing.JButton" name="cmdMacSetAppSKey">
+                                      <Properties>
+                                        <Property name="text" type="java.lang.String" value="mac set appskey"/>
+                                        <Property name="toolTipText" type="java.lang.String" value="sys reset"/>
+                                        <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
+                                          <Insets value="[2, 2, 2, 2]"/>
+                                        </Property>
+                                        <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                                          <Dimension value="[210, 23]"/>
+                                        </Property>
+                                        <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                                          <Dimension value="[210, 23]"/>
+                                        </Property>
+                                        <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                                          <Dimension value="[210, 23]"/>
+                                        </Property>
+                                      </Properties>
+                                      <Events>
+                                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cmdMacSetAppSKeyActionPerformed"/>
+                                      </Events>
+                                    </Component>
+                                    <Component class="javax.swing.JButton" name="cmdMacjoinABP">
+                                      <Properties>
+                                        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                                          <Font name="Tahoma" size="12" style="1"/>
+                                        </Property>
+                                        <Property name="text" type="java.lang.String" value="Join ABP"/>
+                                        <Property name="toolTipText" type="java.lang.String" value="sys reset"/>
+                                        <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
+                                          <Insets value="[2, 2, 2, 2]"/>
+                                        </Property>
+                                        <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                                          <Dimension value="[210, 23]"/>
+                                        </Property>
+                                        <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                                          <Dimension value="[210, 23]"/>
+                                        </Property>
+                                        <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                                          <Dimension value="[210, 23]"/>
+                                        </Property>
+                                      </Properties>
+                                      <Events>
+                                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cmdMacjoinABPActionPerformed"/>
+                                      </Events>
+                                    </Component>
+                                    <Component class="javax.swing.JButton" name="cmdMacGetDevAddr">
+                                      <Properties>
+                                        <Property name="text" type="java.lang.String" value="mac get devaddr"/>
+                                        <Property name="toolTipText" type="java.lang.String" value="sys reset"/>
+                                        <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
+                                          <Insets value="[2, 2, 2, 2]"/>
+                                        </Property>
+                                        <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                                          <Dimension value="[210, 23]"/>
+                                        </Property>
+                                        <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                                          <Dimension value="[210, 23]"/>
+                                        </Property>
+                                        <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                                          <Dimension value="[210, 23]"/>
+                                        </Property>
+                                      </Properties>
+                                      <Events>
+                                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cmdMacGetDevAddrActionPerformed"/>
+                                      </Events>
+                                    </Component>
+                                    <Component class="javax.swing.JTextField" name="DevAddr">
+                                      <Properties>
+                                        <Property name="text" type="java.lang.String" value="00000000"/>
+                                      </Properties>
+                                      <Events>
+                                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="DevAddrActionPerformed"/>
+                                      </Events>
+                                    </Component>
+                                    <Component class="javax.swing.JTextField" name="NwkSKey">
+                                      <Properties>
+                                        <Property name="text" type="java.lang.String" value="2B7E151628AED2A6ABF7158809CF4F3C"/>
+                                      </Properties>
+                                      <Events>
+                                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="NwkSKeyActionPerformed"/>
+                                      </Events>
+                                    </Component>
+                                    <Component class="javax.swing.JTextField" name="AppSKey">
+                                      <Properties>
+                                        <Property name="text" type="java.lang.String" value="2B7E151628AED2A6ABF7158809CF4F3C"/>
+                                      </Properties>
+                                      <Events>
+                                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="AppSKeyActionPerformed"/>
+                                      </Events>
+                                    </Component>
+                                  </SubComponents>
+                                </Container>
+                                <Component class="javax.swing.JButton" name="cmdMacSave">
+                                  <Properties>
+                                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                                      <Font name="Tahoma" size="12" style="1"/>
+                                    </Property>
+                                    <Property name="text" type="java.lang.String" value="Save"/>
+                                    <Property name="toolTipText" type="java.lang.String" value="sys reset"/>
+                                    <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
+                                      <Insets value="[2, 2, 2, 2]"/>
+                                    </Property>
+                                    <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                                      <Dimension value="[210, 23]"/>
+                                    </Property>
+                                    <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                                      <Dimension value="[210, 23]"/>
+                                    </Property>
+                                    <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                                      <Dimension value="[210, 23]"/>
+                                    </Property>
+                                  </Properties>
+                                  <Events>
+                                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cmdMacSaveActionPerformed"/>
+                                  </Events>
+                                </Component>
+                                <Container class="javax.swing.JLayeredPane" name="OTAAPane">
+                                  <Properties>
+                                    <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+                                      <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
+                                        <TitledBorder title="Over The Air Activation"/>
+                                      </Border>
+                                    </Property>
+                                  </Properties>
+
+                                  <Layout>
+                                    <DimensionLayout dim="0">
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Group type="102" attributes="0">
+                                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                                  <Component id="cmdMacSetDevEui" min="-2" pref="180" max="-2" attributes="0"/>
+                                                  <Component id="cmdMacSetAppEui" alignment="0" pref="0" max="32767" attributes="0"/>
+                                                  <Component id="cmdMacSetAppKey" alignment="0" pref="0" max="32767" attributes="0"/>
+                                                  <Component id="cmdMacJoinOTAA" alignment="0" pref="0" max="32767" attributes="0"/>
+                                              </Group>
+                                              <EmptySpace max="-2" attributes="0"/>
+                                              <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                                                  <Component id="AppEUI" max="32767" attributes="0"/>
+                                                  <Component id="DevEUI" alignment="1" pref="204" max="32767" attributes="0"/>
+                                                  <Component id="AppKey" max="32767" attributes="0"/>
+                                              </Group>
+                                              <EmptySpace max="-2" attributes="0"/>
+                                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                                  <Component id="cmdMacGetDevEui" min="-2" pref="100" max="-2" attributes="0"/>
+                                                  <Component id="cmdMacGetAppEui" pref="0" max="32767" attributes="0"/>
+                                              </Group>
+                                              <EmptySpace max="32767" attributes="0"/>
+                                          </Group>
+                                      </Group>
+                                    </DimensionLayout>
+                                    <DimensionLayout dim="1">
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Group type="102" alignment="1" attributes="0">
+                                              <Group type="103" groupAlignment="3" attributes="0">
+                                                  <Component id="cmdMacSetDevEui" alignment="3" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="DevEUI" alignment="3" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="cmdMacGetDevEui" alignment="3" min="-2" max="-2" attributes="0"/>
+                                              </Group>
+                                              <EmptySpace max="-2" attributes="0"/>
+                                              <Group type="103" groupAlignment="3" attributes="0">
+                                                  <Component id="cmdMacSetAppEui" alignment="3" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="AppEUI" alignment="3" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="cmdMacGetAppEui" alignment="3" min="-2" max="-2" attributes="0"/>
+                                              </Group>
+                                              <EmptySpace max="-2" attributes="0"/>
+                                              <Group type="103" groupAlignment="3" attributes="0">
+                                                  <Component id="cmdMacSetAppKey" alignment="3" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="AppKey" alignment="3" min="-2" max="-2" attributes="0"/>
+                                              </Group>
+                                              <EmptySpace max="-2" attributes="0"/>
+                                              <Component id="cmdMacJoinOTAA" min="-2" pref="40" max="-2" attributes="0"/>
+                                              <EmptySpace max="-2" attributes="0"/>
+                                          </Group>
+                                      </Group>
+                                    </DimensionLayout>
+                                  </Layout>
+                                  <SubComponents>
+                                    <Component class="javax.swing.JButton" name="cmdMacSetDevEui">
+                                      <Properties>
+                                        <Property name="text" type="java.lang.String" value="mac set deveui"/>
+                                        <Property name="toolTipText" type="java.lang.String" value="sys reset"/>
+                                        <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
+                                          <Insets value="[2, 2, 2, 2]"/>
+                                        </Property>
+                                        <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                                          <Dimension value="[210, 23]"/>
+                                        </Property>
+                                        <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                                          <Dimension value="[210, 23]"/>
+                                        </Property>
+                                        <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                                          <Dimension value="[210, 23]"/>
+                                        </Property>
+                                      </Properties>
+                                      <Events>
+                                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cmdMacSetDevEuiActionPerformed"/>
+                                      </Events>
+                                    </Component>
+                                    <Component class="javax.swing.JButton" name="cmdMacSetAppEui">
+                                      <Properties>
+                                        <Property name="text" type="java.lang.String" value="mac set appeui"/>
+                                        <Property name="toolTipText" type="java.lang.String" value="sys reset"/>
+                                        <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
+                                          <Insets value="[2, 2, 2, 2]"/>
+                                        </Property>
+                                        <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                                          <Dimension value="[210, 23]"/>
+                                        </Property>
+                                        <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                                          <Dimension value="[210, 23]"/>
+                                        </Property>
+                                        <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                                          <Dimension value="[210, 23]"/>
+                                        </Property>
+                                      </Properties>
+                                      <Events>
+                                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cmdMacSetAppEuiActionPerformed"/>
+                                      </Events>
+                                    </Component>
+                                    <Component class="javax.swing.JButton" name="cmdMacSetAppKey">
+                                      <Properties>
+                                        <Property name="text" type="java.lang.String" value="mac set appkey"/>
+                                        <Property name="toolTipText" type="java.lang.String" value="sys reset"/>
+                                        <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
+                                          <Insets value="[2, 2, 2, 2]"/>
+                                        </Property>
+                                        <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                                          <Dimension value="[210, 23]"/>
+                                        </Property>
+                                        <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                                          <Dimension value="[210, 23]"/>
+                                        </Property>
+                                        <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                                          <Dimension value="[210, 23]"/>
+                                        </Property>
+                                      </Properties>
+                                      <Events>
+                                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cmdMacSetAppKeyActionPerformed"/>
+                                      </Events>
+                                    </Component>
+                                    <Component class="javax.swing.JButton" name="cmdMacJoinOTAA">
+                                      <Properties>
+                                        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                                          <Font name="Tahoma" size="12" style="1"/>
+                                        </Property>
+                                        <Property name="text" type="java.lang.String" value="Join OTAA"/>
+                                        <Property name="toolTipText" type="java.lang.String" value="sys reset"/>
+                                        <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
+                                          <Insets value="[2, 2, 2, 2]"/>
+                                        </Property>
+                                        <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                                          <Dimension value="[210, 23]"/>
+                                        </Property>
+                                        <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                                          <Dimension value="[210, 23]"/>
+                                        </Property>
+                                        <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                                          <Dimension value="[210, 23]"/>
+                                        </Property>
+                                      </Properties>
+                                      <Events>
+                                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cmdMacJoinOTAAActionPerformed"/>
+                                      </Events>
+                                    </Component>
+                                    <Component class="javax.swing.JButton" name="cmdMacGetDevEui">
+                                      <Properties>
+                                        <Property name="text" type="java.lang.String" value="mac get deveui"/>
+                                        <Property name="toolTipText" type="java.lang.String" value="sys reset"/>
+                                        <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
+                                          <Insets value="[2, 2, 2, 2]"/>
+                                        </Property>
+                                        <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                                          <Dimension value="[210, 23]"/>
+                                        </Property>
+                                        <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                                          <Dimension value="[210, 23]"/>
+                                        </Property>
+                                        <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                                          <Dimension value="[210, 23]"/>
+                                        </Property>
+                                      </Properties>
+                                      <Events>
+                                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cmdMacGetDevEuiActionPerformed"/>
+                                      </Events>
+                                    </Component>
+                                    <Component class="javax.swing.JButton" name="cmdMacGetAppEui">
+                                      <Properties>
+                                        <Property name="text" type="java.lang.String" value="mac get appeui"/>
+                                        <Property name="toolTipText" type="java.lang.String" value="sys reset"/>
+                                        <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
+                                          <Insets value="[2, 2, 2, 2]"/>
+                                        </Property>
+                                        <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                                          <Dimension value="[210, 23]"/>
+                                        </Property>
+                                        <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                                          <Dimension value="[210, 23]"/>
+                                        </Property>
+                                        <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                                          <Dimension value="[210, 23]"/>
+                                        </Property>
+                                      </Properties>
+                                      <Events>
+                                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cmdMacGetAppEuiActionPerformed"/>
+                                      </Events>
+                                    </Component>
+                                    <Component class="javax.swing.JTextField" name="DevEUI">
+                                      <Properties>
+                                        <Property name="text" type="java.lang.String" value="Enter Device EUI"/>
+                                      </Properties>
+                                      <Events>
+                                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="DevEUIActionPerformed"/>
+                                      </Events>
+                                    </Component>
+                                    <Component class="javax.swing.JTextField" name="AppEUI">
+                                      <Properties>
+                                        <Property name="text" type="java.lang.String" value="Enter App EUI"/>
+                                      </Properties>
+                                      <Events>
+                                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="AppEUIActionPerformed"/>
+                                      </Events>
+                                    </Component>
+                                    <Component class="javax.swing.JTextField" name="AppKey">
+                                      <Properties>
+                                        <Property name="text" type="java.lang.String" value="Enter App Key"/>
+                                      </Properties>
+                                      <Events>
+                                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="AppKeyActionPerformed"/>
+                                      </Events>
+                                    </Component>
+                                  </SubComponents>
+                                </Container>
+                              </SubComponents>
+                            </Container>
+                          </SubComponents>
+                        </Container>
+                      </SubComponents>
+                    </Container>
+                  </SubComponents>
+                </Container>
               </SubComponents>
             </Container>
           </SubComponents>
@@ -7644,7 +8978,7 @@
               <Layout>
                 <DimensionLayout dim="0">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="RightFilesSplitPane" alignment="0" max="32767" attributes="0"/>
+                      <Component id="RightFilesSplitPane" alignment="0" pref="0" max="32767" attributes="0"/>
                       <Component id="RightSnippetsPane" alignment="0" pref="0" max="32767" attributes="0"/>
                   </Group>
                 </DimensionLayout>
@@ -7680,9 +9014,9 @@
                       <Layout>
                         <DimensionLayout dim="0">
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <EmptySpace min="0" pref="299" max="32767" attributes="0"/>
+                              <EmptySpace min="0" pref="293" max="32767" attributes="0"/>
                               <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
-                                  <Component id="RightSplitPane" alignment="1" pref="299" max="32767" attributes="0"/>
+                                  <Component id="RightSplitPane" alignment="1" pref="293" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                         </DimensionLayout>
@@ -7776,6 +9110,9 @@
                                   <Events>
                                     <EventHandler event="propertyChange" listener="java.beans.PropertyChangeListener" parameters="java.beans.PropertyChangeEvent" handler="TerminalPropertyChange"/>
                                   </Events>
+                                  <AuxValues>
+                                    <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="9"/>
+                                  </AuxValues>
                                 </Component>
                               </SubComponents>
                             </Container>
@@ -7863,12 +9200,6 @@
                           <Border info="null"/>
                         </Property>
                         <Property name="horizontalScrollBarPolicy" type="int" value="31"/>
-                        <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                          <Dimension value="[150, 150]"/>
-                        </Property>
-                        <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                          <Dimension value="[150, 150]"/>
-                        </Property>
                       </Properties>
                       <Constraints>
                         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JSplitPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JSplitPaneSupportLayout$JSplitPaneConstraintsDescription">
@@ -7878,177 +9209,61 @@
 
                       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
                       <SubComponents>
-                        <Container class="javax.swing.JLayeredPane" name="FileManagerPane">
+                        <Container class="javax.swing.JLayeredPane" name="FileManagersLayer">
                           <Properties>
-                            <Property name="componentPopupMenu" type="javax.swing.JPopupMenu" editor="org.netbeans.modules.form.ComponentChooserEditor">
-                              <ComponentRef name="ContextMenuFileManager"/>
-                            </Property>
                             <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
                               <Dimension value="[145, 145]"/>
                             </Property>
-                            <Property name="name" type="java.lang.String" value="" noResource="true"/>
-                            <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                              <Dimension value="[145, 145]"/>
-                            </Property>
                           </Properties>
-                          <SubComponents>
-                            <Component class="javax.swing.JButton" name="FileFormat">
-                              <Properties>
-                                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                                  <Image iconType="3" name="/resources/file manager (delete).png"/>
-                                </Property>
-                                <Property name="text" type="java.lang.String" value="Format"/>
-                                <Property name="toolTipText" type="java.lang.String" value="Format (erase) NodeMCU file system. All files will be removed!"/>
-                                <Property name="horizontalAlignment" type="int" value="2"/>
-                                <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
-                                  <Insets value="[2, 4, 2, 4]"/>
-                                </Property>
-                                <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                                  <Dimension value="[130, 25]"/>
-                                </Property>
-                                <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                                  <Dimension value="[130, 25]"/>
-                                </Property>
-                                <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                                  <Dimension value="[130, 25]"/>
-                                </Property>
-                              </Properties>
-                              <Events>
-                                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="FileFormatActionPerformed"/>
-                              </Events>
-                            </Component>
-                            <Component class="javax.swing.JButton" name="FileSystemInfo">
-                              <Properties>
-                                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                                  <Image iconType="3" name="/resources/file manager.png"/>
-                                </Property>
-                                <Property name="text" type="java.lang.String" value="FS Info"/>
-                                <Property name="toolTipText" type="java.lang.String" value="Execute command file.fsinfo() and show total, used and remainig space on the ESP filesystem"/>
-                                <Property name="alignmentX" type="float" value="0.5"/>
-                                <Property name="horizontalAlignment" type="int" value="2"/>
-                                <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
-                                  <Insets value="[2, 2, 2, 2]"/>
-                                </Property>
-                                <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                                  <Dimension value="[130, 25]"/>
-                                </Property>
-                                <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                                  <Dimension value="[130, 25]"/>
-                                </Property>
-                              </Properties>
-                              <Events>
-                                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="FileSystemInfoActionPerformed"/>
-                              </Events>
-                            </Component>
-                            <Component class="javax.swing.JButton" name="FileListReload">
-                              <Properties>
-                                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                                  <Font name="Tahoma" size="12" style="0"/>
-                                </Property>
-                                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                                  <Image iconType="3" name="/resources/refresh3.png"/>
-                                </Property>
-                                <Property name="text" type="java.lang.String" value="Reload"/>
-                                <Property name="alignmentX" type="float" value="0.5"/>
-                                <Property name="horizontalAlignment" type="int" value="2"/>
-                                <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
-                                  <Insets value="[2, 2, 2, 2]"/>
-                                </Property>
-                                <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                                  <Dimension value="[130, 25]"/>
-                                </Property>
-                                <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                                  <Dimension value="[130, 25]"/>
-                                </Property>
-                              </Properties>
-                              <Events>
-                                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="FileListReloadActionPerformed"/>
-                              </Events>
-                            </Component>
-                            <Component class="javax.swing.JButton" name="FileAsButton1">
-                              <Properties>
-                                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                                  <Font name="Tahoma" size="12" style="0"/>
-                                </Property>
-                                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                                  <Image iconType="3" name="/resources/file.png"/>
-                                </Property>
-                                <Property name="text" type="java.lang.String" value="File 1"/>
-                                <Property name="toolTipText" type="java.lang.String" value="Left click"/>
-                                <Property name="alignmentX" type="float" value="0.5"/>
-                                <Property name="componentPopupMenu" type="javax.swing.JPopupMenu" editor="org.netbeans.modules.form.ComponentChooserEditor">
-                                  <ComponentRef name="ContextMenuESPFileLUA"/>
-                                </Property>
-                                <Property name="horizontalAlignment" type="int" value="2"/>
-                                <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
-                                  <Insets value="[2, 2, 2, 2]"/>
-                                </Property>
-                                <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                                  <Dimension value="[130, 25]"/>
-                                </Property>
-                                <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                                  <Dimension value="[130, 25]"/>
-                                </Property>
-                              </Properties>
-                              <Events>
-                                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="FileAsButton1MouseClicked"/>
-                                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="FileAsButton1ActionPerformed"/>
-                              </Events>
-                            </Component>
-                            <Container class="javax.swing.JLayeredPane" name="FileRenamePanel">
-                              <Properties>
-                                <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                                  <Dimension value="[130, 45]"/>
-                                </Property>
-                                <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                                  <Dimension value="[130, 45]"/>
-                                </Property>
-                              </Properties>
 
-                              <Layout>
-                                <DimensionLayout dim="0">
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Group type="102" attributes="0">
-                                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                              <Component id="FileRename" max="32767" attributes="0"/>
-                                              <Component id="FileRenameLabel" max="32767" attributes="0"/>
-                                          </Group>
-                                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                          <Layout>
+                            <DimensionLayout dim="0">
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Group type="102" attributes="0">
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Component id="PyFileManagerPane" max="32767" attributes="0"/>
+                                          <Component id="NodeFileManagerPane" alignment="0" min="-2" pref="155" max="-2" attributes="0"/>
                                       </Group>
+                                      <EmptySpace min="0" pref="433" max="32767" attributes="0"/>
                                   </Group>
-                                </DimensionLayout>
-                                <DimensionLayout dim="1">
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Group type="102" alignment="0" attributes="0">
-                                          <Component id="FileRenameLabel" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="FileRename" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                                      </Group>
+                              </Group>
+                            </DimensionLayout>
+                            <DimensionLayout dim="1">
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Group type="102" attributes="0">
+                                      <Component id="NodeFileManagerPane" pref="248" max="32767" attributes="0"/>
+                                      <EmptySpace min="6" pref="6" max="-2" attributes="0"/>
+                                      <Component id="PyFileManagerPane" pref="167" max="32767" attributes="0"/>
                                   </Group>
-                                </DimensionLayout>
-                              </Layout>
+                              </Group>
+                            </DimensionLayout>
+                          </Layout>
+                          <SubComponents>
+                            <Container class="javax.swing.JLayeredPane" name="NodeFileManagerPane">
+                              <Properties>
+                                <Property name="componentPopupMenu" type="javax.swing.JPopupMenu" editor="org.netbeans.modules.form.ComponentChooserEditor">
+                                  <ComponentRef name="ContextMenuFileManager"/>
+                                </Property>
+                                <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                                  <Dimension value="[145, 145]"/>
+                                </Property>
+                                <Property name="name" type="java.lang.String" value="" noResource="true"/>
+                                <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                                  <Dimension value="[145, 145]"/>
+                                </Property>
+                              </Properties>
                               <SubComponents>
-                                <Component class="javax.swing.JLabel" name="FileRenameLabel">
+                                <Component class="javax.swing.JButton" name="FileFormat">
                                   <Properties>
-                                    <Property name="horizontalAlignment" type="int" value="0"/>
-                                    <Property name="text" type="java.lang.String" value="Old file name"/>
-                                    <Property name="toolTipText" type="java.lang.String" value="Input new file name and hit Enter to completed or press Reload for cancel"/>
-                                    <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                                      <Dimension value="[130, 14]"/>
+                                    <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                                      <Image iconType="3" name="/resources/file manager (delete).png"/>
                                     </Property>
-                                    <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                                      <Dimension value="[130, 14]"/>
+                                    <Property name="text" type="java.lang.String" value="Format"/>
+                                    <Property name="toolTipText" type="java.lang.String" value="Format (erase) NodeMCU file system. All files will be removed!"/>
+                                    <Property name="horizontalAlignment" type="int" value="2"/>
+                                    <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
+                                      <Insets value="[2, 4, 2, 4]"/>
                                     </Property>
-                                    <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                                      <Dimension value="[130, 14]"/>
-                                    </Property>
-                                  </Properties>
-                                </Component>
-                                <Component class="javax.swing.JTextField" name="FileRename">
-                                  <Properties>
-                                    <Property name="text" type="java.lang.String" value="NewFileName"/>
-                                    <Property name="toolTipText" type="java.lang.String" value="Input new file name and hit Enter to completed or press Reload for cancel"/>
                                     <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
                                       <Dimension value="[130, 25]"/>
                                     </Property>
@@ -8060,78 +9275,296 @@
                                     </Property>
                                   </Properties>
                                   <Events>
-                                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="FileRenameActionPerformed"/>
+                                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="FileFormatActionPerformed"/>
+                                  </Events>
+                                </Component>
+                                <Component class="javax.swing.JButton" name="FileSystemInfo">
+                                  <Properties>
+                                    <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                                      <Image iconType="3" name="/resources/file manager.png"/>
+                                    </Property>
+                                    <Property name="text" type="java.lang.String" value="FS Info"/>
+                                    <Property name="toolTipText" type="java.lang.String" value="Execute command file.fsinfo() and show total, used and remainig space on the ESP filesystem"/>
+                                    <Property name="alignmentX" type="float" value="0.5"/>
+                                    <Property name="horizontalAlignment" type="int" value="2"/>
+                                    <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
+                                      <Insets value="[2, 2, 2, 2]"/>
+                                    </Property>
+                                    <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                                      <Dimension value="[130, 25]"/>
+                                    </Property>
+                                    <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                                      <Dimension value="[130, 25]"/>
+                                    </Property>
+                                  </Properties>
+                                  <Events>
+                                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="FileSystemInfoActionPerformed"/>
+                                  </Events>
+                                </Component>
+                                <Component class="javax.swing.JButton" name="FileListReload">
+                                  <Properties>
+                                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                                      <Font name="Tahoma" size="12" style="0"/>
+                                    </Property>
+                                    <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                                      <Image iconType="3" name="/resources/refresh3.png"/>
+                                    </Property>
+                                    <Property name="text" type="java.lang.String" value="Reload"/>
+                                    <Property name="alignmentX" type="float" value="0.5"/>
+                                    <Property name="horizontalAlignment" type="int" value="2"/>
+                                    <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
+                                      <Insets value="[2, 2, 2, 2]"/>
+                                    </Property>
+                                    <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                                      <Dimension value="[130, 25]"/>
+                                    </Property>
+                                    <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                                      <Dimension value="[130, 25]"/>
+                                    </Property>
+                                  </Properties>
+                                  <Events>
+                                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="FileListReloadActionPerformed"/>
+                                  </Events>
+                                </Component>
+                                <Component class="javax.swing.JButton" name="FileAsButton1">
+                                  <Properties>
+                                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                                      <Font name="Tahoma" size="12" style="0"/>
+                                    </Property>
+                                    <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                                      <Image iconType="3" name="/resources/file.png"/>
+                                    </Property>
+                                    <Property name="text" type="java.lang.String" value="File 1"/>
+                                    <Property name="toolTipText" type="java.lang.String" value="Left click"/>
+                                    <Property name="alignmentX" type="float" value="0.5"/>
+                                    <Property name="componentPopupMenu" type="javax.swing.JPopupMenu" editor="org.netbeans.modules.form.ComponentChooserEditor">
+                                      <ComponentRef name="ContextMenuESPFileLUA"/>
+                                    </Property>
+                                    <Property name="horizontalAlignment" type="int" value="2"/>
+                                    <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
+                                      <Insets value="[2, 2, 2, 2]"/>
+                                    </Property>
+                                    <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                                      <Dimension value="[130, 25]"/>
+                                    </Property>
+                                    <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                                      <Dimension value="[130, 25]"/>
+                                    </Property>
+                                  </Properties>
+                                  <Events>
+                                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="FileAsButton1MouseClicked"/>
+                                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="FileAsButton1ActionPerformed"/>
+                                  </Events>
+                                </Component>
+                                <Container class="javax.swing.JLayeredPane" name="FileRenamePanel">
+                                  <Properties>
+                                    <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                                      <Dimension value="[130, 45]"/>
+                                    </Property>
+                                    <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                                      <Dimension value="[130, 45]"/>
+                                    </Property>
+                                  </Properties>
+
+                                  <Layout>
+                                    <DimensionLayout dim="0">
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Group type="102" attributes="0">
+                                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                                  <Component id="FileRename" max="32767" attributes="0"/>
+                                                  <Component id="FileRenameLabel" max="32767" attributes="0"/>
+                                              </Group>
+                                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                                          </Group>
+                                      </Group>
+                                    </DimensionLayout>
+                                    <DimensionLayout dim="1">
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Group type="102" alignment="0" attributes="0">
+                                              <Component id="FileRenameLabel" min="-2" max="-2" attributes="0"/>
+                                              <EmptySpace max="-2" attributes="0"/>
+                                              <Component id="FileRename" min="-2" max="-2" attributes="0"/>
+                                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                                          </Group>
+                                      </Group>
+                                    </DimensionLayout>
+                                  </Layout>
+                                  <SubComponents>
+                                    <Component class="javax.swing.JLabel" name="FileRenameLabel">
+                                      <Properties>
+                                        <Property name="horizontalAlignment" type="int" value="0"/>
+                                        <Property name="text" type="java.lang.String" value="Old file name"/>
+                                        <Property name="toolTipText" type="java.lang.String" value="Input new file name and hit Enter to completed or press Reload for cancel"/>
+                                        <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                                          <Dimension value="[130, 14]"/>
+                                        </Property>
+                                        <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                                          <Dimension value="[130, 14]"/>
+                                        </Property>
+                                        <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                                          <Dimension value="[130, 14]"/>
+                                        </Property>
+                                      </Properties>
+                                    </Component>
+                                    <Component class="javax.swing.JTextField" name="FileRename">
+                                      <Properties>
+                                        <Property name="text" type="java.lang.String" value="NewFileName"/>
+                                        <Property name="toolTipText" type="java.lang.String" value="Input new file name and hit Enter to completed or press Reload for cancel"/>
+                                        <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                                          <Dimension value="[130, 25]"/>
+                                        </Property>
+                                        <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                                          <Dimension value="[130, 25]"/>
+                                        </Property>
+                                        <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                                          <Dimension value="[130, 25]"/>
+                                        </Property>
+                                      </Properties>
+                                      <Events>
+                                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="FileRenameActionPerformed"/>
+                                      </Events>
+                                    </Component>
+                                  </SubComponents>
+                                </Container>
+                              </SubComponents>
+                              <LayoutCode>
+                                <CodeStatement>
+                                  <CodeExpression id="1_flowLayout1">
+                                    <CodeVariable name="flowLayout1" type="4096" declaredType="java.awt.FlowLayout"/>
+                                    <ExpressionOrigin>
+                                      <ExpressionProvider type="CodeConstructor">
+                                        <CodeConstructor class="java.awt.FlowLayout" parameterTypes="int, int, int"/>
+                                      </ExpressionProvider>
+                                      <Parameters>
+                                        <CodeExpression id="2">
+                                          <ExpressionOrigin>
+                                            <Value type="int" value="3"/>
+                                          </ExpressionOrigin>
+                                        </CodeExpression>
+                                        <CodeExpression id="3">
+                                          <ExpressionOrigin>
+                                            <Value type="int" value="2"/>
+                                          </ExpressionOrigin>
+                                        </CodeExpression>
+                                        <CodeExpression id="4">
+                                          <ExpressionOrigin>
+                                            <Value type="int" value="2"/>
+                                          </ExpressionOrigin>
+                                        </CodeExpression>
+                                      </Parameters>
+                                    </ExpressionOrigin>
+                                  </CodeExpression>
+                                  <StatementProvider type="CodeExpression">
+                                    <CodeExpression id="1_flowLayout1"/>
+                                  </StatementProvider>
+                                  <Parameters>
+                                    <CodeExpression id="2"/>
+                                    <CodeExpression id="3"/>
+                                    <CodeExpression id="4"/>
+                                  </Parameters>
+                                </CodeStatement>
+                                <CodeStatement>
+                                  <CodeExpression id="1_flowLayout1"/>
+                                  <StatementProvider type="CodeMethod">
+                                    <CodeMethod name="setAlignOnBaseline" class="java.awt.FlowLayout" parameterTypes="boolean"/>
+                                  </StatementProvider>
+                                  <Parameters>
+                                    <CodeExpression id="5">
+                                      <ExpressionOrigin>
+                                        <Value type="boolean" value="true"/>
+                                      </ExpressionOrigin>
+                                    </CodeExpression>
+                                  </Parameters>
+                                </CodeStatement>
+                                <CodeStatement>
+                                  <CodeExpression id="6_NodeFileManagerPane">
+                                    <CodeVariable name="NodeFileManagerPane" type="8194" declaredType="javax.swing.JLayeredPane"/>
+                                    <ExpressionOrigin>
+                                      <ExpressionProvider type="ComponentRef">
+                                        <ComponentRef name="NodeFileManagerPane"/>
+                                      </ExpressionProvider>
+                                    </ExpressionOrigin>
+                                  </CodeExpression>
+                                  <StatementProvider type="CodeMethod">
+                                    <CodeMethod name="setLayout" class="java.awt.Container" parameterTypes="java.awt.LayoutManager"/>
+                                  </StatementProvider>
+                                  <Parameters>
+                                    <CodeExpression id="1_flowLayout1"/>
+                                  </Parameters>
+                                </CodeStatement>
+                              </LayoutCode>
+                            </Container>
+                            <Container class="javax.swing.JLayeredPane" name="PyFileManagerPane">
+                              <Properties>
+                                <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                                  <Dimension value="[500, 155]"/>
+                                </Property>
+                                <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                                  <Dimension value="[55, 55]"/>
+                                </Property>
+                                <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                                  <Dimension value="[155, 155]"/>
+                                </Property>
+                              </Properties>
+
+                              <Layout class="org.netbeans.modules.form.compat2.layouts.DesignFlowLayout"/>
+                              <SubComponents>
+                                <Component class="javax.swing.JButton" name="PyListDir">
+                                  <Properties>
+                                    <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                                      <Image iconType="3" name="/resources/refresh3.png"/>
+                                    </Property>
+                                    <Property name="text" type="java.lang.String" value="ListDir /"/>
+                                    <Property name="toolTipText" type="java.lang.String" value="Execute command listdir() and show files"/>
+                                    <Property name="alignmentX" type="float" value="0.5"/>
+                                    <Property name="horizontalAlignment" type="int" value="2"/>
+                                    <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
+                                      <Insets value="[2, 2, 2, 2]"/>
+                                    </Property>
+                                    <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                                      <Dimension value="[130, 25]"/>
+                                    </Property>
+                                    <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                                      <Dimension value="[130, 25]"/>
+                                    </Property>
+                                  </Properties>
+                                  <Events>
+                                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="PyListDirActionPerformed"/>
+                                  </Events>
+                                </Component>
+                                <Component class="javax.swing.JButton" name="PyFileAsButton1">
+                                  <Properties>
+                                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                                      <Font name="Tahoma" size="12" style="0"/>
+                                    </Property>
+                                    <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                                      <Image iconType="3" name="/resources/file.png"/>
+                                    </Property>
+                                    <Property name="text" type="java.lang.String" value="File 1"/>
+                                    <Property name="toolTipText" type="java.lang.String" value="Left click"/>
+                                    <Property name="alignmentX" type="float" value="0.5"/>
+                                    <Property name="componentPopupMenu" type="javax.swing.JPopupMenu" editor="org.netbeans.modules.form.ComponentChooserEditor">
+                                      <ComponentRef name="ContextMenuESPFileLUA"/>
+                                    </Property>
+                                    <Property name="horizontalAlignment" type="int" value="2"/>
+                                    <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
+                                      <Insets value="[2, 2, 2, 2]"/>
+                                    </Property>
+                                    <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                                      <Dimension value="[130, 25]"/>
+                                    </Property>
+                                    <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                                      <Dimension value="[130, 25]"/>
+                                    </Property>
+                                  </Properties>
+                                  <Events>
+                                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="PyFileAsButton1MouseClicked"/>
+                                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="PyFileAsButton1ActionPerformed"/>
                                   </Events>
                                 </Component>
                               </SubComponents>
                             </Container>
                           </SubComponents>
-                          <LayoutCode>
-                            <CodeStatement>
-                              <CodeExpression id="1_flowLayout1">
-                                <CodeVariable name="flowLayout1" type="4096" declaredType="java.awt.FlowLayout"/>
-                                <ExpressionOrigin>
-                                  <ExpressionProvider type="CodeConstructor">
-                                    <CodeConstructor class="java.awt.FlowLayout" parameterTypes="int, int, int"/>
-                                  </ExpressionProvider>
-                                  <Parameters>
-                                    <CodeExpression id="2">
-                                      <ExpressionOrigin>
-                                        <Value type="int" value="3"/>
-                                      </ExpressionOrigin>
-                                    </CodeExpression>
-                                    <CodeExpression id="3">
-                                      <ExpressionOrigin>
-                                        <Value type="int" value="2"/>
-                                      </ExpressionOrigin>
-                                    </CodeExpression>
-                                    <CodeExpression id="4">
-                                      <ExpressionOrigin>
-                                        <Value type="int" value="2"/>
-                                      </ExpressionOrigin>
-                                    </CodeExpression>
-                                  </Parameters>
-                                </ExpressionOrigin>
-                              </CodeExpression>
-                              <StatementProvider type="CodeExpression">
-                                <CodeExpression id="1_flowLayout1"/>
-                              </StatementProvider>
-                              <Parameters>
-                                <CodeExpression id="2"/>
-                                <CodeExpression id="3"/>
-                                <CodeExpression id="4"/>
-                              </Parameters>
-                            </CodeStatement>
-                            <CodeStatement>
-                              <CodeExpression id="1_flowLayout1"/>
-                              <StatementProvider type="CodeMethod">
-                                <CodeMethod name="setAlignOnBaseline" class="java.awt.FlowLayout" parameterTypes="boolean"/>
-                              </StatementProvider>
-                              <Parameters>
-                                <CodeExpression id="5">
-                                  <ExpressionOrigin>
-                                    <Value type="boolean" value="true"/>
-                                  </ExpressionOrigin>
-                                </CodeExpression>
-                              </Parameters>
-                            </CodeStatement>
-                            <CodeStatement>
-                              <CodeExpression id="6_FileManagerPane">
-                                <CodeVariable name="FileManagerPane" type="8194" declaredType="javax.swing.JLayeredPane"/>
-                                <ExpressionOrigin>
-                                  <ExpressionProvider type="ComponentRef">
-                                    <ComponentRef name="FileManagerPane"/>
-                                  </ExpressionProvider>
-                                </ExpressionOrigin>
-                              </CodeExpression>
-                              <StatementProvider type="CodeMethod">
-                                <CodeMethod name="setLayout" class="java.awt.Container" parameterTypes="java.awt.LayoutManager"/>
-                              </StatementProvider>
-                              <Parameters>
-                                <CodeExpression id="1_flowLayout1"/>
-                              </Parameters>
-                            </CodeStatement>
-                          </LayoutCode>
                         </Container>
                       </SubComponents>
                     </Container>

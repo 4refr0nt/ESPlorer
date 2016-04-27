@@ -1,3 +1,7 @@
+/**
+ *
+ * @author 4refr0nt
+ */
 package ESPlorer;
 
 import java.awt.Color;
@@ -36,15 +40,20 @@ import jssc.SerialPortList;
 
 public class ESPlorer extends javax.swing.JFrame {
 
-    private static SerialPort serialPort;
+    public static SerialPort serialPort;
+    public static ArrayList<String> sendBuf;
+    public static boolean pasteMode = true; // for MicroPython only
+
     public static boolean pOpen = false;
     public static boolean sOpen = false;
     public static boolean portJustOpen = false;
-    public static final String version = "v0.2.0-rc3";
+    public static final String version = "v0.2.0-rc4";
     public static ArrayList<String> LAF;
     public static ArrayList<String> LAFclass;
     public static Preferences prefs;
     private static int FirmwareType;
+
+    private static pyFiler pyFiler = new pyFiler();
 
     /**
      * Creates new form MainWindows
@@ -278,6 +287,7 @@ public class ESPlorer extends javax.swing.JFrame {
         UseCustomPortName = new javax.swing.JCheckBox();
         jLabel10 = new javax.swing.JLabel();
         AutodetectFirmware = new javax.swing.JCheckBox();
+        CommandEcho = new javax.swing.JCheckBox();
         ATvXX = new javax.swing.JLayeredPane();
         BasicATcommandsPane = new javax.swing.JLayeredPane();
         cmdAT = new javax.swing.JButton();
@@ -371,6 +381,67 @@ public class ESPlorer extends javax.swing.JFrame {
         DHCP = new javax.swing.JComboBox();
         DHCPmode = new javax.swing.JComboBox();
         cmdSetCWDHCP = new javax.swing.JButton();
+        RN2483 = new javax.swing.JLayeredPane();
+        RN2483jTab = new javax.swing.JTabbedPane();
+        MacPane = new javax.swing.JScrollPane();
+        LoRaMAC = new javax.swing.JLayeredPane();
+        MacCommon = new javax.swing.JLayeredPane();
+        cmdMacSetAdrOn = new javax.swing.JButton();
+        cmdMacSetDR = new javax.swing.JButton();
+        cmdMacSetPwrIdx = new javax.swing.JButton();
+        cmdMacGetStatus = new javax.swing.JButton();
+        cmdMacSetAdrOff = new javax.swing.JButton();
+        cmdMacGetAdr = new javax.swing.JButton();
+        MacDR = new javax.swing.JTextField();
+        MacPower = new javax.swing.JTextField();
+        cmdMacGetDR = new javax.swing.JButton();
+        cmdMacGetPwrIdx = new javax.swing.JButton();
+        SendUnconfirmed = new javax.swing.JLayeredPane();
+        cmdMacTX = new javax.swing.JButton();
+        MacTxPort = new javax.swing.JTextField();
+        MacTxData = new javax.swing.JTextField();
+        TxConfirmed = new javax.swing.JComboBox<>();
+        jLabel13 = new javax.swing.JLabel();
+        RadioPane = new javax.swing.JLayeredPane();
+        MacSF = new javax.swing.JComboBox<>();
+        jLabel11 = new javax.swing.JLabel();
+        RadioRxBandWidth = new javax.swing.JTextField();
+        RadioFreq = new javax.swing.JTextField();
+        cmdRadiosetRxBw = new javax.swing.JButton();
+        cmdRadioSetFreq = new javax.swing.JButton();
+        cmdRadioGetSF = new javax.swing.JButton();
+        cmdRadioGetBw = new javax.swing.JButton();
+        cmdRadioGetRxBw = new javax.swing.JButton();
+        cmdRadioGetFreq = new javax.swing.JButton();
+        MacBandWidth = new javax.swing.JComboBox<>();
+        jLabel12 = new javax.swing.JLabel();
+        jLayeredPane1 = new javax.swing.JLayeredPane();
+        cmdSysReset = new javax.swing.JButton();
+        cmdSysFactoryReset = new javax.swing.JButton();
+        cmdSysGetVer = new javax.swing.JButton();
+        cmdSysGetHwEui = new javax.swing.JButton();
+        ActivationScrollPane = new javax.swing.JScrollPane();
+        ActivationPane = new javax.swing.JLayeredPane();
+        ABPPane = new javax.swing.JLayeredPane();
+        cmdMacSetDevAddr = new javax.swing.JButton();
+        cmdMacSetNwkSKey = new javax.swing.JButton();
+        cmdMacSetAppSKey = new javax.swing.JButton();
+        cmdMacjoinABP = new javax.swing.JButton();
+        cmdMacGetDevAddr = new javax.swing.JButton();
+        DevAddr = new javax.swing.JTextField();
+        NwkSKey = new javax.swing.JTextField();
+        AppSKey = new javax.swing.JTextField();
+        cmdMacSave = new javax.swing.JButton();
+        OTAAPane = new javax.swing.JLayeredPane();
+        cmdMacSetDevEui = new javax.swing.JButton();
+        cmdMacSetAppEui = new javax.swing.JButton();
+        cmdMacSetAppKey = new javax.swing.JButton();
+        cmdMacJoinOTAA = new javax.swing.JButton();
+        cmdMacGetDevEui = new javax.swing.JButton();
+        cmdMacGetAppEui = new javax.swing.JButton();
+        DevEUI = new javax.swing.JTextField();
+        AppEUI = new javax.swing.JTextField();
+        AppKey = new javax.swing.JTextField();
         RightBasePane = new javax.swing.JLayeredPane();
         LEDPanel = new javax.swing.JLayeredPane();
         PortOpenLabel = new javax.swing.JLabel();
@@ -399,7 +470,8 @@ public class ESPlorer extends javax.swing.JFrame {
         ScrollLog = new javax.swing.JScrollPane();
         Log = new javax.swing.JTextArea();
         FileManagerScrollPane = new javax.swing.JScrollPane();
-        FileManagerPane = new javax.swing.JLayeredPane();
+        FileManagersLayer = new javax.swing.JLayeredPane();
+        NodeFileManagerPane = new javax.swing.JLayeredPane();
         FileFormat = new javax.swing.JButton();
         FileSystemInfo = new javax.swing.JButton();
         FileListReload = new javax.swing.JButton();
@@ -407,6 +479,9 @@ public class ESPlorer extends javax.swing.JFrame {
         FileRenamePanel = new javax.swing.JLayeredPane();
         FileRenameLabel = new javax.swing.JLabel();
         FileRename = new javax.swing.JTextField();
+        PyFileManagerPane = new javax.swing.JLayeredPane();
+        PyListDir = new javax.swing.JButton();
+        PyFileAsButton1 = new javax.swing.JButton();
         RightSnippetsPane = new javax.swing.JLayeredPane();
         ButtonSnippet0 = new javax.swing.JButton();
         ButtonSnippet1 = new javax.swing.JButton();
@@ -3179,10 +3254,21 @@ public class ESPlorer extends javax.swing.JFrame {
             }
         });
 
+        CommandEcho.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        CommandEcho.setSelected(true);
+        CommandEcho.setText("Command Echo");
+        CommandEcho.setToolTipText("Use custom serial port name (AutoScan will be disabled)");
+        CommandEcho.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                CommandEchoItemStateChanged(evt);
+            }
+        });
+
         jLayeredPane3.setLayer(CustomPortName, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPane3.setLayer(UseCustomPortName, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPane3.setLayer(jLabel10, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPane3.setLayer(AutodetectFirmware, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane3.setLayer(CommandEcho, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout jLayeredPane3Layout = new javax.swing.GroupLayout(jLayeredPane3);
         jLayeredPane3.setLayout(jLayeredPane3Layout);
@@ -3192,6 +3278,7 @@ public class ESPlorer extends javax.swing.JFrame {
             .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(CustomPortName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(AutodetectFirmware, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(CommandEcho, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jLayeredPane3Layout.setVerticalGroup(
             jLayeredPane3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -3201,8 +3288,11 @@ public class ESPlorer extends javax.swing.JFrame {
                 .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(CustomPortName, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(AutodetectFirmware))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(AutodetectFirmware)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(CommandEcho)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         NodeMCUSettings.setLayer(OptionsFirmware, javax.swing.JLayeredPane.DEFAULT_LAYER);
@@ -3238,9 +3328,9 @@ public class ESPlorer extends javax.swing.JFrame {
                         .addComponent(jLayeredPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLayeredPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(45, 45, 45)
                 .addComponent(OptionsFileSendMode, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 173, Short.MAX_VALUE))
+                .addGap(0, 134, Short.MAX_VALUE))
         );
 
         TextTab.addTab("Settings", new javax.swing.ImageIcon(getClass().getResource("/resources/settings2.png")), NodeMCUSettings, "Settings for file sending"); // NOI18N
@@ -4609,6 +4699,874 @@ public class ESPlorer extends javax.swing.JFrame {
 
         LeftTab.addTab(" AT-based ", ATvXX);
 
+        RN2483.setOpaque(true);
+
+        MacPane.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+
+        LoRaMAC.setOpaque(true);
+        LoRaMAC.setPreferredSize(new java.awt.Dimension(729, 600));
+
+        MacCommon.setBorder(javax.swing.BorderFactory.createTitledBorder("Parameters"));
+
+        cmdMacSetAdrOn.setText("mac set adr on");
+        cmdMacSetAdrOn.setToolTipText("sys reset");
+        cmdMacSetAdrOn.setMargin(new java.awt.Insets(2, 2, 2, 2));
+        cmdMacSetAdrOn.setMaximumSize(new java.awt.Dimension(210, 23));
+        cmdMacSetAdrOn.setMinimumSize(new java.awt.Dimension(210, 23));
+        cmdMacSetAdrOn.setPreferredSize(new java.awt.Dimension(210, 23));
+        cmdMacSetAdrOn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmdMacSetAdrOnActionPerformed(evt);
+            }
+        });
+
+        cmdMacSetDR.setText("mac set dr (Data Rate)");
+        cmdMacSetDR.setToolTipText("sys reset");
+        cmdMacSetDR.setMargin(new java.awt.Insets(2, 2, 2, 2));
+        cmdMacSetDR.setMaximumSize(new java.awt.Dimension(210, 23));
+        cmdMacSetDR.setMinimumSize(new java.awt.Dimension(210, 23));
+        cmdMacSetDR.setPreferredSize(new java.awt.Dimension(210, 23));
+        cmdMacSetDR.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmdMacSetDRActionPerformed(evt);
+            }
+        });
+
+        cmdMacSetPwrIdx.setText("mac set pwridx (Power)");
+        cmdMacSetPwrIdx.setToolTipText("sys reset");
+        cmdMacSetPwrIdx.setMargin(new java.awt.Insets(2, 2, 2, 2));
+        cmdMacSetPwrIdx.setMaximumSize(new java.awt.Dimension(210, 23));
+        cmdMacSetPwrIdx.setMinimumSize(new java.awt.Dimension(210, 23));
+        cmdMacSetPwrIdx.setPreferredSize(new java.awt.Dimension(210, 23));
+        cmdMacSetPwrIdx.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmdMacSetPwrIdxActionPerformed(evt);
+            }
+        });
+
+        cmdMacGetStatus.setText("mac get status");
+        cmdMacGetStatus.setToolTipText("sys reset");
+        cmdMacGetStatus.setMargin(new java.awt.Insets(2, 2, 2, 2));
+        cmdMacGetStatus.setMaximumSize(new java.awt.Dimension(210, 23));
+        cmdMacGetStatus.setMinimumSize(new java.awt.Dimension(210, 23));
+        cmdMacGetStatus.setPreferredSize(new java.awt.Dimension(210, 23));
+        cmdMacGetStatus.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmdMacGetStatusActionPerformed(evt);
+            }
+        });
+
+        cmdMacSetAdrOff.setText("mac set adr off");
+        cmdMacSetAdrOff.setToolTipText("sys reset");
+        cmdMacSetAdrOff.setMargin(new java.awt.Insets(2, 2, 2, 2));
+        cmdMacSetAdrOff.setMaximumSize(new java.awt.Dimension(210, 23));
+        cmdMacSetAdrOff.setMinimumSize(new java.awt.Dimension(210, 23));
+        cmdMacSetAdrOff.setPreferredSize(new java.awt.Dimension(210, 23));
+        cmdMacSetAdrOff.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmdMacSetAdrOffActionPerformed(evt);
+            }
+        });
+
+        cmdMacGetAdr.setText("mac get adr");
+        cmdMacGetAdr.setToolTipText("sys reset");
+        cmdMacGetAdr.setMargin(new java.awt.Insets(2, 2, 2, 2));
+        cmdMacGetAdr.setMaximumSize(new java.awt.Dimension(210, 23));
+        cmdMacGetAdr.setMinimumSize(new java.awt.Dimension(210, 23));
+        cmdMacGetAdr.setPreferredSize(new java.awt.Dimension(210, 23));
+        cmdMacGetAdr.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmdMacGetAdrActionPerformed(evt);
+            }
+        });
+
+        MacDR.setText("5");
+        MacDR.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MacDRActionPerformed(evt);
+            }
+        });
+
+        MacPower.setText("1");
+        MacPower.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MacPowerActionPerformed(evt);
+            }
+        });
+
+        cmdMacGetDR.setText("mac get dr");
+        cmdMacGetDR.setToolTipText("sys reset");
+        cmdMacGetDR.setMargin(new java.awt.Insets(2, 2, 2, 2));
+        cmdMacGetDR.setMaximumSize(new java.awt.Dimension(210, 23));
+        cmdMacGetDR.setMinimumSize(new java.awt.Dimension(210, 23));
+        cmdMacGetDR.setPreferredSize(new java.awt.Dimension(210, 23));
+        cmdMacGetDR.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmdMacGetDRActionPerformed(evt);
+            }
+        });
+
+        cmdMacGetPwrIdx.setText("mac get pwridx");
+        cmdMacGetPwrIdx.setToolTipText("sys reset");
+        cmdMacGetPwrIdx.setMargin(new java.awt.Insets(2, 2, 2, 2));
+        cmdMacGetPwrIdx.setMaximumSize(new java.awt.Dimension(210, 23));
+        cmdMacGetPwrIdx.setMinimumSize(new java.awt.Dimension(210, 23));
+        cmdMacGetPwrIdx.setPreferredSize(new java.awt.Dimension(210, 23));
+        cmdMacGetPwrIdx.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmdMacGetPwrIdxActionPerformed(evt);
+            }
+        });
+
+        MacCommon.setLayer(cmdMacSetAdrOn, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        MacCommon.setLayer(cmdMacSetDR, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        MacCommon.setLayer(cmdMacSetPwrIdx, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        MacCommon.setLayer(cmdMacGetStatus, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        MacCommon.setLayer(cmdMacSetAdrOff, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        MacCommon.setLayer(cmdMacGetAdr, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        MacCommon.setLayer(MacDR, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        MacCommon.setLayer(MacPower, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        MacCommon.setLayer(cmdMacGetDR, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        MacCommon.setLayer(cmdMacGetPwrIdx, javax.swing.JLayeredPane.DEFAULT_LAYER);
+
+        javax.swing.GroupLayout MacCommonLayout = new javax.swing.GroupLayout(MacCommon);
+        MacCommon.setLayout(MacCommonLayout);
+        MacCommonLayout.setHorizontalGroup(
+            MacCommonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(MacCommonLayout.createSequentialGroup()
+                .addGroup(MacCommonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(cmdMacGetStatus, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 180, Short.MAX_VALUE)
+                    .addComponent(cmdMacSetPwrIdx, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE)
+                    .addComponent(cmdMacSetDR, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE)
+                    .addComponent(cmdMacSetAdrOn, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(MacCommonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(cmdMacSetAdrOff, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(MacDR)
+                    .addComponent(MacPower))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(MacCommonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(MacCommonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(cmdMacGetDR, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(cmdMacGetAdr, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE))
+                    .addComponent(cmdMacGetPwrIdx, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        MacCommonLayout.setVerticalGroup(
+            MacCommonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(MacCommonLayout.createSequentialGroup()
+                .addGroup(MacCommonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cmdMacSetAdrOn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cmdMacSetAdrOff, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cmdMacGetAdr, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(MacCommonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cmdMacSetDR, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(MacDR, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cmdMacGetDR, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(MacCommonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cmdMacSetPwrIdx, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(MacPower, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cmdMacGetPwrIdx, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(cmdMacGetStatus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+
+        SendUnconfirmed.setBorder(javax.swing.BorderFactory.createTitledBorder("Send Data"));
+
+        cmdMacTX.setText("Transmit data");
+        cmdMacTX.setToolTipText("sys reset");
+        cmdMacTX.setMargin(new java.awt.Insets(2, 2, 2, 2));
+        cmdMacTX.setMaximumSize(new java.awt.Dimension(210, 23));
+        cmdMacTX.setMinimumSize(new java.awt.Dimension(210, 23));
+        cmdMacTX.setPreferredSize(new java.awt.Dimension(210, 23));
+        cmdMacTX.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmdMacTXActionPerformed(evt);
+            }
+        });
+
+        MacTxPort.setText("16");
+
+        MacTxData.setText("48454c4c4f");
+
+        TxConfirmed.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "uncnf", "cnf", " " }));
+        TxConfirmed.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                TxConfirmedItemStateChanged(evt);
+            }
+        });
+        TxConfirmed.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                TxConfirmedActionPerformed(evt);
+            }
+        });
+
+        jLabel13.setText("default: HELLO");
+
+        SendUnconfirmed.setLayer(cmdMacTX, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        SendUnconfirmed.setLayer(MacTxPort, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        SendUnconfirmed.setLayer(MacTxData, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        SendUnconfirmed.setLayer(TxConfirmed, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        SendUnconfirmed.setLayer(jLabel13, javax.swing.JLayeredPane.DEFAULT_LAYER);
+
+        javax.swing.GroupLayout SendUnconfirmedLayout = new javax.swing.GroupLayout(SendUnconfirmed);
+        SendUnconfirmed.setLayout(SendUnconfirmedLayout);
+        SendUnconfirmedLayout.setHorizontalGroup(
+            SendUnconfirmedLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(SendUnconfirmedLayout.createSequentialGroup()
+                .addComponent(cmdMacTX, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(TxConfirmed, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(MacTxPort, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(SendUnconfirmedLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel13, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(MacTxData))
+                .addContainerGap())
+        );
+        SendUnconfirmedLayout.setVerticalGroup(
+            SendUnconfirmedLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(SendUnconfirmedLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addComponent(cmdMacTX, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(SendUnconfirmedLayout.createSequentialGroup()
+                    .addComponent(jLabel13)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(SendUnconfirmedLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(MacTxData, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(MacTxPort, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addComponent(TxConfirmed, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+
+        RadioPane.setBorder(javax.swing.BorderFactory.createTitledBorder("Radio"));
+
+        MacSF.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "sf7", "sf8", "sf9", "sf10", "sf11", "sf12", " " }));
+        MacSF.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                MacSFItemStateChanged(evt);
+            }
+        });
+        MacSF.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MacSFActionPerformed(evt);
+            }
+        });
+
+        jLabel11.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel11.setText("Spread Factor");
+
+        RadioRxBandWidth.setText("25");
+
+        RadioFreq.setText("868100000");
+
+        cmdRadiosetRxBw.setText(" set rx band widh");
+        cmdRadiosetRxBw.setToolTipText("sys reset");
+        cmdRadiosetRxBw.setMargin(new java.awt.Insets(2, 2, 2, 2));
+        cmdRadiosetRxBw.setMaximumSize(new java.awt.Dimension(210, 23));
+        cmdRadiosetRxBw.setMinimumSize(new java.awt.Dimension(210, 23));
+        cmdRadiosetRxBw.setPreferredSize(new java.awt.Dimension(210, 23));
+        cmdRadiosetRxBw.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmdRadiosetRxBwActionPerformed(evt);
+            }
+        });
+
+        cmdRadioSetFreq.setText("radio set freq");
+        cmdRadioSetFreq.setToolTipText("sys reset");
+        cmdRadioSetFreq.setMargin(new java.awt.Insets(2, 2, 2, 2));
+        cmdRadioSetFreq.setMaximumSize(new java.awt.Dimension(210, 23));
+        cmdRadioSetFreq.setMinimumSize(new java.awt.Dimension(210, 23));
+        cmdRadioSetFreq.setPreferredSize(new java.awt.Dimension(210, 23));
+        cmdRadioSetFreq.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmdRadioSetFreqActionPerformed(evt);
+            }
+        });
+
+        cmdRadioGetSF.setText("radio get sf");
+        cmdRadioGetSF.setToolTipText("sys reset");
+        cmdRadioGetSF.setMargin(new java.awt.Insets(2, 2, 2, 2));
+        cmdRadioGetSF.setMaximumSize(new java.awt.Dimension(210, 23));
+        cmdRadioGetSF.setMinimumSize(new java.awt.Dimension(210, 23));
+        cmdRadioGetSF.setPreferredSize(new java.awt.Dimension(210, 23));
+        cmdRadioGetSF.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmdRadioGetSFActionPerformed(evt);
+            }
+        });
+
+        cmdRadioGetBw.setText("radio get bw");
+        cmdRadioGetBw.setToolTipText("sys reset");
+        cmdRadioGetBw.setMargin(new java.awt.Insets(2, 2, 2, 2));
+        cmdRadioGetBw.setMaximumSize(new java.awt.Dimension(210, 23));
+        cmdRadioGetBw.setMinimumSize(new java.awt.Dimension(210, 23));
+        cmdRadioGetBw.setPreferredSize(new java.awt.Dimension(210, 23));
+        cmdRadioGetBw.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmdRadioGetBwActionPerformed(evt);
+            }
+        });
+
+        cmdRadioGetRxBw.setText("radio get rxbw");
+        cmdRadioGetRxBw.setToolTipText("sys reset");
+        cmdRadioGetRxBw.setMargin(new java.awt.Insets(2, 2, 2, 2));
+        cmdRadioGetRxBw.setMaximumSize(new java.awt.Dimension(210, 23));
+        cmdRadioGetRxBw.setMinimumSize(new java.awt.Dimension(210, 23));
+        cmdRadioGetRxBw.setPreferredSize(new java.awt.Dimension(210, 23));
+        cmdRadioGetRxBw.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmdRadioGetRxBwActionPerformed(evt);
+            }
+        });
+
+        cmdRadioGetFreq.setText("radio get freq");
+        cmdRadioGetFreq.setToolTipText("sys reset");
+        cmdRadioGetFreq.setMargin(new java.awt.Insets(2, 2, 2, 2));
+        cmdRadioGetFreq.setMaximumSize(new java.awt.Dimension(210, 23));
+        cmdRadioGetFreq.setMinimumSize(new java.awt.Dimension(210, 23));
+        cmdRadioGetFreq.setPreferredSize(new java.awt.Dimension(210, 23));
+        cmdRadioGetFreq.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmdRadioGetFreqActionPerformed(evt);
+            }
+        });
+
+        MacBandWidth.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "125", "250", "500", " " }));
+        MacBandWidth.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                MacBandWidthItemStateChanged(evt);
+            }
+        });
+        MacBandWidth.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MacBandWidthActionPerformed(evt);
+            }
+        });
+
+        jLabel12.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel12.setText("Band Width");
+
+        RadioPane.setLayer(MacSF, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        RadioPane.setLayer(jLabel11, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        RadioPane.setLayer(RadioRxBandWidth, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        RadioPane.setLayer(RadioFreq, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        RadioPane.setLayer(cmdRadiosetRxBw, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        RadioPane.setLayer(cmdRadioSetFreq, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        RadioPane.setLayer(cmdRadioGetSF, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        RadioPane.setLayer(cmdRadioGetBw, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        RadioPane.setLayer(cmdRadioGetRxBw, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        RadioPane.setLayer(cmdRadioGetFreq, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        RadioPane.setLayer(MacBandWidth, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        RadioPane.setLayer(jLabel12, javax.swing.JLayeredPane.DEFAULT_LAYER);
+
+        javax.swing.GroupLayout RadioPaneLayout = new javax.swing.GroupLayout(RadioPane);
+        RadioPane.setLayout(RadioPaneLayout);
+        RadioPaneLayout.setHorizontalGroup(
+            RadioPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(RadioPaneLayout.createSequentialGroup()
+                .addGroup(RadioPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(RadioPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(jLabel11, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(cmdRadiosetRxBw, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(cmdRadioSetFreq, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel12, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(RadioPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(MacSF, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(RadioRxBandWidth)
+                    .addComponent(RadioFreq, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
+                    .addComponent(MacBandWidth, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(RadioPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(cmdRadioGetSF, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(cmdRadioGetBw, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE)
+                    .addComponent(cmdRadioGetRxBw, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE)
+                    .addComponent(cmdRadioGetFreq, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE))
+                .addGap(92, 92, 92))
+        );
+        RadioPaneLayout.setVerticalGroup(
+            RadioPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(RadioPaneLayout.createSequentialGroup()
+                .addGroup(RadioPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(RadioPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel11)
+                        .addComponent(MacSF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cmdRadioGetSF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(RadioPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cmdRadioGetBw, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(MacBandWidth, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel12))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(RadioPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cmdRadiosetRxBw, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(RadioRxBandWidth, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cmdRadioGetRxBw, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(RadioPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cmdRadioSetFreq, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(RadioFreq, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cmdRadioGetFreq, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+        );
+
+        jLayeredPane1.setBorder(javax.swing.BorderFactory.createTitledBorder("System"));
+
+        cmdSysReset.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        cmdSysReset.setText("sys reset");
+        cmdSysReset.setToolTipText("sys reset");
+        cmdSysReset.setMargin(new java.awt.Insets(2, 2, 2, 2));
+        cmdSysReset.setMaximumSize(new java.awt.Dimension(210, 30));
+        cmdSysReset.setMinimumSize(new java.awt.Dimension(210, 23));
+        cmdSysReset.setPreferredSize(new java.awt.Dimension(210, 40));
+        cmdSysReset.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmdSysResetActionPerformed(evt);
+            }
+        });
+
+        cmdSysFactoryReset.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        cmdSysFactoryReset.setText("sys factoryRESET");
+        cmdSysFactoryReset.setToolTipText("");
+        cmdSysFactoryReset.setMargin(new java.awt.Insets(2, 2, 2, 2));
+        cmdSysFactoryReset.setMaximumSize(new java.awt.Dimension(210, 30));
+        cmdSysFactoryReset.setMinimumSize(new java.awt.Dimension(210, 23));
+        cmdSysFactoryReset.setPreferredSize(new java.awt.Dimension(210, 40));
+        cmdSysFactoryReset.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmdSysFactoryResetActionPerformed(evt);
+            }
+        });
+
+        cmdSysGetVer.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        cmdSysGetVer.setText("sys get ver");
+        cmdSysGetVer.setToolTipText("");
+        cmdSysGetVer.setMargin(new java.awt.Insets(2, 2, 2, 2));
+        cmdSysGetVer.setMaximumSize(new java.awt.Dimension(210, 30));
+        cmdSysGetVer.setMinimumSize(new java.awt.Dimension(210, 23));
+        cmdSysGetVer.setPreferredSize(new java.awt.Dimension(210, 40));
+        cmdSysGetVer.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmdSysGetVerActionPerformed(evt);
+            }
+        });
+
+        cmdSysGetHwEui.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        cmdSysGetHwEui.setText("sys get hweui");
+        cmdSysGetHwEui.setToolTipText("");
+        cmdSysGetHwEui.setMargin(new java.awt.Insets(2, 2, 2, 2));
+        cmdSysGetHwEui.setMaximumSize(new java.awt.Dimension(210, 30));
+        cmdSysGetHwEui.setMinimumSize(new java.awt.Dimension(210, 23));
+        cmdSysGetHwEui.setPreferredSize(new java.awt.Dimension(210, 40));
+        cmdSysGetHwEui.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmdSysGetHwEuiActionPerformed(evt);
+            }
+        });
+
+        jLayeredPane1.setLayer(cmdSysReset, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane1.setLayer(cmdSysFactoryReset, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane1.setLayer(cmdSysGetVer, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane1.setLayer(cmdSysGetHwEui, javax.swing.JLayeredPane.DEFAULT_LAYER);
+
+        javax.swing.GroupLayout jLayeredPane1Layout = new javax.swing.GroupLayout(jLayeredPane1);
+        jLayeredPane1.setLayout(jLayeredPane1Layout);
+        jLayeredPane1Layout.setHorizontalGroup(
+            jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jLayeredPane1Layout.createSequentialGroup()
+                .addComponent(cmdSysReset, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(cmdSysFactoryReset, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(cmdSysGetVer, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(cmdSysGetHwEui, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(20, Short.MAX_VALUE))
+        );
+        jLayeredPane1Layout.setVerticalGroup(
+            jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addComponent(cmdSysReset, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(cmdSysGetVer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(cmdSysFactoryReset, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(cmdSysGetHwEui, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+
+        LoRaMAC.setLayer(MacCommon, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        LoRaMAC.setLayer(SendUnconfirmed, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        LoRaMAC.setLayer(RadioPane, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        LoRaMAC.setLayer(jLayeredPane1, javax.swing.JLayeredPane.DEFAULT_LAYER);
+
+        javax.swing.GroupLayout LoRaMACLayout = new javax.swing.GroupLayout(LoRaMAC);
+        LoRaMAC.setLayout(LoRaMACLayout);
+        LoRaMACLayout.setHorizontalGroup(
+            LoRaMACLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(LoRaMACLayout.createSequentialGroup()
+                .addGroup(LoRaMACLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(MacCommon)
+                    .addComponent(RadioPane)
+                    .addComponent(SendUnconfirmed)
+                    .addComponent(jLayeredPane1))
+                .addGap(199, 199, 199))
+        );
+        LoRaMACLayout.setVerticalGroup(
+            LoRaMACLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(LoRaMACLayout.createSequentialGroup()
+                .addComponent(MacCommon, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(RadioPane, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(SendUnconfirmed, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLayeredPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 276, Short.MAX_VALUE))
+        );
+
+        MacPane.setViewportView(LoRaMAC);
+
+        RN2483jTab.addTab(" MAC & Radio", MacPane);
+
+        ActivationPane.setPreferredSize(new java.awt.Dimension(537, 600));
+
+        ABPPane.setBorder(javax.swing.BorderFactory.createTitledBorder("Activation By Personalization"));
+
+        cmdMacSetDevAddr.setText("mac set devaddr");
+        cmdMacSetDevAddr.setToolTipText("sys reset");
+        cmdMacSetDevAddr.setMargin(new java.awt.Insets(2, 2, 2, 2));
+        cmdMacSetDevAddr.setMaximumSize(new java.awt.Dimension(210, 23));
+        cmdMacSetDevAddr.setMinimumSize(new java.awt.Dimension(210, 23));
+        cmdMacSetDevAddr.setPreferredSize(new java.awt.Dimension(210, 23));
+        cmdMacSetDevAddr.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmdMacSetDevAddrActionPerformed(evt);
+            }
+        });
+
+        cmdMacSetNwkSKey.setText("mac set nwkskey");
+        cmdMacSetNwkSKey.setToolTipText("sys reset");
+        cmdMacSetNwkSKey.setMargin(new java.awt.Insets(2, 2, 2, 2));
+        cmdMacSetNwkSKey.setMaximumSize(new java.awt.Dimension(210, 23));
+        cmdMacSetNwkSKey.setMinimumSize(new java.awt.Dimension(210, 23));
+        cmdMacSetNwkSKey.setPreferredSize(new java.awt.Dimension(210, 23));
+        cmdMacSetNwkSKey.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmdMacSetNwkSKeyActionPerformed(evt);
+            }
+        });
+
+        cmdMacSetAppSKey.setText("mac set appskey");
+        cmdMacSetAppSKey.setToolTipText("sys reset");
+        cmdMacSetAppSKey.setMargin(new java.awt.Insets(2, 2, 2, 2));
+        cmdMacSetAppSKey.setMaximumSize(new java.awt.Dimension(210, 23));
+        cmdMacSetAppSKey.setMinimumSize(new java.awt.Dimension(210, 23));
+        cmdMacSetAppSKey.setPreferredSize(new java.awt.Dimension(210, 23));
+        cmdMacSetAppSKey.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmdMacSetAppSKeyActionPerformed(evt);
+            }
+        });
+
+        cmdMacjoinABP.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        cmdMacjoinABP.setText("Join ABP");
+        cmdMacjoinABP.setToolTipText("sys reset");
+        cmdMacjoinABP.setMargin(new java.awt.Insets(2, 2, 2, 2));
+        cmdMacjoinABP.setMaximumSize(new java.awt.Dimension(210, 23));
+        cmdMacjoinABP.setMinimumSize(new java.awt.Dimension(210, 23));
+        cmdMacjoinABP.setPreferredSize(new java.awt.Dimension(210, 23));
+        cmdMacjoinABP.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmdMacjoinABPActionPerformed(evt);
+            }
+        });
+
+        cmdMacGetDevAddr.setText("mac get devaddr");
+        cmdMacGetDevAddr.setToolTipText("sys reset");
+        cmdMacGetDevAddr.setMargin(new java.awt.Insets(2, 2, 2, 2));
+        cmdMacGetDevAddr.setMaximumSize(new java.awt.Dimension(210, 23));
+        cmdMacGetDevAddr.setMinimumSize(new java.awt.Dimension(210, 23));
+        cmdMacGetDevAddr.setPreferredSize(new java.awt.Dimension(210, 23));
+        cmdMacGetDevAddr.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmdMacGetDevAddrActionPerformed(evt);
+            }
+        });
+
+        DevAddr.setText("00000000");
+        DevAddr.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                DevAddrActionPerformed(evt);
+            }
+        });
+
+        NwkSKey.setText("2B7E151628AED2A6ABF7158809CF4F3C");
+        NwkSKey.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                NwkSKeyActionPerformed(evt);
+            }
+        });
+
+        AppSKey.setText("2B7E151628AED2A6ABF7158809CF4F3C");
+        AppSKey.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                AppSKeyActionPerformed(evt);
+            }
+        });
+
+        ABPPane.setLayer(cmdMacSetDevAddr, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        ABPPane.setLayer(cmdMacSetNwkSKey, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        ABPPane.setLayer(cmdMacSetAppSKey, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        ABPPane.setLayer(cmdMacjoinABP, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        ABPPane.setLayer(cmdMacGetDevAddr, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        ABPPane.setLayer(DevAddr, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        ABPPane.setLayer(NwkSKey, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        ABPPane.setLayer(AppSKey, javax.swing.JLayeredPane.DEFAULT_LAYER);
+
+        javax.swing.GroupLayout ABPPaneLayout = new javax.swing.GroupLayout(ABPPane);
+        ABPPane.setLayout(ABPPaneLayout);
+        ABPPaneLayout.setHorizontalGroup(
+            ABPPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(ABPPaneLayout.createSequentialGroup()
+                .addGroup(ABPPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(cmdMacSetAppSKey, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE)
+                    .addComponent(cmdMacSetNwkSKey, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE)
+                    .addComponent(cmdMacSetDevAddr, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cmdMacjoinABP, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(ABPPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(NwkSKey)
+                    .addComponent(DevAddr)
+                    .addComponent(AppSKey))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(cmdMacGetDevAddr, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 10, Short.MAX_VALUE))
+        );
+        ABPPaneLayout.setVerticalGroup(
+            ABPPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ABPPaneLayout.createSequentialGroup()
+                .addGroup(ABPPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cmdMacSetDevAddr, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(DevAddr, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cmdMacGetDevAddr, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(ABPPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cmdMacSetNwkSKey, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(NwkSKey, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(ABPPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cmdMacSetAppSKey, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(AppSKey, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(cmdMacjoinABP, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+
+        cmdMacSave.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        cmdMacSave.setText("Save");
+        cmdMacSave.setToolTipText("sys reset");
+        cmdMacSave.setMargin(new java.awt.Insets(2, 2, 2, 2));
+        cmdMacSave.setMaximumSize(new java.awt.Dimension(210, 23));
+        cmdMacSave.setMinimumSize(new java.awt.Dimension(210, 23));
+        cmdMacSave.setPreferredSize(new java.awt.Dimension(210, 23));
+        cmdMacSave.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmdMacSaveActionPerformed(evt);
+            }
+        });
+
+        OTAAPane.setBorder(javax.swing.BorderFactory.createTitledBorder("Over The Air Activation"));
+
+        cmdMacSetDevEui.setText("mac set deveui");
+        cmdMacSetDevEui.setToolTipText("sys reset");
+        cmdMacSetDevEui.setMargin(new java.awt.Insets(2, 2, 2, 2));
+        cmdMacSetDevEui.setMaximumSize(new java.awt.Dimension(210, 23));
+        cmdMacSetDevEui.setMinimumSize(new java.awt.Dimension(210, 23));
+        cmdMacSetDevEui.setPreferredSize(new java.awt.Dimension(210, 23));
+        cmdMacSetDevEui.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmdMacSetDevEuiActionPerformed(evt);
+            }
+        });
+
+        cmdMacSetAppEui.setText("mac set appeui");
+        cmdMacSetAppEui.setToolTipText("sys reset");
+        cmdMacSetAppEui.setMargin(new java.awt.Insets(2, 2, 2, 2));
+        cmdMacSetAppEui.setMaximumSize(new java.awt.Dimension(210, 23));
+        cmdMacSetAppEui.setMinimumSize(new java.awt.Dimension(210, 23));
+        cmdMacSetAppEui.setPreferredSize(new java.awt.Dimension(210, 23));
+        cmdMacSetAppEui.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmdMacSetAppEuiActionPerformed(evt);
+            }
+        });
+
+        cmdMacSetAppKey.setText("mac set appkey");
+        cmdMacSetAppKey.setToolTipText("sys reset");
+        cmdMacSetAppKey.setMargin(new java.awt.Insets(2, 2, 2, 2));
+        cmdMacSetAppKey.setMaximumSize(new java.awt.Dimension(210, 23));
+        cmdMacSetAppKey.setMinimumSize(new java.awt.Dimension(210, 23));
+        cmdMacSetAppKey.setPreferredSize(new java.awt.Dimension(210, 23));
+        cmdMacSetAppKey.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmdMacSetAppKeyActionPerformed(evt);
+            }
+        });
+
+        cmdMacJoinOTAA.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        cmdMacJoinOTAA.setText("Join OTAA");
+        cmdMacJoinOTAA.setToolTipText("sys reset");
+        cmdMacJoinOTAA.setMargin(new java.awt.Insets(2, 2, 2, 2));
+        cmdMacJoinOTAA.setMaximumSize(new java.awt.Dimension(210, 23));
+        cmdMacJoinOTAA.setMinimumSize(new java.awt.Dimension(210, 23));
+        cmdMacJoinOTAA.setPreferredSize(new java.awt.Dimension(210, 23));
+        cmdMacJoinOTAA.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmdMacJoinOTAAActionPerformed(evt);
+            }
+        });
+
+        cmdMacGetDevEui.setText("mac get deveui");
+        cmdMacGetDevEui.setToolTipText("sys reset");
+        cmdMacGetDevEui.setMargin(new java.awt.Insets(2, 2, 2, 2));
+        cmdMacGetDevEui.setMaximumSize(new java.awt.Dimension(210, 23));
+        cmdMacGetDevEui.setMinimumSize(new java.awt.Dimension(210, 23));
+        cmdMacGetDevEui.setPreferredSize(new java.awt.Dimension(210, 23));
+        cmdMacGetDevEui.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmdMacGetDevEuiActionPerformed(evt);
+            }
+        });
+
+        cmdMacGetAppEui.setText("mac get appeui");
+        cmdMacGetAppEui.setToolTipText("sys reset");
+        cmdMacGetAppEui.setMargin(new java.awt.Insets(2, 2, 2, 2));
+        cmdMacGetAppEui.setMaximumSize(new java.awt.Dimension(210, 23));
+        cmdMacGetAppEui.setMinimumSize(new java.awt.Dimension(210, 23));
+        cmdMacGetAppEui.setPreferredSize(new java.awt.Dimension(210, 23));
+        cmdMacGetAppEui.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmdMacGetAppEuiActionPerformed(evt);
+            }
+        });
+
+        DevEUI.setText("Enter Device EUI");
+        DevEUI.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                DevEUIActionPerformed(evt);
+            }
+        });
+
+        AppEUI.setText("Enter App EUI");
+        AppEUI.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                AppEUIActionPerformed(evt);
+            }
+        });
+
+        AppKey.setText("Enter App Key");
+        AppKey.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                AppKeyActionPerformed(evt);
+            }
+        });
+
+        OTAAPane.setLayer(cmdMacSetDevEui, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        OTAAPane.setLayer(cmdMacSetAppEui, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        OTAAPane.setLayer(cmdMacSetAppKey, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        OTAAPane.setLayer(cmdMacJoinOTAA, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        OTAAPane.setLayer(cmdMacGetDevEui, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        OTAAPane.setLayer(cmdMacGetAppEui, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        OTAAPane.setLayer(DevEUI, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        OTAAPane.setLayer(AppEUI, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        OTAAPane.setLayer(AppKey, javax.swing.JLayeredPane.DEFAULT_LAYER);
+
+        javax.swing.GroupLayout OTAAPaneLayout = new javax.swing.GroupLayout(OTAAPane);
+        OTAAPane.setLayout(OTAAPaneLayout);
+        OTAAPaneLayout.setHorizontalGroup(
+            OTAAPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(OTAAPaneLayout.createSequentialGroup()
+                .addGroup(OTAAPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(cmdMacSetDevEui, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cmdMacSetAppEui, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE)
+                    .addComponent(cmdMacSetAppKey, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE)
+                    .addComponent(cmdMacJoinOTAA, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(OTAAPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(AppEUI)
+                    .addComponent(DevEUI, javax.swing.GroupLayout.DEFAULT_SIZE, 204, Short.MAX_VALUE)
+                    .addComponent(AppKey))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(OTAAPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(cmdMacGetDevEui, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cmdMacGetAppEui, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        OTAAPaneLayout.setVerticalGroup(
+            OTAAPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, OTAAPaneLayout.createSequentialGroup()
+                .addGroup(OTAAPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cmdMacSetDevEui, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(DevEUI, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cmdMacGetDevEui, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(OTAAPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cmdMacSetAppEui, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(AppEUI, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cmdMacGetAppEui, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(OTAAPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cmdMacSetAppKey, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(AppKey, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(cmdMacJoinOTAA, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+
+        ActivationPane.setLayer(ABPPane, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        ActivationPane.setLayer(cmdMacSave, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        ActivationPane.setLayer(OTAAPane, javax.swing.JLayeredPane.DEFAULT_LAYER);
+
+        javax.swing.GroupLayout ActivationPaneLayout = new javax.swing.GroupLayout(ActivationPane);
+        ActivationPane.setLayout(ActivationPaneLayout);
+        ActivationPaneLayout.setHorizontalGroup(
+            ActivationPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(ActivationPaneLayout.createSequentialGroup()
+                .addGroup(ActivationPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(OTAAPane, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(ABPPane, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(cmdMacSave, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(19, 19, 19))
+        );
+        ActivationPaneLayout.setVerticalGroup(
+            ActivationPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(ActivationPaneLayout.createSequentialGroup()
+                .addComponent(ABPPane, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(1, 1, 1)
+                .addComponent(cmdMacSave, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(OTAAPane, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 317, Short.MAX_VALUE))
+        );
+
+        ActivationScrollPane.setViewportView(ActivationPane);
+
+        RN2483jTab.addTab(" Activation ", ActivationScrollPane);
+
+        RN2483.setLayer(RN2483jTab, javax.swing.JLayeredPane.DEFAULT_LAYER);
+
+        javax.swing.GroupLayout RN2483Layout = new javax.swing.GroupLayout(RN2483);
+        RN2483.setLayout(RN2483Layout);
+        RN2483Layout.setHorizontalGroup(
+            RN2483Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(RN2483jTab, javax.swing.GroupLayout.DEFAULT_SIZE, 544, Short.MAX_VALUE)
+        );
+        RN2483Layout.setVerticalGroup(
+            RN2483Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(RN2483jTab, javax.swing.GroupLayout.DEFAULT_SIZE, 716, Short.MAX_VALUE)
+        );
+
+        LeftTab.addTab(" RN2483 ", RN2483);
+
         LeftBasePane.setLayer(LeftTab, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout LeftBasePaneLayout = new javax.swing.GroupLayout(LeftBasePane);
@@ -5070,9 +6028,9 @@ public class ESPlorer extends javax.swing.JFrame {
         TerminalLogPane.setLayout(TerminalLogPaneLayout);
         TerminalLogPaneLayout.setHorizontalGroup(
             TerminalLogPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 299, Short.MAX_VALUE)
+            .addGap(0, 293, Short.MAX_VALUE)
             .addGroup(TerminalLogPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(RightSplitPane, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 299, Short.MAX_VALUE))
+                .addComponent(RightSplitPane, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 293, Short.MAX_VALUE))
         );
         TerminalLogPaneLayout.setVerticalGroup(
             TerminalLogPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -5085,16 +6043,16 @@ public class ESPlorer extends javax.swing.JFrame {
 
         FileManagerScrollPane.setBorder(null);
         FileManagerScrollPane.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-        FileManagerScrollPane.setMaximumSize(new java.awt.Dimension(150, 150));
-        FileManagerScrollPane.setPreferredSize(new java.awt.Dimension(150, 150));
 
-        FileManagerPane.setComponentPopupMenu(ContextMenuFileManager);
-        FileManagerPane.setMaximumSize(new java.awt.Dimension(145, 145));
-        FileManagerPane.setName(""); // NOI18N
-        FileManagerPane.setPreferredSize(new java.awt.Dimension(145, 145));
+        FileManagersLayer.setMaximumSize(new java.awt.Dimension(145, 145));
+
+        NodeFileManagerPane.setComponentPopupMenu(ContextMenuFileManager);
+        NodeFileManagerPane.setMaximumSize(new java.awt.Dimension(145, 145));
+        NodeFileManagerPane.setName(""); // NOI18N
+        NodeFileManagerPane.setPreferredSize(new java.awt.Dimension(145, 145));
         java.awt.FlowLayout flowLayout1 = new java.awt.FlowLayout(java.awt.FlowLayout.LEADING, 2, 2);
         flowLayout1.setAlignOnBaseline(true);
-        FileManagerPane.setLayout(flowLayout1);
+        NodeFileManagerPane.setLayout(flowLayout1);
 
         FileFormat.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/file manager (delete).png"))); // NOI18N
         FileFormat.setText("Format");
@@ -5109,7 +6067,7 @@ public class ESPlorer extends javax.swing.JFrame {
                 FileFormatActionPerformed(evt);
             }
         });
-        FileManagerPane.add(FileFormat);
+        NodeFileManagerPane.add(FileFormat);
 
         FileSystemInfo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/file manager.png"))); // NOI18N
         FileSystemInfo.setText("FS Info");
@@ -5124,7 +6082,7 @@ public class ESPlorer extends javax.swing.JFrame {
                 FileSystemInfoActionPerformed(evt);
             }
         });
-        FileManagerPane.add(FileSystemInfo);
+        NodeFileManagerPane.add(FileSystemInfo);
 
         FileListReload.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         FileListReload.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/refresh3.png"))); // NOI18N
@@ -5139,7 +6097,7 @@ public class ESPlorer extends javax.swing.JFrame {
                 FileListReloadActionPerformed(evt);
             }
         });
-        FileManagerPane.add(FileListReload);
+        NodeFileManagerPane.add(FileListReload);
 
         FileAsButton1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         FileAsButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/file.png"))); // NOI18N
@@ -5161,7 +6119,7 @@ public class ESPlorer extends javax.swing.JFrame {
                 FileAsButton1ActionPerformed(evt);
             }
         });
-        FileManagerPane.add(FileAsButton1);
+        NodeFileManagerPane.add(FileAsButton1);
 
         FileRenamePanel.setMaximumSize(new java.awt.Dimension(130, 45));
         FileRenamePanel.setMinimumSize(new java.awt.Dimension(130, 45));
@@ -5206,9 +6164,72 @@ public class ESPlorer extends javax.swing.JFrame {
                 .addGap(0, 0, Short.MAX_VALUE))
         );
 
-        FileManagerPane.add(FileRenamePanel);
+        NodeFileManagerPane.add(FileRenamePanel);
 
-        FileManagerScrollPane.setViewportView(FileManagerPane);
+        PyFileManagerPane.setMaximumSize(new java.awt.Dimension(500, 155));
+        PyFileManagerPane.setMinimumSize(new java.awt.Dimension(55, 55));
+        PyFileManagerPane.setPreferredSize(new java.awt.Dimension(155, 155));
+        PyFileManagerPane.setLayout(new java.awt.FlowLayout());
+
+        PyListDir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/refresh3.png"))); // NOI18N
+        PyListDir.setText("ListDir /");
+        PyListDir.setToolTipText("Execute command listdir() and show files");
+        PyListDir.setAlignmentX(0.5F);
+        PyListDir.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        PyListDir.setMargin(new java.awt.Insets(2, 2, 2, 2));
+        PyListDir.setMaximumSize(new java.awt.Dimension(130, 25));
+        PyListDir.setPreferredSize(new java.awt.Dimension(130, 25));
+        PyListDir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                PyListDirActionPerformed(evt);
+            }
+        });
+        PyFileManagerPane.add(PyListDir);
+
+        PyFileAsButton1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        PyFileAsButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/file.png"))); // NOI18N
+        PyFileAsButton1.setText("File 1");
+        PyFileAsButton1.setToolTipText("Left click");
+        PyFileAsButton1.setAlignmentX(0.5F);
+        PyFileAsButton1.setComponentPopupMenu(ContextMenuESPFileLUA);
+        PyFileAsButton1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        PyFileAsButton1.setMargin(new java.awt.Insets(2, 2, 2, 2));
+        PyFileAsButton1.setMaximumSize(new java.awt.Dimension(130, 25));
+        PyFileAsButton1.setPreferredSize(new java.awt.Dimension(130, 25));
+        PyFileAsButton1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                PyFileAsButton1MouseClicked(evt);
+            }
+        });
+        PyFileAsButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                PyFileAsButton1ActionPerformed(evt);
+            }
+        });
+        PyFileManagerPane.add(PyFileAsButton1);
+
+        FileManagersLayer.setLayer(NodeFileManagerPane, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        FileManagersLayer.setLayer(PyFileManagerPane, javax.swing.JLayeredPane.DEFAULT_LAYER);
+
+        javax.swing.GroupLayout FileManagersLayerLayout = new javax.swing.GroupLayout(FileManagersLayer);
+        FileManagersLayer.setLayout(FileManagersLayerLayout);
+        FileManagersLayerLayout.setHorizontalGroup(
+            FileManagersLayerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(FileManagersLayerLayout.createSequentialGroup()
+                .addGroup(FileManagersLayerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(PyFileManagerPane, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(NodeFileManagerPane, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 433, Short.MAX_VALUE))
+        );
+        FileManagersLayerLayout.setVerticalGroup(
+            FileManagersLayerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(FileManagersLayerLayout.createSequentialGroup()
+                .addComponent(NodeFileManagerPane, javax.swing.GroupLayout.DEFAULT_SIZE, 248, Short.MAX_VALUE)
+                .addGap(6, 6, 6)
+                .addComponent(PyFileManagerPane, javax.swing.GroupLayout.DEFAULT_SIZE, 167, Short.MAX_VALUE))
+        );
+
+        FileManagerScrollPane.setViewportView(FileManagersLayer);
 
         RightFilesSplitPane.setRightComponent(FileManagerScrollPane);
 
@@ -5381,7 +6402,7 @@ public class ESPlorer extends javax.swing.JFrame {
         RightBigPane.setLayout(RightBigPaneLayout);
         RightBigPaneLayout.setHorizontalGroup(
             RightBigPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(RightFilesSplitPane)
+            .addComponent(RightFilesSplitPane, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
             .addComponent(RightSnippetsPane, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
         );
         RightBigPaneLayout.setVerticalGroup(
@@ -6449,10 +7470,17 @@ public class ESPlorer extends javax.swing.JFrame {
     }//GEN-LAST:event_ReScanActionPerformed
 
     private void CommandKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_CommandKeyTyped
-        //logWin("key: "+ Integer.toString(evt.getExtendedKeyCode()));
+
     }//GEN-LAST:event_CommandKeyTyped
 
     private void SendCommandActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SendCommandActionPerformed
+        if (CommandEcho.isSelected()) {
+            if (Terminal.getCaretOffsetFromLineStart() > 0) {
+                TerminalAdd("\r\n");
+            }
+            TerminalAdd(Command.getSelectedItem().toString());
+            TerminalAdd("\r\n");
+        }
         SendCommand();
     }//GEN-LAST:event_SendCommandActionPerformed
 
@@ -6464,11 +7492,11 @@ public class ESPlorer extends javax.swing.JFrame {
     }//GEN-LAST:event_CommandActionPerformed
 
     private void CommandKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_CommandKeyPressed
-        //logWin("key: "+ Integer.toString(evt.getExtendedKeyCode()));
+
     }//GEN-LAST:event_CommandKeyPressed
 
     private void CommandKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_CommandKeyReleased
-        //logWin("key: "+evt.getKeyChar());
+
     }//GEN-LAST:event_CommandKeyReleased
 
     private void ContextMenuTerminalPopupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {//GEN-FIRST:event_ContextMenuTerminalPopupMenuWillBecomeVisible
@@ -6508,8 +7536,8 @@ public class ESPlorer extends javax.swing.JFrame {
 
     private void MenuItemFileSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuItemFileSaveActionPerformed
         SaveFile();
-        if (FileAutoSaveESP.isSelected()) {
-            SaveFileESP();
+        if (FileAutoSaveESP.isSelected() && !FileSaveESP.isSelected()) {
+            FileSaveESP.doClick();
         }
     }//GEN-LAST:event_MenuItemFileSaveActionPerformed
     boolean isFileNew() {
@@ -6946,7 +7974,7 @@ public class ESPlorer extends javax.swing.JFrame {
     private void MenuItemEditorUndoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuItemEditorUndoActionPerformed
         MenuItemEditUndo.doClick();
     }//GEN-LAST:event_MenuItemEditorUndoActionPerformed
-    private void ListFiles() {
+    private void NodeListFiles() {
         if (portJustOpen) {
             log("ERROR: Communication with MCU not yet established.");
             return;
@@ -6969,13 +7997,13 @@ public class ESPlorer extends javax.swing.JFrame {
             log(e.toString());
         }
         try {
-            serialPort.addEventListener(new PortFilesReader(), portMask);
+            serialPort.addEventListener(new PortNodeFilesReader(), portMask);
             log("FileManager: Add EventListener: Success.");
         } catch (SerialPortException e) {
             log("FileManager: Add EventListener Error. Canceled.");
             return;
         }
-        ClearFileManager();
+        ClearNodeFileManager();
         rx_data = "";
         rcvBuf = "";
         sendBuf = cmdPrep(cmd);
@@ -6999,22 +8027,22 @@ public class ESPlorer extends javax.swing.JFrame {
         timer.start();
     }
 
-    private void ClearFileManager() {
+    private void ClearNodeFileManager() {
         if (!MenuItemViewFileManager.isSelected()) {
             return;
         }
-        FileManagerPane.removeAll();
-        FileManagerPane.add(FileFormat);
-        FileManagerPane.add(FileSystemInfo);
-        FileManagerPane.add(FileListReload);
-        FileManagerPane.add(FileRenamePanel);
+        NodeFileManagerPane.removeAll();
+        NodeFileManagerPane.add(FileFormat);
+        NodeFileManagerPane.add(FileSystemInfo);
+        NodeFileManagerPane.add(FileListReload);
+        NodeFileManagerPane.add(FileRenamePanel);
         FileRenamePanel.setVisible(false);
         FileRenamePanel.setEnabled(false);
-        FileManagerPane.repaint();
+        NodeFileManagerPane.repaint();
         FileAsButton = new ArrayList<javax.swing.JButton>();
     }
 
-    private class PortFilesReader implements SerialPortEventListener {
+    private class PortNodeFilesReader implements SerialPortEventListener {
 
         public void serialEvent(SerialPortEvent event) {
             String data;
@@ -7073,7 +8101,7 @@ public class ESPlorer extends javax.swing.JFrame {
                                 String[] parts = subs.split(":");
                                 if (parts[0].trim().length() > 0) {
                                     int size = Integer.parseInt(parts[1].trim().split(" ")[0]);
-                                    AddFileButton(parts[0].trim(), size);
+                                    AddNodeFileButton(parts[0].trim(), size);
                                     usedSpace += size;
                                     log("FileManager found file " + parts[0].trim());
                                 }
@@ -7086,10 +8114,10 @@ public class ESPlorer extends javax.swing.JFrame {
                                 TerminalAdd("\r\nTotal file(s)   : " + Integer.toString(s.length));
                                 TerminalAdd("\r\nTotal size      : " + Integer.toString(usedSpace) + " bytes\r\n");
                             }
-                            FileManagerPane.invalidate();
-                            FileManagerPane.doLayout();
-                            FileManagerPane.repaint();
-                            FileManagerPane.requestFocusInWindow();
+                            NodeFileManagerPane.invalidate();
+                            NodeFileManagerPane.doLayout();
+                            NodeFileManagerPane.repaint();
+                            NodeFileManagerPane.requestFocusInWindow();
                             log("FileManager: File list parsing done, found " + FileAsButton.size() + " file(s).");
                         } catch (Exception e) {
                             log(e.toString());
@@ -7100,7 +8128,7 @@ public class ESPlorer extends javax.swing.JFrame {
                         }
                         serialPort.addEventListener(new PortReader(), portMask);
                         SendUnLock();
-                        FileSystemInfo();
+                        NodeFileSystemInfo();
                     }
                 } catch (SerialPortException ex) {
                     log(ex.toString());
@@ -7611,7 +8639,7 @@ public class ESPlorer extends javax.swing.JFrame {
     }//GEN-LAST:event_HomePageActionPerformed
 
     private void CommandItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_CommandItemStateChanged
-        //SendCommand.doClick();
+
     }//GEN-LAST:event_CommandItemStateChanged
 
     private void PortItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_PortItemStateChanged
@@ -7989,7 +9017,7 @@ public class ESPlorer extends javax.swing.JFrame {
     }//GEN-LAST:event_formComponentResized
 
     private void FileListReloadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FileListReloadActionPerformed
-        ListFiles();
+        NodeListFiles();
     }//GEN-LAST:event_FileListReloadActionPerformed
 
     private void FileAsButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FileAsButton1ActionPerformed
@@ -8137,7 +9165,7 @@ public class ESPlorer extends javax.swing.JFrame {
     }//GEN-LAST:event_MenuItemViewLogItemStateChanged
 
     private void FileSystemInfoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FileSystemInfoActionPerformed
-        FileSystemInfo();
+        NodeFileSystemInfo();
     }//GEN-LAST:event_FileSystemInfoActionPerformed
 
     private void FileRenameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FileRenameActionPerformed
@@ -8283,8 +9311,10 @@ public class ESPlorer extends javax.swing.JFrame {
         } else if (LeftTab.getSelectedIndex() == 1) {  // AT
             FirmwareType = FIRMWARE_AT;
             CommandsSetAT();
-        } else if (LeftTab.getSelectedIndex() == 2) {  // Frankenshtein - deleted
-            // @TODO
+        } else if (LeftTab.getSelectedIndex() == 2) {  // RN2483
+            if (pOpen && nSpeed != 57600) {
+                TerminalAdd("\r\nWarning! RN2483 default baud rate is 57600.\r\n");
+            }
         }
     }//GEN-LAST:event_LeftTabStateChanged
 
@@ -8926,7 +9956,7 @@ public class ESPlorer extends javax.swing.JFrame {
     }//GEN-LAST:event_cmdTimerStopActionPerformed
 
     private void cmdListFilesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdListFilesActionPerformed
-        ListFiles();
+        NodeListFiles();
     }//GEN-LAST:event_cmdListFilesActionPerformed
 
     private void cmdNodeSleepActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdNodeSleepActionPerformed
@@ -9015,20 +10045,38 @@ public class ESPlorer extends javax.swing.JFrame {
     }//GEN-LAST:event_FileSendESPActionPerformed
 
     private void FileSaveESPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FileSaveESPActionPerformed
-        if (FileSaveESP.isSelected()) {  // start sending
-            if (TextEditor1.get(iTab).getText().length() == 0) {
-                JOptionPane.showMessageDialog(null, "File empty.");
+        if (!FileSaveESP.isSelected()) {
+            StopSend();
+            return;
+        }
+        if (TextEditor1.get(iTab).getText().length() == 0) {
+            FileSaveESP.setSelected(false);
+            JOptionPane.showMessageDialog(null, "File empty.");
+            return;
+        }
+        String fName = iFile.get(iTab).getName();
+        if (fName.length() == 0) {
+            FileSaveESP.setSelected(false);
+            String msg = " Can't save file to ESP without name.";
+            log("FileSaveESP: FAIL. " + msg);
+            JOptionPane.showMessageDialog(null, msg);
+            return;
+        }
+        if (FileAutoSaveDisk.isSelected()) {
+            if (!SaveFile()) { // first save file
                 FileSaveESP.setSelected(false);
                 return;
             }
-            if (FileAutoSaveDisk.isSelected()) {
-                if (!SaveFile()) { // first save file
-                    return;
-                }
-            }
-            SaveFileESP();
-        } else {                     // abort sending or end of file
-            StopSend();
+        }
+        if (!pOpen || portJustOpen) {
+            log("FileSaveESP: Serial port not open. Operation canceled.");
+            FileSaveESP.setSelected(false);
+            return;
+        }
+        if (OptionMicroPython.isSelected()) {
+            pySaveFileESP(fName);
+        } else {
+            nodeSaveFileESP(fName);
         }
     }//GEN-LAST:event_FileSaveESPActionPerformed
 
@@ -9370,7 +10418,214 @@ public class ESPlorer extends javax.swing.JFrame {
     private void AlwaysOnTopActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AlwaysOnTopActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_AlwaysOnTopActionPerformed
-    private void FileSystemInfo() {
+
+    private void PyListDirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PyListDirActionPerformed
+        PyListFiles();
+    }//GEN-LAST:event_PyListDirActionPerformed
+
+    private void PyFileAsButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PyFileAsButton1MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_PyFileAsButton1MouseClicked
+
+    private void PyFileAsButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PyFileAsButton1ActionPerformed
+        String fn = evt.getActionCommand();
+        if (fn.endsWith(".py") || fn.endsWith(".pyc")) {
+            String cmd = "dofile(\"" + fn + "\")";
+            btnSend(cmd);
+        } else if (fn.endsWith(".bin") || fn.endsWith(".dat")) {
+            //HexDump(fn);
+        } else {
+            //ViewFile(fn);
+        }
+    }//GEN-LAST:event_PyFileAsButton1ActionPerformed
+
+    private void CommandEchoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_CommandEchoItemStateChanged
+        prefs.putBoolean(COMMAND_ECHO, CommandEcho.isSelected());
+    }//GEN-LAST:event_CommandEchoItemStateChanged
+
+    private void cmdSysResetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdSysResetActionPerformed
+        btnSendEcho("sys reset");
+    }//GEN-LAST:event_cmdSysResetActionPerformed
+    private void cmdSysFactoryResetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdSysFactoryResetActionPerformed
+        btnSendEcho("sys factoryRESET");
+    }//GEN-LAST:event_cmdSysFactoryResetActionPerformed
+
+    private void cmdSysGetVerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdSysGetVerActionPerformed
+        btnSendEcho("sys get ver");
+    }//GEN-LAST:event_cmdSysGetVerActionPerformed
+
+    private void cmdSysGetHwEuiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdSysGetHwEuiActionPerformed
+        btnSendEcho("sys get hweui");
+    }//GEN-LAST:event_cmdSysGetHwEuiActionPerformed
+
+    private void cmdMacTXActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdMacTXActionPerformed
+        btnSendEcho("mac tx " + TxConfirmed.getSelectedItem() + " " + MacTxPort.getText().trim() + " " + MacTxData.getText().trim());
+    }//GEN-LAST:event_cmdMacTXActionPerformed
+
+    private void cmdMacjoinABPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdMacjoinABPActionPerformed
+        btnSendEcho("mac join abp");
+    }//GEN-LAST:event_cmdMacjoinABPActionPerformed
+
+    private void cmdMacJoinOTAAActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdMacJoinOTAAActionPerformed
+        btnSendEcho("mac join otaa");
+    }//GEN-LAST:event_cmdMacJoinOTAAActionPerformed
+
+    private void cmdMacSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdMacSaveActionPerformed
+        btnSendEcho("mac save");
+    }//GEN-LAST:event_cmdMacSaveActionPerformed
+
+    private void cmdMacSetDevAddrActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdMacSetDevAddrActionPerformed
+        btnSendEcho("mac set devaddr " + DevAddr.getText().trim());
+    }//GEN-LAST:event_cmdMacSetDevAddrActionPerformed
+
+    private void cmdMacSetDevEuiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdMacSetDevEuiActionPerformed
+        btnSendEcho("mac set deveui " + DevEUI.getText().trim());
+    }//GEN-LAST:event_cmdMacSetDevEuiActionPerformed
+
+    private void cmdMacSetAppEuiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdMacSetAppEuiActionPerformed
+        btnSendEcho("mac set appeui " + AppEUI.getText().trim());
+    }//GEN-LAST:event_cmdMacSetAppEuiActionPerformed
+
+    private void cmdMacSetNwkSKeyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdMacSetNwkSKeyActionPerformed
+        btnSendEcho("mac set nwkskey " + NwkSKey.getText().trim());
+    }//GEN-LAST:event_cmdMacSetNwkSKeyActionPerformed
+
+    private void cmdMacSetAppSKeyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdMacSetAppSKeyActionPerformed
+        btnSendEcho("mac set appskey " + AppSKey.getText().trim());
+    }//GEN-LAST:event_cmdMacSetAppSKeyActionPerformed
+
+    private void cmdMacSetAppKeyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdMacSetAppKeyActionPerformed
+        btnSendEcho("mac set appkey " + AppKey.getText().trim());
+    }//GEN-LAST:event_cmdMacSetAppKeyActionPerformed
+
+    private void cmdMacSetPwrIdxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdMacSetPwrIdxActionPerformed
+        btnSendEcho("mac set pwridx " + MacPower.getText().trim());
+    }//GEN-LAST:event_cmdMacSetPwrIdxActionPerformed
+
+    private void cmdMacSetDRActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdMacSetDRActionPerformed
+        btnSendEcho("mac set dr " + MacDR.getText().trim());
+    }//GEN-LAST:event_cmdMacSetDRActionPerformed
+
+    private void cmdMacSetAdrOnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdMacSetAdrOnActionPerformed
+        btnSendEcho("mac set adr on");
+    }//GEN-LAST:event_cmdMacSetAdrOnActionPerformed
+
+    private void cmdMacSetAdrOffActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdMacSetAdrOffActionPerformed
+        btnSendEcho("mac set adr off");
+    }//GEN-LAST:event_cmdMacSetAdrOffActionPerformed
+
+    private void cmdMacGetDevAddrActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdMacGetDevAddrActionPerformed
+        btnSendEcho("mac get devaddr");
+    }//GEN-LAST:event_cmdMacGetDevAddrActionPerformed
+
+    private void cmdMacGetDevEuiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdMacGetDevEuiActionPerformed
+        btnSendEcho("mac get deveui");
+    }//GEN-LAST:event_cmdMacGetDevEuiActionPerformed
+
+    private void cmdMacGetAppEuiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdMacGetAppEuiActionPerformed
+        btnSendEcho("mac get appeui");
+    }//GEN-LAST:event_cmdMacGetAppEuiActionPerformed
+
+    private void cmdMacGetDRActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdMacGetDRActionPerformed
+        btnSendEcho("mac get dr");
+    }//GEN-LAST:event_cmdMacGetDRActionPerformed
+
+    private void cmdMacGetAdrActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdMacGetAdrActionPerformed
+        btnSendEcho("mac get adr");
+    }//GEN-LAST:event_cmdMacGetAdrActionPerformed
+
+    private void cmdMacGetStatusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdMacGetStatusActionPerformed
+        btnSendEcho("mac get status");
+    }//GEN-LAST:event_cmdMacGetStatusActionPerformed
+
+    private void DevAddrActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DevAddrActionPerformed
+        cmdMacSetDevAddr.doClick();
+    }//GEN-LAST:event_DevAddrActionPerformed
+
+    private void NwkSKeyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NwkSKeyActionPerformed
+        cmdMacSetNwkSKey.doClick();
+    }//GEN-LAST:event_NwkSKeyActionPerformed
+
+    private void AppSKeyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AppSKeyActionPerformed
+        cmdMacSetAppSKey.doClick();
+    }//GEN-LAST:event_AppSKeyActionPerformed
+
+    private void DevEUIActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DevEUIActionPerformed
+        cmdMacSetDevEui.doClick();
+    }//GEN-LAST:event_DevEUIActionPerformed
+
+    private void AppEUIActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AppEUIActionPerformed
+        cmdMacSetAppEui.doClick();
+    }//GEN-LAST:event_AppEUIActionPerformed
+
+    private void AppKeyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AppKeyActionPerformed
+        cmdMacSetAppKey.doClick();
+    }//GEN-LAST:event_AppKeyActionPerformed
+
+    private void MacDRActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MacDRActionPerformed
+        cmdMacSetDR.doClick();
+    }//GEN-LAST:event_MacDRActionPerformed
+
+    private void MacPowerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MacPowerActionPerformed
+        cmdMacSetPwrIdx.doClick();
+    }//GEN-LAST:event_MacPowerActionPerformed
+
+    private void cmdMacGetPwrIdxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdMacGetPwrIdxActionPerformed
+        btnSendEcho("mac get pwridx");
+    }//GEN-LAST:event_cmdMacGetPwrIdxActionPerformed
+
+    private void MacSFItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_MacSFItemStateChanged
+
+    }//GEN-LAST:event_MacSFItemStateChanged
+
+    private void cmdRadiosetRxBwActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdRadiosetRxBwActionPerformed
+        btnSendEcho("radio set rxbw " + RadioRxBandWidth.getText().trim());
+    }//GEN-LAST:event_cmdRadiosetRxBwActionPerformed
+
+    private void cmdRadioSetFreqActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdRadioSetFreqActionPerformed
+        btnSendEcho("radio set freq " + RadioFreq.getText().trim());
+    }//GEN-LAST:event_cmdRadioSetFreqActionPerformed
+
+    private void cmdRadioGetSFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdRadioGetSFActionPerformed
+         btnSendEcho("radio get sf");
+    }//GEN-LAST:event_cmdRadioGetSFActionPerformed
+
+    private void cmdRadioGetBwActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdRadioGetBwActionPerformed
+         btnSendEcho("radio get bw");
+    }//GEN-LAST:event_cmdRadioGetBwActionPerformed
+
+    private void cmdRadioGetRxBwActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdRadioGetRxBwActionPerformed
+         btnSendEcho("radio get rxbw");
+    }//GEN-LAST:event_cmdRadioGetRxBwActionPerformed
+
+    private void cmdRadioGetFreqActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdRadioGetFreqActionPerformed
+         btnSendEcho("radio get freq");
+    }//GEN-LAST:event_cmdRadioGetFreqActionPerformed
+
+    private void MacSFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MacSFActionPerformed
+        if ("comboBoxChanged".equals(evt.getActionCommand())) {
+            btnSendEcho("radio set sf " + MacSF.getSelectedItem());
+        }
+    }//GEN-LAST:event_MacSFActionPerformed
+
+    private void MacBandWidthItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_MacBandWidthItemStateChanged
+        
+    }//GEN-LAST:event_MacBandWidthItemStateChanged
+
+    private void MacBandWidthActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MacBandWidthActionPerformed
+        if ("comboBoxChanged".equals(evt.getActionCommand())) {
+            btnSendEcho("radio set bw " + MacBandWidth.getSelectedItem());
+        }
+    }//GEN-LAST:event_MacBandWidthActionPerformed
+
+    private void TxConfirmedItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_TxConfirmedItemStateChanged
+        
+    }//GEN-LAST:event_TxConfirmedItemStateChanged
+
+    private void TxConfirmedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TxConfirmedActionPerformed
+        
+    }//GEN-LAST:event_TxConfirmedActionPerformed
+    private void NodeFileSystemInfo() {
         String cmd = "r,u,t=file.fsinfo() print(\"Total : \"..t..\" bytes\\r\\nUsed  : \"..u..\" bytes\\r\\nRemain: \"..r..\" bytes\\r\\n\") r=nil u=nil t=nil";
         LocalEcho = false;
         send(addCRLF(cmd), true);
@@ -9379,8 +10634,10 @@ public class ESPlorer extends javax.swing.JFrame {
     private void goLink(URI link) {
         try {
             Desktop.getDesktop().browse(link);
+
         } catch (IOException ex) {
-            Logger.getLogger(ESPlorer.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ESPlorer.class
+                    .getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -9446,23 +10703,34 @@ public class ESPlorer extends javax.swing.JFrame {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if (laf.equals(info.getClassName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    java.util.logging.Logger.getLogger(ESPlorer.class.getName()).log(java.util.logging.Level.INFO, "DEFAULT: L&F " + info.getName() + " class:" + info.getClassName());
+                    java.util.logging.Logger.getLogger(ESPlorer.class
+                            .getName()).log(java.util.logging.Level.INFO, "DEFAULT: L&F " + info.getName() + " class:" + info.getClassName());
+
                 } else {
-                    java.util.logging.Logger.getLogger(ESPlorer.class.getName()).log(java.util.logging.Level.INFO, "Installed: L&F " + info.getName() + " class:" + info.getClassName());
+                    java.util.logging.Logger.getLogger(ESPlorer.class
+                            .getName()).log(java.util.logging.Level.INFO, "Installed: L&F " + info.getName() + " class:" + info.getClassName());
                 }
                 if (!"Nimbus".equals(info.getName())) {
                     LAF.add(info.getName());
                     LAFclass.add(info.getClassName());
+
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ESPlorer.class.getName()).log(java.util.logging.Level.INFO, null, ex);
+            java.util.logging.Logger.getLogger(ESPlorer.class
+                    .getName()).log(java.util.logging.Level.INFO, null, ex);
+
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ESPlorer.class.getName()).log(java.util.logging.Level.INFO, null, ex);
+            java.util.logging.Logger.getLogger(ESPlorer.class
+                    .getName()).log(java.util.logging.Level.INFO, null, ex);
+
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ESPlorer.class.getName()).log(java.util.logging.Level.INFO, null, ex);
+            java.util.logging.Logger.getLogger(ESPlorer.class
+                    .getName()).log(java.util.logging.Level.INFO, null, ex);
+
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ESPlorer.class.getName()).log(java.util.logging.Level.INFO, null, ex);
+            java.util.logging.Logger.getLogger(ESPlorer.class
+                    .getName()).log(java.util.logging.Level.INFO, null, ex);
         }
         //</editor-fold>
         try {
@@ -9473,8 +10741,10 @@ public class ESPlorer extends javax.swing.JFrame {
                     new ESPlorer().setVisible(true);
                 }
             });
+
         } catch (Exception ex) {
-            java.util.logging.Logger.getLogger(ESPlorer.class.getName()).log(java.util.logging.Level.INFO, null, ex);
+            java.util.logging.Logger.getLogger(ESPlorer.class
+                    .getName()).log(java.util.logging.Level.INFO, null, ex);
         }
     }
 
@@ -9488,6 +10758,7 @@ public class ESPlorer extends javax.swing.JFrame {
     private javax.swing.JRadioButtonMenuItem MenuItemViewLF9;
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLayeredPane ABPPane;
     private javax.swing.JButton ATE0;
     private javax.swing.JButton ATE1;
     private javax.swing.JPanel AT_Client;
@@ -9498,10 +10769,15 @@ public class ESPlorer extends javax.swing.JFrame {
     private javax.swing.JPanel AT_Station;
     private javax.swing.JLayeredPane ATvXX;
     private javax.swing.JDialog About;
+    private javax.swing.JLayeredPane ActivationPane;
+    private javax.swing.JScrollPane ActivationScrollPane;
     private javax.swing.JCheckBoxMenuItem AlwaysOnTop;
     private javax.swing.JSlider AnswerDelay;
     private javax.swing.JLabel AnswerDelayLabel;
+    private javax.swing.JTextField AppEUI;
+    private javax.swing.JTextField AppKey;
     private javax.swing.JLabel AppName;
+    private javax.swing.JTextField AppSKey;
     private javax.swing.JLabel Author;
     private javax.swing.JLabel Author1;
     private javax.swing.JCheckBox AutoScroll;
@@ -9539,6 +10815,7 @@ public class ESPlorer extends javax.swing.JFrame {
     private javax.swing.JButton ButtonUndo;
     private javax.swing.JCheckBox CR;
     private javax.swing.JComboBox Command;
+    private javax.swing.JCheckBox CommandEcho;
     private javax.swing.JLayeredPane CommandsMicroPython;
     private javax.swing.JLayeredPane CommandsNodeMCU;
     private javax.swing.JCheckBox Condensed;
@@ -9552,6 +10829,8 @@ public class ESPlorer extends javax.swing.JFrame {
     private javax.swing.JComboBox DHCPmode;
     private javax.swing.JSlider Delay;
     private javax.swing.JLabel DelayLabel;
+    private javax.swing.JTextField DevAddr;
+    private javax.swing.JTextField DevEUI;
     private javax.swing.JButton Donate;
     private javax.swing.JButton DonateSmall;
     private javax.swing.JCheckBox DumbMode;
@@ -9576,8 +10855,8 @@ public class ESPlorer extends javax.swing.JFrame {
     private javax.swing.JButton FileFormat;
     private javax.swing.JLayeredPane FileLayeredPane;
     private javax.swing.JButton FileListReload;
-    private javax.swing.JLayeredPane FileManagerPane;
     private javax.swing.JScrollPane FileManagerScrollPane;
+    private javax.swing.JLayeredPane FileManagersLayer;
     private javax.swing.JLabel FilePathLabel;
     private javax.swing.JTextField FileRename;
     private javax.swing.JLabel FileRenameLabel;
@@ -9603,12 +10882,21 @@ public class ESPlorer extends javax.swing.JFrame {
     private javax.swing.JTabbedPane LeftTab;
     private javax.swing.JSlider LineDelay;
     private javax.swing.JLabel LineDelayLabel;
+    private javax.swing.JLayeredPane LoRaMAC;
     private javax.swing.JTextArea Log;
     private javax.swing.JTextField LogMaxSize;
     private javax.swing.JPopupMenu.Separator LogSeparator;
     private javax.swing.JFormattedTextField MAC;
     private javax.swing.JFormattedTextField MAC1;
     private javax.swing.ButtonGroup MUXGroup;
+    private javax.swing.JComboBox<String> MacBandWidth;
+    private javax.swing.JLayeredPane MacCommon;
+    private javax.swing.JTextField MacDR;
+    private javax.swing.JScrollPane MacPane;
+    private javax.swing.JTextField MacPower;
+    private javax.swing.JComboBox<String> MacSF;
+    private javax.swing.JTextField MacTxData;
+    private javax.swing.JTextField MacTxPort;
     private javax.swing.JMenuBar MainMenuBar;
     private javax.swing.JMenu MenuESP;
     private javax.swing.JMenu MenuEdit;
@@ -9733,6 +11021,7 @@ public class ESPlorer extends javax.swing.JFrame {
     private javax.swing.JTextField MicroPythonRemotePort;
     private javax.swing.JTextField MicroPythonSSID;
     private javax.swing.JButton NodeChipID;
+    private javax.swing.JLayeredPane NodeFileManagerPane;
     private javax.swing.JButton NodeFlashID;
     private javax.swing.JButton NodeHeap;
     private javax.swing.JButton NodeInfo;
@@ -9741,6 +11030,8 @@ public class ESPlorer extends javax.swing.JFrame {
     private javax.swing.JLayeredPane NodeMCUSettings;
     private javax.swing.JLayeredPane NodeMCUSnippets;
     private javax.swing.JButton NodeReset;
+    private javax.swing.JTextField NwkSKey;
+    private javax.swing.JLayeredPane OTAAPane;
     private javax.swing.JToggleButton Open;
     private javax.swing.JRadioButton OptionMicroPython;
     private javax.swing.JRadioButton OptionNodeMCU;
@@ -9755,6 +11046,14 @@ public class ESPlorer extends javax.swing.JFrame {
     private javax.swing.JLabel PortOpenLabel;
     private javax.swing.JToggleButton PortRTS;
     private javax.swing.JProgressBar ProgressBar;
+    private javax.swing.JButton PyFileAsButton1;
+    private javax.swing.JLayeredPane PyFileManagerPane;
+    private javax.swing.JButton PyListDir;
+    private javax.swing.JLayeredPane RN2483;
+    private javax.swing.JTabbedPane RN2483jTab;
+    private javax.swing.JTextField RadioFreq;
+    private javax.swing.JLayeredPane RadioPane;
+    private javax.swing.JTextField RadioRxBandWidth;
     private javax.swing.JButton ReScan;
     private javax.swing.JLayeredPane RightBasePane;
     private javax.swing.JLayeredPane RightBigPane;
@@ -9767,6 +11066,7 @@ public class ESPlorer extends javax.swing.JFrame {
     private javax.swing.JTextField SSIDsoftAP;
     private javax.swing.JScrollPane ScrollLog;
     private javax.swing.JButton SendCommand;
+    private javax.swing.JLayeredPane SendUnconfirmed;
     private javax.swing.JComboBox ServerMode;
     private javax.swing.JTextField ServerPort;
     private javax.swing.JTextField ServerTimeout;
@@ -9803,7 +11103,7 @@ public class ESPlorer extends javax.swing.JFrame {
     private javax.swing.JLayeredPane TCP_common;
     private javax.swing.JLayeredPane TCPclientBottomPane;
     private javax.swing.JTabbedPane TabAT;
-    private org.fife.ui.rsyntaxtextarea.RSyntaxTextArea Terminal;
+    public static org.fife.ui.rsyntaxtextarea.RSyntaxTextArea Terminal;
     private javax.swing.JLayeredPane TerminalLogPane;
     private javax.swing.JTextField TerminalMaxSize;
     private javax.swing.JCheckBox TerminalOnlyCheckBox;
@@ -9819,6 +11119,7 @@ public class ESPlorer extends javax.swing.JFrame {
     private javax.swing.Box.Filler TopWiFiStaFiller;
     private javax.swing.Box.Filler TopWiFiStaFiller1;
     private javax.swing.JCheckBox TurboMode;
+    private javax.swing.JComboBox<String> TxConfirmed;
     private javax.swing.JLayeredPane UDP;
     private javax.swing.JButton UPDATE;
     private javax.swing.JCheckBox UseCustomPortName;
@@ -9848,6 +11149,27 @@ public class ESPlorer extends javax.swing.JFrame {
     private javax.swing.JButton cmdGetCWSAP;
     private javax.swing.JButton cmdGetHelpCWMODE;
     private javax.swing.JButton cmdListFiles;
+    private javax.swing.JButton cmdMacGetAdr;
+    private javax.swing.JButton cmdMacGetAppEui;
+    private javax.swing.JButton cmdMacGetDR;
+    private javax.swing.JButton cmdMacGetDevAddr;
+    private javax.swing.JButton cmdMacGetDevEui;
+    private javax.swing.JButton cmdMacGetPwrIdx;
+    private javax.swing.JButton cmdMacGetStatus;
+    private javax.swing.JButton cmdMacJoinOTAA;
+    private javax.swing.JButton cmdMacSave;
+    private javax.swing.JButton cmdMacSetAdrOff;
+    private javax.swing.JButton cmdMacSetAdrOn;
+    private javax.swing.JButton cmdMacSetAppEui;
+    private javax.swing.JButton cmdMacSetAppKey;
+    private javax.swing.JButton cmdMacSetAppSKey;
+    private javax.swing.JButton cmdMacSetDR;
+    private javax.swing.JButton cmdMacSetDevAddr;
+    private javax.swing.JButton cmdMacSetDevEui;
+    private javax.swing.JButton cmdMacSetNwkSKey;
+    private javax.swing.JButton cmdMacSetPwrIdx;
+    private javax.swing.JButton cmdMacTX;
+    private javax.swing.JButton cmdMacjoinABP;
     private javax.swing.JButton cmdMicroPythonScan;
     private javax.swing.JButton cmdMicroPythonSendToHost;
     private javax.swing.JButton cmdMicroPythonStaConnect;
@@ -9855,6 +11177,12 @@ public class ESPlorer extends javax.swing.JFrame {
     private javax.swing.JButton cmdNodeHeap;
     private javax.swing.JButton cmdNodeRestart;
     private javax.swing.JButton cmdNodeSleep;
+    private javax.swing.JButton cmdRadioGetBw;
+    private javax.swing.JButton cmdRadioGetFreq;
+    private javax.swing.JButton cmdRadioGetRxBw;
+    private javax.swing.JButton cmdRadioGetSF;
+    private javax.swing.JButton cmdRadioSetFreq;
+    private javax.swing.JButton cmdRadiosetRxBw;
     private javax.swing.JButton cmdSetCIPAP;
     private javax.swing.JButton cmdSetCIPAPMAC;
     private javax.swing.JButton cmdSetCIPCLOSE;
@@ -9875,6 +11203,10 @@ public class ESPlorer extends javax.swing.JFrame {
     private javax.swing.JButton cmdSetCWMODE3;
     private javax.swing.JButton cmdSetCWQAP;
     private javax.swing.JButton cmdSetCWSAP;
+    private javax.swing.JButton cmdSysFactoryReset;
+    private javax.swing.JButton cmdSysGetHwEui;
+    private javax.swing.JButton cmdSysGetVer;
+    private javax.swing.JButton cmdSysReset;
     private javax.swing.JButton cmdTimerStop;
     private javax.swing.JPanel common;
     private javax.swing.JComboBox conn_id;
@@ -9882,6 +11214,9 @@ public class ESPlorer extends javax.swing.JFrame {
     private javax.swing.JComboBox encryption;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -9890,6 +11225,7 @@ public class ESPlorer extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JLayeredPane jLayeredPane1;
     private javax.swing.JLayeredPane jLayeredPane2;
     private javax.swing.JLayeredPane jLayeredPane3;
     private javax.swing.JMenuItem jMenuItem4;
@@ -9939,6 +11275,7 @@ public class ESPlorer extends javax.swing.JFrame {
     private ArrayList<File> mFile; // for multifile op
     private ArrayList<Boolean> FileChanged;
     private ArrayList<javax.swing.JButton> FileAsButton;
+    private ArrayList<javax.swing.JButton> PyFileAsButton;
     private ArrayList<javax.swing.JPopupMenu> FilePopupMenu;
     private ArrayList<javax.swing.JMenuItem> FilePopupMenuItem;
     private int iTab = 0; // tab index
@@ -9946,7 +11283,8 @@ public class ESPlorer extends javax.swing.JFrame {
     private String UploadFileName = "";
     /* Files tab end */
     public int nSpeed = 9600;
-    public static final Logger LOGGER = Logger.getLogger(ESPlorer.class.getName());
+    public static final Logger LOGGER = Logger.getLogger(ESPlorer.class
+            .getName());
     //  String s = new String();
     int save; // editor var
     String FileName = "script"; // without ext
@@ -9986,7 +11324,6 @@ public class ESPlorer extends javax.swing.JFrame {
     public static String tx_data = "";
     public static byte[] rx_byte;
     public static byte[] tx_byte;
-    public ArrayList<String> sendBuf;
     // downloader
     public int packets = 0;
     public String rcvFile = "";
@@ -10077,6 +11414,7 @@ public class ESPlorer extends javax.swing.JFrame {
     private static final String WIN_W = "win_w";
     private static final String CONDENSED = "condensed";
     private static final String AUTODETECT = "autodetect_firmware";
+    private static final String COMMAND_ECHO = "command_echo";
     /*  Prefs end */
 
  /* Snippets */
@@ -10234,45 +11572,18 @@ public class ESPlorer extends javax.swing.JFrame {
         try {
             success = serialPort.openPort();
             if (!success) {
-                log("ERROR open serial port " + portName);
+                log("ERROR opening serial port " + portName);
+                return success;
             }
-            if (success) {
-                SetSerialPortParams();
-                /*
-                success = serialPort.setParams(nSpeed,
-                                         SerialPort.DATABITS_8,
-                                         SerialPort.STOPBITS_1,
-                                         SerialPort.PARITY_NONE,
-                                         PortRTS.isSelected(),
-                                         PortDTR.isSelected());
-                if (!success) {
-                    log("ERROR setting port " + portName + " parameters.");
-                }
-                 */
-            }
-            // This enables RTS as a side effect, and FLOWCONTROL_NONE is default anyway. Just skip it.
-            /*
-            if (success) {
-                success = serialPort.setFlowControlMode(SerialPort.FLOWCONTROL_NONE);
-                if (!success) {
-                    log("ERROR setting port " + portName + " NOFLOW control mode.");
-                }
-            }
-             */
-            if (success) {
-                serialPort.addEventListener(new PortReader(), portMask);
-            }
-            if (success) {
-                log("Open port " + portName + " - Success.");
-            } else {
-                log("Open port " + portName + " - FAIL.");
-            }
+            SetSerialPortParams();
+            serialPort.addEventListener(new PortReader(), portMask);
         } catch (SerialPortException ex) {
             log(ex.toString());
             success = false;
         }
         pOpen = success;
         if (pOpen) {
+            log("Open port " + portName + " - Success.");
             TerminalAdd("\r\nPORT OPEN " + Speed.getSelectedItem() + "\r\n");
             CheckComm();
         }
@@ -10296,13 +11607,17 @@ public class ESPlorer extends javax.swing.JFrame {
                         TerminalAdd("\r\n");
                     }
                 } else {
-                    openTimeout.stop();
+                    try {
+                        openTimeout.stop();
+                    } catch (Exception e) {
+                        log(e.toString());
+                    }
                 }
             }
         };
-        openTimeout = new Timer(300, checker);
-        openTimeout.setRepeats(true);
-        openTimeout.setInitialDelay(0);
+        openTimeout = new Timer(3000, watchDog);
+        openTimeout.setRepeats(false);
+        openTimeout.setInitialDelay(3000);
         openTimeout.start();
     }
 
@@ -10312,6 +11627,7 @@ public class ESPlorer extends javax.swing.JFrame {
             try {
                 openTimeout.stop();
             } catch (Exception e) {
+                log(e.toString());
             }
         }
         try {
@@ -10331,7 +11647,7 @@ public class ESPlorer extends javax.swing.JFrame {
             Open.setSelected(false);
         }
         UpdateLED();
-        ClearFileManager();
+        ClearNodeFileManager();
     }
 
     public void SendCommand() {
@@ -10403,6 +11719,15 @@ public class ESPlorer extends javax.swing.JFrame {
 
     public void btnSend(String s) {
         send(addCRLF(s), true);
+    }
+
+    public void btnSendEcho(String s) {
+        if (Terminal.getCaretOffsetFromLineStart() > 0) {
+            TerminalAdd("\r\n");
+        }
+        TerminalAdd(s);
+        TerminalAdd("\r\n");
+        btnSend(s);
     }
 
     private void FinalInit() {
@@ -10563,7 +11888,10 @@ public class ESPlorer extends javax.swing.JFrame {
         ac = new ArrayList<AutoCompletion>();
         iFile = new ArrayList<File>();
         FileChanged = new ArrayList<Boolean>();
+
         FileAsButton = new ArrayList<javax.swing.JButton>();
+        PyFileAsButton = new ArrayList<javax.swing.JButton>();
+
         FilePopupMenu = new ArrayList<javax.swing.JPopupMenu>();
         FilePopupMenuItem = new ArrayList<javax.swing.JMenuItem>();
 
@@ -10607,6 +11935,7 @@ public class ESPlorer extends javax.swing.JFrame {
         }
         FileAsButton1.setVisible(false);
         FileRenamePanel.setVisible(false);
+        PyFileAsButton1.setVisible(false);
     }
 
     private void LoadPrefs() {
@@ -10660,10 +11989,11 @@ public class ESPlorer extends javax.swing.JFrame {
         EOL.setSelected(prefs.getBoolean(SHOW_EOL, false));
         Condensed.setSelected(prefs.getBoolean(CONDENSED, false));
         AutodetectFirmware.setSelected(prefs.getBoolean(AUTODETECT, true));
+        CommandEcho.setSelected(prefs.getBoolean(COMMAND_ECHO, true));
         log("Load saved settings: DONE.");
     }
 
-    private void AddFileButton(String FileName, int size) {
+    private void AddNodeFileButton(String FileName, int size) {
         FileAsButton.add(new javax.swing.JButton());
         int i = FileAsButton.size() - 1;
         FileAsButton.get(i).setText(FileName);
@@ -10720,7 +12050,7 @@ public class ESPlorer extends javax.swing.JFrame {
         }
 
         FileAsButton.get(i).setComponentPopupMenu(FilePopupMenu.get(x));
-        FileManagerPane.add(FileAsButton.get(i));
+        NodeFileManagerPane.add(FileAsButton.get(i));
     }
 
     private void AddMenuItemSeparator(int x) {
@@ -11288,6 +12618,7 @@ public class ESPlorer extends javax.swing.JFrame {
         }
         if (LoadFile()) {
             log("File reload: Success.");
+
         }
     }
 
@@ -11298,11 +12629,14 @@ public class ESPlorer extends javax.swing.JFrame {
                 try {
                     String data = serialPort.readString(event.getEventValue());
                     if (portJustOpen) {
-                        TerminalAdd("Got answer! AutoDetect firmware...\r\n");
+                        TerminalAdd("Got answer! Communication with MCU established.\r\nAutoDetect firmware...\r\n");
                         portJustOpen = false;
-                        openTimeout.stop();
+                        try {
+                            openTimeout.stop();
+                        } catch (Exception e) {
+                            log(e.toString());
+                        }
                         UpdateButtons();
-                        log("\r\nCommunication with MCU established.");
                         if (data.contains("\r\n>>>")) {
                             TerminalAdd("\r\nMicroPython firmware detected, try get version...\r\n\r\n");
                             btnSend("import sys; print(\"MicroPython ver:\",sys.version_info)");
@@ -11319,10 +12653,10 @@ public class ESPlorer extends javax.swing.JFrame {
                             LeftTab.setSelectedIndex(1);
                             RightExtraButtons.setVisible(false);
                             RightSnippetsPane.setVisible(false);
-                            FileManagerPane.setVisible(false);
+                            NodeFileManagerPane.setVisible(false);
                             FirmwareType = FIRMWARE_AT;
                         } else {
-                            TerminalAdd("\r\nCan't autodetect firmware, because proper answer not received. Please, reset module or continue manually...\r\n");
+                            TerminalAdd("\r\nCan't autodetect firmware, because proper answer not received (may be unknown firmware). \r\nPlease, reset module or continue.\r\n");
                         }
                     } else if (LocalEcho) {
                         TerminalAdd(data);
@@ -11370,7 +12704,7 @@ public class ESPlorer extends javax.swing.JFrame {
                         String msg[] = {"Interpreter error detected!", rcvBuf, "Click OK to continue."};
                         JOptionPane.showMessageDialog(null, msg);
                     }
-                    */
+                     */
                     rcvBuf = "";
                     if (j < sendBuf.size() - 1) {
                         if (timer.isRunning() || sendPending) {
@@ -11530,23 +12864,12 @@ public class ESPlorer extends javax.swing.JFrame {
         timeout.start();
     }
 
-    private boolean SaveFileESP() {
+    private boolean nodeSaveFileESP(String ft) {
         boolean success = false;
-        if (!pOpen || portJustOpen) {
-            log("FileSaveESP: Serial port not open. Cancel.");
-            return success;
-        }
         log("FileSaveESP: Try to save file to ESP...");
-        String ft = iFile.get(iTab).getName();
-        if (ft.length() == 0) {
-            log("FileSaveESP: FAIL. Can't save file to ESP without name.");
-            SendUnLock();
-            JOptionPane.showMessageDialog(null, "Can't save file to ESP without name.");
-            return success;
-        }
         sendBuf = new ArrayList<String>();
         if (TurboMode.isSelected()) {
-            return SaveFileESPTurbo(ft);
+            return nodeSaveFileESPTurbo(ft);
         }
         sendBuf.add("file.remove(\"" + ft + "\");");
         sendBuf.add("file.open(\"" + ft + "\",\"w+\");");
@@ -11565,7 +12888,7 @@ public class ESPlorer extends javax.swing.JFrame {
         return success;
     }
 
-    private boolean SaveFileESPTurbo(String ft) {
+    private boolean nodeSaveFileESPTurbo(String ft) {
         boolean success = false;
         log("FileSaveESP-Turbo: Try to save file to ESP in Turbo Mode...");
         sendBuf.add("local FILE=\"" + ft + "\" file.remove(FILE) file.open(FILE,\"w+\") uart.setup(0," + Integer.toString(nSpeed) + ",8,0,1,0)");
@@ -11638,6 +12961,15 @@ public class ESPlorer extends javax.swing.JFrame {
         return bs;
     }
 
+    public boolean pasteMode() {
+        return pasteMode;
+    }
+
+    public boolean pasteMode(boolean newMode) {
+        pasteMode = newMode;
+        return pasteMode;
+    }
+
     public boolean SendTimerStart() {
         startTime = System.currentTimeMillis();
         SendLock();
@@ -11679,30 +13011,15 @@ public class ESPlorer extends javax.swing.JFrame {
                     }
                 };
             } else { // MicroPython
-                //pyLevel0();
                 taskPerformer = new ActionListener() {
                     public void actionPerformed(ActionEvent evt) {
                         if (j < sendBuf.size()) {
-                            if (j == 0) {
+                            if ((j == 0) && pasteMode()) {
                                 sendStart();
                             }
-                            /*
-                            int offset = 0;
-                            int level  = 0;
-                            while (sendBuf.get(j).startsWith("    ", offset)) {
-                                ++ level;
-                                offset += 4;
-                            }
-                            log("pyLevel = " + Integer.toString(pyLevel) + " level = " + Integer.toString(level));
-                            while (level < pyLevel) {
-                                sendBuf.set(j, addBS(sendBuf.get(j).trim()));
-                                dec_pyLevel();
-                            }
-                            set_pyLevel(level);
-                             */
                             send(addCRLF(sendBuf.get(j)), false);
                             inc_j();
-                            if (j == sendBuf.size()) {
+                            if ((j == sendBuf.size()) && pasteMode()) {
                                 sendEnd();
                             }
                             int div = sendBuf.size() - 1;
@@ -11712,6 +13029,7 @@ public class ESPlorer extends javax.swing.JFrame {
                             ProgressBar.setValue((j * 100) / div);
                             if (j > sendBuf.size() - 1) {
                                 timer.stop();
+                                pasteMode(true);
                                 StopSend();
                             }
                         }
@@ -12180,6 +13498,7 @@ public class ESPlorer extends javax.swing.JFrame {
             serialPort.writeBytes(b);
         } catch (SerialPortException ex) {
             log("BytesSender send FAIL:" + b.toString().replace("\r\n", "<CR><LF>"));
+
         }
     }
 
@@ -12332,6 +13651,8 @@ public class ESPlorer extends javax.swing.JFrame {
                 OptionMicroPython.setSelected(true);
                 CommandsMicroPython.setVisible(true);
                 CommandsNodeMCU.setVisible(false);
+                NodeFileManagerPane.setVisible(false);
+                PyFileManagerPane.setVisible(true);
                 DisablingNotImplemented();
                 break;
             case FIRMWARE_NODEMCU:
@@ -12342,6 +13663,8 @@ public class ESPlorer extends javax.swing.JFrame {
                 OptionNodeMCU.setSelected(true);
                 CommandsMicroPython.setVisible(false);
                 CommandsNodeMCU.setVisible(true);
+                NodeFileManagerPane.setVisible(true);
+                PyFileManagerPane.setVisible(false);
                 break;
             default:
                 // AT-based
@@ -12361,16 +13684,16 @@ public class ESPlorer extends javax.swing.JFrame {
             DumbMode.setSelected(true);
 
             MenuItemViewLeftExtra.setSelected(false);
-            MenuItemViewFileManager.setSelected(false);
+            //MenuItemViewFileManager.setSelected(false);
             MenuItemViewRightExtra.setSelected(false);
             MenuItemViewDonate.setSelected(false);
-            MenuItemFileSaveESP.setEnabled(false);
             MenuItemFileDo.setEnabled(false);
+            FileDo.setEnabled(false);
             MenuItemFileRemoveESP.setEnabled(false);
             MenuESP.setEnabled(false);
-            FileSaveESP.setEnabled(false);
-            FileDo.setEnabled(false);
             FilesUpload.setEnabled(false);
+            //MenuItemFileSaveESP.setEnabled(false);
+            //FileSaveESP.setEnabled(false);
 
             FileAutoSaveESP.setSelected(false);
             Condensed.setSelected(false);
@@ -12415,4 +13738,205 @@ public class ESPlorer extends javax.swing.JFrame {
         String cmd = "import pyb;p=pyb.Pin(" + Integer.toString(gpio) + ",pyb.Pin.IN);p.value()";
         btnSend(cmd);
     }
+
+    private boolean pySaveFileESP(String ft) {
+        boolean success = false;
+        log("pyFileSaveESP: Starting...");
+        String[] content = TextEditor1.get(iTab).getText().split("\r?\n");
+        if (pyFiler.Put(ft, content)) {
+            pasteMode(false);
+            success = SendTimerStart();
+        }
+        return success;
+    } // pySaveFileESP
+
+    private void AddPyFileButton(String FileName) {
+        PyFileAsButton.add(new javax.swing.JButton());
+        int i = PyFileAsButton.size() - 1;
+        PyFileAsButton.get(i).setText(FileName);
+        PyFileAsButton.get(i).setAlignmentX(0.5F);
+        PyFileAsButton.get(i).setMargin(new java.awt.Insets(2, 2, 2, 2));
+        PyFileAsButton.get(i).setMaximumSize(new java.awt.Dimension(130, 25));
+        PyFileAsButton.get(i).setPreferredSize(new java.awt.Dimension(130, 25));
+        PyFileAsButton.get(i).setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        PyFileAsButton.get(i).addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                PyFileAsButton1ActionPerformed(evt);
+            }
+        });
+        // PopUp menu
+        FilePopupMenu.add(new javax.swing.JPopupMenu());
+        int x = FilePopupMenu.size() - 1;
+        int y;
+        // PopUp menu items
+        /*
+        if (FileName.endsWith(".py")) {
+            FileAsButton.get(i).setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/lua.png")));
+            FileAsButton.get(i).setToolTipText(FileAsButton.get(i).getActionCommand() + ", LeftClick - Run, RightClick - Other actions");
+            AddMenuItemRun(x, FileName);
+            AddMenuItemCompile(x, FileName);
+            AddMenuItemSeparator(x);
+            AddMenuItemView(x, FileName);
+            AddMenuItemDump(x, FileName);
+            AddMenuItemEdit(x, FileName, size);
+            AddMenuItemDownload(x, FileName, size);
+            AddMenuItemRename(x, FileName);
+            AddMenuItemSeparator(x);
+            AddMenuItemRemove(x, FileName);
+        } else if (FileName.endsWith(".lc")) {
+            FileAsButton.get(i).setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/lc.png")));
+            FileAsButton.get(i).setToolTipText(FileAsButton.get(i).getActionCommand() + ", LeftClick - Run, RightClick - Other actions");
+            AddMenuItemRun(x, FileName);
+            AddMenuItemSeparator(x);
+            AddMenuItemDump(x, FileName);
+            AddMenuItemDownload(x, FileName, size);
+            AddMenuItemRename(x, FileName);
+            AddMenuItemSeparator(x);
+            AddMenuItemRemove(x, FileName);
+        } else {
+            FileAsButton.get(i).setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/file.png")));
+            FileAsButton.get(i).setToolTipText(FileAsButton.get(i).getActionCommand() + ", LeftClick - View, RightClick - Other actions");
+            AddMenuItemView(x, FileName);
+            AddMenuItemDump(x, FileName);
+            AddMenuItemEdit(x, FileName, size);
+            AddMenuItemDownload(x, FileName, size);
+            AddMenuItemRename(x, FileName);
+            AddMenuItemSeparator(x);
+            AddMenuItemRemove(x, FileName);
+        }
+
+        FileAsButton.get(i).setComponentPopupMenu(FilePopupMenu.get(x));
+         */
+        PyFileManagerPane.add(PyFileAsButton.get(i));
+
+    } // AddPyFileButton
+
+    private void ClearPyFileManager() {
+        if (!MenuItemViewFileManager.isSelected()) {
+            return;
+        }
+        PyFileManagerPane.removeAll();
+        PyFileManagerPane.add(PyListDir);
+        PyFileManagerPane.repaint();
+        PyFileAsButton = new ArrayList<javax.swing.JButton>();
+    } // ClearPyFileManager
+
+    private void PyListFiles() {
+        if (portJustOpen) {
+            log("ERROR: Communication with MCU not yet established.");
+            return;
+        }
+        try {
+            serialPort.removeEventListener();
+        } catch (Exception e) {
+            log(e.toString());
+            return;
+        }
+        try {
+            serialPort.addEventListener(new PortPyFilesReader(), portMask);
+            log("pyFileManager: Add EventListener: Success.");
+        } catch (SerialPortException e) {
+            log("pyFileManager: Add EventListener Error. Canceled.");
+            return;
+        }
+        ClearPyFileManager();
+        rx_data = "";
+        rcvBuf = "";
+        log("pyFileManager: Starting...");
+        String cmd = "import os;os.listdir('" + pyFiler.pwd() + "')";
+        btnSend(cmd);
+        WatchDogPyListDir();
+    } // PyListFiles
+
+    private void WatchDogPyListDir() {
+        watchDog = new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+                //StopSend();
+                Toolkit.getDefaultToolkit().beep();
+                TerminalAdd("Waiting answer from ESP - Timeout reached. Command aborted.");
+                log("Waiting answer from ESP - Timeout reached. Command aborted.");
+                try {
+                    serialPort.removeEventListener();
+                    serialPort.addEventListener(new PortReader(), portMask);
+                } catch (Exception e) {
+                    log(e.toString());
+                }
+                SendUnLock();
+            }
+        };
+        int delay = AnswerDelay.getValue() * 1000;
+        if (delay == 0) {
+            delay = 300;
+        }
+
+        delay = 3000;
+
+        timeout = new Timer(delay, watchDog);
+        timeout.setRepeats(false);
+        timeout.setInitialDelay(delay);
+        timeout.start();
+    } // WatchDogPyListDir
+
+    private class PortPyFilesReader implements SerialPortEventListener {
+
+        public void serialEvent(SerialPortEvent event) {
+            String data;
+            if (event.isRXCHAR() && event.getEventValue() > 0) {
+                try {
+                    data = serialPort.readString(event.getEventValue());
+                    rcvBuf = rcvBuf + data;
+                    rx_data = rx_data + data;
+                    TerminalAdd(data);
+                } catch (Exception e) {
+                    data = "";
+                    log(e.toString());
+                }
+                if (rx_data.contains("']\r\n>>>")) {
+                    try {
+                        timeout.stop();
+                    } catch (Exception e) {
+                        log(e.toString());
+                    }
+                    log("FileManager: File list found! Do parsing...");
+                    try {
+                        int start = rx_data.indexOf("[");
+                        rx_data = rx_data.substring(start + 1, rx_data.indexOf("]"));
+                        rx_data = rx_data.replace("'", "");
+                        s = rx_data.split(", ");
+                        Arrays.sort(s);
+                        TerminalAdd("\r\n----------------------------");
+                        for (String subs : s) {
+                            TerminalAdd("\r\n" + subs);
+                            if (subs.trim().length() > 0) {
+                                AddPyFileButton(subs);
+                                log("FileManager found file " + subs);
+                            }
+                        }
+                        if (PyFileAsButton.size() == 0) {
+                            TerminalAdd("No files found.");
+                        }
+                        TerminalAdd("\r\n----------------------------\r\n> ");
+                        PyFileManagerPane.invalidate();
+                        PyFileManagerPane.doLayout();
+                        PyFileManagerPane.repaint();
+                        PyFileManagerPane.requestFocusInWindow();
+                        log("pyFileManager: File list parsing done, found " + PyFileAsButton.size() + " file(s).");
+                    } catch (Exception e) {
+                        log(e.toString());
+                    }
+                    try {
+                        serialPort.removeEventListener();
+                        serialPort.addEventListener(new PortReader(), portMask);
+                    } catch (Exception e) {
+                        log(e.toString());
+                    }
+//                    SendUnLock();
+                }
+            } else if (event.isCTS()) {
+                UpdateLedCTS();
+            } else if (event.isERR()) {
+                log("FileManager: Unknown serial port error received.");
+            }
+        } // serialEvent
+    } // PortPyFilesReader
 } // ESPlorer
