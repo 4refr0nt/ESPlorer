@@ -134,14 +134,9 @@ public class RSyntaxTextAreaUI extends RTextAreaUI {
 	}
 
 
-	/**
-	 * Paints the text area's background.
-	 *
-	 * @param g The graphics component on which to paint.
-	 */
 	@Override
-	protected void paintBackground(Graphics g) {
-		super.paintBackground(g);
+	protected void paintEditorAugmentations(Graphics g) {
+		super.paintEditorAugmentations(g);
 		paintMatchedBracket(g);
 	}
 
@@ -168,7 +163,7 @@ public class RSyntaxTextAreaUI extends RTextAreaUI {
 	}
 
 
-	private void paintMatchedBracketImpl(Graphics g, RSyntaxTextArea rsta,
+	protected void paintMatchedBracketImpl(Graphics g, RSyntaxTextArea rsta,
 			Rectangle r) {
 		// We must add "-1" to the height because otherwise we'll paint below
 		// the region that gets invalidated.

@@ -197,7 +197,6 @@ int currentCaretY;							// Used to know when to rehighlight current line.
 		if (getCaretPosition() != 0) {
 			SwingUtilities.invokeLater(new Runnable() {
 				public void run() {
-					System.out.println("Yo");
 					possiblyUpdateCurrentLineHighlightLocation();
 				}
 			});
@@ -389,6 +388,16 @@ int currentCaretY;							// Used to know when to rehighlight current line.
 		} catch (BadLocationException ble) {
 			return 0; // Never happens
 		}
+	}
+
+
+	/**
+	 * Returns the y-offset of the caret.
+	 *
+	 * @return The y-offset of the caret.
+	 */
+	protected int getCurrentCaretY() {
+		return currentCaretY;
 	}
 
 
@@ -814,12 +823,12 @@ try {
 
 	/**
 	 * Sets the background color of this text editor.  Note that this is
-	 * equivalent to calling <code>setBackgroundObject(bg)</code>.
+	 * equivalent to calling <code>setBackgroundObject(bg)</code>.<p>
 	 *
 	 * NOTE:  the opaque property is set to <code>true</code> when the
-	 * background is set to a color (by this method).  When an image is used
-	 * for the background, opaque is set to false.  This is because
-	 * we perform better when setOpaque is true, but if we use an
+	 * background is set to a color with 1.0 alpha (by this method).  When an
+	 * image is used for the background, opaque is set to false.  This is
+	 * because we perform better when setOpaque is true, but if we use an
 	 * image for the background when opaque is true, we get on-screen
 	 * garbage when the user scrolls via the arrow keys.  Thus we
 	 * need setOpaque to be false in that case.<p>
@@ -838,7 +847,7 @@ try {
 		else { // Was an image painter...
 			backgroundPainter = new ColorBackgroundPainterStrategy(bg);
 		}
-		setOpaque(true);
+		setOpaque(bg==null || bg.getAlpha()==0xff);
 		firePropertyChange("background", oldBG, bg);
 		repaint();
 	}

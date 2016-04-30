@@ -68,7 +68,7 @@ import org.fife.ui.rtextarea.RecordableTextAction;
  * of certain programming languages to its list of features.  Languages
  * currently supported include:
  *
- * <table>
+ * <table summary="">
  *  <tr>
  *   <td style="vertical-align: top">
  *    <ul>
@@ -80,6 +80,7 @@ import org.fife.ui.rtextarea.RecordableTextAction;
  *       <li>CSS
  *       <li>C#
  *       <li>Clojure
+ *       <li>Dart
  *       <li>Delphi
  *       <li>DTD
  *       <li>Fortran
@@ -88,6 +89,7 @@ import org.fife.ui.rtextarea.RecordableTextAction;
  *       <li>htaccess
  *       <li>Java
  *       <li>JavaScript
+ *       <li>.jshintrc
  *       <li>JSP
  *    </ul>
  *   </td>
@@ -101,6 +103,7 @@ import org.fife.ui.rtextarea.RecordableTextAction;
  *       <li>NSIS
  *       <li>Perl
  *       <li>PHP
+ *       <li>Properties files
  *       <li>Python
  *       <li>Ruby
  *       <li>SAS
@@ -108,6 +111,7 @@ import org.fife.ui.rtextarea.RecordableTextAction;
  *       <li>SQL
  *       <li>Tcl
  *       <li>UNIX shell scripts
+ *       <li>Visual Basic
  *       <li>Windows batch
  *       <li>XML files
  *    </ul>
@@ -132,7 +136,7 @@ import org.fife.ui.rtextarea.RecordableTextAction;
  * bookmarks easily to your text area.
  *
  * @author Robert Futrell
- * @version 2.5.6
+ * @version 2.5.8
  * @see TextEditorPane
  */
 public class RSyntaxTextArea extends RTextArea implements SyntaxConstants {
@@ -348,6 +352,7 @@ private boolean fractionalFontMetricsEnabled;
 	 */
 	public RSyntaxTextArea(RSyntaxDocument doc) {
 		super(doc);
+		setSyntaxEditingStyle(doc.getSyntaxStyle());
 	}
 
 	/**
@@ -1425,6 +1430,25 @@ private boolean fractionalFontMetricsEnabled;
 
 
 	/**
+	 * Returns whether to paint the backgrounds of tokens on the specified
+	 * line (assuming they are not obstructed by e.g. selection).
+	 *
+	 * @param line The line number.
+	 * @param y The y-offset of the line.  This is used when line wrap is
+	 *        enabled, since each logical line can be rendered as several
+	 *        physical lines.
+	 * @return Whether to paint the token backgrounds on this line.
+	 */
+	boolean getPaintTokenBackgrounds(int line, float y) {
+		//System.out.println(y + ", " + getCurrentCaretY() + "-" + (getCurrentCaretY() + getLineHeight()));
+		int iy = (int)y;
+		int curCaretY = getCurrentCaretY();
+		return iy<curCaretY || iy>=curCaretY+getLineHeight() ||
+				!getHighlightCurrentLine();
+	}
+
+
+	/**
 	 * Returns the specified parser.
 	 *
 	 * @param index The {@link Parser} to retrieve.
@@ -1495,7 +1519,7 @@ private boolean fractionalFontMetricsEnabled;
 	 * containing:
 	 * 
 	 * <pre>
-	 * for (int i=0; i<10; i++) {
+	 * for (int i=0; i&lt;10; i++) {
 	 * </pre>
 	 * 
 	 * the following line should be indented.
@@ -1579,7 +1603,7 @@ private boolean fractionalFontMetricsEnabled;
 	 * @see #getHighlightSecondaryLanguages()
 	 */
 	public Color getSecondaryLanguageBackground(int index) {
-		return secondaryLanguageBackgrounds[index];
+		return secondaryLanguageBackgrounds[index - 1];
 	}
 
 
@@ -2008,6 +2032,24 @@ private boolean fractionalFontMetricsEnabled;
 
 
 	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public void redoLastAction() {
+		super.redoLastAction();
+		// Occasionally marked occurrences' Positions are in invalid states
+		// due to how javax.swing.text.AbstractDocument tracks the start and
+		// end offsets.  This is usually not needed, but can be when the last
+		// token in the Document is a marked occurrence, and an undo or redo
+		// occurs which clears most of the document text.  In that case it is
+		// possible for the end Position to be reset to something small, but
+		// the start offset to be its prior valid (start > end).
+		((RSyntaxTextAreaHighlighter)getHighlighter()).
+				clearMarkOccurrencesHighlights();
+	}
+
+
+	/**
 	 * Removes an "active line range" listener from this text area.
 	 *
 	 * @param l The listener to remove.
@@ -2371,6 +2413,7 @@ private boolean fractionalFontMetricsEnabled;
 			markOccurrencesSupport.clear();
 		}
 		super.setDocument(document);
+		setSyntaxEditingStyle(((RSyntaxDocument)document).getSyntaxStyle());
 		if (markOccurrencesSupport != null) {
 			markOccurrencesSupport.doMarkOccurrences();
 		}
@@ -2696,6 +2739,9 @@ private boolean fractionalFontMetricsEnabled;
 	 * @see #getParserDelay()
 	 */
 	public void setParserDelay(int millis) {
+		if (parserManager==null) {
+			parserManager = new ParserManager(this);
+		}
 		parserManager.setDelay(millis);
 	}
 
@@ -2982,6 +3028,24 @@ private boolean fractionalFontMetricsEnabled;
 				repaint(); // TODO: Repaint just the affected line.
 			}
 		}
+	}
+
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public void undoLastAction() {
+		super.undoLastAction();
+		// Occasionally marked occurrences' Positions are in invalid states
+		// due to how javax.swing.text.AbstractDocument tracks the start and
+		// end offsets.  This is usually not needed, but can be when the last
+		// token in the Document is a marked occurrence, and an undo or redo
+		// occurs which clears most of the document text.  In that case it is
+		// possible for the end Position to be reset to something small, but
+		// the start offset to be its prior valid (start > end).
+		((RSyntaxTextAreaHighlighter)getHighlighter()).
+				clearMarkOccurrencesHighlights();
 	}
 
 

@@ -10,6 +10,7 @@ package org.fife.ui.rtextarea;
 
 import java.awt.*;
 import java.awt.event.*;
+
 import javax.swing.*;
 import javax.swing.text.*;
 import javax.swing.border.Border;
@@ -428,11 +429,7 @@ public class RTextAreaUI extends BasicTextAreaUI {
 			g.fillRect(r.x,r.y, r.width,r.height);
 		}
 
-		Rectangle visibleRect = textArea.getVisibleRect();
-
-		paintLineHighlights(g);
-		paintCurrentLineHighlight(g, visibleRect);
-		paintMarginLine(g, visibleRect);
+		paintEditorAugmentations(g);
 
 	}
 
@@ -485,6 +482,20 @@ public class RTextAreaUI extends BasicTextAreaUI {
 
 
 	/**
+	 * Paints editor augmentations added by RTextArea:  highlighted lines,
+	 * current line highlight, and margin line.
+	 * 
+	 * @param g The graphics context with which to paint.
+	 */
+	protected void paintEditorAugmentations(Graphics g) {
+		Rectangle visibleRect = textArea.getVisibleRect();
+		paintLineHighlights(g);
+		paintCurrentLineHighlight(g, visibleRect);
+		paintMarginLine(g, visibleRect);
+	}
+
+
+	/**
 	 * Paints any line highlights.
 	 *
 	 * @param g The graphics context.
@@ -515,13 +526,24 @@ public class RTextAreaUI extends BasicTextAreaUI {
 	}
 
 
+	@Override
+	protected void paintSafely(Graphics g) {
+		// Paint editor augmentations if editor is not opaque because
+		// paintBackground() is not called in this case
+		if (!textArea.isOpaque()) {
+			paintEditorAugmentations(g);
+		}
+		super.paintSafely(g);
+	}
+
+
 	/**
 	 * Returns the y-coordinate of the specified line.<p>
 	 *
 	 * The default implementation is equivalent to:
 	 * <pre>
 	 * int startOffs = textArea.getLineStartOffset(line);
-	 * return yForLineContaining(startOffs);</code>
+	 * return yForLineContaining(startOffs);
 	 * </pre>
 	 *
 	 * Subclasses that can calculate this value more quickly than traditional
@@ -549,7 +571,7 @@ public class RTextAreaUI extends BasicTextAreaUI {
 	 * <pre>
 	 * int line = textArea.getLineOfOffset(offs);
 	 * int startOffs = textArea.getLineStartOffset(line);
-	 * return modelToView(startOffs).y;</code>
+	 * return modelToView(startOffs).y;
 	 * </pre>
 	 *
 	 * Subclasses that can calculate this value more quickly than traditional
