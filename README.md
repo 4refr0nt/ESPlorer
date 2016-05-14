@@ -2,6 +2,9 @@
 ESPlorer
 ========
 
+Binary compiled from this fork is available at https://github.com/askvictor/ESPlorer/blob/master/ESPlorer/dist/ESPlorer.jar - this is built for Java 1.8
+
+
 [![Join the chat at https://gitter.im/4refr0nt/ESPlorer](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/4refr0nt/ESPlorer?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 ####Integrated Development Environment (IDE) for ESP8266 developers
 
