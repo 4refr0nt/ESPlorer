@@ -41,4 +41,18 @@ Required [JAVA](http://java.com/download) (Standard Edition - SE ver 7 and above
 [esp8266.ru](http://esp8266.ru/esplorer/#download)
 
 ###How to build ESPlorer from sources
-[ESPlorer build from sources](https://github.com/devyte/nodemcu-platform/wiki/How-to-build-ESPlorer-from-sources), howto from devyte
+This fork will build on JDK 1.8, however, the upstream is (at time of writing) on 1.7. If you need to change the JDK number, change these in nbproject/project.properties:
+
+    javac.source=1.8
+    javac.target=1.8
+    ...
+    platform.active=JDK1.8
+
+On my Ubuntu system, I built by installing openJDK 1.8 and ant. Once those were installed:
+  
+    $ ant -Dplatforms.JDK1.8.home=/usr/lib/jvm/java-8-openjdk-amd64 compile
+    $ ant -Dplatforms.JDK1.8.home=/usr/lib/jvm/java-8-openjdk-amd64 jar
+
+(change the JDK home path if it is installed elsewhere).
+
+
