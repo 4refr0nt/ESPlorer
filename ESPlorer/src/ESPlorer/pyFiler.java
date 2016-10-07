@@ -29,7 +29,7 @@ public class pyFiler {
 
         sendBuf.add("f=open('" + escape(ft) + "','w')");
         for (String subs : s) {
-            sendBuf.add("f.write('" + escape(subs) + "')");
+            sendBuf.add("f.write('" + escape(subs) + "\\n')");
         }
         sendBuf.add("f.close()");
 
