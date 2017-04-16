@@ -52,9 +52,10 @@ public class ESPlorer extends javax.swing.JFrame {
     public static ArrayList<String> LAFclass;
     public static Preferences prefs;
     private static int FirmwareType;
+    private static boolean controlKeyPressed = false;
 
     private static pyFiler pyFiler = new pyFiler();
-
+ 
     /**
      * Creates new form MainWindows
      */
@@ -73,7 +74,6 @@ public class ESPlorer extends javax.swing.JFrame {
         }
         initComponents();
         FinalInit();
-
     }
 
     /**
@@ -3468,7 +3468,7 @@ public class ESPlorer extends javax.swing.JFrame {
         cmdGetCWJAP.setFont(cmdGetCWJAP.getFont().deriveFont((float)12));
         cmdGetCWJAP.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/information.png"))); // NOI18N
         cmdGetCWJAP.setText("CWJAP? - Connection info");
-        cmdGetCWJAP.setToolTipText("Query AP’s info which is connect by ESP8266");
+        cmdGetCWJAP.setToolTipText("Query AP嚙踐�� info which is connect by ESP8266");
         cmdGetCWJAP.setMargin(new java.awt.Insets(2, 2, 2, 2));
         cmdGetCWJAP.setMaximumSize(new java.awt.Dimension(210, 23));
         cmdGetCWJAP.setMinimumSize(new java.awt.Dimension(210, 23));
@@ -4599,7 +4599,7 @@ public class ESPlorer extends javax.swing.JFrame {
         WiFi_common.add(cmdSetCWMODE1);
 
         cmdGetCWMODE.setText("CWMODE? - Get current mode");
-        cmdGetCWMODE.setToolTipText("Query ESP8266’s current WiFi mode. (CommandWifiMODE)");
+        cmdGetCWMODE.setToolTipText("Query ESP8266嚙踐�� current WiFi mode. (CommandWifiMODE)");
         cmdGetCWMODE.setMargin(new java.awt.Insets(2, 2, 2, 2));
         cmdGetCWMODE.setMaximumSize(new java.awt.Dimension(210, 23));
         cmdGetCWMODE.setMinimumSize(new java.awt.Dimension(210, 23));
@@ -5877,6 +5877,7 @@ public class ESPlorer extends javax.swing.JFrame {
         RightBottomPane.setOpaque(true);
 
         Command.setEditable(true);
+        Command.setFocusable(true);
         Command.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         Command.setMaximumRowCount(20);
         Command.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "AT", "AT+GMR", "AT+RST", "" }));
@@ -5886,25 +5887,30 @@ public class ESPlorer extends javax.swing.JFrame {
         Command.setAutoscrolls(true);
         Command.setEnabled(false);
         Command.setName("Command"); // NOI18N
-        Command.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                CommandItemStateChanged(evt);
-            }
-        });
         Command.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 CommandActionPerformed(evt);
             }
         });
-        Command.addKeyListener(new java.awt.event.KeyAdapter() {
+        Command.getEditor().getEditorComponent().addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                CommandKeyTyped(evt);
+            }
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 CommandKeyPressed(evt);
             }
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 CommandKeyReleased(evt);
             }
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                CommandKeyTyped(evt);
+        });
+        
+        Command.addPopupMenuListener(new javax.swing.event.PopupMenuListener() {
+            public void popupMenuCanceled(javax.swing.event.PopupMenuEvent evt) {
+            }
+            public void popupMenuWillBecomeInvisible(javax.swing.event.PopupMenuEvent evt) {
+            }
+            public void popupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {
+            	CommandPopupMenuBecomeVisible(evt);
             }
         });
 
@@ -7469,10 +7475,6 @@ public class ESPlorer extends javax.swing.JFrame {
         PortFinder();
     }//GEN-LAST:event_ReScanActionPerformed
 
-    private void CommandKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_CommandKeyTyped
-
-    }//GEN-LAST:event_CommandKeyTyped
-
     private void SendCommandActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SendCommandActionPerformed
         if (CommandEcho.isSelected()) {
             if (Terminal.getCaretOffsetFromLineStart() > 0) {
@@ -7486,19 +7488,59 @@ public class ESPlorer extends javax.swing.JFrame {
 
     private void CommandActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CommandActionPerformed
         //log("CommandActionPerformed " + evt.getActionCommand());
-        if ("comboBoxEdited".equals(evt.getActionCommand())) { // Hit Enter
-            SendCommand.doClick();
-        }
     }//GEN-LAST:event_CommandActionPerformed
+    
+    private void CommandKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_CommandKeyTyped
+    	//log("Key typed..." + Character.getNumericValue(evt.getKeyChar()));
+    	if (evt.getKeyChar() == java.awt.event.KeyEvent.VK_ENTER) {
+    		SendCommand.doClick();
+    	}
+    }//GEN-LAST:event_CommandKeyTyped
 
     private void CommandKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_CommandKeyPressed
-
+    	if (evt.getExtendedKeyCode() == java.awt.event.KeyEvent.VK_CONTROL) {
+    		controlKeyPressed = true;
+    		//log("Control key pressed...");
+		}
+    	if (controlKeyPressed) {
+    		int k = evt.getExtendedKeyCode();
+    	    if (k == java.awt.event.KeyEvent.VK_A) {
+				log("Control-A");
+				byte data = 0x01;
+		        sendBin(data);
+			} else if (k == java.awt.event.KeyEvent.VK_B) {
+				log("Control-B");
+				byte data = 0x02;
+		        sendBin(data);
+			} else if (k == java.awt.event.KeyEvent.VK_C) {
+				log("Control-C");
+				byte data = 0x03;
+		        sendBin(data);
+			} else if (k == java.awt.event.KeyEvent.VK_D) {
+				log("Control-D");
+				byte data = 0x04;
+		        sendBin(data);
+			} else if (k == java.awt.event.KeyEvent.VK_E) {
+			    log("Control-E");
+			    byte data = 0x05;
+	            sendBin(data);
+		    }
+		}
     }//GEN-LAST:event_CommandKeyPressed
-
+    
     private void CommandKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_CommandKeyReleased
-
+    	if (evt.getExtendedKeyCode() == java.awt.event.KeyEvent.VK_CONTROL) {
+    		controlKeyPressed = false;
+    		//log("Control key released");
+    	}
     }//GEN-LAST:event_CommandKeyReleased
-
+    
+    
+    private void CommandPopupMenuBecomeVisible(javax.swing.event.PopupMenuEvent evt) {
+    	//log("popup memu visiable...");
+    	Command.setSelectedIndex(Command.getItemCount()-1);
+    }
+    
     private void ContextMenuTerminalPopupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {//GEN-FIRST:event_ContextMenuTerminalPopupMenuWillBecomeVisible
         try {
             MenuItemTerminalCopy.setEnabled(Terminal.getSelectedText().length() > 0);
@@ -8637,10 +8679,6 @@ public class ESPlorer extends javax.swing.JFrame {
     private void HomePageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_HomePageActionPerformed
         goLink(homepage_uri);
     }//GEN-LAST:event_HomePageActionPerformed
-
-    private void CommandItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_CommandItemStateChanged
-
-    }//GEN-LAST:event_CommandItemStateChanged
 
     private void PortItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_PortItemStateChanged
 
@@ -10139,6 +10177,7 @@ public class ESPlorer extends javax.swing.JFrame {
             FileChanged.set(iTab, true);
             UpdateEditorButtons();
         }
+        //log("key...");
     }//GEN-LAST:event_TextEditorKeyTyped
 
     private void TextEditorInputMethodTextChanged(java.awt.event.InputMethodEvent evt) {//GEN-FIRST:event_TextEditorInputMethodTextChanged
@@ -10672,6 +10711,16 @@ public class ESPlorer extends javax.swing.JFrame {
     private void CommandsSetMicroPython() {
         Command.removeAllItems();
         Command.addItem(new String("import sys; print(sys.version_info)"));
+        Command.addItem(new String("help()"));
+        Command.addItem(new String("import esp; esp.check_fw()"));
+        Command.addItem(new String("import os; os.listdir()"));
+        Command.addItem(new String("import network; sta_if = network.WLAN(network.STA_IF); sta_if.ifconfig()"));
+        Command.addItem(new String("from machine import Pin; p0 = Pin(0, Pin.OUT)"));
+        Command.addItem(new String("import machine; machine.freq()"));
+        Command.addItem(new String("import webrepl; webrepl.start()"));
+        Command.addItem(new String("import math; math.pi"));
+        Command.addItem(new String("import math; math.e"));
+        Command.addItem(new String("import uos; uos.urandom(10)"));
     }
 
     private void CommandsSetAT() {
@@ -11615,6 +11664,8 @@ public class ESPlorer extends javax.swing.JFrame {
                 }
             }
         };
+        btnSend("");  // only CR+LF
+        TerminalAdd(".");
         openTimeout = new Timer(3000, watchDog);
         openTimeout.setRepeats(false);
         openTimeout.setInitialDelay(3000);
@@ -11662,29 +11713,25 @@ public class ESPlorer extends javax.swing.JFrame {
             cmd = "";
         }
 
-        //Autoclean History --ADDED by Mike, DL2ZAP --
-        //if (Autoclean.isSelected()) {   // ToDo: create Checkbox "Autoclean & uncomment this line
-        if (true) { // ToDo: After creating Checkbox delete this line
-            int eintraege = Command.getItemCount();
-            //System.out.println("Start cleaning");
-            for (int lv1 = 0; lv1 < eintraege; lv1++) {
-                //System.out.print("Eintrag:" + lv1 +" : "+Command.getItemAt(lv1));
-                if (Command.getItemAt(lv1) == cmd) {
-                    // System.out.println(" Doppelt, entfernt!");
-                    Command.removeItemAt(lv1);
-                    lv1--;  // re-read this Entry because List has moved up the Follower
-                } else {
-                    // System.out.println(" OK.");
-                }
-            }
-        }
 
         // System.out.println("Adding Command:" + cmd );
-        int eintraege = Command.getItemCount();
+        //int eintraege = Command.getItemCount();
 
-        Command.setSelectedIndex(Command.getItemCount() - 1); // Place Index on last Entry
-        Command.addItem(cmd); // Add to History after last Position
-        Command.setSelectedIndex(Command.getItemCount() - 1); // Place Index on new last Entry
+        if (!cmd.equals("")) {
+            for (int k = Command.getItemCount() - 1; k > 0; k--) {
+            	if (Command.getItemAt(k).equals(cmd)) {
+            		Command.removeItemAt(k);
+            	}
+            }
+            Command.setSelectedIndex(Command.getItemCount() - 1); // Place Index on last Entry
+            Command.addItem(cmd); // Add to History after last Position
+            
+            //Command.setSelectedIndex(Command.getItemCount() - 1); // Place Index on new last Entry
+            if (Command.getItemCount() > 20) {
+                Command.removeItemAt(0);
+            }
+        }
+        
         // End of Autoclean-Procedure
 
         //Command.addItem(cmd); // Add to History
@@ -11696,10 +11743,8 @@ public class ESPlorer extends javax.swing.JFrame {
         }
         send(cmd, true);
         // History trim
-        if (Command.getItemCount() > 20) {
-            Command.removeItemAt(0);
-        }
         //Command.setSelectedIndex(Command.getItemCount()-1);
+        Command.setSelectedItem(null);
     }
 
     public String addCRLF(String s) {
