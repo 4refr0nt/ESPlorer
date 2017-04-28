@@ -11615,7 +11615,7 @@ public class ESPlorer extends javax.swing.JFrame {
                 }
             }
         };
-        openTimeout = new Timer(3000, watchDog);
+        openTimeout = new Timer(3000, checker);
         openTimeout.setRepeats(false);
         openTimeout.setInitialDelay(3000);
         openTimeout.start();
