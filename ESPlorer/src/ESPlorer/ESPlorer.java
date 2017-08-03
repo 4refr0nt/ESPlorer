@@ -12873,12 +12873,12 @@ public class ESPlorer extends javax.swing.JFrame {
         }
         sendBuf.add("file.remove(\"" + ft + "\");");
         sendBuf.add("file.open(\"" + ft + "\",\"w+\");");
-        sendBuf.add("w = file.writeline\r\n");
+        sendBuf.add("w = file.writeline;\r\n");
         s = TextEditor1.get(iTab).getText().split("\r?\n");
         for (String subs : s) {
             sendBuf.add("w([==[" + subs + "]==]);");
         }
-        sendBuf.add("file.close();");
+        sendBuf.add("file.flush();file.close();");
         if (FileAutoRun.isSelected()) {
             sendBuf.add("dofile(\"" + ft + "\");");
         }
