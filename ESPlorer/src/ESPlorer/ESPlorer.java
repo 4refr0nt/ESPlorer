@@ -10093,9 +10093,11 @@ public class ESPlorer extends javax.swing.JFrame {
     }//GEN-LAST:event_FileCompileDoLC2ActionPerformed
 
     private void FileCompileDoLCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FileCompileDoLCActionPerformed
-        String fn = iFile.get(iTab).getName();
-        String[] part = fn.split(".");
-        String cmd = "node.compile('" + fn + "')\r\ndofile(\"" + part[0] + ".lc" + "\")";
+        final String luaFileName = iFile.get(iTab).getName();
+        final int extensionIndex = luaFileName.lastIndexOf(".");
+        final String baseName = extensionIndex == -1 ? luaFileName : luaFileName.substring(0, extensionIndex);
+        final String compiledFileName = baseName + ".lc";
+        final String cmd = "node.compile('" + luaFileName + "')\r\ndofile(\"" + compiledFileName + "\")";
         btnSend(cmd);
     }//GEN-LAST:event_FileCompileDoLCActionPerformed
 
