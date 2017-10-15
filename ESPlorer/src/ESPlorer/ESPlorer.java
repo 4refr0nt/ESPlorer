@@ -312,6 +312,8 @@ public class ESPlorer extends javax.swing.JFrame {
         cmdGetCIPSTA = new javax.swing.JButton();
         cmdSetCIPSTA = new javax.swing.JButton();
         StationIP = new javax.swing.JTextField();
+        PingIP = new javax.swing.JTextField();
+        cmdSetPING = new javax.swing.JButton();
         AT_SoftAP = new javax.swing.JLayeredPane();
         WiFisoftAPPane = new javax.swing.JLayeredPane();
         cmdSetCWSAP = new javax.swing.JButton();
@@ -3615,6 +3617,27 @@ public class ESPlorer extends javax.swing.JFrame {
         StationIP.setMinimumSize(new java.awt.Dimension(210, 23));
         StationIP.setPreferredSize(new java.awt.Dimension(210, 23));
 
+        PingIP.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        PingIP.setText("192.168.1.1");
+        PingIP.setToolTipText("The IP address or hostname of the node to ping.");
+        PingIP.setMaximumSize(new java.awt.Dimension(210, 23));
+        PingIP.setMinimumSize(new java.awt.Dimension(210, 23));
+        PingIP.setPreferredSize(new java.awt.Dimension(210, 23));
+
+        cmdSetPING.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        cmdSetPING.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/ping.png"))); // NOI18N
+        cmdSetPING.setText("PING= Ping remote node");
+        cmdSetPING.setToolTipText("Ping a node in the network");
+        cmdSetPING.setMargin(new java.awt.Insets(2, 2, 2, 2));
+        cmdSetPING.setMaximumSize(new java.awt.Dimension(210, 23));
+        cmdSetPING.setMinimumSize(new java.awt.Dimension(210, 23));
+        cmdSetPING.setPreferredSize(new java.awt.Dimension(210, 23));
+        cmdSetPING.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmdSetPINGActionPerformed(evt);
+            }
+        });
+
         WiFiStationPane.setLayer(cmdGetCWJAP, javax.swing.JLayeredPane.DEFAULT_LAYER);
         WiFiStationPane.setLayer(cmdSetCWJAP, javax.swing.JLayeredPane.DEFAULT_LAYER);
         WiFiStationPane.setLayer(SSID, javax.swing.JLayeredPane.DEFAULT_LAYER);
@@ -3626,6 +3649,8 @@ public class ESPlorer extends javax.swing.JFrame {
         WiFiStationPane.setLayer(cmdGetCIPSTA, javax.swing.JLayeredPane.DEFAULT_LAYER);
         WiFiStationPane.setLayer(cmdSetCIPSTA, javax.swing.JLayeredPane.DEFAULT_LAYER);
         WiFiStationPane.setLayer(StationIP, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        WiFiStationPane.setLayer(PingIP, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        WiFiStationPane.setLayer(cmdSetPING, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout WiFiStationPaneLayout = new javax.swing.GroupLayout(WiFiStationPane);
         WiFiStationPane.setLayout(WiFiStationPaneLayout);
@@ -3652,7 +3677,9 @@ public class ESPlorer extends javax.swing.JFrame {
                             .addComponent(cmdSetCWJAP, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(cmdGetCIPSTA, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(StationIP, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cmdSetCIPSTA, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cmdSetCIPSTA, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(PingIP, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cmdSetPING, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         WiFiStationPaneLayout.setVerticalGroup(
@@ -3679,7 +3706,11 @@ public class ESPlorer extends javax.swing.JFrame {
                 .addComponent(StationIP, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(cmdSetCIPSTA, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(201, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(PingIP, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(cmdSetPING, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(142, Short.MAX_VALUE))
         );
 
         WiFiStationPaneLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {cmdGetCIPSTA, cmdGetCWJAP, cmdSetCIPSTA, cmdSetCWQAP});
@@ -10625,6 +10656,10 @@ public class ESPlorer extends javax.swing.JFrame {
     private void TxConfirmedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TxConfirmedActionPerformed
         
     }//GEN-LAST:event_TxConfirmedActionPerformed
+
+    private void cmdSetPINGActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdSetPINGActionPerformed
+        btnSend("AT+PING=\"" + PingIP.getText() + "\"");
+    }//GEN-LAST:event_cmdSetPINGActionPerformed
     private void NodeFileSystemInfo() {
         String cmd = "r,u,t=file.fsinfo() print(\"Total : \"..t..\" bytes\\r\\nUsed  : \"..u..\" bytes\\r\\nRemain: \"..r..\" bytes\\r\\n\") r=nil u=nil t=nil";
         LocalEcho = false;
@@ -11040,6 +11075,7 @@ public class ESPlorer extends javax.swing.JFrame {
     private javax.swing.JLayeredPane OptionsOther;
     private javax.swing.JTextField PASS;
     private javax.swing.JTextField PASSsoftAP;
+    private javax.swing.JTextField PingIP;
     private javax.swing.JComboBox Port;
     private javax.swing.JLabel PortCTS;
     private javax.swing.JToggleButton PortDTR;
@@ -11203,6 +11239,7 @@ public class ESPlorer extends javax.swing.JFrame {
     private javax.swing.JButton cmdSetCWMODE3;
     private javax.swing.JButton cmdSetCWQAP;
     private javax.swing.JButton cmdSetCWSAP;
+    private javax.swing.JButton cmdSetPING;
     private javax.swing.JButton cmdSysFactoryReset;
     private javax.swing.JButton cmdSysGetHwEui;
     private javax.swing.JButton cmdSysGetVer;
