@@ -4459,7 +4459,6 @@
                                     </Property>
                                     <Property name="text" type="java.lang.String" value="AutoRun file after save to ESP"/>
                                     <Property name="toolTipText" type="java.lang.String" value=""/>
-                                    <Property name="enabled" type="boolean" value="false"/>
                                     <Property name="horizontalAlignment" type="int" value="2"/>
                                     <Property name="horizontalTextPosition" type="int" value="4"/>
                                   </Properties>
