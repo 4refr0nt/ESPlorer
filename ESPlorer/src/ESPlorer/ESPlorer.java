@@ -2927,7 +2927,6 @@ public class ESPlorer extends javax.swing.JFrame {
         FileAutoRun.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         FileAutoRun.setText("AutoRun file after save to ESP");
         FileAutoRun.setToolTipText("");
-        FileAutoRun.setEnabled(false);
         FileAutoRun.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         FileAutoRun.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         FileAutoRun.addItemListener(new java.awt.event.ItemListener() {
