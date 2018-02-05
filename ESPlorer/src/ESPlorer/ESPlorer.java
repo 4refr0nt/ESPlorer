@@ -1264,7 +1264,7 @@ public class ESPlorer extends javax.swing.JFrame {
         ButtonSendSelected.setToolTipText("Send selected block to ESP");
         ButtonSendSelected.setHideActionText(true);
         ButtonSendSelected.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        ButtonSendSelected.setLabel("Block");
+        ButtonSendSelected.setText("Block");
         ButtonSendSelected.setMaximumSize(new java.awt.Dimension(40, 40));
         ButtonSendSelected.setMinimumSize(new java.awt.Dimension(40, 40));
         ButtonSendSelected.setPreferredSize(new java.awt.Dimension(40, 40));
@@ -3860,7 +3860,7 @@ public class ESPlorer extends javax.swing.JFrame {
         cmdSetCIPAPMAC.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         cmdSetCIPAPMAC.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/set.png"))); // NOI18N
         cmdSetCIPAPMAC.setToolTipText("Set softAP MAC address");
-        cmdSetCIPAPMAC.setLabel("CIPAPMAC= Set MAC softAP");
+        cmdSetCIPAPMAC.setText("CIPAPMAC= Set MAC softAP");
         cmdSetCIPAPMAC.setMargin(new java.awt.Insets(2, 2, 2, 2));
         cmdSetCIPAPMAC.setMaximumSize(new java.awt.Dimension(210, 23));
         cmdSetCIPAPMAC.setMinimumSize(new java.awt.Dimension(210, 23));
@@ -3909,7 +3909,7 @@ public class ESPlorer extends javax.swing.JFrame {
         cmdSetCIPAP.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         cmdSetCIPAP.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/set.png"))); // NOI18N
         cmdSetCIPAP.setToolTipText("Set softAP IP address");
-        cmdSetCIPAP.setLabel("CIPAP= Set softAP IP");
+        cmdSetCIPAP.setText("CIPAP= Set softAP IP");
         cmdSetCIPAP.setMargin(new java.awt.Insets(2, 2, 2, 2));
         cmdSetCIPAP.setMaximumSize(new java.awt.Dimension(210, 23));
         cmdSetCIPAP.setMinimumSize(new java.awt.Dimension(210, 23));
@@ -6520,7 +6520,7 @@ public class ESPlorer extends javax.swing.JFrame {
         SendCommand.setToolTipText("");
         SendCommand.setAlignmentY(0.0F);
         SendCommand.setEnabled(false);
-        SendCommand.setLabel("Send");
+        SendCommand.setText("Send");
         SendCommand.setMargin(new java.awt.Insets(0, 0, 0, 0));
         SendCommand.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -6709,7 +6709,7 @@ public class ESPlorer extends javax.swing.JFrame {
         MenuFile.add(jSeparator2);
 
         MenuItemFileExit.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F4, java.awt.event.InputEvent.ALT_MASK));
-        MenuItemFileExit.setLabel("Exit");
+        MenuItemFileExit.setText("Exit");
         MenuItemFileExit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 MenuItemFileExitActionPerformed(evt);
