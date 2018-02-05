@@ -11,11 +11,7 @@ package org.fife.ui.rtextarea;
 
 import java.awt.datatransfer.*;
 import java.awt.im.InputContext;
-import java.io.InputStream;
-import java.io.IOException;
-import java.io.Reader;
-import java.io.StringBufferInputStream;
-import java.io.StringReader;
+import java.io.*;
 import javax.swing.*;
 import javax.swing.text.*;
 
@@ -32,7 +28,7 @@ import javax.swing.text.*;
  * @author Robert Futrell
  * @version 0.1
  */
-@SuppressWarnings("deprecation")
+
 public class RTATextTransferHandler extends TransferHandler {
 
 	private JTextComponent exportComp;
@@ -362,7 +358,7 @@ public class RTATextTransferHandler extends TransferHandler {
 				} else if (Reader.class.equals(flavor.getRepresentationClass())) {
 					return new StringReader(data);
 				} else if (InputStream.class.equals(flavor.getRepresentationClass())) {
-					return new StringBufferInputStream(data);
+					return new ByteArrayInputStream(data.getBytes("UTF-8"));
 				}
 				// fall through to unsupported
 			} else if (isStringFlavor(flavor)) {
