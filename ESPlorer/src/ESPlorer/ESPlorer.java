@@ -7003,7 +7003,7 @@ public class ESPlorer extends javax.swing.JFrame {
         MenuView.add(MenuItemViewRightExtra);
 
         MenuItemViewDonate.setSelected(true);
-        MenuItemViewDonate.setText("<html>I'm already make donation, <br />please hide dontation button at bottom right!");
+        MenuItemViewDonate.setText("<html>I already made a donation, <br />please hide dontation button at bottom right!");
         MenuItemViewDonate.setToolTipText("Enable/disable Extra buttons panel at bottom right");
         MenuItemViewDonate.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
