@@ -2350,9 +2350,6 @@
                                     <Property name="toolTipText" type="java.lang.String" value="Send file to ESP and save into flash memory"/>
                                     <Property name="horizontalAlignment" type="int" value="2"/>
                                     <Property name="iconTextGap" type="int" value="8"/>
-                                    <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
-                                      <Insets value="[2, 2, 2, 2]"/>
-                                    </Property>
                                     <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
                                       <Dimension value="[127, 30]"/>
                                     </Property>
@@ -2376,9 +2373,6 @@
                                     <Property name="toolTipText" type="java.lang.String" value="Send file to ESP and run  &quot;line by line&quot;"/>
                                     <Property name="horizontalAlignment" type="int" value="2"/>
                                     <Property name="iconTextGap" type="int" value="8"/>
-                                    <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
-                                      <Insets value="[2, 2, 2, 2]"/>
-                                    </Property>
                                     <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
                                       <Dimension value="[127, 30]"/>
                                     </Property>
@@ -2568,7 +2562,7 @@
                                           <Group type="103" groupAlignment="3" attributes="0">
                                               <Component id="cmdListFiles" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                                               <Component id="cmdTimerStop" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
-                                              <Component id="TimerNumber" pref="30" max="32767" attributes="0"/>
+                                              <Component id="TimerNumber" max="32767" attributes="0"/>
                                           </Group>
                                           <EmptySpace min="-2" max="-2" attributes="0"/>
                                       </Group>
@@ -4113,7 +4107,7 @@
                                                   <Component id="Condensed" min="-2" max="-2" attributes="0"/>
                                               </Group>
                                           </Group>
-                                          <EmptySpace pref="69" max="32767" attributes="0"/>
+                                          <EmptySpace max="32767" attributes="0"/>
                                       </Group>
                                   </Group>
                                 </DimensionLayout>
@@ -5210,11 +5204,6 @@
                               <SubComponents>
                                 <Component class="javax.swing.JButton" name="cmdGetCWJAP">
                                   <Properties>
-                                    <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.editors2.FontEditor">
-                                      <FontInfo relative="true">
-                                        <Font component="cmdGetCWJAP" property="font" relativeSize="false" size="12"/>
-                                      </FontInfo>
-                                    </Property>
                                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                                       <Image iconType="3" name="/resources/information.png"/>
                                     </Property>
@@ -5239,11 +5228,6 @@
                                 </Component>
                                 <Component class="javax.swing.JButton" name="cmdSetCWJAP">
                                   <Properties>
-                                    <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.editors2.FontEditor">
-                                      <FontInfo relative="true">
-                                        <Font component="cmdSetCWJAP" property="font" relativeSize="false" size="12"/>
-                                      </FontInfo>
-                                    </Property>
                                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                                       <Image iconType="3" name="/resources/connect3.png"/>
                                     </Property>
@@ -6096,7 +6080,7 @@
                               <Layout>
                                 <DimensionLayout dim="0">
                                   <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="common" pref="535" max="32767" attributes="0"/>
+                                      <Component id="common" pref="519" max="32767" attributes="0"/>
                                       <Group type="102" attributes="0">
                                           <Component id="UDP" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace max="-2" attributes="0"/>
@@ -8051,7 +8035,7 @@
                                               </Group>
                                               <EmptySpace max="-2" attributes="0"/>
                                               <Component id="cmdMacGetDevAddr" min="-2" pref="100" max="-2" attributes="0"/>
-                                              <EmptySpace min="0" pref="10" max="32767" attributes="0"/>
+                                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                                           </Group>
                                       </Group>
                                     </DimensionLayout>
@@ -8564,7 +8548,7 @@
                                               <Group type="102" attributes="0">
                                                   <Component id="LF" min="-2" max="-2" attributes="0"/>
                                                   <EmptySpace max="-2" attributes="0"/>
-                                                  <Component id="EditorOnlyCheckBox" pref="70" max="32767" attributes="0"/>
+                                                  <Component id="EditorOnlyCheckBox" pref="0" max="32767" attributes="0"/>
                                               </Group>
                                               <Group type="102" attributes="0">
                                                   <Component id="CR" min="-2" max="-2" attributes="0"/>
@@ -8597,7 +8581,7 @@
                                       <Component id="ReScan" max="32767" attributes="0"/>
                                       <Group type="102" attributes="0">
                                           <Group type="103" groupAlignment="3" attributes="0">
-                                              <Component id="AutoScroll" alignment="3" pref="19" max="32767" attributes="0"/>
+                                              <Component id="AutoScroll" alignment="3" pref="0" max="32767" attributes="0"/>
                                               <Component id="CR" alignment="3" min="-2" max="-2" attributes="0"/>
                                               <Component id="TerminalOnlyCheckBox" alignment="3" min="-2" max="-2" attributes="0"/>
                                           </Group>
@@ -9221,9 +9205,6 @@
                                     </Property>
                                     <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
                                       <Color id="Hand Cursor"/>
-                                    </Property>
-                                    <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
-                                      <Insets value="[0, 0, 0, 0]"/>
                                     </Property>
                                     <Property name="name" type="java.lang.String" value="Log" noResource="true"/>
                                     <Property name="nextFocusableComponent" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">

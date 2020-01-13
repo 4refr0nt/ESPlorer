@@ -5,8 +5,6 @@
 package ESPlorer;
 
 import java.awt.Color;
-import java.awt.Component;
-import java.awt.event.MouseEvent;
 import java.awt.Toolkit;
 
 import java.awt.*;
@@ -26,7 +24,6 @@ import java.net.*;
 import javax.swing.*;
 import javax.swing.filechooser.*;
 import javax.swing.Timer;
-import javax.swing.text.BadLocationException;
 import javax.swing.text.Document;
 
 import org.fife.ui.rsyntaxtextarea.*;
@@ -591,12 +588,12 @@ public class ESPlorer extends javax.swing.JFrame {
         MenuItemHelpAbout = new javax.swing.JMenuItem();
 
         ContextMenuTerminal.addPopupMenuListener(new javax.swing.event.PopupMenuListener() {
-            public void popupMenuCanceled(javax.swing.event.PopupMenuEvent evt) {
+            public void popupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {
+                ContextMenuTerminalPopupMenuWillBecomeVisible(evt);
             }
             public void popupMenuWillBecomeInvisible(javax.swing.event.PopupMenuEvent evt) {
             }
-            public void popupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {
-                ContextMenuTerminalPopupMenuWillBecomeVisible(evt);
+            public void popupMenuCanceled(javax.swing.event.PopupMenuEvent evt) {
             }
         });
 
@@ -903,12 +900,12 @@ public class ESPlorer extends javax.swing.JFrame {
         );
 
         ContextMenuESPFileLUA.addPopupMenuListener(new javax.swing.event.PopupMenuListener() {
-            public void popupMenuCanceled(javax.swing.event.PopupMenuEvent evt) {
+            public void popupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {
+                ContextMenuESPFileLUAPopupMenuWillBecomeVisible(evt);
             }
             public void popupMenuWillBecomeInvisible(javax.swing.event.PopupMenuEvent evt) {
             }
-            public void popupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {
-                ContextMenuESPFileLUAPopupMenuWillBecomeVisible(evt);
+            public void popupMenuCanceled(javax.swing.event.PopupMenuEvent evt) {
             }
         });
 
@@ -1264,7 +1261,7 @@ public class ESPlorer extends javax.swing.JFrame {
         ButtonSendSelected.setToolTipText("Send selected block to ESP");
         ButtonSendSelected.setHideActionText(true);
         ButtonSendSelected.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        ButtonSendSelected.setText("Block");
+        ButtonSendSelected.setLabel("Block");
         ButtonSendSelected.setMaximumSize(new java.awt.Dimension(40, 40));
         ButtonSendSelected.setMinimumSize(new java.awt.Dimension(40, 40));
         ButtonSendSelected.setPreferredSize(new java.awt.Dimension(40, 40));
@@ -1343,11 +1340,11 @@ public class ESPlorer extends javax.swing.JFrame {
             }
         });
         TextEditor.addInputMethodListener(new java.awt.event.InputMethodListener() {
-            public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
-                TextEditorCaretPositionChanged(evt);
-            }
             public void inputMethodTextChanged(java.awt.event.InputMethodEvent evt) {
                 TextEditorInputMethodTextChanged(evt);
+            }
+            public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
+                TextEditorCaretPositionChanged(evt);
             }
         });
         TextEditor.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -1516,7 +1513,6 @@ public class ESPlorer extends javax.swing.JFrame {
         FileSaveESP.setToolTipText("Send file to ESP and save into flash memory");
         FileSaveESP.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         FileSaveESP.setIconTextGap(8);
-        FileSaveESP.setMargin(new java.awt.Insets(2, 2, 2, 2));
         FileSaveESP.setMaximumSize(new java.awt.Dimension(127, 30));
         FileSaveESP.setMinimumSize(new java.awt.Dimension(127, 30));
         FileSaveESP.setPreferredSize(new java.awt.Dimension(127, 30));
@@ -1532,7 +1528,6 @@ public class ESPlorer extends javax.swing.JFrame {
         FileSendESP.setToolTipText("Send file to ESP and run  \"line by line\"");
         FileSendESP.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         FileSendESP.setIconTextGap(8);
-        FileSendESP.setMargin(new java.awt.Insets(2, 2, 2, 2));
         FileSendESP.setMaximumSize(new java.awt.Dimension(127, 30));
         FileSendESP.setMinimumSize(new java.awt.Dimension(127, 30));
         FileSendESP.setPreferredSize(new java.awt.Dimension(127, 30));
@@ -1765,7 +1760,7 @@ public class ESPlorer extends javax.swing.JFrame {
                 .addGroup(CommandsNodeMCULayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cmdListFiles, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(cmdTimerStop, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(TimerNumber, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE))
+                    .addComponent(TimerNumber))
                 .addContainerGap())
         );
 
@@ -2790,7 +2785,7 @@ public class ESPlorer extends javax.swing.JFrame {
                         .addComponent(SnippetRun, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(Condensed)))
-                .addContainerGap(69, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         SnippetTopPaneLayout.setVerticalGroup(
             SnippetTopPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -3466,7 +3461,6 @@ public class ESPlorer extends javax.swing.JFrame {
         WiFiStationPane.setName(""); // NOI18N
         WiFiStationPane.setOpaque(true);
 
-        cmdGetCWJAP.setFont(cmdGetCWJAP.getFont().deriveFont((float)12));
         cmdGetCWJAP.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/information.png"))); // NOI18N
         cmdGetCWJAP.setText("CWJAP? - Connection info");
         cmdGetCWJAP.setToolTipText("Query AP’s info which is connect by ESP8266");
@@ -3480,7 +3474,6 @@ public class ESPlorer extends javax.swing.JFrame {
             }
         });
 
-        cmdSetCWJAP.setFont(cmdSetCWJAP.getFont().deriveFont((float)12));
         cmdSetCWJAP.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/connect3.png"))); // NOI18N
         cmdSetCWJAP.setText("CWJAP Connect to AP");
         cmdSetCWJAP.setToolTipText("Connect to WiFi Access Point");
@@ -3860,7 +3853,7 @@ public class ESPlorer extends javax.swing.JFrame {
         cmdSetCIPAPMAC.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         cmdSetCIPAPMAC.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/set.png"))); // NOI18N
         cmdSetCIPAPMAC.setToolTipText("Set softAP MAC address");
-        cmdSetCIPAPMAC.setText("CIPAPMAC= Set MAC softAP");
+        cmdSetCIPAPMAC.setLabel("CIPAPMAC= Set MAC softAP");
         cmdSetCIPAPMAC.setMargin(new java.awt.Insets(2, 2, 2, 2));
         cmdSetCIPAPMAC.setMaximumSize(new java.awt.Dimension(210, 23));
         cmdSetCIPAPMAC.setMinimumSize(new java.awt.Dimension(210, 23));
@@ -3909,7 +3902,7 @@ public class ESPlorer extends javax.swing.JFrame {
         cmdSetCIPAP.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         cmdSetCIPAP.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/set.png"))); // NOI18N
         cmdSetCIPAP.setToolTipText("Set softAP IP address");
-        cmdSetCIPAP.setText("CIPAP= Set softAP IP");
+        cmdSetCIPAP.setLabel("CIPAP= Set softAP IP");
         cmdSetCIPAP.setMargin(new java.awt.Insets(2, 2, 2, 2));
         cmdSetCIPAP.setMaximumSize(new java.awt.Dimension(210, 23));
         cmdSetCIPAP.setMinimumSize(new java.awt.Dimension(210, 23));
@@ -4236,7 +4229,7 @@ public class ESPlorer extends javax.swing.JFrame {
         TCPclientBottomPane.setLayout(TCPclientBottomPaneLayout);
         TCPclientBottomPaneLayout.setHorizontalGroup(
             TCPclientBottomPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(common, javax.swing.GroupLayout.DEFAULT_SIZE, 535, Short.MAX_VALUE)
+            .addComponent(common, javax.swing.GroupLayout.DEFAULT_SIZE, 519, Short.MAX_VALUE)
             .addGroup(TCPclientBottomPaneLayout.createSequentialGroup()
                 .addComponent(UDP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -5369,7 +5362,7 @@ public class ESPlorer extends javax.swing.JFrame {
                     .addComponent(AppSKey))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(cmdMacGetDevAddr, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 10, Short.MAX_VALUE))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         ABPPaneLayout.setVerticalGroup(
             ABPPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -5854,7 +5847,7 @@ public class ESPlorer extends javax.swing.JFrame {
                                     .addGroup(LEDPanelLayout.createSequentialGroup()
                                         .addComponent(LF)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(EditorOnlyCheckBox, javax.swing.GroupLayout.DEFAULT_SIZE, 70, Short.MAX_VALUE))
+                                        .addComponent(EditorOnlyCheckBox, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE))
                                     .addGroup(LEDPanelLayout.createSequentialGroup()
                                         .addComponent(CR)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -5877,7 +5870,7 @@ public class ESPlorer extends javax.swing.JFrame {
                             .addComponent(ReScan, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(LEDPanelLayout.createSequentialGroup()
                                 .addGroup(LEDPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(AutoScroll, javax.swing.GroupLayout.PREFERRED_SIZE, 19, Short.MAX_VALUE)
+                                    .addComponent(AutoScroll, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                                     .addComponent(CR)
                                     .addComponent(TerminalOnlyCheckBox))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -6037,7 +6030,6 @@ public class ESPlorer extends javax.swing.JFrame {
         Log.setBorder(Terminal.getBorder());
         Log.setComponentPopupMenu(ContextMenuLog);
         Log.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        Log.setMargin(new java.awt.Insets(0, 0, 0, 0));
         Log.setName("Log"); // NOI18N
         Log.setNextFocusableComponent(SendCommand);
         Log.setSelectionColor(new java.awt.Color(204, 0, 0));
@@ -6520,7 +6512,7 @@ public class ESPlorer extends javax.swing.JFrame {
         SendCommand.setToolTipText("");
         SendCommand.setAlignmentY(0.0F);
         SendCommand.setEnabled(false);
-        SendCommand.setText("Send");
+        SendCommand.setLabel("Send");
         SendCommand.setMargin(new java.awt.Insets(0, 0, 0, 0));
         SendCommand.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -6709,7 +6701,7 @@ public class ESPlorer extends javax.swing.JFrame {
         MenuFile.add(jSeparator2);
 
         MenuItemFileExit.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F4, java.awt.event.InputEvent.ALT_MASK));
-        MenuItemFileExit.setText("Exit");
+        MenuItemFileExit.setLabel("Exit");
         MenuItemFileExit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 MenuItemFileExitActionPerformed(evt);
@@ -7003,7 +6995,7 @@ public class ESPlorer extends javax.swing.JFrame {
         MenuView.add(MenuItemViewRightExtra);
 
         MenuItemViewDonate.setSelected(true);
-        MenuItemViewDonate.setText("<html>I already made a donation, <br />please hide dontation button at bottom right!");
+        MenuItemViewDonate.setText("<html>I'm already make donation, <br />please hide dontation button at bottom right!");
         MenuItemViewDonate.setToolTipText("Enable/disable Extra buttons panel at bottom right");
         MenuItemViewDonate.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
