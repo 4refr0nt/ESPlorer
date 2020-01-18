@@ -392,7 +392,7 @@
             </Property>
             <Property name="horizontalAlignment" type="int" value="0"/>
             <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-              <Connection code="version" type="code"/>
+              <Connection code="VERSION" type="code"/>
             </Property>
             <Property name="horizontalTextPosition" type="int" value="0"/>
           </Properties>
@@ -715,7 +715,7 @@
                 <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
                   <KeyStroke key="Alt+F4"/>
                 </Property>
-                <Property name="label" type="java.lang.String" value="Exit"/>
+                <Property name="text" type="java.lang.String" value="Exit"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="MenuItemFileExitActionPerformed"/>
@@ -1145,28 +1145,11 @@
             </MenuItem>
             <MenuItem class="javax.swing.JPopupMenu$Separator" name="jSeparator17">
             </MenuItem>
-            <MenuItem class="javax.swing.JRadioButtonMenuItem" name="MenuItemViewLF1">
-              <Properties>
-                <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
-                  <ComponentRef name="buttonGroupLF"/>
-                </Property>
-                <Property name="text" type="java.lang.String" value="Nimbus"/>
-                <Property name="toolTipText" type="java.lang.String" value=""/>
-                <Property name="actionCommand" type="java.lang.String" value="0"/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="MenuItemViewLF1ActionPerformed"/>
-              </Events>
-            </MenuItem>
           </SubComponents>
         </Menu>
         <Menu class="javax.swing.JMenu" name="MenuLinks">
           <Properties>
             <Property name="text" type="java.lang.String" value="Links"/>
-            <Property name="toolTipText" type="java.lang.String" value=""/>
-            <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-              <Dimension value="[31, 100]"/>
-            </Property>
           </Properties>
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="MenuItemLinksMicroPythonDoc">
@@ -1489,12 +1472,12 @@
                   <Layout>
                     <DimensionLayout dim="0">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="TextTab" alignment="0" pref="540" max="32767" attributes="0"/>
+                          <Component id="TextTab" alignment="0" max="32767" attributes="0"/>
                       </Group>
                     </DimensionLayout>
                     <DimensionLayout dim="1">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="TextTab" alignment="0" pref="712" max="32767" attributes="0"/>
+                          <Component id="TextTab" alignment="0" pref="692" max="32767" attributes="0"/>
                       </Group>
                     </DimensionLayout>
                   </Layout>
@@ -1962,7 +1945,6 @@
                                     <Property name="toolTipText" type="java.lang.String" value="Send selected block to ESP"/>
                                     <Property name="hideActionText" type="boolean" value="true"/>
                                     <Property name="horizontalTextPosition" type="int" value="0"/>
-                                    <Property name="label" type="java.lang.String" value="Block"/>
                                     <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
                                       <Dimension value="[40, 40]"/>
                                     </Property>
@@ -2036,12 +2018,12 @@
                                   <Layout>
                                     <DimensionLayout dim="0">
                                       <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="TextScroll" alignment="0" pref="526" max="32767" attributes="0"/>
+                                          <Component id="TextScroll" alignment="0" pref="510" max="32767" attributes="0"/>
                                       </Group>
                                     </DimensionLayout>
                                     <DimensionLayout dim="1">
                                       <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="TextScroll" alignment="0" pref="432" max="32767" attributes="0"/>
+                                          <Component id="TextScroll" alignment="0" pref="375" max="32767" attributes="0"/>
                                       </Group>
                                     </DimensionLayout>
                                   </Layout>
@@ -3897,7 +3879,7 @@
                                           <Component id="SnippetEdit14" min="-2" pref="21" max="-2" attributes="0"/>
                                           <EmptySpace max="-2" attributes="0"/>
                                           <Component id="SnippetEdit15" min="-2" pref="21" max="-2" attributes="0"/>
-                                          <EmptySpace pref="252" max="32767" attributes="0"/>
+                                          <EmptySpace pref="216" max="32767" attributes="0"/>
                                       </Group>
                                   </Group>
                                 </DimensionLayout>
@@ -4275,7 +4257,7 @@
                                           <Component id="jLayeredPane2" max="32767" attributes="0"/>
                                           <Component id="jLayeredPane3" max="32767" attributes="0"/>
                                       </Group>
-                                      <EmptySpace pref="135" max="32767" attributes="0"/>
+                                      <EmptySpace pref="103" max="32767" attributes="0"/>
                                   </Group>
                               </Group>
                             </DimensionLayout>
@@ -4296,7 +4278,7 @@
                                       </Group>
                                       <EmptySpace min="-2" pref="45" max="-2" attributes="0"/>
                                       <Component id="OptionsFileSendMode" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace min="0" pref="134" max="32767" attributes="0"/>
+                                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                                   </Group>
                               </Group>
                             </DimensionLayout>
@@ -5823,7 +5805,6 @@
                                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                                       <Image iconType="3" name="/resources/get.png"/>
                                     </Property>
-                                    <Property name="text" type="java.lang.String" value="CIPAP Get softAP IP"/>
                                     <Property name="toolTipText" type="java.lang.String" value="Get IP address of ESP8266 softAP"/>
                                     <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
                                       <Insets value="[2, 2, 2, 2]"/>
@@ -5851,7 +5832,6 @@
                                       <Image iconType="3" name="/resources/set.png"/>
                                     </Property>
                                     <Property name="toolTipText" type="java.lang.String" value="Set softAP MAC address"/>
-                                    <Property name="label" type="java.lang.String" value="CIPAPMAC= Set MAC softAP"/>
                                     <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
                                       <Insets value="[2, 2, 2, 2]"/>
                                     </Property>
@@ -5977,8 +5957,8 @@
                                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                                       <Image iconType="3" name="/resources/set.png"/>
                                     </Property>
+                                    <Property name="text" type="java.lang.String" value="CIPAP= Set softAP IP"/>
                                     <Property name="toolTipText" type="java.lang.String" value="Set softAP IP address"/>
-                                    <Property name="label" type="java.lang.String" value="CIPAP= Set softAP IP"/>
                                     <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
                                       <Insets value="[2, 2, 2, 2]"/>
                                     </Property>
@@ -7145,12 +7125,12 @@
                   <Layout>
                     <DimensionLayout dim="0">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="RN2483jTab" alignment="0" pref="544" max="32767" attributes="0"/>
+                          <Component id="RN2483jTab" alignment="0" pref="527" max="32767" attributes="0"/>
                       </Group>
                     </DimensionLayout>
                     <DimensionLayout dim="1">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="RN2483jTab" alignment="0" pref="716" max="32767" attributes="0"/>
+                          <Component id="RN2483jTab" alignment="0" pref="696" max="32767" attributes="0"/>
                       </Group>
                     </DimensionLayout>
                   </Layout>
@@ -7205,7 +7185,7 @@
                                           <Component id="SendUnconfirmed" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace max="-2" attributes="0"/>
                                           <Component id="jLayeredPane1" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace min="0" pref="276" max="32767" attributes="0"/>
+                                          <EmptySpace min="0" pref="204" max="32767" attributes="0"/>
                                       </Group>
                                   </Group>
                                 </DimensionLayout>
@@ -8002,7 +7982,7 @@
                                           <Component id="cmdMacSave" min="-2" pref="40" max="-2" attributes="0"/>
                                           <EmptySpace max="-2" attributes="0"/>
                                           <Component id="OTAAPane" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace min="0" pref="317" max="32767" attributes="0"/>
+                                          <EmptySpace min="0" pref="252" max="32767" attributes="0"/>
                                       </Group>
                                   </Group>
                                 </DimensionLayout>
@@ -9968,10 +9948,10 @@
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/resources/left.png"/>
                 </Property>
+                <Property name="text" type="java.lang.String" value="Send"/>
                 <Property name="toolTipText" type="java.lang.String" value=""/>
                 <Property name="alignmentY" type="float" value="0.0"/>
                 <Property name="enabled" type="boolean" value="false"/>
-                <Property name="label" type="java.lang.String" value="Send"/>
                 <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
                   <Insets value="[0, 0, 0, 0]"/>
                 </Property>

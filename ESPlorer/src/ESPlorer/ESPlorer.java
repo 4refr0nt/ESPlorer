@@ -20,10 +20,13 @@ import java.util.Arrays;
 import java.util.prefs.*;
 
 import java.net.*;
+import java.util.HashMap;
 
 import javax.swing.*;
 import javax.swing.filechooser.*;
 import javax.swing.Timer;
+import javax.swing.UIManager.*;
+import javax.swing.text.BadLocationException;
 import javax.swing.text.Document;
 
 import org.fife.ui.rsyntaxtextarea.*;
@@ -44,13 +47,13 @@ public class ESPlorer extends javax.swing.JFrame {
     public static boolean pOpen = false;
     public static boolean sOpen = false;
     public static boolean portJustOpen = false;
-    public static final String version = "v0.2.0-rc5";
-    public static ArrayList<String> LAF;
-    public static ArrayList<String> LAFclass;
+    public static final String VERSION = "v0.2.0-rc5";
+    private static String laf;
+    private static String systemLaf;
     public static Preferences prefs;
     private static int FirmwareType;
 
-    private static pyFiler pyFiler = new pyFiler();
+    private static final pyFiler PYFILER = new pyFiler();
 
     /**
      * Creates new form MainWindows
@@ -565,7 +568,6 @@ public class ESPlorer extends javax.swing.JFrame {
         jSeparator12 = new javax.swing.JPopupMenu.Separator();
         MenuItemViewFontDefault = new javax.swing.JMenuItem();
         jSeparator17 = new javax.swing.JPopupMenu.Separator();
-        MenuItemViewLF1 = new javax.swing.JRadioButtonMenuItem();
         MenuLinks = new javax.swing.JMenu();
         MenuItemLinksMicroPythonDoc = new javax.swing.JMenuItem();
         MenuItemLinksNodeMCUdoc = new javax.swing.JMenuItem();
@@ -834,7 +836,7 @@ public class ESPlorer extends javax.swing.JFrame {
 
         Version.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         Version.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        Version.setText(version);
+        Version.setText(VERSION);
         Version.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
         Donate.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/donate.gif"))); // NOI18N
@@ -1261,7 +1263,6 @@ public class ESPlorer extends javax.swing.JFrame {
         ButtonSendSelected.setToolTipText("Send selected block to ESP");
         ButtonSendSelected.setHideActionText(true);
         ButtonSendSelected.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        ButtonSendSelected.setLabel("Block");
         ButtonSendSelected.setMaximumSize(new java.awt.Dimension(40, 40));
         ButtonSendSelected.setMinimumSize(new java.awt.Dimension(40, 40));
         ButtonSendSelected.setPreferredSize(new java.awt.Dimension(40, 40));
@@ -1360,11 +1361,11 @@ public class ESPlorer extends javax.swing.JFrame {
         FileLayeredPane.setLayout(FileLayeredPaneLayout);
         FileLayeredPaneLayout.setHorizontalGroup(
             FileLayeredPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(TextScroll, javax.swing.GroupLayout.DEFAULT_SIZE, 526, Short.MAX_VALUE)
+            .addComponent(TextScroll, javax.swing.GroupLayout.DEFAULT_SIZE, 510, Short.MAX_VALUE)
         );
         FileLayeredPaneLayout.setVerticalGroup(
             FileLayeredPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(TextScroll, javax.swing.GroupLayout.DEFAULT_SIZE, 432, Short.MAX_VALUE)
+            .addComponent(TextScroll, javax.swing.GroupLayout.DEFAULT_SIZE, 375, Short.MAX_VALUE)
         );
 
         FilesTabbedPane.addTab("NewFile", FileLayeredPane);
@@ -2703,7 +2704,7 @@ public class ESPlorer extends javax.swing.JFrame {
                 .addComponent(SnippetEdit14, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(SnippetEdit15, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(252, Short.MAX_VALUE))
+                .addContainerGap(216, Short.MAX_VALUE))
         );
 
         SnippetTopPane.setOpaque(true);
@@ -3310,7 +3311,7 @@ public class ESPlorer extends javax.swing.JFrame {
                 .addGroup(NodeMCUSettingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLayeredPane2)
                     .addComponent(jLayeredPane3))
-                .addContainerGap(135, Short.MAX_VALUE))
+                .addContainerGap(103, Short.MAX_VALUE))
         );
         NodeMCUSettingsLayout.setVerticalGroup(
             NodeMCUSettingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -3326,7 +3327,7 @@ public class ESPlorer extends javax.swing.JFrame {
                         .addComponent(jLayeredPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(45, 45, 45)
                 .addComponent(OptionsFileSendMode, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 134, Short.MAX_VALUE))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         TextTab.addTab("Settings", new javax.swing.ImageIcon(getClass().getResource("/resources/settings2.png")), NodeMCUSettings, "Settings for file sending"); // NOI18N
@@ -3335,11 +3336,11 @@ public class ESPlorer extends javax.swing.JFrame {
         NodeMCU.setLayout(NodeMCULayout);
         NodeMCULayout.setHorizontalGroup(
             NodeMCULayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(TextTab, javax.swing.GroupLayout.DEFAULT_SIZE, 540, Short.MAX_VALUE)
+            .addComponent(TextTab, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         NodeMCULayout.setVerticalGroup(
             NodeMCULayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(TextTab, javax.swing.GroupLayout.DEFAULT_SIZE, 712, Short.MAX_VALUE)
+            .addComponent(TextTab, javax.swing.GroupLayout.DEFAULT_SIZE, 692, Short.MAX_VALUE)
         );
 
         TextTab.getAccessibleContext().setAccessibleName("NewFile");
@@ -3838,7 +3839,6 @@ public class ESPlorer extends javax.swing.JFrame {
 
         cmdGetCIPAP.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         cmdGetCIPAP.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/get.png"))); // NOI18N
-        cmdGetCIPAP.setText("CIPAP Get softAP IP");
         cmdGetCIPAP.setToolTipText("Get IP address of ESP8266 softAP");
         cmdGetCIPAP.setMargin(new java.awt.Insets(2, 2, 2, 2));
         cmdGetCIPAP.setMaximumSize(new java.awt.Dimension(210, 23));
@@ -3853,7 +3853,6 @@ public class ESPlorer extends javax.swing.JFrame {
         cmdSetCIPAPMAC.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         cmdSetCIPAPMAC.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/set.png"))); // NOI18N
         cmdSetCIPAPMAC.setToolTipText("Set softAP MAC address");
-        cmdSetCIPAPMAC.setLabel("CIPAPMAC= Set MAC softAP");
         cmdSetCIPAPMAC.setMargin(new java.awt.Insets(2, 2, 2, 2));
         cmdSetCIPAPMAC.setMaximumSize(new java.awt.Dimension(210, 23));
         cmdSetCIPAPMAC.setMinimumSize(new java.awt.Dimension(210, 23));
@@ -3901,8 +3900,8 @@ public class ESPlorer extends javax.swing.JFrame {
 
         cmdSetCIPAP.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         cmdSetCIPAP.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/set.png"))); // NOI18N
+        cmdSetCIPAP.setText("CIPAP= Set softAP IP");
         cmdSetCIPAP.setToolTipText("Set softAP IP address");
-        cmdSetCIPAP.setLabel("CIPAP= Set softAP IP");
         cmdSetCIPAP.setMargin(new java.awt.Insets(2, 2, 2, 2));
         cmdSetCIPAP.setMaximumSize(new java.awt.Dimension(210, 23));
         cmdSetCIPAP.setMinimumSize(new java.awt.Dimension(210, 23));
@@ -5243,7 +5242,7 @@ public class ESPlorer extends javax.swing.JFrame {
                 .addComponent(SendUnconfirmed, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLayeredPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 276, Short.MAX_VALUE))
+                .addGap(0, 204, Short.MAX_VALUE))
         );
 
         MacPane.setViewportView(LoRaMAC);
@@ -5568,7 +5567,7 @@ public class ESPlorer extends javax.swing.JFrame {
                 .addComponent(cmdMacSave, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(OTAAPane, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 317, Short.MAX_VALUE))
+                .addGap(0, 252, Short.MAX_VALUE))
         );
 
         ActivationScrollPane.setViewportView(ActivationPane);
@@ -5581,11 +5580,11 @@ public class ESPlorer extends javax.swing.JFrame {
         RN2483.setLayout(RN2483Layout);
         RN2483Layout.setHorizontalGroup(
             RN2483Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(RN2483jTab, javax.swing.GroupLayout.DEFAULT_SIZE, 544, Short.MAX_VALUE)
+            .addComponent(RN2483jTab, javax.swing.GroupLayout.DEFAULT_SIZE, 527, Short.MAX_VALUE)
         );
         RN2483Layout.setVerticalGroup(
             RN2483Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(RN2483jTab, javax.swing.GroupLayout.DEFAULT_SIZE, 716, Short.MAX_VALUE)
+            .addComponent(RN2483jTab, javax.swing.GroupLayout.DEFAULT_SIZE, 696, Short.MAX_VALUE)
         );
 
         LeftTab.addTab(" RN2483 ", RN2483);
@@ -6509,10 +6508,10 @@ public class ESPlorer extends javax.swing.JFrame {
 
         SendCommand.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         SendCommand.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/left.png"))); // NOI18N
+        SendCommand.setText("Send");
         SendCommand.setToolTipText("");
         SendCommand.setAlignmentY(0.0F);
         SendCommand.setEnabled(false);
-        SendCommand.setLabel("Send");
         SendCommand.setMargin(new java.awt.Insets(0, 0, 0, 0));
         SendCommand.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -6701,7 +6700,7 @@ public class ESPlorer extends javax.swing.JFrame {
         MenuFile.add(jSeparator2);
 
         MenuItemFileExit.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F4, java.awt.event.InputEvent.ALT_MASK));
-        MenuItemFileExit.setLabel("Exit");
+        MenuItemFileExit.setText("Exit");
         MenuItemFileExit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 MenuItemFileExitActionPerformed(evt);
@@ -7082,22 +7081,9 @@ public class ESPlorer extends javax.swing.JFrame {
         MenuView.add(MenuItemViewFontDefault);
         MenuView.add(jSeparator17);
 
-        buttonGroupLF.add(MenuItemViewLF1);
-        MenuItemViewLF1.setText("Nimbus");
-        MenuItemViewLF1.setToolTipText("");
-        MenuItemViewLF1.setActionCommand("0");
-        MenuItemViewLF1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                MenuItemViewLF1ActionPerformed(evt);
-            }
-        });
-        MenuView.add(MenuItemViewLF1);
-
         MainMenuBar.add(MenuView);
 
         MenuLinks.setText("Links");
-        MenuLinks.setToolTipText("");
-        MenuLinks.setMaximumSize(new java.awt.Dimension(31, 100));
 
         MenuItemLinksMicroPythonDoc.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/micropython.png"))); // NOI18N
         MenuItemLinksMicroPythonDoc.setText("MicroPython Documentation English");
@@ -7422,7 +7408,7 @@ public class ESPlorer extends javax.swing.JFrame {
     }
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         PortFinder();
-        this.setTitle("ESPlorer " + version + " by 4refr0nt");
+        this.setTitle("ESPlorer " + VERSION + " by 4refr0nt");
         ProgressBar.setVisible(false);
         CommandsSetNodeMCU();
         isToolbarShow();
@@ -9285,16 +9271,16 @@ public class ESPlorer extends javax.swing.JFrame {
         Terminal.setEOLMarkersVisible(EOL.isSelected());
     }//GEN-LAST:event_EOLItemStateChanged
 
-    private void MenuItemViewLF1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuItemViewLF1ActionPerformed
-        String lclass = LAFclass.get(Integer.parseInt(evt.getActionCommand()));
+    private void MenuItemViewLookAndFeelActionPerformed(java.awt.event.ActionEvent evt) {                                                
+        String lclass = evt.getActionCommand();
         prefs.put("LAF", lclass);
         log("Set New LookAndFeel to:" + lclass);
         int isExit = Dialog("New LookAndFeel skin will be appled after program restart. Exit now?", JOptionPane.YES_NO_OPTION);
         if (isExit == JOptionPane.YES_OPTION) {
             AppClose();
         }
-    }//GEN-LAST:event_MenuItemViewLF1ActionPerformed
-
+    }
+    
     private void MenuItemViewTerminalOnlyItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_MenuItemViewTerminalOnlyItemStateChanged
         if (MenuItemViewTerminalOnly.isSelected()) {
             MenuItemViewEditorOnly.setSelected(false);
@@ -10679,8 +10665,8 @@ public class ESPlorer extends javax.swing.JFrame {
 
     private void CommandsSetNodeMCU() {
         Command.removeAllItems();
-        Command.addItem(new String("=node.heap()"));
-        Command.addItem(new String("=node.chipid()"));
+        Command.addItem(makeObj(new String("=node.heap()")));
+        Command.addItem(makeObj(new String("=node.chipid()")));
         Command.addItem(new String("file.close()"));
         Command.addItem(new String("file.remove(\"\")"));
         Command.addItem(new String("dofile(\"\")"));
@@ -10720,46 +10706,29 @@ public class ESPlorer extends javax.swing.JFrame {
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
          */
         //private javax.swing.JRadioButtonMenuItem MenuItemViewLF2;
-        LAF = new ArrayList<String>();
-        LAFclass = new ArrayList<String>();
-        String laf;
+        LAFselection = new HashMap<>();
         prefs = Preferences.userRoot().node(nodeRoot);
+        systemLaf = javax.swing.UIManager.getSystemLookAndFeelClassName();
         laf = prefs.get("LAF", "javax.swing.plaf.nimbus.NimbusLookAndFeel");
-        LAF.add("Nimbus");
-        LAFclass.add("javax.swing.plaf.nimbus.NimbusLookAndFeel");
         try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if (laf.equals(info.getClassName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    java.util.logging.Logger.getLogger(ESPlorer.class
-                            .getName()).log(java.util.logging.Level.INFO, "DEFAULT: L&F " + info.getName() + " class:" + info.getClassName());
-
-                } else {
-                    java.util.logging.Logger.getLogger(ESPlorer.class
-                            .getName()).log(java.util.logging.Level.INFO, "Installed: L&F " + info.getName() + " class:" + info.getClassName());
-                }
-                if (!"Nimbus".equals(info.getName())) {
-                    LAF.add(info.getName());
-                    LAFclass.add(info.getClassName());
-
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ESPlorer.class
-                    .getName()).log(java.util.logging.Level.INFO, null, ex);
-
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ESPlorer.class
-                    .getName()).log(java.util.logging.Level.INFO, null, ex);
-
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ESPlorer.class
-                    .getName()).log(java.util.logging.Level.INFO, null, ex);
-
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ESPlorer.class
-                    .getName()).log(java.util.logging.Level.INFO, null, ex);
+            javax.swing.UIManager.setLookAndFeel(laf);
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException ex) {
+            Logger.getLogger(ESPlorer.class.getName()).log(Level.SEVERE, null, ex);
         }
+        for (LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
+            JRadioButtonMenuItem menuItem = new JRadioButtonMenuItem();
+            boolean selected = info.getClassName().equals(laf);
+            String system = info.getClassName().equals(UIManager.getSystemLookAndFeelClassName()) ? "(System) ": "";
+            String crossplatform = info.getClassName().equals(UIManager.getCrossPlatformLookAndFeelClassName()) ? "(Cross-Platform)": "";
+            menuItem.setText(info.getName() + system + crossplatform);
+            menuItem.setSelected(selected);
+            menuItem.setActionCommand(info.getClassName());
+            LAFselection.put(info.getClassName(), menuItem);
+
+            Logger.getLogger(ESPlorer.class
+                        .getName()).log(java.util.logging.Level.INFO, selected? "Selected":"Installed" + " Look and Feel " + info.getName() + " (" + info.getClassName()+ ")");
+        }
+        
         //</editor-fold>
         try {
             /* Create and display the form */
@@ -10776,14 +10745,7 @@ public class ESPlorer extends javax.swing.JFrame {
         }
     }
 
-    private javax.swing.JRadioButtonMenuItem MenuItemViewLF2;
-    private javax.swing.JRadioButtonMenuItem MenuItemViewLF3;
-    private javax.swing.JRadioButtonMenuItem MenuItemViewLF4;
-    private javax.swing.JRadioButtonMenuItem MenuItemViewLF5;
-    private javax.swing.JRadioButtonMenuItem MenuItemViewLF6;
-    private javax.swing.JRadioButtonMenuItem MenuItemViewLF7;
-    private javax.swing.JRadioButtonMenuItem MenuItemViewLF8;
-    private javax.swing.JRadioButtonMenuItem MenuItemViewLF9;
+    private static HashMap<String, JRadioButtonMenuItem> LAFselection;
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLayeredPane ABPPane;
@@ -10994,7 +10956,6 @@ public class ESPlorer extends javax.swing.JFrame {
     private javax.swing.JCheckBoxMenuItem MenuItemViewEditorOnly;
     private javax.swing.JCheckBoxMenuItem MenuItemViewFileManager;
     private javax.swing.JMenuItem MenuItemViewFontDefault;
-    private javax.swing.JRadioButtonMenuItem MenuItemViewLF1;
     private javax.swing.JCheckBoxMenuItem MenuItemViewLeftExtra;
     private javax.swing.JCheckBoxMenuItem MenuItemViewLog;
     private javax.swing.JMenuItem MenuItemViewLogFontDec;
@@ -11526,6 +11487,7 @@ public class ESPlorer extends javax.swing.JFrame {
 
     private Object makeObj(final String item) {
         return new Object() {
+            @Override
             public String toString() {
                 return item;
             }
@@ -11539,12 +11501,12 @@ public class ESPlorer extends javax.swing.JFrame {
         if (log.length() > LogMax) {
             try {
                 doc.remove(0, 1024);
-            } catch (Exception e) {
+            } catch (BadLocationException e) {
             }
         }
         try {
             doc.insertString(doc.getLength(), "\r\n" + l, null);
-        } catch (Exception e) {
+        } catch (BadLocationException e) {
         }
         Log.setCaretPosition(Log.getText().length());
     }
@@ -11575,7 +11537,7 @@ public class ESPlorer extends javax.swing.JFrame {
                     SerialPort.PARITY_NONE,
                     PortRTS.isSelected(),
                     PortDTR.isSelected());
-        } catch (Exception e) {
+        } catch (SerialPortException e) {
             log(e.toString());
         }
         if (!success) {
@@ -11586,19 +11548,19 @@ public class ESPlorer extends javax.swing.JFrame {
     }
 
     public boolean portOpen() {
-        boolean success = false;
         String portName = GetSerialPortName();
         nSpeed = Integer.parseInt((String) Speed.getSelectedItem());
         if (pOpen) {
             try {
                 serialPort.closePort();
-            } catch (Exception e) {
+            } catch (SerialPortException e) {
             }
         } else {
             log("Try to open port " + portName + ", baud " + Integer.toString(nSpeed) + ", 8N1");
         }
         serialPort = new SerialPort(portName);
         pOpen = false;
+        boolean success;
         try {
             success = serialPort.openPort();
             if (!success) {
@@ -11679,7 +11641,7 @@ public class ESPlorer extends javax.swing.JFrame {
         UpdateLED();
         ClearNodeFileManager();
     }
-
+    
     public void SendCommand() {
         if (SendCommand.isEnabled() == false || pOpen == false || portJustOpen) {
             log("Port not open, operation FAILED.");
@@ -11766,136 +11728,15 @@ public class ESPlorer extends javax.swing.JFrame {
 
         setLocationRelativeTo(null); // window centered
 
-        if (LAFclass.get(0).equals(prefs.get("LAF", ""))) {  // First for Nimbus
-            MenuItemViewLF1.setSelected(true);
-        }
-        int x = 1;
-        if (LAF.size() >= x + 1) {
-            MenuItemViewLF2 = new javax.swing.JRadioButtonMenuItem();
-            buttonGroupLF.add(MenuItemViewLF2);
-            MenuItemViewLF2.setText(LAF.get(x));
-            if (LAFclass.get(x).equals(prefs.get("LAF", ""))) {
-                MenuItemViewLF2.setSelected(true);
-            }
-            MenuItemViewLF2.setActionCommand(Integer.toString(x));
-            MenuItemViewLF2.addActionListener(new java.awt.event.ActionListener() {
-                public void actionPerformed(java.awt.event.ActionEvent evt) {
-                    MenuItemViewLF1ActionPerformed(evt);
-                }
+        for(JRadioButtonMenuItem menuItem: ESPlorer.LAFselection.values())
+        {
+            menuItem.addActionListener((java.awt.event.ActionEvent evt) -> {
+                MenuItemViewLookAndFeelActionPerformed(evt);
             });
-            MenuView.add(MenuItemViewLF2);
-        }
-        x++;
-        if (LAF.size() >= x + 1) {
-            MenuItemViewLF3 = new javax.swing.JRadioButtonMenuItem();
-            buttonGroupLF.add(MenuItemViewLF3);
-            MenuItemViewLF3.setText(LAF.get(x));
-            if (LAFclass.get(x).equals(prefs.get("LAF", ""))) {
-                MenuItemViewLF3.setSelected(true);
-            }
-            MenuItemViewLF3.setActionCommand(Integer.toString(x));
-            MenuItemViewLF3.addActionListener(new java.awt.event.ActionListener() {
-                public void actionPerformed(java.awt.event.ActionEvent evt) {
-                    MenuItemViewLF1ActionPerformed(evt);
-                }
-            });
-            MenuView.add(MenuItemViewLF3);
-        }
-        x++;
-        if (LAF.size() >= x + 1) {
-            MenuItemViewLF4 = new javax.swing.JRadioButtonMenuItem();
-            buttonGroupLF.add(MenuItemViewLF4);
-            MenuItemViewLF4.setText(LAF.get(x));
-            if (LAFclass.get(x).equals(prefs.get("LAF", ""))) {
-                MenuItemViewLF4.setSelected(true);
-            }
-            MenuItemViewLF4.setActionCommand(Integer.toString(x));
-            MenuItemViewLF4.addActionListener(new java.awt.event.ActionListener() {
-                public void actionPerformed(java.awt.event.ActionEvent evt) {
-                    MenuItemViewLF1ActionPerformed(evt);
-                }
-            });
-            MenuView.add(MenuItemViewLF4);
-        }
-        x++;
-        if (LAF.size() >= x + 1) {
-            MenuItemViewLF5 = new javax.swing.JRadioButtonMenuItem();
-            buttonGroupLF.add(MenuItemViewLF5);
-            MenuItemViewLF5.setText(LAF.get(x));
-            if (LAFclass.get(x).equals(prefs.get("LAF", ""))) {
-                MenuItemViewLF5.setSelected(true);
-            }
-            MenuItemViewLF5.setActionCommand(Integer.toString(x));
-            MenuItemViewLF5.addActionListener(new java.awt.event.ActionListener() {
-                public void actionPerformed(java.awt.event.ActionEvent evt) {
-                    MenuItemViewLF1ActionPerformed(evt);
-                }
-            });
-            MenuView.add(MenuItemViewLF5);
-        }
-        x++;
-        if (LAF.size() >= x + 1) {
-            MenuItemViewLF6 = new javax.swing.JRadioButtonMenuItem();
-            buttonGroupLF.add(MenuItemViewLF6);
-            MenuItemViewLF6.setText(LAF.get(x));
-            if (LAFclass.get(x).equals(prefs.get("LAF", ""))) {
-                MenuItemViewLF6.setSelected(true);
-            }
-            MenuItemViewLF6.setActionCommand(Integer.toString(x));
-            MenuItemViewLF6.addActionListener(new java.awt.event.ActionListener() {
-                public void actionPerformed(java.awt.event.ActionEvent evt) {
-                    MenuItemViewLF1ActionPerformed(evt);
-                }
-            });
-            MenuView.add(MenuItemViewLF6);
-        }
-        x++;
-        if (LAF.size() >= x + 1) {
-            MenuItemViewLF7 = new javax.swing.JRadioButtonMenuItem();
-            buttonGroupLF.add(MenuItemViewLF7);
-            MenuItemViewLF7.setText(LAF.get(x));
-            if (LAFclass.get(x).equals(prefs.get("LAF", ""))) {
-                MenuItemViewLF7.setSelected(true);
-            }
-            MenuItemViewLF7.setActionCommand(Integer.toString(x));
-            MenuItemViewLF7.addActionListener(new java.awt.event.ActionListener() {
-                public void actionPerformed(java.awt.event.ActionEvent evt) {
-                    MenuItemViewLF1ActionPerformed(evt);
-                }
-            });
-            MenuView.add(MenuItemViewLF7);
-        }
-        x++;
-        if (LAF.size() >= x + 1) {
-            MenuItemViewLF8 = new javax.swing.JRadioButtonMenuItem();
-            buttonGroupLF.add(MenuItemViewLF8);
-            MenuItemViewLF8.setText(LAF.get(x));
-            if (LAFclass.get(x).equals(prefs.get("LAF", ""))) {
-                MenuItemViewLF8.setSelected(true);
-            }
-            MenuItemViewLF8.setActionCommand(Integer.toString(x));
-            MenuItemViewLF8.addActionListener(new java.awt.event.ActionListener() {
-                public void actionPerformed(java.awt.event.ActionEvent evt) {
-                    MenuItemViewLF1ActionPerformed(evt);
-                }
-            });
-            MenuView.add(MenuItemViewLF8);
-        }
-        x++;
-        if (LAF.size() >= x + 1) {
-            MenuItemViewLF9 = new javax.swing.JRadioButtonMenuItem();
-            buttonGroupLF.add(MenuItemViewLF9);
-            MenuItemViewLF9.setText(LAF.get(x));
-            if (LAFclass.get(x).equals(prefs.get("LAF", ""))) {
-                MenuItemViewLF9.setSelected(true);
-            }
-            MenuItemViewLF9.setActionCommand(Integer.toString(x));
-            MenuItemViewLF9.addActionListener(new java.awt.event.ActionListener() {
-                public void actionPerformed(java.awt.event.ActionEvent evt) {
-                    MenuItemViewLF1ActionPerformed(evt);
-                }
-            });
-            MenuView.add(MenuItemViewLF9);
+            buttonGroupLF.add(menuItem);
+            MenuView.add(menuItem);
+            menuItem.setVisible(true);
+            log("LAF" + menuItem.getActionCommand());
         }
 
         LED_GREY = new javax.swing.ImageIcon(getClass().getResource("/resources/led_grey.png"));
@@ -13773,7 +13614,7 @@ public class ESPlorer extends javax.swing.JFrame {
         boolean success = false;
         log("pyFileSaveESP: Starting...");
         String[] content = TextEditor1.get(iTab).getText().split("\r?\n");
-        if (pyFiler.Put(ft, content)) {
+        if (PYFILER.Put(ft, content)) {
             pasteMode(false);
             success = SendTimerStart();
         }
@@ -13873,7 +13714,7 @@ public class ESPlorer extends javax.swing.JFrame {
         rx_data = "";
         rcvBuf = "";
         log("pyFileManager: Starting...");
-        String cmd = "import os;os.listdir('" + pyFiler.pwd() + "')";
+        String cmd = "import os;os.listdir('" + PYFILER.pwd() + "')";
         btnSend(cmd);
         WatchDogPyListDir();
     } // PyListFiles
