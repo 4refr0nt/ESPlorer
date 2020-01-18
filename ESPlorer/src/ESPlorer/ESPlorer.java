@@ -72,7 +72,7 @@ public class ESPlorer extends javax.swing.JFrame {
 //            e.printStackTrace();
         }
         initComponents();
-        FinalInit();
+        finalInit();
 
     }
 
@@ -454,7 +454,7 @@ public class ESPlorer extends javax.swing.JFrame {
         Speed = new javax.swing.JComboBox();
         ReScan = new javax.swing.JButton();
         AutoScroll = new javax.swing.JCheckBox();
-        Port = new javax.swing.JComboBox();
+        Port = new javax.swing.JComboBox<>();
         EOL = new javax.swing.JCheckBox();
         CR = new javax.swing.JCheckBox();
         LF = new javax.swing.JCheckBox();
@@ -462,7 +462,7 @@ public class ESPlorer extends javax.swing.JFrame {
         TerminalOnlyCheckBox = new javax.swing.JCheckBox();
         EditorOnlyCheckBox = new javax.swing.JCheckBox();
         RightBottomPane = new javax.swing.JLayeredPane();
-        Command = new javax.swing.JComboBox();
+        Command = new javax.swing.JComboBox<>();
         RightBigPane = new javax.swing.JLayeredPane();
         RightFilesSplitPane = new javax.swing.JSplitPane();
         TerminalLogPane = new javax.swing.JLayeredPane();
@@ -3306,12 +3306,12 @@ public class ESPlorer extends javax.swing.JFrame {
                 .addGroup(NodeMCUSettingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(OptionsOther)
                     .addComponent(OptionsFirmware)
-                    .addComponent(OptionsFileSendMode, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                    .addComponent(OptionsFileSendMode, javax.swing.GroupLayout.DEFAULT_SIZE, 0, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(NodeMCUSettingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLayeredPane2)
                     .addComponent(jLayeredPane3))
-                .addContainerGap(103, Short.MAX_VALUE))
+                .addContainerGap(52, Short.MAX_VALUE))
         );
         NodeMCUSettingsLayout.setVerticalGroup(
             NodeMCUSettingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -3419,7 +3419,7 @@ public class ESPlorer extends javax.swing.JFrame {
         });
         BasicATcommandsPane.add(UPDATE);
 
-        ATvXX.add(BasicATcommandsPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 545, 70));
+        ATvXX.add(BasicATcommandsPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         TabAT.setTabLayoutPolicy(javax.swing.JTabbedPane.SCROLL_TAB_LAYOUT);
         TabAT.setToolTipText("ESP8266 AT commands v0.20");
@@ -3703,7 +3703,7 @@ public class ESPlorer extends javax.swing.JFrame {
                 .addComponent(PingIP, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(cmdSetPING, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(142, Short.MAX_VALUE))
+                .addContainerGap(128, Short.MAX_VALUE))
         );
 
         WiFiStationPaneLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {cmdGetCIPSTA, cmdGetCWJAP, cmdSetCIPSTA, cmdSetCWQAP});
@@ -4006,7 +4006,7 @@ public class ESPlorer extends javax.swing.JFrame {
         AT_SoftAPLayout.setHorizontalGroup(
             AT_SoftAPLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(WiFisoftAPPane, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(TopWiFiAPFiller, javax.swing.GroupLayout.DEFAULT_SIZE, 535, Short.MAX_VALUE)
+            .addComponent(TopWiFiAPFiller, javax.swing.GroupLayout.DEFAULT_SIZE, 463, Short.MAX_VALUE)
         );
         AT_SoftAPLayout.setVerticalGroup(
             AT_SoftAPLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -4228,7 +4228,7 @@ public class ESPlorer extends javax.swing.JFrame {
         TCPclientBottomPane.setLayout(TCPclientBottomPaneLayout);
         TCPclientBottomPaneLayout.setHorizontalGroup(
             TCPclientBottomPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(common, javax.swing.GroupLayout.DEFAULT_SIZE, 519, Short.MAX_VALUE)
+            .addComponent(common, javax.swing.GroupLayout.DEFAULT_SIZE, 457, Short.MAX_VALUE)
             .addGroup(TCPclientBottomPaneLayout.createSequentialGroup()
                 .addComponent(UDP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -4277,7 +4277,7 @@ public class ESPlorer extends javax.swing.JFrame {
                         .addComponent(cmdCIPSENDinteractive)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(cmdSetCIPCLOSE)
-                        .addContainerGap(295, Short.MAX_VALUE))
+                        .addContainerGap(258, Short.MAX_VALUE))
                     .addComponent(jScrollData)))
         );
 
@@ -4286,7 +4286,7 @@ public class ESPlorer extends javax.swing.JFrame {
         AT_ClientLayout.setHorizontalGroup(
             AT_ClientLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(TCPclientBottomPane)
-            .addComponent(TopWiFiStaFiller1, javax.swing.GroupLayout.DEFAULT_SIZE, 535, Short.MAX_VALUE)
+            .addComponent(TopWiFiStaFiller1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         AT_ClientLayout.setVerticalGroup(
             AT_ClientLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -4506,7 +4506,7 @@ public class ESPlorer extends javax.swing.JFrame {
         AT_ServerLayout.setHorizontalGroup(
             AT_ServerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(TCPServerBottomPane, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(TCPServerTopFiller, javax.swing.GroupLayout.DEFAULT_SIZE, 535, Short.MAX_VALUE)
+            .addComponent(TCPServerTopFiller, javax.swing.GroupLayout.DEFAULT_SIZE, 463, Short.MAX_VALUE)
         );
         AT_ServerLayout.setVerticalGroup(
             AT_ServerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -4518,7 +4518,7 @@ public class ESPlorer extends javax.swing.JFrame {
 
         TabAT.addTab("TCP/IP Server", AT_Server);
 
-        ATvXX.add(TabAT, new org.netbeans.lib.awtextra.AbsoluteConstraints(2, 70, 540, 645));
+        ATvXX.add(TabAT, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 70, 440, 645));
 
         TCP_common.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Common TCP commands"));
         TCP_common.setAlignmentX(0.0F);
@@ -5580,7 +5580,7 @@ public class ESPlorer extends javax.swing.JFrame {
         RN2483.setLayout(RN2483Layout);
         RN2483Layout.setHorizontalGroup(
             RN2483Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(RN2483jTab, javax.swing.GroupLayout.DEFAULT_SIZE, 527, Short.MAX_VALUE)
+            .addComponent(RN2483jTab, javax.swing.GroupLayout.DEFAULT_SIZE, 476, Short.MAX_VALUE)
         );
         RN2483Layout.setVerticalGroup(
             RN2483Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -5595,11 +5595,11 @@ public class ESPlorer extends javax.swing.JFrame {
         LeftBasePane.setLayout(LeftBasePaneLayout);
         LeftBasePaneLayout.setHorizontalGroup(
             LeftBasePaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(LeftTab, javax.swing.GroupLayout.DEFAULT_SIZE, 542, Short.MAX_VALUE)
+            .addComponent(LeftTab, javax.swing.GroupLayout.DEFAULT_SIZE, 497, Short.MAX_VALUE)
         );
         LeftBasePaneLayout.setVerticalGroup(
             LeftBasePaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(LeftTab, javax.swing.GroupLayout.DEFAULT_SIZE, 744, Short.MAX_VALUE)
+            .addComponent(LeftTab, javax.swing.GroupLayout.DEFAULT_SIZE, 742, Short.MAX_VALUE)
         );
 
         LeftTab.getAccessibleContext().setAccessibleName("LeftTab");
@@ -5716,7 +5716,7 @@ public class ESPlorer extends javax.swing.JFrame {
 
         Port.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         Port.setMaximumRowCount(20);
-        Port.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "COM1", "COM3" }));
+        Port.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "COM1", "COM3" }));
         Port.setToolTipText("Serial port chooser");
         Port.setMaximumSize(new java.awt.Dimension(150, 25));
         Port.setMinimumSize(new java.awt.Dimension(150, 25));
@@ -5901,7 +5901,7 @@ public class ESPlorer extends javax.swing.JFrame {
         Command.setEditable(true);
         Command.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         Command.setMaximumRowCount(20);
-        Command.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "AT", "AT+GMR", "AT+RST", "" }));
+        Command.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "AT", "AT+GMR", "AT+RST", "" }));
         Command.setToolTipText("Command to send");
         Command.setAlignmentX(0.0F);
         Command.setAlignmentY(0.0F);
@@ -5919,14 +5919,14 @@ public class ESPlorer extends javax.swing.JFrame {
             }
         });
         Command.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                CommandKeyTyped(evt);
+            }
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 CommandKeyPressed(evt);
             }
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 CommandKeyReleased(evt);
-            }
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                CommandKeyTyped(evt);
             }
         });
 
@@ -6055,9 +6055,9 @@ public class ESPlorer extends javax.swing.JFrame {
         );
         TerminalLogPaneLayout.setVerticalGroup(
             TerminalLogPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 421, Short.MAX_VALUE)
+            .addGap(0, 404, Short.MAX_VALUE)
             .addGroup(TerminalLogPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(RightSplitPane, javax.swing.GroupLayout.DEFAULT_SIZE, 421, Short.MAX_VALUE))
+                .addComponent(RightSplitPane, javax.swing.GroupLayout.DEFAULT_SIZE, 404, Short.MAX_VALUE))
         );
 
         RightFilesSplitPane.setLeftComponent(TerminalLogPane);
@@ -6429,7 +6429,7 @@ public class ESPlorer extends javax.swing.JFrame {
         RightBigPaneLayout.setVerticalGroup(
             RightBigPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(RightBigPaneLayout.createSequentialGroup()
-                .addComponent(RightFilesSplitPane)
+                .addComponent(RightFilesSplitPane, javax.swing.GroupLayout.DEFAULT_SIZE, 408, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(RightSnippetsPane, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -7477,10 +7477,6 @@ public class ESPlorer extends javax.swing.JFrame {
         PortFinder();
     }//GEN-LAST:event_ReScanActionPerformed
 
-    private void CommandKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_CommandKeyTyped
-
-    }//GEN-LAST:event_CommandKeyTyped
-
     private void SendCommandActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SendCommandActionPerformed
         if (CommandEcho.isSelected()) {
             if (Terminal.getCaretOffsetFromLineStart() > 0) {
@@ -7491,21 +7487,6 @@ public class ESPlorer extends javax.swing.JFrame {
         }
         SendCommand();
     }//GEN-LAST:event_SendCommandActionPerformed
-
-    private void CommandActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CommandActionPerformed
-        //log("CommandActionPerformed " + evt.getActionCommand());
-        if ("comboBoxEdited".equals(evt.getActionCommand())) { // Hit Enter
-            SendCommand.doClick();
-        }
-    }//GEN-LAST:event_CommandActionPerformed
-
-    private void CommandKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_CommandKeyPressed
-
-    }//GEN-LAST:event_CommandKeyPressed
-
-    private void CommandKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_CommandKeyReleased
-
-    }//GEN-LAST:event_CommandKeyReleased
 
     private void ContextMenuTerminalPopupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {//GEN-FIRST:event_ContextMenuTerminalPopupMenuWillBecomeVisible
         try {
@@ -8646,10 +8627,6 @@ public class ESPlorer extends javax.swing.JFrame {
         goLink(homepage_uri);
     }//GEN-LAST:event_HomePageActionPerformed
 
-    private void CommandItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_CommandItemStateChanged
-
-    }//GEN-LAST:event_CommandItemStateChanged
-
     private void PortItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_PortItemStateChanged
 
     }//GEN-LAST:event_PortItemStateChanged
@@ -9274,10 +9251,13 @@ public class ESPlorer extends javax.swing.JFrame {
     private void MenuItemViewLookAndFeelActionPerformed(java.awt.event.ActionEvent evt) {                                                
         String lclass = evt.getActionCommand();
         prefs.put("LAF", lclass);
-        log("Set New LookAndFeel to:" + lclass);
-        int isExit = Dialog("New LookAndFeel skin will be appled after program restart. Exit now?", JOptionPane.YES_NO_OPTION);
-        if (isExit == JOptionPane.YES_OPTION) {
-            AppClose();
+        try {
+            UIManager.setLookAndFeel(lclass);
+            SwingUtilities.updateComponentTreeUI(this);
+            this.pack();
+            this.setExtendedState(this.getExtendedState() | JFrame.MAXIMIZED_BOTH);
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException ex) {
+            Logger.getLogger(ESPlorer.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     
@@ -10639,6 +10619,30 @@ public class ESPlorer extends javax.swing.JFrame {
     private void cmdSetPINGActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdSetPINGActionPerformed
         btnSend("AT+PING=\"" + PingIP.getText() + "\"");
     }//GEN-LAST:event_cmdSetPINGActionPerformed
+
+    private void CommandKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_CommandKeyTyped
+
+    }//GEN-LAST:event_CommandKeyTyped
+
+    private void CommandKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_CommandKeyReleased
+
+    }//GEN-LAST:event_CommandKeyReleased
+
+    private void CommandKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_CommandKeyPressed
+
+    }//GEN-LAST:event_CommandKeyPressed
+
+    private void CommandItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_CommandItemStateChanged
+
+    }//GEN-LAST:event_CommandItemStateChanged
+
+    private void CommandActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CommandActionPerformed
+        //log("CommandActionPerformed " + evt.getActionCommand());
+        if ("comboBoxEdited".equals(evt.getActionCommand())) { // Hit Enter
+            SendCommand.doClick();
+        }
+    }//GEN-LAST:event_CommandActionPerformed
+    
     private void NodeFileSystemInfo() {
         String cmd = "r,u,t=file.fsinfo() print(\"Total : \"..t..\" bytes\\r\\nUsed  : \"..u..\" bytes\\r\\nRemain: \"..r..\" bytes\\r\\n\") r=nil u=nil t=nil";
         LocalEcho = false;
@@ -10665,34 +10669,34 @@ public class ESPlorer extends javax.swing.JFrame {
 
     private void CommandsSetNodeMCU() {
         Command.removeAllItems();
-        Command.addItem(makeObj(new String("=node.heap()")));
-        Command.addItem(makeObj(new String("=node.chipid()")));
-        Command.addItem(new String("file.close()"));
-        Command.addItem(new String("file.remove(\"\")"));
-        Command.addItem(new String("dofile(\"\")"));
-        Command.addItem(new String("wifi.setmode(wifi.STATION)"));
-        Command.addItem(new String("wifi.setmode(wifi.SOFTAP)"));
-        Command.addItem(new String("wifi.setmode(wifi.STATIONAP)"));
-        Command.addItem(new String("=wifi.getmode()"));
-        Command.addItem(new String("wifi.sta.config(\"myssid\",\"mypassword\")"));
-        Command.addItem(new String("=wifi.sta.getip()"));
-        Command.addItem(new String("=wifi.ap.getip()"));
-        Command.addItem(new String("=wifi.sta.getmac()"));
-        Command.addItem(new String("=wifi.ap.getmac()"));
-        Command.addItem(new String("=wifi.sta.status()"));
-        Command.addItem(new String("=tmr.now()"));
+        Command.addItem("=node.heap()");
+        Command.addItem("=node.chipid()");
+        Command.addItem("file.close()");
+        Command.addItem("file.remove(\"\")");
+        Command.addItem("dofile(\"\")");
+        Command.addItem("wifi.setmode(wifi.STATION)");
+        Command.addItem("wifi.setmode(wifi.SOFTAP)");
+        Command.addItem("wifi.setmode(wifi.STATIONAP)");
+        Command.addItem("=wifi.getmode()");
+        Command.addItem("wifi.sta.config(\"myssid\",\"mypassword\")");
+        Command.addItem("=wifi.sta.getip()");
+        Command.addItem("=wifi.ap.getip()");
+        Command.addItem("=wifi.sta.getmac()");
+        Command.addItem("=wifi.ap.getmac()");
+        Command.addItem("=wifi.sta.status()");
+        Command.addItem("=tmr.now()");
     }
 
     private void CommandsSetMicroPython() {
         Command.removeAllItems();
-        Command.addItem(new String("import sys; print(sys.version_info)"));
+        Command.addItem("import sys; print(sys.version_info)");
     }
 
     private void CommandsSetAT() {
         Command.removeAllItems();
-        Command.addItem(new String("AT"));
-        Command.addItem(new String("AT+GMR"));
-        Command.addItem(new String("AT+RST"));
+        Command.addItem("AT");
+        Command.addItem("AT+GMR");
+        Command.addItem("AT+RST");
     }
 
     /**
@@ -10705,7 +10709,6 @@ public class ESPlorer extends javax.swing.JFrame {
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
          */
-        //private javax.swing.JRadioButtonMenuItem MenuItemViewLF2;
         LAFselection = new HashMap<>();
         prefs = Preferences.userRoot().node(nodeRoot);
         systemLaf = javax.swing.UIManager.getSystemLookAndFeelClassName();
@@ -10713,7 +10716,7 @@ public class ESPlorer extends javax.swing.JFrame {
         try {
             javax.swing.UIManager.setLookAndFeel(laf);
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException ex) {
-            Logger.getLogger(ESPlorer.class.getName()).log(Level.SEVERE, null, ex);
+            LOGGER.log(Level.SEVERE, null, ex);
         }
         for (LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
             JRadioButtonMenuItem menuItem = new JRadioButtonMenuItem();
@@ -10725,8 +10728,7 @@ public class ESPlorer extends javax.swing.JFrame {
             menuItem.setActionCommand(info.getClassName());
             LAFselection.put(info.getClassName(), menuItem);
 
-            Logger.getLogger(ESPlorer.class
-                        .getName()).log(java.util.logging.Level.INFO, selected? "Selected":"Installed" + " Look and Feel " + info.getName() + " (" + info.getClassName()+ ")");
+            LOGGER.log(java.util.logging.Level.INFO, selected? "Selected":"Installed" + " Look and Feel " + info.getName() + " (" + info.getClassName()+ ")");
         }
         
         //</editor-fold>
@@ -10804,7 +10806,7 @@ public class ESPlorer extends javax.swing.JFrame {
     private javax.swing.JButton ButtonSnippet9;
     private javax.swing.JButton ButtonUndo;
     private javax.swing.JCheckBox CR;
-    private javax.swing.JComboBox Command;
+    private javax.swing.JComboBox<String> Command;
     private javax.swing.JCheckBox CommandEcho;
     private javax.swing.JLayeredPane CommandsMicroPython;
     private javax.swing.JLayeredPane CommandsNodeMCU;
@@ -11030,7 +11032,7 @@ public class ESPlorer extends javax.swing.JFrame {
     private javax.swing.JTextField PASS;
     private javax.swing.JTextField PASSsoftAP;
     private javax.swing.JTextField PingIP;
-    private javax.swing.JComboBox Port;
+    private javax.swing.JComboBox<String> Port;
     private javax.swing.JLabel PortCTS;
     private javax.swing.JToggleButton PortDTR;
     private javax.swing.JLabel PortOpenLabel;
@@ -11254,7 +11256,7 @@ public class ESPlorer extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     // Variables
-    private static final boolean DEBUG = false; // true; //false;
+    private static final boolean DEBUG = false;
     /* Files tab start */
     private ArrayList<javax.swing.JLayeredPane> FileLayeredPane1;
     private ArrayList<org.fife.ui.rsyntaxtextarea.RSyntaxTextArea> TextEditor1;
@@ -11274,9 +11276,7 @@ public class ESPlorer extends javax.swing.JFrame {
     private String UploadFileName = "";
     /* Files tab end */
     public int nSpeed = 9600;
-    public static final Logger LOGGER = Logger.getLogger(ESPlorer.class
-            .getName());
-    //  String s = new String();
+    public static final Logger LOGGER = Logger.getLogger(ESPlorer.class.getName());
     int save; // editor var
     String FileName = "script"; // without ext
     String DownloadedFileName = "";
@@ -11452,7 +11452,7 @@ public class ESPlorer extends javax.swing.JFrame {
         int i;
         Port.removeAllItems();
         if (UseCustomPortName.isSelected()) {
-            Port.addItem(makeObj(CustomPortName.getText().trim()));
+            Port.addItem(CustomPortName.getText().trim());
             Port.setSelectedIndex(Port.getItemCount() - 1);
             Port.setEnabled(false);
             Speed.setSelectedIndex(prefs.getInt(SERIAL_BAUD, 3));
@@ -11471,7 +11471,7 @@ public class ESPlorer extends javax.swing.JFrame {
             String lastPort = prefs.get(SERIAL_PORT, null);
             int port = 0;
             for (i = 0; i < portNames.length; i++) {
-                Port.addItem(makeObj(portNames[i]));
+                Port.addItem(portNames[i]);
                 if (portNames[i].equals(lastPort)) {
                     port = i;
                     log("found last saved serial port " + portNames[i]);
@@ -11722,7 +11722,7 @@ public class ESPlorer extends javax.swing.JFrame {
         btnSend(s);
     }
 
-    private void FinalInit() {
+    private void finalInit() {
         final Image im = Toolkit.getDefaultToolkit().getImage(getClass().getResource("/resources/ESP8266-64x64.png"));
         setIconImage(im);
 

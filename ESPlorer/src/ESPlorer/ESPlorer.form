@@ -1409,12 +1409,12 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="LeftTab" alignment="0" pref="542" max="32767" attributes="0"/>
+                  <Component id="LeftTab" alignment="0" pref="497" max="32767" attributes="0"/>
               </Group>
             </DimensionLayout>
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="LeftTab" alignment="0" pref="744" max="32767" attributes="0"/>
+                  <Component id="LeftTab" alignment="0" pref="742" max="32767" attributes="0"/>
               </Group>
             </DimensionLayout>
           </Layout>
@@ -4257,7 +4257,7 @@
                                           <Component id="jLayeredPane2" max="32767" attributes="0"/>
                                           <Component id="jLayeredPane3" max="32767" attributes="0"/>
                                       </Group>
-                                      <EmptySpace pref="103" max="32767" attributes="0"/>
+                                      <EmptySpace pref="52" max="32767" attributes="0"/>
                                   </Group>
                               </Group>
                             </DimensionLayout>
@@ -4926,7 +4926,7 @@
                       </Properties>
                       <Constraints>
                         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                          <AbsoluteConstraints x="0" y="0" width="545" height="70"/>
+                          <AbsoluteConstraints x="0" y="0" width="-1" height="-1"/>
                         </Constraint>
                       </Constraints>
 
@@ -5011,7 +5011,7 @@
                       </BindingProperties>
                       <Constraints>
                         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                          <AbsoluteConstraints x="2" y="70" width="540" height="645"/>
+                          <AbsoluteConstraints x="0" y="70" width="440" height="645"/>
                         </Constraint>
                       </Constraints>
 
@@ -5178,7 +5178,7 @@
                                           <Component id="PingIP" min="-2" pref="23" max="-2" attributes="0"/>
                                           <EmptySpace max="-2" attributes="0"/>
                                           <Component id="cmdSetPING" min="-2" pref="23" max="-2" attributes="0"/>
-                                          <EmptySpace pref="142" max="32767" attributes="0"/>
+                                          <EmptySpace pref="128" max="32767" attributes="0"/>
                                       </Group>
                                   </Group>
                                 </DimensionLayout>
@@ -5518,7 +5518,7 @@
                             <DimensionLayout dim="0">
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Component id="WiFisoftAPPane" max="32767" attributes="0"/>
-                                  <Component id="TopWiFiAPFiller" alignment="0" pref="535" max="32767" attributes="0"/>
+                                  <Component id="TopWiFiAPFiller" alignment="0" pref="463" max="32767" attributes="0"/>
                               </Group>
                             </DimensionLayout>
                             <DimensionLayout dim="1">
@@ -6024,7 +6024,7 @@
                             <DimensionLayout dim="0">
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Component id="TCPclientBottomPane" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="TopWiFiStaFiller1" alignment="0" pref="535" max="32767" attributes="0"/>
+                                  <Component id="TopWiFiStaFiller1" alignment="0" max="32767" attributes="0"/>
                               </Group>
                             </DimensionLayout>
                             <DimensionLayout dim="1">
@@ -6060,7 +6060,7 @@
                               <Layout>
                                 <DimensionLayout dim="0">
                                   <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="common" pref="519" max="32767" attributes="0"/>
+                                      <Component id="common" pref="457" max="32767" attributes="0"/>
                                       <Group type="102" attributes="0">
                                           <Component id="UDP" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace max="-2" attributes="0"/>
@@ -6120,7 +6120,7 @@
                                                   <Component id="cmdCIPSENDinteractive" min="-2" max="-2" attributes="0"/>
                                                   <EmptySpace max="-2" attributes="0"/>
                                                   <Component id="cmdSetCIPCLOSE" min="-2" max="-2" attributes="0"/>
-                                                  <EmptySpace pref="295" max="32767" attributes="0"/>
+                                                  <EmptySpace pref="258" max="32767" attributes="0"/>
                                               </Group>
                                               <Component id="jScrollData" max="32767" attributes="0"/>
                                           </Group>
@@ -6428,7 +6428,7 @@
                             <DimensionLayout dim="0">
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Component id="TCPServerBottomPane" max="32767" attributes="0"/>
-                                  <Component id="TCPServerTopFiller" alignment="0" pref="535" max="32767" attributes="0"/>
+                                  <Component id="TCPServerTopFiller" alignment="0" pref="463" max="32767" attributes="0"/>
                               </Group>
                             </DimensionLayout>
                             <DimensionLayout dim="1">
@@ -7125,7 +7125,7 @@
                   <Layout>
                     <DimensionLayout dim="0">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="RN2483jTab" alignment="0" pref="527" max="32767" attributes="0"/>
+                          <Component id="RN2483jTab" alignment="0" pref="476" max="32767" attributes="0"/>
                       </Group>
                     </DimensionLayout>
                     <DimensionLayout dim="1">
@@ -8802,6 +8802,9 @@
                     <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="PortItemStateChanged"/>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="PortActionPerformed"/>
                   </Events>
+                  <AuxValues>
+                    <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+                  </AuxValues>
                 </Component>
                 <Component class="javax.swing.JCheckBox" name="EOL">
                   <Properties>
@@ -8972,10 +8975,13 @@
                   <Events>
                     <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="CommandItemStateChanged"/>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="CommandActionPerformed"/>
+                    <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="CommandKeyTyped"/>
                     <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="CommandKeyPressed"/>
                     <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="CommandKeyReleased"/>
-                    <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="CommandKeyTyped"/>
                   </Events>
+                  <AuxValues>
+                    <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+                  </AuxValues>
                 </Component>
               </SubComponents>
             </Container>
@@ -9002,7 +9008,7 @@
                 <DimensionLayout dim="1">
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
-                          <Component id="RightFilesSplitPane" max="32767" attributes="0"/>
+                          <Component id="RightFilesSplitPane" pref="408" max="32767" attributes="0"/>
                           <EmptySpace min="-2" max="-2" attributes="0"/>
                           <Component id="RightSnippetsPane" min="-2" pref="96" max="-2" attributes="0"/>
                       </Group>
@@ -9039,9 +9045,9 @@
                         </DimensionLayout>
                         <DimensionLayout dim="1">
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <EmptySpace min="0" pref="421" max="32767" attributes="0"/>
+                              <EmptySpace min="0" pref="404" max="32767" attributes="0"/>
                               <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
-                                  <Component id="RightSplitPane" alignment="0" pref="421" max="32767" attributes="0"/>
+                                  <Component id="RightSplitPane" alignment="0" pref="404" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                         </DimensionLayout>
