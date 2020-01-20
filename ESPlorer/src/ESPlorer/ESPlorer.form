@@ -1350,9 +1350,9 @@
     <EventHandler event="componentResized" listener="java.awt.event.ComponentListener" parameters="java.awt.event.ComponentEvent" handler="formComponentResized"/>
     <EventHandler event="windowGainedFocus" listener="java.awt.event.WindowFocusListener" parameters="java.awt.event.WindowEvent" handler="formWindowGainedFocus"/>
     <EventHandler event="propertyChange" listener="java.beans.PropertyChangeListener" parameters="java.beans.PropertyChangeEvent" handler="formPropertyChange"/>
-    <EventHandler event="windowClosed" listener="java.awt.event.WindowListener" parameters="java.awt.event.WindowEvent" handler="formWindowClosed"/>
-    <EventHandler event="windowClosing" listener="java.awt.event.WindowListener" parameters="java.awt.event.WindowEvent" handler="formWindowClosing"/>
     <EventHandler event="windowOpened" listener="java.awt.event.WindowListener" parameters="java.awt.event.WindowEvent" handler="formWindowOpened"/>
+    <EventHandler event="windowClosing" listener="java.awt.event.WindowListener" parameters="java.awt.event.WindowEvent" handler="formWindowClosing"/>
+    <EventHandler event="windowClosed" listener="java.awt.event.WindowListener" parameters="java.awt.event.WindowEvent" handler="formWindowClosed"/>
   </Events>
   <AuxValues>
     <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="0"/>
@@ -2891,19 +2891,10 @@
                                           <Font name="Tahoma" size="10" style="0"/>
                                         </Property>
                                         <Property name="text" type="java.lang.String" value="GPIO0 -&gt; 1"/>
-                                        <Property name="toolTipText" type="java.lang.String" value=""/>
-                                        <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                                          <Dimension value="[90, 30]"/>
-                                        </Property>
-                                        <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                                          <Dimension value="[90, 30]"/>
-                                        </Property>
-                                        <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                                          <Dimension value="[90, 30]"/>
-                                        </Property>
+                                        <Property name="actionCommand" type="java.lang.String" value="0"/>
                                       </Properties>
                                       <Events>
-                                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="MicroPythonGPIO0_1ActionPerformed"/>
+                                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="MicroPythonSetGPIOHigh"/>
                                       </Events>
                                     </Component>
                                     <Component class="javax.swing.JButton" name="MicroPythonGPIO0_0">
@@ -2912,19 +2903,10 @@
                                           <Font name="Tahoma" size="10" style="0"/>
                                         </Property>
                                         <Property name="text" type="java.lang.String" value="GPIO0 -&gt; 0"/>
-                                        <Property name="toolTipText" type="java.lang.String" value=""/>
-                                        <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                                          <Dimension value="[90, 30]"/>
-                                        </Property>
-                                        <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                                          <Dimension value="[90, 30]"/>
-                                        </Property>
-                                        <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                                          <Dimension value="[90, 30]"/>
-                                        </Property>
+                                        <Property name="actionCommand" type="java.lang.String" value="0"/>
                                       </Properties>
                                       <Events>
-                                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="MicroPythonGPIO0_0ActionPerformed"/>
+                                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="MicroPythonSetGPIOLow"/>
                                       </Events>
                                     </Component>
                                     <Component class="javax.swing.JButton" name="MicroPythonGPIO0">
@@ -2933,19 +2915,10 @@
                                           <Font name="Tahoma" size="10" style="0"/>
                                         </Property>
                                         <Property name="text" type="java.lang.String" value="GPIO0 ?"/>
-                                        <Property name="toolTipText" type="java.lang.String" value=""/>
-                                        <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                                          <Dimension value="[90, 30]"/>
-                                        </Property>
-                                        <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                                          <Dimension value="[90, 30]"/>
-                                        </Property>
-                                        <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                                          <Dimension value="[90, 30]"/>
-                                        </Property>
+                                        <Property name="actionCommand" type="java.lang.String" value="0"/>
                                       </Properties>
                                       <Events>
-                                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="MicroPythonGPIO0ActionPerformed"/>
+                                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="MicroPythonGetGPIOLevel"/>
                                       </Events>
                                     </Component>
                                     <Component class="javax.swing.JButton" name="MicroPythonGPIO2_1">
@@ -2954,19 +2927,10 @@
                                           <Font name="Tahoma" size="10" style="0"/>
                                         </Property>
                                         <Property name="text" type="java.lang.String" value="GPIO2 -&gt; 1"/>
-                                        <Property name="toolTipText" type="java.lang.String" value=""/>
-                                        <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                                          <Dimension value="[90, 30]"/>
-                                        </Property>
-                                        <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                                          <Dimension value="[90, 30]"/>
-                                        </Property>
-                                        <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                                          <Dimension value="[90, 30]"/>
-                                        </Property>
+                                        <Property name="actionCommand" type="java.lang.String" value="2"/>
                                       </Properties>
                                       <Events>
-                                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="MicroPythonGPIO2_1ActionPerformed"/>
+                                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="MicroPythonSetGPIOHigh"/>
                                       </Events>
                                     </Component>
                                     <Component class="javax.swing.JButton" name="MicroPythonGPIO2_0">
@@ -2975,19 +2939,10 @@
                                           <Font name="Tahoma" size="10" style="0"/>
                                         </Property>
                                         <Property name="text" type="java.lang.String" value="GPIO2 -&gt; 0"/>
-                                        <Property name="toolTipText" type="java.lang.String" value=""/>
-                                        <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                                          <Dimension value="[90, 30]"/>
-                                        </Property>
-                                        <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                                          <Dimension value="[90, 30]"/>
-                                        </Property>
-                                        <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                                          <Dimension value="[90, 30]"/>
-                                        </Property>
+                                        <Property name="actionCommand" type="java.lang.String" value="2"/>
                                       </Properties>
                                       <Events>
-                                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="MicroPythonGPIO2_0ActionPerformed"/>
+                                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="MicroPythonSetGPIOLow"/>
                                       </Events>
                                     </Component>
                                     <Component class="javax.swing.JButton" name="MicroPythonGPIO2">
@@ -2996,19 +2951,10 @@
                                           <Font name="Tahoma" size="10" style="0"/>
                                         </Property>
                                         <Property name="text" type="java.lang.String" value="GPIO2 ?"/>
-                                        <Property name="toolTipText" type="java.lang.String" value=""/>
-                                        <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                                          <Dimension value="[90, 30]"/>
-                                        </Property>
-                                        <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                                          <Dimension value="[90, 30]"/>
-                                        </Property>
-                                        <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                                          <Dimension value="[90, 30]"/>
-                                        </Property>
+                                        <Property name="actionCommand" type="java.lang.String" value="2"/>
                                       </Properties>
                                       <Events>
-                                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="MicroPythonGPIO2ActionPerformed"/>
+                                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="MicroPythonGetGPIOLevel"/>
                                       </Events>
                                     </Component>
                                     <Component class="javax.swing.JButton" name="MicroPythonGPIO4_1">
@@ -3017,19 +2963,10 @@
                                           <Font name="Tahoma" size="10" style="0"/>
                                         </Property>
                                         <Property name="text" type="java.lang.String" value="GPIO4 -&gt; 1"/>
-                                        <Property name="toolTipText" type="java.lang.String" value=""/>
-                                        <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                                          <Dimension value="[90, 30]"/>
-                                        </Property>
-                                        <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                                          <Dimension value="[90, 30]"/>
-                                        </Property>
-                                        <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                                          <Dimension value="[90, 30]"/>
-                                        </Property>
+                                        <Property name="actionCommand" type="java.lang.String" value="4"/>
                                       </Properties>
                                       <Events>
-                                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="MicroPythonGPIO4_1ActionPerformed"/>
+                                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="MicroPythonSetGPIOHigh"/>
                                       </Events>
                                     </Component>
                                     <Component class="javax.swing.JButton" name="MicroPythonGPIO4_0">
@@ -3038,19 +2975,10 @@
                                           <Font name="Tahoma" size="10" style="0"/>
                                         </Property>
                                         <Property name="text" type="java.lang.String" value="GPIO4 -&gt; 0"/>
-                                        <Property name="toolTipText" type="java.lang.String" value=""/>
-                                        <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                                          <Dimension value="[90, 30]"/>
-                                        </Property>
-                                        <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                                          <Dimension value="[90, 30]"/>
-                                        </Property>
-                                        <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                                          <Dimension value="[90, 30]"/>
-                                        </Property>
+                                        <Property name="actionCommand" type="java.lang.String" value="4"/>
                                       </Properties>
                                       <Events>
-                                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="MicroPythonGPIO4_0ActionPerformed"/>
+                                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="MicroPythonSetGPIOLow"/>
                                       </Events>
                                     </Component>
                                     <Component class="javax.swing.JButton" name="MicroPythonGPIO4">
@@ -3059,19 +2987,10 @@
                                           <Font name="Tahoma" size="10" style="0"/>
                                         </Property>
                                         <Property name="text" type="java.lang.String" value="GPIO4 ?"/>
-                                        <Property name="toolTipText" type="java.lang.String" value=""/>
-                                        <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                                          <Dimension value="[90, 30]"/>
-                                        </Property>
-                                        <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                                          <Dimension value="[90, 30]"/>
-                                        </Property>
-                                        <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                                          <Dimension value="[90, 30]"/>
-                                        </Property>
+                                        <Property name="actionCommand" type="java.lang.String" value="4"/>
                                       </Properties>
                                       <Events>
-                                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="MicroPythonGPIO4ActionPerformed"/>
+                                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="MicroPythonGetGPIOLevel"/>
                                       </Events>
                                     </Component>
                                     <Component class="javax.swing.JButton" name="MicroPythonGPIO5_1">
@@ -3080,19 +2999,10 @@
                                           <Font name="Tahoma" size="10" style="0"/>
                                         </Property>
                                         <Property name="text" type="java.lang.String" value="GPIO5 -&gt; 1"/>
-                                        <Property name="toolTipText" type="java.lang.String" value=""/>
-                                        <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                                          <Dimension value="[90, 30]"/>
-                                        </Property>
-                                        <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                                          <Dimension value="[90, 30]"/>
-                                        </Property>
-                                        <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                                          <Dimension value="[90, 30]"/>
-                                        </Property>
+                                        <Property name="actionCommand" type="java.lang.String" value="5"/>
                                       </Properties>
                                       <Events>
-                                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="MicroPythonGPIO5_1ActionPerformed"/>
+                                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="MicroPythonSetGPIOHigh"/>
                                       </Events>
                                     </Component>
                                     <Component class="javax.swing.JButton" name="MicroPythonGPIO5_0">
@@ -3101,19 +3011,10 @@
                                           <Font name="Tahoma" size="10" style="0"/>
                                         </Property>
                                         <Property name="text" type="java.lang.String" value="GPIO5 -&gt; 0"/>
-                                        <Property name="toolTipText" type="java.lang.String" value=""/>
-                                        <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                                          <Dimension value="[90, 30]"/>
-                                        </Property>
-                                        <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                                          <Dimension value="[90, 30]"/>
-                                        </Property>
-                                        <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                                          <Dimension value="[90, 30]"/>
-                                        </Property>
+                                        <Property name="actionCommand" type="java.lang.String" value="5"/>
                                       </Properties>
                                       <Events>
-                                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="MicroPythonGPIO5_0ActionPerformed"/>
+                                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="MicroPythonSetGPIOLow"/>
                                       </Events>
                                     </Component>
                                     <Component class="javax.swing.JButton" name="MicroPythonGPIO5">
@@ -3122,19 +3023,10 @@
                                           <Font name="Tahoma" size="10" style="0"/>
                                         </Property>
                                         <Property name="text" type="java.lang.String" value="GPIO5 ?"/>
-                                        <Property name="toolTipText" type="java.lang.String" value=""/>
-                                        <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                                          <Dimension value="[90, 30]"/>
-                                        </Property>
-                                        <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                                          <Dimension value="[90, 30]"/>
-                                        </Property>
-                                        <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                                          <Dimension value="[90, 30]"/>
-                                        </Property>
+                                        <Property name="actionCommand" type="java.lang.String" value="5"/>
                                       </Properties>
                                       <Events>
-                                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="MicroPythonGPIO5ActionPerformed"/>
+                                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="MicroPythonGetGPIOLevel"/>
                                       </Events>
                                     </Component>
                                     <Component class="javax.swing.JButton" name="MicroPythonGPIO9_1">
@@ -3143,19 +3035,10 @@
                                           <Font name="Tahoma" size="10" style="0"/>
                                         </Property>
                                         <Property name="text" type="java.lang.String" value="GPIO9 -&gt; 1"/>
-                                        <Property name="toolTipText" type="java.lang.String" value=""/>
-                                        <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                                          <Dimension value="[90, 30]"/>
-                                        </Property>
-                                        <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                                          <Dimension value="[90, 30]"/>
-                                        </Property>
-                                        <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                                          <Dimension value="[90, 30]"/>
-                                        </Property>
+                                        <Property name="actionCommand" type="java.lang.String" value="9"/>
                                       </Properties>
                                       <Events>
-                                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="MicroPythonGPIO9_1ActionPerformed"/>
+                                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="MicroPythonSetGPIOHigh"/>
                                       </Events>
                                     </Component>
                                     <Component class="javax.swing.JButton" name="MicroPythonGPIO9_0">
@@ -3164,19 +3047,10 @@
                                           <Font name="Tahoma" size="10" style="0"/>
                                         </Property>
                                         <Property name="text" type="java.lang.String" value="GPIO9 -&gt; 0"/>
-                                        <Property name="toolTipText" type="java.lang.String" value=""/>
-                                        <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                                          <Dimension value="[90, 30]"/>
-                                        </Property>
-                                        <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                                          <Dimension value="[90, 30]"/>
-                                        </Property>
-                                        <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                                          <Dimension value="[90, 30]"/>
-                                        </Property>
+                                        <Property name="actionCommand" type="java.lang.String" value="9"/>
                                       </Properties>
                                       <Events>
-                                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="MicroPythonGPIO9_0ActionPerformed"/>
+                                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="MicroPythonSetGPIOLow"/>
                                       </Events>
                                     </Component>
                                     <Component class="javax.swing.JButton" name="MicroPythonGPIO9">
@@ -3185,19 +3059,10 @@
                                           <Font name="Tahoma" size="10" style="0"/>
                                         </Property>
                                         <Property name="text" type="java.lang.String" value="GPIO9 ?"/>
-                                        <Property name="toolTipText" type="java.lang.String" value=""/>
-                                        <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                                          <Dimension value="[90, 30]"/>
-                                        </Property>
-                                        <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                                          <Dimension value="[90, 30]"/>
-                                        </Property>
-                                        <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                                          <Dimension value="[90, 30]"/>
-                                        </Property>
+                                        <Property name="actionCommand" type="java.lang.String" value="9"/>
                                       </Properties>
                                       <Events>
-                                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="MicroPythonGPIO9ActionPerformed"/>
+                                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="MicroPythonGetGPIOLevel"/>
                                       </Events>
                                     </Component>
                                     <Component class="javax.swing.JButton" name="MicroPythonGPIO10_1">
@@ -3206,19 +3071,10 @@
                                           <Font name="Tahoma" size="10" style="0"/>
                                         </Property>
                                         <Property name="text" type="java.lang.String" value="GPIO10 -&gt; 1"/>
-                                        <Property name="toolTipText" type="java.lang.String" value=""/>
-                                        <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                                          <Dimension value="[90, 30]"/>
-                                        </Property>
-                                        <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                                          <Dimension value="[90, 30]"/>
-                                        </Property>
-                                        <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                                          <Dimension value="[90, 30]"/>
-                                        </Property>
+                                        <Property name="actionCommand" type="java.lang.String" value="10"/>
                                       </Properties>
                                       <Events>
-                                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="MicroPythonGPIO10_1ActionPerformed"/>
+                                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="MicroPythonSetGPIOHigh"/>
                                       </Events>
                                     </Component>
                                     <Component class="javax.swing.JButton" name="MicroPythonGPIO10_0">
@@ -3227,19 +3083,10 @@
                                           <Font name="Tahoma" size="10" style="0"/>
                                         </Property>
                                         <Property name="text" type="java.lang.String" value="GPIO10 -&gt; 0"/>
-                                        <Property name="toolTipText" type="java.lang.String" value=""/>
-                                        <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                                          <Dimension value="[90, 30]"/>
-                                        </Property>
-                                        <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                                          <Dimension value="[90, 30]"/>
-                                        </Property>
-                                        <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                                          <Dimension value="[90, 30]"/>
-                                        </Property>
+                                        <Property name="actionCommand" type="java.lang.String" value="10"/>
                                       </Properties>
                                       <Events>
-                                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="MicroPythonGPIO10_0ActionPerformed"/>
+                                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="MicroPythonSetGPIOLow"/>
                                       </Events>
                                     </Component>
                                     <Component class="javax.swing.JButton" name="MicroPythonGPIO10">
@@ -3248,19 +3095,10 @@
                                           <Font name="Tahoma" size="10" style="0"/>
                                         </Property>
                                         <Property name="text" type="java.lang.String" value="GPIO10 ?"/>
-                                        <Property name="toolTipText" type="java.lang.String" value=""/>
-                                        <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                                          <Dimension value="[90, 30]"/>
-                                        </Property>
-                                        <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                                          <Dimension value="[90, 30]"/>
-                                        </Property>
-                                        <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                                          <Dimension value="[90, 30]"/>
-                                        </Property>
+                                        <Property name="actionCommand" type="java.lang.String" value="10"/>
                                       </Properties>
                                       <Events>
-                                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="MicroPythonGPIO10ActionPerformed"/>
+                                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="MicroPythonGetGPIOLevel"/>
                                       </Events>
                                     </Component>
                                     <Component class="javax.swing.JButton" name="MicroPythonGPIO12_1">
@@ -3269,19 +3107,10 @@
                                           <Font name="Tahoma" size="10" style="0"/>
                                         </Property>
                                         <Property name="text" type="java.lang.String" value="GPIO12 -&gt; 1"/>
-                                        <Property name="toolTipText" type="java.lang.String" value=""/>
-                                        <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                                          <Dimension value="[90, 30]"/>
-                                        </Property>
-                                        <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                                          <Dimension value="[90, 30]"/>
-                                        </Property>
-                                        <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                                          <Dimension value="[90, 30]"/>
-                                        </Property>
+                                        <Property name="actionCommand" type="java.lang.String" value="12"/>
                                       </Properties>
                                       <Events>
-                                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="MicroPythonGPIO12_1ActionPerformed"/>
+                                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="MicroPythonSetGPIOHigh"/>
                                       </Events>
                                     </Component>
                                     <Component class="javax.swing.JButton" name="MicroPythonGPIO12_0">
@@ -3290,19 +3119,10 @@
                                           <Font name="Tahoma" size="10" style="0"/>
                                         </Property>
                                         <Property name="text" type="java.lang.String" value="GPIO12 -&gt; 0"/>
-                                        <Property name="toolTipText" type="java.lang.String" value=""/>
-                                        <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                                          <Dimension value="[90, 30]"/>
-                                        </Property>
-                                        <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                                          <Dimension value="[90, 30]"/>
-                                        </Property>
-                                        <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                                          <Dimension value="[90, 30]"/>
-                                        </Property>
+                                        <Property name="actionCommand" type="java.lang.String" value="12"/>
                                       </Properties>
                                       <Events>
-                                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="MicroPythonGPIO12_0ActionPerformed"/>
+                                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="MicroPythonSetGPIOLow"/>
                                       </Events>
                                     </Component>
                                     <Component class="javax.swing.JButton" name="MicroPythonGPIO12">
@@ -3311,19 +3131,10 @@
                                           <Font name="Tahoma" size="10" style="0"/>
                                         </Property>
                                         <Property name="text" type="java.lang.String" value="GPIO12 ?"/>
-                                        <Property name="toolTipText" type="java.lang.String" value=""/>
-                                        <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                                          <Dimension value="[90, 30]"/>
-                                        </Property>
-                                        <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                                          <Dimension value="[90, 30]"/>
-                                        </Property>
-                                        <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                                          <Dimension value="[90, 30]"/>
-                                        </Property>
+                                        <Property name="actionCommand" type="java.lang.String" value="12"/>
                                       </Properties>
                                       <Events>
-                                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="MicroPythonGPIO12ActionPerformed"/>
+                                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="MicroPythonGetGPIOLevel"/>
                                       </Events>
                                     </Component>
                                     <Component class="javax.swing.JButton" name="MicroPythonGPIO13_1">
@@ -3332,19 +3143,10 @@
                                           <Font name="Tahoma" size="10" style="0"/>
                                         </Property>
                                         <Property name="text" type="java.lang.String" value="GPIO13 -&gt; 1"/>
-                                        <Property name="toolTipText" type="java.lang.String" value=""/>
-                                        <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                                          <Dimension value="[90, 30]"/>
-                                        </Property>
-                                        <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                                          <Dimension value="[90, 30]"/>
-                                        </Property>
-                                        <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                                          <Dimension value="[90, 30]"/>
-                                        </Property>
+                                        <Property name="actionCommand" type="java.lang.String" value="13"/>
                                       </Properties>
                                       <Events>
-                                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="MicroPythonGPIO13_1ActionPerformed"/>
+                                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="MicroPythonSetGPIOHigh"/>
                                       </Events>
                                     </Component>
                                     <Component class="javax.swing.JButton" name="MicroPythonGPIO13_0">
@@ -3353,19 +3155,10 @@
                                           <Font name="Tahoma" size="10" style="0"/>
                                         </Property>
                                         <Property name="text" type="java.lang.String" value="GPIO13 -&gt; 0"/>
-                                        <Property name="toolTipText" type="java.lang.String" value=""/>
-                                        <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                                          <Dimension value="[90, 30]"/>
-                                        </Property>
-                                        <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                                          <Dimension value="[90, 30]"/>
-                                        </Property>
-                                        <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                                          <Dimension value="[90, 30]"/>
-                                        </Property>
+                                        <Property name="actionCommand" type="java.lang.String" value="13"/>
                                       </Properties>
                                       <Events>
-                                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="MicroPythonGPIO13_0ActionPerformed"/>
+                                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="MicroPythonSetGPIOLow"/>
                                       </Events>
                                     </Component>
                                     <Component class="javax.swing.JButton" name="MicroPythonGPIO13">
@@ -3374,19 +3167,10 @@
                                           <Font name="Tahoma" size="10" style="0"/>
                                         </Property>
                                         <Property name="text" type="java.lang.String" value="GPIO13 ?"/>
-                                        <Property name="toolTipText" type="java.lang.String" value=""/>
-                                        <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                                          <Dimension value="[90, 30]"/>
-                                        </Property>
-                                        <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                                          <Dimension value="[90, 30]"/>
-                                        </Property>
-                                        <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                                          <Dimension value="[90, 30]"/>
-                                        </Property>
+                                        <Property name="actionCommand" type="java.lang.String" value="13"/>
                                       </Properties>
                                       <Events>
-                                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="MicroPythonGPIO13ActionPerformed"/>
+                                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="MicroPythonGetGPIOLevel"/>
                                       </Events>
                                     </Component>
                                     <Component class="javax.swing.JButton" name="MicroPythonGPIO14_1">
@@ -3395,19 +3179,10 @@
                                           <Font name="Tahoma" size="10" style="0"/>
                                         </Property>
                                         <Property name="text" type="java.lang.String" value="GPIO14 -&gt; 1"/>
-                                        <Property name="toolTipText" type="java.lang.String" value=""/>
-                                        <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                                          <Dimension value="[90, 30]"/>
-                                        </Property>
-                                        <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                                          <Dimension value="[90, 30]"/>
-                                        </Property>
-                                        <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                                          <Dimension value="[90, 30]"/>
-                                        </Property>
+                                        <Property name="actionCommand" type="java.lang.String" value="14"/>
                                       </Properties>
                                       <Events>
-                                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="MicroPythonGPIO14_1ActionPerformed"/>
+                                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="MicroPythonSetGPIOHigh"/>
                                       </Events>
                                     </Component>
                                     <Component class="javax.swing.JButton" name="MicroPythonGPIO14_0">
@@ -3416,19 +3191,10 @@
                                           <Font name="Tahoma" size="10" style="0"/>
                                         </Property>
                                         <Property name="text" type="java.lang.String" value="GPIO14 -&gt; 0"/>
-                                        <Property name="toolTipText" type="java.lang.String" value=""/>
-                                        <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                                          <Dimension value="[90, 30]"/>
-                                        </Property>
-                                        <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                                          <Dimension value="[90, 30]"/>
-                                        </Property>
-                                        <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                                          <Dimension value="[90, 30]"/>
-                                        </Property>
+                                        <Property name="actionCommand" type="java.lang.String" value="14"/>
                                       </Properties>
                                       <Events>
-                                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="MicroPythonGPIO14_0ActionPerformed"/>
+                                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="MicroPythonSetGPIOLow"/>
                                       </Events>
                                     </Component>
                                     <Component class="javax.swing.JButton" name="MicroPythonGPIO14">
@@ -3437,19 +3203,10 @@
                                           <Font name="Tahoma" size="10" style="0"/>
                                         </Property>
                                         <Property name="text" type="java.lang.String" value="GPIO14 ?"/>
-                                        <Property name="toolTipText" type="java.lang.String" value=""/>
-                                        <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                                          <Dimension value="[90, 30]"/>
-                                        </Property>
-                                        <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                                          <Dimension value="[90, 30]"/>
-                                        </Property>
-                                        <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                                          <Dimension value="[90, 30]"/>
-                                        </Property>
+                                        <Property name="actionCommand" type="java.lang.String" value="14"/>
                                       </Properties>
                                       <Events>
-                                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="MicroPythonGPIO14ActionPerformed"/>
+                                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="MicroPythonGetGPIOLevel"/>
                                       </Events>
                                     </Component>
                                     <Component class="javax.swing.JButton" name="MicroPythonGPIO15_1">
@@ -3458,19 +3215,10 @@
                                           <Font name="Tahoma" size="10" style="0"/>
                                         </Property>
                                         <Property name="text" type="java.lang.String" value="GPIO15 -&gt; 1"/>
-                                        <Property name="toolTipText" type="java.lang.String" value=""/>
-                                        <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                                          <Dimension value="[90, 30]"/>
-                                        </Property>
-                                        <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                                          <Dimension value="[90, 30]"/>
-                                        </Property>
-                                        <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                                          <Dimension value="[90, 30]"/>
-                                        </Property>
+                                        <Property name="actionCommand" type="java.lang.String" value="15"/>
                                       </Properties>
                                       <Events>
-                                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="MicroPythonGPIO15_1ActionPerformed"/>
+                                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="MicroPythonSetGPIOHigh"/>
                                       </Events>
                                     </Component>
                                     <Component class="javax.swing.JButton" name="MicroPythonGPIO15_0">
@@ -3479,19 +3227,10 @@
                                           <Font name="Tahoma" size="10" style="0"/>
                                         </Property>
                                         <Property name="text" type="java.lang.String" value="GPIO15 -&gt; 0"/>
-                                        <Property name="toolTipText" type="java.lang.String" value=""/>
-                                        <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                                          <Dimension value="[90, 30]"/>
-                                        </Property>
-                                        <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                                          <Dimension value="[90, 30]"/>
-                                        </Property>
-                                        <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                                          <Dimension value="[90, 30]"/>
-                                        </Property>
+                                        <Property name="actionCommand" type="java.lang.String" value="15"/>
                                       </Properties>
                                       <Events>
-                                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="MicroPythonGPIO15_0ActionPerformed"/>
+                                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="MicroPythonSetGPIOLow"/>
                                       </Events>
                                     </Component>
                                     <Component class="javax.swing.JButton" name="MicroPythonGPIO15">
@@ -3500,19 +3239,10 @@
                                           <Font name="Tahoma" size="10" style="0"/>
                                         </Property>
                                         <Property name="text" type="java.lang.String" value="GPIO15 ?"/>
-                                        <Property name="toolTipText" type="java.lang.String" value=""/>
-                                        <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                                          <Dimension value="[90, 30]"/>
-                                        </Property>
-                                        <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                                          <Dimension value="[90, 30]"/>
-                                        </Property>
-                                        <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                                          <Dimension value="[90, 30]"/>
-                                        </Property>
+                                        <Property name="actionCommand" type="java.lang.String" value="15"/>
                                       </Properties>
                                       <Events>
-                                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="MicroPythonGPIO15ActionPerformed"/>
+                                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="MicroPythonGetGPIOLevel"/>
                                       </Events>
                                     </Component>
                                     <Component class="javax.swing.JButton" name="MicroPythonGPIO16_1">
@@ -3521,19 +3251,10 @@
                                           <Font name="Tahoma" size="10" style="0"/>
                                         </Property>
                                         <Property name="text" type="java.lang.String" value="GPIO16 -&gt; 1"/>
-                                        <Property name="toolTipText" type="java.lang.String" value=""/>
-                                        <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                                          <Dimension value="[90, 30]"/>
-                                        </Property>
-                                        <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                                          <Dimension value="[90, 30]"/>
-                                        </Property>
-                                        <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                                          <Dimension value="[90, 30]"/>
-                                        </Property>
+                                        <Property name="actionCommand" type="java.lang.String" value="16"/>
                                       </Properties>
                                       <Events>
-                                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="MicroPythonGPIO16_1ActionPerformed"/>
+                                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="MicroPythonSetGPIOHigh"/>
                                       </Events>
                                     </Component>
                                     <Component class="javax.swing.JButton" name="MicroPythonGPIO16_0">
@@ -3542,19 +3263,10 @@
                                           <Font name="Tahoma" size="10" style="0"/>
                                         </Property>
                                         <Property name="text" type="java.lang.String" value="GPIO16 -&gt; 0"/>
-                                        <Property name="toolTipText" type="java.lang.String" value=""/>
-                                        <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                                          <Dimension value="[90, 30]"/>
-                                        </Property>
-                                        <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                                          <Dimension value="[90, 30]"/>
-                                        </Property>
-                                        <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                                          <Dimension value="[90, 30]"/>
-                                        </Property>
+                                        <Property name="actionCommand" type="java.lang.String" value="16"/>
                                       </Properties>
                                       <Events>
-                                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="MicroPythonGPIO16_0ActionPerformed"/>
+                                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="MicroPythonSetGPIOLow"/>
                                       </Events>
                                     </Component>
                                     <Component class="javax.swing.JButton" name="MicroPythonGPIO16">
@@ -3563,19 +3275,10 @@
                                           <Font name="Tahoma" size="10" style="0"/>
                                         </Property>
                                         <Property name="text" type="java.lang.String" value="GPIO16 ?"/>
-                                        <Property name="toolTipText" type="java.lang.String" value=""/>
-                                        <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                                          <Dimension value="[90, 30]"/>
-                                        </Property>
-                                        <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                                          <Dimension value="[90, 30]"/>
-                                        </Property>
-                                        <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                                          <Dimension value="[90, 30]"/>
-                                        </Property>
+                                        <Property name="actionCommand" type="java.lang.String" value="16"/>
                                       </Properties>
                                       <Events>
-                                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="MicroPythonGPIO16ActionPerformed"/>
+                                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="MicroPythonGetGPIOLevel"/>
                                       </Events>
                                     </Component>
                                   </SubComponents>
@@ -3585,9 +3288,6 @@
                           </SubComponents>
                         </Container>
                         <Container class="javax.swing.JLayeredPane" name="NodeMCUSnippets">
-                          <Properties>
-                            <Property name="opaque" type="boolean" value="true"/>
-                          </Properties>
                           <Constraints>
                             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
                               <JTabbedPaneConstraints tabName="Snippets">
@@ -3596,95 +3296,18 @@
                             </Constraint>
                           </Constraints>
 
-                          <Layout>
-                            <DimensionLayout dim="0">
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <Component id="LeftSnippetsPane" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace min="-2" max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="SnippetTopPane" max="32767" attributes="0"/>
-                                          <Component id="SnippetScrollPane" max="32767" attributes="0"/>
-                                      </Group>
-                                  </Group>
-                              </Group>
-                            </DimensionLayout>
-                            <DimensionLayout dim="1">
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Group type="102" attributes="0">
-                                      <Component id="SnippetTopPane" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="SnippetScrollPane" max="32767" attributes="0"/>
-                                  </Group>
-                                  <Component id="LeftSnippetsPane" max="32767" attributes="0"/>
-                              </Group>
-                            </DimensionLayout>
-                          </Layout>
+                          <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBoxLayout"/>
                           <SubComponents>
                             <Container class="javax.swing.JLayeredPane" name="LeftSnippetsPane">
                               <Properties>
-                                <Property name="opaque" type="boolean" value="true"/>
+                                <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                                  <Dimension value="[150, 32767]"/>
+                                </Property>
                               </Properties>
 
-                              <Layout>
-                                <DimensionLayout dim="0">
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="SnippetEdit0" alignment="1" max="32767" attributes="0"/>
-                                      <Component id="SnippetEdit1" alignment="1" max="32767" attributes="0"/>
-                                      <Component id="SnippetEdit2" alignment="1" max="32767" attributes="0"/>
-                                      <Component id="SnippetEdit3" alignment="1" max="32767" attributes="0"/>
-                                      <Component id="SnippetEdit4" alignment="1" max="32767" attributes="0"/>
-                                      <Component id="SnippetEdit5" alignment="1" max="32767" attributes="0"/>
-                                      <Component id="SnippetEdit6" alignment="1" max="32767" attributes="0"/>
-                                      <Component id="SnippetEdit7" alignment="1" max="32767" attributes="0"/>
-                                      <Component id="SnippetEdit8" alignment="1" max="32767" attributes="0"/>
-                                      <Component id="SnippetEdit9" alignment="1" max="32767" attributes="0"/>
-                                      <Component id="SnippetEdit10" alignment="1" pref="129" max="32767" attributes="0"/>
-                                      <Component id="SnippetEdit11" alignment="1" max="32767" attributes="0"/>
-                                      <Component id="SnippetEdit12" alignment="1" max="32767" attributes="0"/>
-                                      <Component id="SnippetEdit13" alignment="1" max="32767" attributes="0"/>
-                                      <Component id="SnippetEdit14" max="32767" attributes="0"/>
-                                      <Component id="SnippetEdit15" alignment="1" max="32767" attributes="0"/>
-                                  </Group>
-                                </DimensionLayout>
-                                <DimensionLayout dim="1">
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Group type="102" alignment="0" attributes="0">
-                                          <Component id="SnippetEdit0" min="-2" pref="21" max="-2" attributes="0"/>
-                                          <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="SnippetEdit1" min="-2" pref="21" max="-2" attributes="0"/>
-                                          <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="SnippetEdit2" min="-2" pref="21" max="-2" attributes="0"/>
-                                          <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="SnippetEdit3" min="-2" pref="21" max="-2" attributes="0"/>
-                                          <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="SnippetEdit4" min="-2" pref="21" max="-2" attributes="0"/>
-                                          <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="SnippetEdit5" min="-2" pref="21" max="-2" attributes="0"/>
-                                          <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="SnippetEdit6" min="-2" pref="21" max="-2" attributes="0"/>
-                                          <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="SnippetEdit7" min="-2" pref="21" max="-2" attributes="0"/>
-                                          <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="SnippetEdit8" min="-2" pref="21" max="-2" attributes="0"/>
-                                          <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="SnippetEdit9" min="-2" pref="21" max="-2" attributes="0"/>
-                                          <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="SnippetEdit10" min="-2" pref="21" max="-2" attributes="0"/>
-                                          <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="SnippetEdit11" min="-2" pref="21" max="-2" attributes="0"/>
-                                          <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="SnippetEdit12" min="-2" pref="21" max="-2" attributes="0"/>
-                                          <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="SnippetEdit13" min="-2" pref="21" max="-2" attributes="0"/>
-                                          <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="SnippetEdit14" min="-2" pref="21" max="-2" attributes="0"/>
-                                          <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="SnippetEdit15" min="-2" pref="21" max="-2" attributes="0"/>
-                                          <EmptySpace pref="216" max="32767" attributes="0"/>
-                                      </Group>
-                                  </Group>
-                                </DimensionLayout>
+                              <Layout class="org.netbeans.modules.form.compat2.layouts.DesignGridLayout">
+                                <Property name="columns" type="int" value="1"/>
+                                <Property name="rows" type="int" value="16"/>
                               </Layout>
                               <SubComponents>
                                 <Component class="javax.swing.JButton" name="SnippetEdit0">
@@ -3865,165 +3488,170 @@
                                 </Component>
                               </SubComponents>
                             </Container>
-                            <Container class="javax.swing.JLayeredPane" name="SnippetTopPane">
-                              <Properties>
-                                <Property name="opaque" type="boolean" value="true"/>
-                              </Properties>
+                            <Container class="javax.swing.JLayeredPane" name="jLayeredPane4">
 
-                              <Layout>
-                                <DimensionLayout dim="0">
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Group type="102" attributes="0">
-                                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                              <Group type="102" attributes="0">
-                                                  <Component id="SnippetSave" min="-2" max="-2" attributes="0"/>
-                                                  <EmptySpace max="-2" attributes="0"/>
-                                                  <Component id="SnippetCancelEdit" min="-2" max="-2" attributes="0"/>
-                                              </Group>
-                                              <Component id="SnippetName" max="32767" attributes="0"/>
-                                          </Group>
-                                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                          <Group type="103" groupAlignment="0" attributes="0">
-                                              <Component id="SnippetsBusy" min="-2" pref="70" max="-2" attributes="0"/>
-                                              <Group type="102" alignment="0" attributes="0">
-                                                  <Component id="SnippetRun" min="-2" pref="70" max="-2" attributes="0"/>
-                                                  <EmptySpace max="-2" attributes="0"/>
-                                                  <Component id="Condensed" min="-2" max="-2" attributes="0"/>
-                                              </Group>
-                                          </Group>
-                                          <EmptySpace max="32767" attributes="0"/>
-                                      </Group>
-                                  </Group>
-                                </DimensionLayout>
-                                <DimensionLayout dim="1">
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Group type="102" attributes="0">
-                                          <Group type="103" groupAlignment="3" attributes="0">
-                                              <Component id="SnippetName" alignment="3" min="-2" max="-2" attributes="0"/>
-                                              <Component id="SnippetsBusy" alignment="3" min="-2" max="-2" attributes="0"/>
-                                          </Group>
-                                          <EmptySpace max="-2" attributes="0"/>
-                                          <Group type="103" groupAlignment="3" attributes="0">
-                                              <Component id="SnippetSave" alignment="3" min="-2" max="-2" attributes="0"/>
-                                              <Component id="SnippetRun" alignment="3" min="-2" max="-2" attributes="0"/>
-                                              <Component id="SnippetCancelEdit" alignment="3" min="-2" max="-2" attributes="0"/>
-                                              <Component id="Condensed" alignment="3" min="-2" max="-2" attributes="0"/>
-                                          </Group>
-                                      </Group>
-                                  </Group>
-                                </DimensionLayout>
+                              <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBoxLayout">
+                                <Property name="axis" type="int" value="3"/>
                               </Layout>
                               <SubComponents>
-                                <Component class="javax.swing.JTextField" name="SnippetName">
-                                  <Properties>
-                                    <Property name="enabled" type="boolean" value="false"/>
-                                  </Properties>
-                                </Component>
-                                <Component class="javax.swing.JButton" name="SnippetSave">
-                                  <Properties>
-                                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                                      <Font name="Tahoma" size="10" style="0"/>
-                                    </Property>
-                                    <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                                      <Image iconType="3" name="/resources/save.png"/>
-                                    </Property>
-                                    <Property name="text" type="java.lang.String" value="Save"/>
-                                    <Property name="toolTipText" type="java.lang.String" value="Save snippet to disk"/>
-                                    <Property name="enabled" type="boolean" value="false"/>
-                                    <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
-                                      <Insets value="[2, 2, 2, 2]"/>
-                                    </Property>
-                                  </Properties>
-                                  <Events>
-                                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="SnippetSaveActionPerformed"/>
-                                  </Events>
-                                </Component>
-                                <Component class="javax.swing.JButton" name="SnippetRun">
-                                  <Properties>
-                                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                                      <Font name="Tahoma" size="10" style="0"/>
-                                    </Property>
-                                    <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                                      <Image iconType="3" name="/resources/server1_start.png"/>
-                                    </Property>
-                                    <Property name="text" type="java.lang.String" value="Run"/>
-                                    <Property name="toolTipText" type="java.lang.String" value="Run snippet"/>
-                                    <Property name="enabled" type="boolean" value="false"/>
-                                    <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
-                                      <Insets value="[2, 2, 2, 2]"/>
-                                    </Property>
-                                  </Properties>
-                                  <Events>
-                                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="SnippetRunActionPerformed"/>
-                                  </Events>
-                                </Component>
-                                <Component class="javax.swing.JLabel" name="SnippetsBusy">
-                                  <Properties>
-                                    <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                                      <Color blue="0" green="99" red="0" type="rgb"/>
-                                    </Property>
-                                    <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                                      <Color blue="ff" green="ff" red="ff" type="rgb"/>
-                                    </Property>
-                                    <Property name="horizontalAlignment" type="int" value="0"/>
-                                    <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                                      <Image iconType="3" name="/resources/led_grey.png"/>
-                                    </Property>
-                                    <Property name="text" type="java.lang.String" value="IDLE"/>
-                                    <Property name="opaque" type="boolean" value="true"/>
-                                  </Properties>
-                                </Component>
-                                <Component class="javax.swing.JButton" name="SnippetCancelEdit">
-                                  <Properties>
-                                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                                      <Font name="Tahoma" size="10" style="0"/>
-                                    </Property>
-                                    <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                                      <Image iconType="3" name="/resources/abort.png"/>
-                                    </Property>
-                                    <Property name="text" type="java.lang.String" value="Cancel"/>
-                                    <Property name="toolTipText" type="java.lang.String" value="Cancel edit and clear editor window"/>
-                                    <Property name="enabled" type="boolean" value="false"/>
-                                    <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
-                                      <Insets value="[2, 2, 2, 2]"/>
-                                    </Property>
-                                  </Properties>
-                                  <Events>
-                                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="SnippetCancelEditActionPerformed"/>
-                                  </Events>
-                                </Component>
-                                <Component class="javax.swing.JCheckBox" name="Condensed">
-                                  <Properties>
-                                    <Property name="text" type="java.lang.String" value="Condensed executing"/>
-                                  </Properties>
-                                  <Events>
-                                    <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="CondensedItemStateChanged"/>
-                                  </Events>
-                                </Component>
-                              </SubComponents>
-                            </Container>
-                            <Container class="org.fife.ui.rtextarea.RTextScrollPane" name="SnippetScrollPane">
-                              <Properties>
-                                <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-                                  <Border info="org.netbeans.modules.form.compat2.border.EtchedBorderInfo">
-                                    <EtchetBorder/>
-                                  </Border>
-                                </Property>
-                                <Property name="verticalScrollBarPolicy" type="int" value="20"/>
-                                <Property name="enabled" type="boolean" value="false"/>
-                                <Property name="lineNumbersEnabled" type="boolean" value="true"/>
-                              </Properties>
+                                <Container class="javax.swing.JLayeredPane" name="SnippetTopPane">
 
-                              <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
-                              <SubComponents>
-                                <Component class="org.fife.ui.rsyntaxtextarea.RSyntaxTextArea" name="SnippetText">
+                                  <Layout>
+                                    <DimensionLayout dim="0">
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Group type="102" attributes="0">
+                                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                                  <Group type="102" attributes="0">
+                                                      <Component id="SnippetSave" min="-2" max="-2" attributes="0"/>
+                                                      <EmptySpace max="-2" attributes="0"/>
+                                                      <Component id="SnippetCancelEdit" min="-2" max="-2" attributes="0"/>
+                                                  </Group>
+                                                  <Component id="SnippetName" max="32767" attributes="0"/>
+                                              </Group>
+                                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                              <Group type="103" groupAlignment="0" attributes="0">
+                                                  <Component id="SnippetsBusy" min="-2" pref="70" max="-2" attributes="0"/>
+                                                  <Group type="102" alignment="0" attributes="0">
+                                                      <Component id="SnippetRun" min="-2" pref="70" max="-2" attributes="0"/>
+                                                      <EmptySpace max="-2" attributes="0"/>
+                                                      <Component id="Condensed" min="-2" max="-2" attributes="0"/>
+                                                  </Group>
+                                              </Group>
+                                              <EmptySpace max="32767" attributes="0"/>
+                                          </Group>
+                                      </Group>
+                                    </DimensionLayout>
+                                    <DimensionLayout dim="1">
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Group type="102" attributes="0">
+                                              <Group type="103" groupAlignment="3" attributes="0">
+                                                  <Component id="SnippetName" alignment="3" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="SnippetsBusy" alignment="3" min="-2" max="-2" attributes="0"/>
+                                              </Group>
+                                              <EmptySpace max="-2" attributes="0"/>
+                                              <Group type="103" groupAlignment="3" attributes="0">
+                                                  <Component id="SnippetSave" alignment="3" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="SnippetRun" alignment="3" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="SnippetCancelEdit" alignment="3" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="Condensed" alignment="3" min="-2" max="-2" attributes="0"/>
+                                              </Group>
+                                          </Group>
+                                      </Group>
+                                    </DimensionLayout>
+                                  </Layout>
+                                  <SubComponents>
+                                    <Component class="javax.swing.JTextField" name="SnippetName">
+                                      <Properties>
+                                        <Property name="enabled" type="boolean" value="false"/>
+                                      </Properties>
+                                    </Component>
+                                    <Component class="javax.swing.JButton" name="SnippetSave">
+                                      <Properties>
+                                        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                                          <Font name="Tahoma" size="10" style="0"/>
+                                        </Property>
+                                        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                                          <Image iconType="3" name="/resources/save.png"/>
+                                        </Property>
+                                        <Property name="text" type="java.lang.String" value="Save"/>
+                                        <Property name="toolTipText" type="java.lang.String" value="Save snippet to disk"/>
+                                        <Property name="enabled" type="boolean" value="false"/>
+                                        <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
+                                          <Insets value="[2, 2, 2, 2]"/>
+                                        </Property>
+                                      </Properties>
+                                      <Events>
+                                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="SnippetSaveActionPerformed"/>
+                                      </Events>
+                                    </Component>
+                                    <Component class="javax.swing.JButton" name="SnippetRun">
+                                      <Properties>
+                                        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                                          <Font name="Tahoma" size="10" style="0"/>
+                                        </Property>
+                                        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                                          <Image iconType="3" name="/resources/server1_start.png"/>
+                                        </Property>
+                                        <Property name="text" type="java.lang.String" value="Run"/>
+                                        <Property name="toolTipText" type="java.lang.String" value="Run snippet"/>
+                                        <Property name="enabled" type="boolean" value="false"/>
+                                        <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
+                                          <Insets value="[2, 2, 2, 2]"/>
+                                        </Property>
+                                      </Properties>
+                                      <Events>
+                                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="SnippetRunActionPerformed"/>
+                                      </Events>
+                                    </Component>
+                                    <Component class="javax.swing.JLabel" name="SnippetsBusy">
+                                      <Properties>
+                                        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                                          <Color blue="0" green="99" red="0" type="rgb"/>
+                                        </Property>
+                                        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                                          <Color blue="ff" green="ff" red="ff" type="rgb"/>
+                                        </Property>
+                                        <Property name="horizontalAlignment" type="int" value="0"/>
+                                        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                                          <Image iconType="3" name="/resources/led_grey.png"/>
+                                        </Property>
+                                        <Property name="text" type="java.lang.String" value="IDLE"/>
+                                        <Property name="opaque" type="boolean" value="true"/>
+                                      </Properties>
+                                    </Component>
+                                    <Component class="javax.swing.JButton" name="SnippetCancelEdit">
+                                      <Properties>
+                                        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                                          <Font name="Tahoma" size="10" style="0"/>
+                                        </Property>
+                                        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                                          <Image iconType="3" name="/resources/abort.png"/>
+                                        </Property>
+                                        <Property name="text" type="java.lang.String" value="Cancel"/>
+                                        <Property name="toolTipText" type="java.lang.String" value="Cancel edit and clear editor window"/>
+                                        <Property name="enabled" type="boolean" value="false"/>
+                                        <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
+                                          <Insets value="[2, 2, 2, 2]"/>
+                                        </Property>
+                                      </Properties>
+                                      <Events>
+                                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="SnippetCancelEditActionPerformed"/>
+                                      </Events>
+                                    </Component>
+                                    <Component class="javax.swing.JCheckBox" name="Condensed">
+                                      <Properties>
+                                        <Property name="text" type="java.lang.String" value="Condensed executing"/>
+                                      </Properties>
+                                      <Events>
+                                        <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="CondensedItemStateChanged"/>
+                                      </Events>
+                                    </Component>
+                                  </SubComponents>
+                                </Container>
+                                <Container class="org.fife.ui.rtextarea.RTextScrollPane" name="SnippetScrollPane">
                                   <Properties>
-                                    <Property name="editable" type="boolean" value="false"/>
-                                    <Property name="columns" type="int" value="20"/>
-                                    <Property name="rows" type="int" value="5"/>
+                                    <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+                                      <Border info="org.netbeans.modules.form.compat2.border.EtchedBorderInfo">
+                                        <EtchetBorder/>
+                                      </Border>
+                                    </Property>
+                                    <Property name="verticalScrollBarPolicy" type="int" value="20"/>
                                     <Property name="enabled" type="boolean" value="false"/>
+                                    <Property name="lineNumbersEnabled" type="boolean" value="true"/>
                                   </Properties>
-                                </Component>
+
+                                  <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+                                  <SubComponents>
+                                    <Component class="org.fife.ui.rsyntaxtextarea.RSyntaxTextArea" name="SnippetText">
+                                      <Properties>
+                                        <Property name="editable" type="boolean" value="false"/>
+                                        <Property name="columns" type="int" value="20"/>
+                                        <Property name="rows" type="int" value="5"/>
+                                        <Property name="enabled" type="boolean" value="false"/>
+                                      </Properties>
+                                    </Component>
+                                  </SubComponents>
+                                </Container>
                               </SubComponents>
                             </Container>
                           </SubComponents>

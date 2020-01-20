@@ -247,6 +247,7 @@ public class ESPlorer extends javax.swing.JFrame {
         SnippetEdit13 = new javax.swing.JButton();
         SnippetEdit14 = new javax.swing.JButton();
         SnippetEdit15 = new javax.swing.JButton();
+        jLayeredPane4 = new javax.swing.JLayeredPane();
         SnippetTopPane = new javax.swing.JLayeredPane();
         SnippetName = new javax.swing.JTextField();
         SnippetSave = new javax.swing.JButton();
@@ -974,14 +975,14 @@ public class ESPlorer extends javax.swing.JFrame {
             }
         });
         addWindowListener(new java.awt.event.WindowAdapter() {
-            public void windowClosed(java.awt.event.WindowEvent evt) {
-                formWindowClosed(evt);
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
             }
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 formWindowClosing(evt);
             }
-            public void windowOpened(java.awt.event.WindowEvent evt) {
-                formWindowOpened(evt);
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                formWindowClosed(evt);
             }
         });
 
@@ -1905,429 +1906,330 @@ public class ESPlorer extends javax.swing.JFrame {
 
         MicroPythonGPIO0_1.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         MicroPythonGPIO0_1.setText("GPIO0 -> 1");
-        MicroPythonGPIO0_1.setToolTipText("");
-        MicroPythonGPIO0_1.setMaximumSize(new java.awt.Dimension(90, 30));
-        MicroPythonGPIO0_1.setMinimumSize(new java.awt.Dimension(90, 30));
-        MicroPythonGPIO0_1.setPreferredSize(new java.awt.Dimension(90, 30));
+        MicroPythonGPIO0_1.setActionCommand("0");
         MicroPythonGPIO0_1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                MicroPythonGPIO0_1ActionPerformed(evt);
+                MicroPythonSetGPIOHigh(evt);
             }
         });
         MicroPythonCommandsGPIO.add(MicroPythonGPIO0_1);
 
         MicroPythonGPIO0_0.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         MicroPythonGPIO0_0.setText("GPIO0 -> 0");
-        MicroPythonGPIO0_0.setToolTipText("");
-        MicroPythonGPIO0_0.setMaximumSize(new java.awt.Dimension(90, 30));
-        MicroPythonGPIO0_0.setMinimumSize(new java.awt.Dimension(90, 30));
-        MicroPythonGPIO0_0.setPreferredSize(new java.awt.Dimension(90, 30));
+        MicroPythonGPIO0_0.setActionCommand("0");
         MicroPythonGPIO0_0.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                MicroPythonGPIO0_0ActionPerformed(evt);
+                MicroPythonSetGPIOLow(evt);
             }
         });
         MicroPythonCommandsGPIO.add(MicroPythonGPIO0_0);
 
         MicroPythonGPIO0.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         MicroPythonGPIO0.setText("GPIO0 ?");
-        MicroPythonGPIO0.setToolTipText("");
-        MicroPythonGPIO0.setMaximumSize(new java.awt.Dimension(90, 30));
-        MicroPythonGPIO0.setMinimumSize(new java.awt.Dimension(90, 30));
-        MicroPythonGPIO0.setPreferredSize(new java.awt.Dimension(90, 30));
+        MicroPythonGPIO0.setActionCommand("0");
         MicroPythonGPIO0.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                MicroPythonGPIO0ActionPerformed(evt);
+                MicroPythonGetGPIOLevel(evt);
             }
         });
         MicroPythonCommandsGPIO.add(MicroPythonGPIO0);
 
         MicroPythonGPIO2_1.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         MicroPythonGPIO2_1.setText("GPIO2 -> 1");
-        MicroPythonGPIO2_1.setToolTipText("");
-        MicroPythonGPIO2_1.setMaximumSize(new java.awt.Dimension(90, 30));
-        MicroPythonGPIO2_1.setMinimumSize(new java.awt.Dimension(90, 30));
-        MicroPythonGPIO2_1.setPreferredSize(new java.awt.Dimension(90, 30));
+        MicroPythonGPIO2_1.setActionCommand("2");
         MicroPythonGPIO2_1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                MicroPythonGPIO2_1ActionPerformed(evt);
+                MicroPythonSetGPIOHigh(evt);
             }
         });
         MicroPythonCommandsGPIO.add(MicroPythonGPIO2_1);
 
         MicroPythonGPIO2_0.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         MicroPythonGPIO2_0.setText("GPIO2 -> 0");
-        MicroPythonGPIO2_0.setToolTipText("");
-        MicroPythonGPIO2_0.setMaximumSize(new java.awt.Dimension(90, 30));
-        MicroPythonGPIO2_0.setMinimumSize(new java.awt.Dimension(90, 30));
-        MicroPythonGPIO2_0.setPreferredSize(new java.awt.Dimension(90, 30));
+        MicroPythonGPIO2_0.setActionCommand("2");
         MicroPythonGPIO2_0.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                MicroPythonGPIO2_0ActionPerformed(evt);
+                MicroPythonSetGPIOLow(evt);
             }
         });
         MicroPythonCommandsGPIO.add(MicroPythonGPIO2_0);
 
         MicroPythonGPIO2.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         MicroPythonGPIO2.setText("GPIO2 ?");
-        MicroPythonGPIO2.setToolTipText("");
-        MicroPythonGPIO2.setMaximumSize(new java.awt.Dimension(90, 30));
-        MicroPythonGPIO2.setMinimumSize(new java.awt.Dimension(90, 30));
-        MicroPythonGPIO2.setPreferredSize(new java.awt.Dimension(90, 30));
+        MicroPythonGPIO2.setActionCommand("2");
         MicroPythonGPIO2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                MicroPythonGPIO2ActionPerformed(evt);
+                MicroPythonGetGPIOLevel(evt);
             }
         });
         MicroPythonCommandsGPIO.add(MicroPythonGPIO2);
 
         MicroPythonGPIO4_1.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         MicroPythonGPIO4_1.setText("GPIO4 -> 1");
-        MicroPythonGPIO4_1.setToolTipText("");
-        MicroPythonGPIO4_1.setMaximumSize(new java.awt.Dimension(90, 30));
-        MicroPythonGPIO4_1.setMinimumSize(new java.awt.Dimension(90, 30));
-        MicroPythonGPIO4_1.setPreferredSize(new java.awt.Dimension(90, 30));
+        MicroPythonGPIO4_1.setActionCommand("4");
         MicroPythonGPIO4_1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                MicroPythonGPIO4_1ActionPerformed(evt);
+                MicroPythonSetGPIOHigh(evt);
             }
         });
         MicroPythonCommandsGPIO.add(MicroPythonGPIO4_1);
 
         MicroPythonGPIO4_0.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         MicroPythonGPIO4_0.setText("GPIO4 -> 0");
-        MicroPythonGPIO4_0.setToolTipText("");
-        MicroPythonGPIO4_0.setMaximumSize(new java.awt.Dimension(90, 30));
-        MicroPythonGPIO4_0.setMinimumSize(new java.awt.Dimension(90, 30));
-        MicroPythonGPIO4_0.setPreferredSize(new java.awt.Dimension(90, 30));
+        MicroPythonGPIO4_0.setActionCommand("4");
         MicroPythonGPIO4_0.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                MicroPythonGPIO4_0ActionPerformed(evt);
+                MicroPythonSetGPIOLow(evt);
             }
         });
         MicroPythonCommandsGPIO.add(MicroPythonGPIO4_0);
 
         MicroPythonGPIO4.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         MicroPythonGPIO4.setText("GPIO4 ?");
-        MicroPythonGPIO4.setToolTipText("");
-        MicroPythonGPIO4.setMaximumSize(new java.awt.Dimension(90, 30));
-        MicroPythonGPIO4.setMinimumSize(new java.awt.Dimension(90, 30));
-        MicroPythonGPIO4.setPreferredSize(new java.awt.Dimension(90, 30));
+        MicroPythonGPIO4.setActionCommand("4");
         MicroPythonGPIO4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                MicroPythonGPIO4ActionPerformed(evt);
+                MicroPythonGetGPIOLevel(evt);
             }
         });
         MicroPythonCommandsGPIO.add(MicroPythonGPIO4);
 
         MicroPythonGPIO5_1.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         MicroPythonGPIO5_1.setText("GPIO5 -> 1");
-        MicroPythonGPIO5_1.setToolTipText("");
-        MicroPythonGPIO5_1.setMaximumSize(new java.awt.Dimension(90, 30));
-        MicroPythonGPIO5_1.setMinimumSize(new java.awt.Dimension(90, 30));
-        MicroPythonGPIO5_1.setPreferredSize(new java.awt.Dimension(90, 30));
+        MicroPythonGPIO5_1.setActionCommand("5");
         MicroPythonGPIO5_1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                MicroPythonGPIO5_1ActionPerformed(evt);
+                MicroPythonSetGPIOHigh(evt);
             }
         });
         MicroPythonCommandsGPIO.add(MicroPythonGPIO5_1);
 
         MicroPythonGPIO5_0.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         MicroPythonGPIO5_0.setText("GPIO5 -> 0");
-        MicroPythonGPIO5_0.setToolTipText("");
-        MicroPythonGPIO5_0.setMaximumSize(new java.awt.Dimension(90, 30));
-        MicroPythonGPIO5_0.setMinimumSize(new java.awt.Dimension(90, 30));
-        MicroPythonGPIO5_0.setPreferredSize(new java.awt.Dimension(90, 30));
+        MicroPythonGPIO5_0.setActionCommand("5");
         MicroPythonGPIO5_0.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                MicroPythonGPIO5_0ActionPerformed(evt);
+                MicroPythonSetGPIOLow(evt);
             }
         });
         MicroPythonCommandsGPIO.add(MicroPythonGPIO5_0);
 
         MicroPythonGPIO5.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         MicroPythonGPIO5.setText("GPIO5 ?");
-        MicroPythonGPIO5.setToolTipText("");
-        MicroPythonGPIO5.setMaximumSize(new java.awt.Dimension(90, 30));
-        MicroPythonGPIO5.setMinimumSize(new java.awt.Dimension(90, 30));
-        MicroPythonGPIO5.setPreferredSize(new java.awt.Dimension(90, 30));
+        MicroPythonGPIO5.setActionCommand("5");
         MicroPythonGPIO5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                MicroPythonGPIO5ActionPerformed(evt);
+                MicroPythonGetGPIOLevel(evt);
             }
         });
         MicroPythonCommandsGPIO.add(MicroPythonGPIO5);
 
         MicroPythonGPIO9_1.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         MicroPythonGPIO9_1.setText("GPIO9 -> 1");
-        MicroPythonGPIO9_1.setToolTipText("");
-        MicroPythonGPIO9_1.setMaximumSize(new java.awt.Dimension(90, 30));
-        MicroPythonGPIO9_1.setMinimumSize(new java.awt.Dimension(90, 30));
-        MicroPythonGPIO9_1.setPreferredSize(new java.awt.Dimension(90, 30));
+        MicroPythonGPIO9_1.setActionCommand("9");
         MicroPythonGPIO9_1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                MicroPythonGPIO9_1ActionPerformed(evt);
+                MicroPythonSetGPIOHigh(evt);
             }
         });
         MicroPythonCommandsGPIO.add(MicroPythonGPIO9_1);
 
         MicroPythonGPIO9_0.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         MicroPythonGPIO9_0.setText("GPIO9 -> 0");
-        MicroPythonGPIO9_0.setToolTipText("");
-        MicroPythonGPIO9_0.setMaximumSize(new java.awt.Dimension(90, 30));
-        MicroPythonGPIO9_0.setMinimumSize(new java.awt.Dimension(90, 30));
-        MicroPythonGPIO9_0.setPreferredSize(new java.awt.Dimension(90, 30));
+        MicroPythonGPIO9_0.setActionCommand("9");
         MicroPythonGPIO9_0.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                MicroPythonGPIO9_0ActionPerformed(evt);
+                MicroPythonSetGPIOLow(evt);
             }
         });
         MicroPythonCommandsGPIO.add(MicroPythonGPIO9_0);
 
         MicroPythonGPIO9.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         MicroPythonGPIO9.setText("GPIO9 ?");
-        MicroPythonGPIO9.setToolTipText("");
-        MicroPythonGPIO9.setMaximumSize(new java.awt.Dimension(90, 30));
-        MicroPythonGPIO9.setMinimumSize(new java.awt.Dimension(90, 30));
-        MicroPythonGPIO9.setPreferredSize(new java.awt.Dimension(90, 30));
+        MicroPythonGPIO9.setActionCommand("9");
         MicroPythonGPIO9.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                MicroPythonGPIO9ActionPerformed(evt);
+                MicroPythonGetGPIOLevel(evt);
             }
         });
         MicroPythonCommandsGPIO.add(MicroPythonGPIO9);
 
         MicroPythonGPIO10_1.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         MicroPythonGPIO10_1.setText("GPIO10 -> 1");
-        MicroPythonGPIO10_1.setToolTipText("");
-        MicroPythonGPIO10_1.setMaximumSize(new java.awt.Dimension(90, 30));
-        MicroPythonGPIO10_1.setMinimumSize(new java.awt.Dimension(90, 30));
-        MicroPythonGPIO10_1.setPreferredSize(new java.awt.Dimension(90, 30));
+        MicroPythonGPIO10_1.setActionCommand("10");
         MicroPythonGPIO10_1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                MicroPythonGPIO10_1ActionPerformed(evt);
+                MicroPythonSetGPIOHigh(evt);
             }
         });
         MicroPythonCommandsGPIO.add(MicroPythonGPIO10_1);
 
         MicroPythonGPIO10_0.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         MicroPythonGPIO10_0.setText("GPIO10 -> 0");
-        MicroPythonGPIO10_0.setToolTipText("");
-        MicroPythonGPIO10_0.setMaximumSize(new java.awt.Dimension(90, 30));
-        MicroPythonGPIO10_0.setMinimumSize(new java.awt.Dimension(90, 30));
-        MicroPythonGPIO10_0.setPreferredSize(new java.awt.Dimension(90, 30));
+        MicroPythonGPIO10_0.setActionCommand("10");
         MicroPythonGPIO10_0.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                MicroPythonGPIO10_0ActionPerformed(evt);
+                MicroPythonSetGPIOLow(evt);
             }
         });
         MicroPythonCommandsGPIO.add(MicroPythonGPIO10_0);
 
         MicroPythonGPIO10.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         MicroPythonGPIO10.setText("GPIO10 ?");
-        MicroPythonGPIO10.setToolTipText("");
-        MicroPythonGPIO10.setMaximumSize(new java.awt.Dimension(90, 30));
-        MicroPythonGPIO10.setMinimumSize(new java.awt.Dimension(90, 30));
-        MicroPythonGPIO10.setPreferredSize(new java.awt.Dimension(90, 30));
+        MicroPythonGPIO10.setActionCommand("10");
         MicroPythonGPIO10.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                MicroPythonGPIO10ActionPerformed(evt);
+                MicroPythonGetGPIOLevel(evt);
             }
         });
         MicroPythonCommandsGPIO.add(MicroPythonGPIO10);
 
         MicroPythonGPIO12_1.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         MicroPythonGPIO12_1.setText("GPIO12 -> 1");
-        MicroPythonGPIO12_1.setToolTipText("");
-        MicroPythonGPIO12_1.setMaximumSize(new java.awt.Dimension(90, 30));
-        MicroPythonGPIO12_1.setMinimumSize(new java.awt.Dimension(90, 30));
-        MicroPythonGPIO12_1.setPreferredSize(new java.awt.Dimension(90, 30));
+        MicroPythonGPIO12_1.setActionCommand("12");
         MicroPythonGPIO12_1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                MicroPythonGPIO12_1ActionPerformed(evt);
+                MicroPythonSetGPIOHigh(evt);
             }
         });
         MicroPythonCommandsGPIO.add(MicroPythonGPIO12_1);
 
         MicroPythonGPIO12_0.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         MicroPythonGPIO12_0.setText("GPIO12 -> 0");
-        MicroPythonGPIO12_0.setToolTipText("");
-        MicroPythonGPIO12_0.setMaximumSize(new java.awt.Dimension(90, 30));
-        MicroPythonGPIO12_0.setMinimumSize(new java.awt.Dimension(90, 30));
-        MicroPythonGPIO12_0.setPreferredSize(new java.awt.Dimension(90, 30));
+        MicroPythonGPIO12_0.setActionCommand("12");
         MicroPythonGPIO12_0.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                MicroPythonGPIO12_0ActionPerformed(evt);
+                MicroPythonSetGPIOLow(evt);
             }
         });
         MicroPythonCommandsGPIO.add(MicroPythonGPIO12_0);
 
         MicroPythonGPIO12.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         MicroPythonGPIO12.setText("GPIO12 ?");
-        MicroPythonGPIO12.setToolTipText("");
-        MicroPythonGPIO12.setMaximumSize(new java.awt.Dimension(90, 30));
-        MicroPythonGPIO12.setMinimumSize(new java.awt.Dimension(90, 30));
-        MicroPythonGPIO12.setPreferredSize(new java.awt.Dimension(90, 30));
+        MicroPythonGPIO12.setActionCommand("12");
         MicroPythonGPIO12.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                MicroPythonGPIO12ActionPerformed(evt);
+                MicroPythonGetGPIOLevel(evt);
             }
         });
         MicroPythonCommandsGPIO.add(MicroPythonGPIO12);
 
         MicroPythonGPIO13_1.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         MicroPythonGPIO13_1.setText("GPIO13 -> 1");
-        MicroPythonGPIO13_1.setToolTipText("");
-        MicroPythonGPIO13_1.setMaximumSize(new java.awt.Dimension(90, 30));
-        MicroPythonGPIO13_1.setMinimumSize(new java.awt.Dimension(90, 30));
-        MicroPythonGPIO13_1.setPreferredSize(new java.awt.Dimension(90, 30));
+        MicroPythonGPIO13_1.setActionCommand("13");
         MicroPythonGPIO13_1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                MicroPythonGPIO13_1ActionPerformed(evt);
+                MicroPythonSetGPIOHigh(evt);
             }
         });
         MicroPythonCommandsGPIO.add(MicroPythonGPIO13_1);
 
         MicroPythonGPIO13_0.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         MicroPythonGPIO13_0.setText("GPIO13 -> 0");
-        MicroPythonGPIO13_0.setToolTipText("");
-        MicroPythonGPIO13_0.setMaximumSize(new java.awt.Dimension(90, 30));
-        MicroPythonGPIO13_0.setMinimumSize(new java.awt.Dimension(90, 30));
-        MicroPythonGPIO13_0.setPreferredSize(new java.awt.Dimension(90, 30));
+        MicroPythonGPIO13_0.setActionCommand("13");
         MicroPythonGPIO13_0.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                MicroPythonGPIO13_0ActionPerformed(evt);
+                MicroPythonSetGPIOLow(evt);
             }
         });
         MicroPythonCommandsGPIO.add(MicroPythonGPIO13_0);
 
         MicroPythonGPIO13.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         MicroPythonGPIO13.setText("GPIO13 ?");
-        MicroPythonGPIO13.setToolTipText("");
-        MicroPythonGPIO13.setMaximumSize(new java.awt.Dimension(90, 30));
-        MicroPythonGPIO13.setMinimumSize(new java.awt.Dimension(90, 30));
-        MicroPythonGPIO13.setPreferredSize(new java.awt.Dimension(90, 30));
+        MicroPythonGPIO13.setActionCommand("13");
         MicroPythonGPIO13.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                MicroPythonGPIO13ActionPerformed(evt);
+                MicroPythonGetGPIOLevel(evt);
             }
         });
         MicroPythonCommandsGPIO.add(MicroPythonGPIO13);
 
         MicroPythonGPIO14_1.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         MicroPythonGPIO14_1.setText("GPIO14 -> 1");
-        MicroPythonGPIO14_1.setToolTipText("");
-        MicroPythonGPIO14_1.setMaximumSize(new java.awt.Dimension(90, 30));
-        MicroPythonGPIO14_1.setMinimumSize(new java.awt.Dimension(90, 30));
-        MicroPythonGPIO14_1.setPreferredSize(new java.awt.Dimension(90, 30));
+        MicroPythonGPIO14_1.setActionCommand("14");
         MicroPythonGPIO14_1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                MicroPythonGPIO14_1ActionPerformed(evt);
+                MicroPythonSetGPIOHigh(evt);
             }
         });
         MicroPythonCommandsGPIO.add(MicroPythonGPIO14_1);
 
         MicroPythonGPIO14_0.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         MicroPythonGPIO14_0.setText("GPIO14 -> 0");
-        MicroPythonGPIO14_0.setToolTipText("");
-        MicroPythonGPIO14_0.setMaximumSize(new java.awt.Dimension(90, 30));
-        MicroPythonGPIO14_0.setMinimumSize(new java.awt.Dimension(90, 30));
-        MicroPythonGPIO14_0.setPreferredSize(new java.awt.Dimension(90, 30));
+        MicroPythonGPIO14_0.setActionCommand("14");
         MicroPythonGPIO14_0.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                MicroPythonGPIO14_0ActionPerformed(evt);
+                MicroPythonSetGPIOLow(evt);
             }
         });
         MicroPythonCommandsGPIO.add(MicroPythonGPIO14_0);
 
         MicroPythonGPIO14.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         MicroPythonGPIO14.setText("GPIO14 ?");
-        MicroPythonGPIO14.setToolTipText("");
-        MicroPythonGPIO14.setMaximumSize(new java.awt.Dimension(90, 30));
-        MicroPythonGPIO14.setMinimumSize(new java.awt.Dimension(90, 30));
-        MicroPythonGPIO14.setPreferredSize(new java.awt.Dimension(90, 30));
+        MicroPythonGPIO14.setActionCommand("14");
         MicroPythonGPIO14.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                MicroPythonGPIO14ActionPerformed(evt);
+                MicroPythonGetGPIOLevel(evt);
             }
         });
         MicroPythonCommandsGPIO.add(MicroPythonGPIO14);
 
         MicroPythonGPIO15_1.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         MicroPythonGPIO15_1.setText("GPIO15 -> 1");
-        MicroPythonGPIO15_1.setToolTipText("");
-        MicroPythonGPIO15_1.setMaximumSize(new java.awt.Dimension(90, 30));
-        MicroPythonGPIO15_1.setMinimumSize(new java.awt.Dimension(90, 30));
-        MicroPythonGPIO15_1.setPreferredSize(new java.awt.Dimension(90, 30));
+        MicroPythonGPIO15_1.setActionCommand("15");
         MicroPythonGPIO15_1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                MicroPythonGPIO15_1ActionPerformed(evt);
+                MicroPythonSetGPIOHigh(evt);
             }
         });
         MicroPythonCommandsGPIO.add(MicroPythonGPIO15_1);
 
         MicroPythonGPIO15_0.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         MicroPythonGPIO15_0.setText("GPIO15 -> 0");
-        MicroPythonGPIO15_0.setToolTipText("");
-        MicroPythonGPIO15_0.setMaximumSize(new java.awt.Dimension(90, 30));
-        MicroPythonGPIO15_0.setMinimumSize(new java.awt.Dimension(90, 30));
-        MicroPythonGPIO15_0.setPreferredSize(new java.awt.Dimension(90, 30));
+        MicroPythonGPIO15_0.setActionCommand("15");
         MicroPythonGPIO15_0.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                MicroPythonGPIO15_0ActionPerformed(evt);
+                MicroPythonSetGPIOLow(evt);
             }
         });
         MicroPythonCommandsGPIO.add(MicroPythonGPIO15_0);
 
         MicroPythonGPIO15.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         MicroPythonGPIO15.setText("GPIO15 ?");
-        MicroPythonGPIO15.setToolTipText("");
-        MicroPythonGPIO15.setMaximumSize(new java.awt.Dimension(90, 30));
-        MicroPythonGPIO15.setMinimumSize(new java.awt.Dimension(90, 30));
-        MicroPythonGPIO15.setPreferredSize(new java.awt.Dimension(90, 30));
+        MicroPythonGPIO15.setActionCommand("15");
         MicroPythonGPIO15.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                MicroPythonGPIO15ActionPerformed(evt);
+                MicroPythonGetGPIOLevel(evt);
             }
         });
         MicroPythonCommandsGPIO.add(MicroPythonGPIO15);
 
         MicroPythonGPIO16_1.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         MicroPythonGPIO16_1.setText("GPIO16 -> 1");
-        MicroPythonGPIO16_1.setToolTipText("");
-        MicroPythonGPIO16_1.setMaximumSize(new java.awt.Dimension(90, 30));
-        MicroPythonGPIO16_1.setMinimumSize(new java.awt.Dimension(90, 30));
-        MicroPythonGPIO16_1.setPreferredSize(new java.awt.Dimension(90, 30));
+        MicroPythonGPIO16_1.setActionCommand("16");
         MicroPythonGPIO16_1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                MicroPythonGPIO16_1ActionPerformed(evt);
+                MicroPythonSetGPIOHigh(evt);
             }
         });
         MicroPythonCommandsGPIO.add(MicroPythonGPIO16_1);
 
         MicroPythonGPIO16_0.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         MicroPythonGPIO16_0.setText("GPIO16 -> 0");
-        MicroPythonGPIO16_0.setToolTipText("");
-        MicroPythonGPIO16_0.setMaximumSize(new java.awt.Dimension(90, 30));
-        MicroPythonGPIO16_0.setMinimumSize(new java.awt.Dimension(90, 30));
-        MicroPythonGPIO16_0.setPreferredSize(new java.awt.Dimension(90, 30));
+        MicroPythonGPIO16_0.setActionCommand("16");
         MicroPythonGPIO16_0.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                MicroPythonGPIO16_0ActionPerformed(evt);
+                MicroPythonSetGPIOLow(evt);
             }
         });
         MicroPythonCommandsGPIO.add(MicroPythonGPIO16_0);
 
         MicroPythonGPIO16.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         MicroPythonGPIO16.setText("GPIO16 ?");
-        MicroPythonGPIO16.setToolTipText("");
-        MicroPythonGPIO16.setMaximumSize(new java.awt.Dimension(90, 30));
-        MicroPythonGPIO16.setMinimumSize(new java.awt.Dimension(90, 30));
-        MicroPythonGPIO16.setPreferredSize(new java.awt.Dimension(90, 30));
+        MicroPythonGPIO16.setActionCommand("16");
         MicroPythonGPIO16.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                MicroPythonGPIO16ActionPerformed(evt);
+                MicroPythonGetGPIOLevel(evt);
             }
         });
         MicroPythonCommandsGPIO.add(MicroPythonGPIO16);
@@ -2338,9 +2240,10 @@ public class ESPlorer extends javax.swing.JFrame {
 
         TextTab.addTab("Commands", NodeMCUCommands);
 
-        NodeMCUSnippets.setOpaque(true);
+        NodeMCUSnippets.setLayout(new javax.swing.BoxLayout(NodeMCUSnippets, javax.swing.BoxLayout.LINE_AXIS));
 
-        LeftSnippetsPane.setOpaque(true);
+        LeftSnippetsPane.setMaximumSize(new java.awt.Dimension(150, 32767));
+        LeftSnippetsPane.setLayout(new java.awt.GridLayout(16, 1));
 
         SnippetEdit0.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         SnippetEdit0.setText("Edit Snippet0");
@@ -2349,6 +2252,7 @@ public class ESPlorer extends javax.swing.JFrame {
                 SnippetEdit0ActionPerformed(evt);
             }
         });
+        LeftSnippetsPane.add(SnippetEdit0);
 
         SnippetEdit1.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         SnippetEdit1.setText("Edit Snippet1");
@@ -2357,6 +2261,7 @@ public class ESPlorer extends javax.swing.JFrame {
                 SnippetEdit1ActionPerformed(evt);
             }
         });
+        LeftSnippetsPane.add(SnippetEdit1);
 
         SnippetEdit2.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         SnippetEdit2.setText("Edit Snippet2");
@@ -2365,6 +2270,7 @@ public class ESPlorer extends javax.swing.JFrame {
                 SnippetEdit2ActionPerformed(evt);
             }
         });
+        LeftSnippetsPane.add(SnippetEdit2);
 
         SnippetEdit3.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         SnippetEdit3.setText("Edit Snippet3");
@@ -2373,6 +2279,7 @@ public class ESPlorer extends javax.swing.JFrame {
                 SnippetEdit3ActionPerformed(evt);
             }
         });
+        LeftSnippetsPane.add(SnippetEdit3);
 
         SnippetEdit4.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         SnippetEdit4.setText("Edit Snippet4");
@@ -2381,6 +2288,7 @@ public class ESPlorer extends javax.swing.JFrame {
                 SnippetEdit4ActionPerformed(evt);
             }
         });
+        LeftSnippetsPane.add(SnippetEdit4);
 
         SnippetEdit5.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         SnippetEdit5.setText("Edit Snippet5");
@@ -2389,6 +2297,7 @@ public class ESPlorer extends javax.swing.JFrame {
                 SnippetEdit5ActionPerformed(evt);
             }
         });
+        LeftSnippetsPane.add(SnippetEdit5);
 
         SnippetEdit6.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         SnippetEdit6.setText("Edit Snippet6");
@@ -2397,6 +2306,7 @@ public class ESPlorer extends javax.swing.JFrame {
                 SnippetEdit6ActionPerformed(evt);
             }
         });
+        LeftSnippetsPane.add(SnippetEdit6);
 
         SnippetEdit7.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         SnippetEdit7.setText("Edit Snippet7");
@@ -2405,6 +2315,7 @@ public class ESPlorer extends javax.swing.JFrame {
                 SnippetEdit7ActionPerformed(evt);
             }
         });
+        LeftSnippetsPane.add(SnippetEdit7);
 
         SnippetEdit8.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         SnippetEdit8.setText("Edit Snippet8");
@@ -2413,6 +2324,7 @@ public class ESPlorer extends javax.swing.JFrame {
                 SnippetEdit8ActionPerformed(evt);
             }
         });
+        LeftSnippetsPane.add(SnippetEdit8);
 
         SnippetEdit9.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         SnippetEdit9.setText("Edit Snippet9");
@@ -2421,6 +2333,7 @@ public class ESPlorer extends javax.swing.JFrame {
                 SnippetEdit9ActionPerformed(evt);
             }
         });
+        LeftSnippetsPane.add(SnippetEdit9);
 
         SnippetEdit10.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         SnippetEdit10.setText("Edit Snippet10");
@@ -2429,6 +2342,7 @@ public class ESPlorer extends javax.swing.JFrame {
                 SnippetEdit10ActionPerformed(evt);
             }
         });
+        LeftSnippetsPane.add(SnippetEdit10);
 
         SnippetEdit11.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         SnippetEdit11.setText("Edit Snippet11");
@@ -2437,6 +2351,7 @@ public class ESPlorer extends javax.swing.JFrame {
                 SnippetEdit11ActionPerformed(evt);
             }
         });
+        LeftSnippetsPane.add(SnippetEdit11);
 
         SnippetEdit12.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         SnippetEdit12.setText("Edit Snippet12");
@@ -2445,6 +2360,7 @@ public class ESPlorer extends javax.swing.JFrame {
                 SnippetEdit12ActionPerformed(evt);
             }
         });
+        LeftSnippetsPane.add(SnippetEdit12);
 
         SnippetEdit13.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         SnippetEdit13.setText("Edit Snippet13");
@@ -2453,6 +2369,7 @@ public class ESPlorer extends javax.swing.JFrame {
                 SnippetEdit13ActionPerformed(evt);
             }
         });
+        LeftSnippetsPane.add(SnippetEdit13);
 
         SnippetEdit14.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         SnippetEdit14.setText("Edit Snippet14");
@@ -2461,6 +2378,7 @@ public class ESPlorer extends javax.swing.JFrame {
                 SnippetEdit14ActionPerformed(evt);
             }
         });
+        LeftSnippetsPane.add(SnippetEdit14);
 
         SnippetEdit15.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         SnippetEdit15.setText("Edit Snippet15");
@@ -2469,83 +2387,11 @@ public class ESPlorer extends javax.swing.JFrame {
                 SnippetEdit15ActionPerformed(evt);
             }
         });
+        LeftSnippetsPane.add(SnippetEdit15);
 
-        LeftSnippetsPane.setLayer(SnippetEdit0, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        LeftSnippetsPane.setLayer(SnippetEdit1, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        LeftSnippetsPane.setLayer(SnippetEdit2, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        LeftSnippetsPane.setLayer(SnippetEdit3, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        LeftSnippetsPane.setLayer(SnippetEdit4, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        LeftSnippetsPane.setLayer(SnippetEdit5, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        LeftSnippetsPane.setLayer(SnippetEdit6, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        LeftSnippetsPane.setLayer(SnippetEdit7, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        LeftSnippetsPane.setLayer(SnippetEdit8, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        LeftSnippetsPane.setLayer(SnippetEdit9, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        LeftSnippetsPane.setLayer(SnippetEdit10, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        LeftSnippetsPane.setLayer(SnippetEdit11, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        LeftSnippetsPane.setLayer(SnippetEdit12, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        LeftSnippetsPane.setLayer(SnippetEdit13, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        LeftSnippetsPane.setLayer(SnippetEdit14, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        LeftSnippetsPane.setLayer(SnippetEdit15, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        NodeMCUSnippets.add(LeftSnippetsPane);
 
-        javax.swing.GroupLayout LeftSnippetsPaneLayout = new javax.swing.GroupLayout(LeftSnippetsPane);
-        LeftSnippetsPane.setLayout(LeftSnippetsPaneLayout);
-        LeftSnippetsPaneLayout.setHorizontalGroup(
-            LeftSnippetsPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(SnippetEdit0, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(SnippetEdit1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(SnippetEdit2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(SnippetEdit3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(SnippetEdit4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(SnippetEdit5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(SnippetEdit6, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(SnippetEdit7, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(SnippetEdit8, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(SnippetEdit9, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(SnippetEdit10, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 129, Short.MAX_VALUE)
-            .addComponent(SnippetEdit11, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(SnippetEdit12, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(SnippetEdit13, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(SnippetEdit14, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(SnippetEdit15, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-        LeftSnippetsPaneLayout.setVerticalGroup(
-            LeftSnippetsPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(LeftSnippetsPaneLayout.createSequentialGroup()
-                .addComponent(SnippetEdit0, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(SnippetEdit1, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(SnippetEdit2, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(SnippetEdit3, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(SnippetEdit4, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(SnippetEdit5, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(SnippetEdit6, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(SnippetEdit7, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(SnippetEdit8, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(SnippetEdit9, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(SnippetEdit10, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(SnippetEdit11, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(SnippetEdit12, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(SnippetEdit13, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(SnippetEdit14, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(SnippetEdit15, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(216, Short.MAX_VALUE))
-        );
-
-        SnippetTopPane.setOpaque(true);
+        jLayeredPane4.setLayout(new javax.swing.BoxLayout(jLayeredPane4, javax.swing.BoxLayout.PAGE_AXIS));
 
         SnippetName.setEnabled(false);
 
@@ -2640,6 +2486,8 @@ public class ESPlorer extends javax.swing.JFrame {
                     .addComponent(Condensed)))
         );
 
+        jLayeredPane4.add(SnippetTopPane);
+
         SnippetScrollPane.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         SnippetScrollPane.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
         SnippetScrollPane.setEnabled(false);
@@ -2651,29 +2499,9 @@ public class ESPlorer extends javax.swing.JFrame {
         SnippetText.setEnabled(false);
         SnippetScrollPane.setViewportView(SnippetText);
 
-        NodeMCUSnippets.setLayer(LeftSnippetsPane, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        NodeMCUSnippets.setLayer(SnippetTopPane, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        NodeMCUSnippets.setLayer(SnippetScrollPane, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane4.add(SnippetScrollPane);
 
-        javax.swing.GroupLayout NodeMCUSnippetsLayout = new javax.swing.GroupLayout(NodeMCUSnippets);
-        NodeMCUSnippets.setLayout(NodeMCUSnippetsLayout);
-        NodeMCUSnippetsLayout.setHorizontalGroup(
-            NodeMCUSnippetsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(NodeMCUSnippetsLayout.createSequentialGroup()
-                .addComponent(LeftSnippetsPane, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(NodeMCUSnippetsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(SnippetTopPane)
-                    .addComponent(SnippetScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-        );
-        NodeMCUSnippetsLayout.setVerticalGroup(
-            NodeMCUSnippetsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(NodeMCUSnippetsLayout.createSequentialGroup()
-                .addComponent(SnippetTopPane, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(SnippetScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addComponent(LeftSnippetsPane)
-        );
+        NodeMCUSnippets.add(jLayeredPane4);
 
         TextTab.addTab("Snippets", NodeMCUSnippets);
 
@@ -9980,137 +9808,17 @@ public class ESPlorer extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_OptionMicroPythonStateChanged
 
-    private void MicroPythonGPIO0_1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MicroPythonGPIO0_1ActionPerformed
-        cmdButtonGPIO(0, 1);
-    }//GEN-LAST:event_MicroPythonGPIO0_1ActionPerformed
+    private void MicroPythonSetGPIOHigh(java.awt.event.ActionEvent evt) {
+        cmdButtonGPIO(Integer.parseInt(evt.getActionCommand()), 1);
+    }
 
-    private void MicroPythonGPIO0_0ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MicroPythonGPIO0_0ActionPerformed
-        cmdButtonGPIO(0, 0);
-    }//GEN-LAST:event_MicroPythonGPIO0_0ActionPerformed
+    private void MicroPythonSetGPIOLow(java.awt.event.ActionEvent evt) {
+        cmdButtonGPIO(Integer.parseInt(evt.getActionCommand()), 0);
+    }
 
-    private void MicroPythonGPIO2_1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MicroPythonGPIO2_1ActionPerformed
-        cmdButtonGPIO(2, 1);
-    }//GEN-LAST:event_MicroPythonGPIO2_1ActionPerformed
-
-    private void MicroPythonGPIO2_0ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MicroPythonGPIO2_0ActionPerformed
-        cmdButtonGPIO(2, 0);
-    }//GEN-LAST:event_MicroPythonGPIO2_0ActionPerformed
-
-    private void MicroPythonGPIO4_1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MicroPythonGPIO4_1ActionPerformed
-        cmdButtonGPIO(4, 1);
-    }//GEN-LAST:event_MicroPythonGPIO4_1ActionPerformed
-
-    private void MicroPythonGPIO4_0ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MicroPythonGPIO4_0ActionPerformed
-        cmdButtonGPIO(4, 0);
-    }//GEN-LAST:event_MicroPythonGPIO4_0ActionPerformed
-
-    private void MicroPythonGPIO5_0ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MicroPythonGPIO5_0ActionPerformed
-        cmdButtonGPIO(5, 0);
-    }//GEN-LAST:event_MicroPythonGPIO5_0ActionPerformed
-
-    private void MicroPythonGPIO5_1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MicroPythonGPIO5_1ActionPerformed
-        cmdButtonGPIO(5, 1);
-    }//GEN-LAST:event_MicroPythonGPIO5_1ActionPerformed
-
-    private void MicroPythonGPIO9_0ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MicroPythonGPIO9_0ActionPerformed
-        cmdButtonGPIO(9, 0);
-    }//GEN-LAST:event_MicroPythonGPIO9_0ActionPerformed
-
-    private void MicroPythonGPIO9_1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MicroPythonGPIO9_1ActionPerformed
-        cmdButtonGPIO(9, 1);
-    }//GEN-LAST:event_MicroPythonGPIO9_1ActionPerformed
-
-    private void MicroPythonGPIO10_0ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MicroPythonGPIO10_0ActionPerformed
-        cmdButtonGPIO(10, 0);
-    }//GEN-LAST:event_MicroPythonGPIO10_0ActionPerformed
-
-    private void MicroPythonGPIO10_1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MicroPythonGPIO10_1ActionPerformed
-        cmdButtonGPIO(10, 1);
-    }//GEN-LAST:event_MicroPythonGPIO10_1ActionPerformed
-
-    private void MicroPythonGPIO12_0ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MicroPythonGPIO12_0ActionPerformed
-        cmdButtonGPIO(12, 0);
-    }//GEN-LAST:event_MicroPythonGPIO12_0ActionPerformed
-
-    private void MicroPythonGPIO12_1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MicroPythonGPIO12_1ActionPerformed
-        cmdButtonGPIO(12, 1);
-    }//GEN-LAST:event_MicroPythonGPIO12_1ActionPerformed
-
-    private void MicroPythonGPIO13_0ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MicroPythonGPIO13_0ActionPerformed
-        cmdButtonGPIO(13, 0);
-    }//GEN-LAST:event_MicroPythonGPIO13_0ActionPerformed
-
-    private void MicroPythonGPIO13_1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MicroPythonGPIO13_1ActionPerformed
-        cmdButtonGPIO(13, 1);
-    }//GEN-LAST:event_MicroPythonGPIO13_1ActionPerformed
-
-    private void MicroPythonGPIO14_1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MicroPythonGPIO14_1ActionPerformed
-        cmdButtonGPIO(14, 1);
-    }//GEN-LAST:event_MicroPythonGPIO14_1ActionPerformed
-
-    private void MicroPythonGPIO15_1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MicroPythonGPIO15_1ActionPerformed
-        cmdButtonGPIO(15, 1);
-    }//GEN-LAST:event_MicroPythonGPIO15_1ActionPerformed
-
-    private void MicroPythonGPIO16_1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MicroPythonGPIO16_1ActionPerformed
-        cmdButtonGPIO(16, 1);
-    }//GEN-LAST:event_MicroPythonGPIO16_1ActionPerformed
-
-    private void MicroPythonGPIO14_0ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MicroPythonGPIO14_0ActionPerformed
-        cmdButtonGPIO(14, 0);
-    }//GEN-LAST:event_MicroPythonGPIO14_0ActionPerformed
-
-    private void MicroPythonGPIO15_0ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MicroPythonGPIO15_0ActionPerformed
-        cmdButtonGPIO(15, 0);
-    }//GEN-LAST:event_MicroPythonGPIO15_0ActionPerformed
-
-    private void MicroPythonGPIO16_0ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MicroPythonGPIO16_0ActionPerformed
-        cmdButtonGPIO(16, 0);
-    }//GEN-LAST:event_MicroPythonGPIO16_0ActionPerformed
-
-    private void MicroPythonGPIO0ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MicroPythonGPIO0ActionPerformed
-        cmdButtonGetGPIO(0);
-    }//GEN-LAST:event_MicroPythonGPIO0ActionPerformed
-
-    private void MicroPythonGPIO2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MicroPythonGPIO2ActionPerformed
-        cmdButtonGetGPIO(2);
-    }//GEN-LAST:event_MicroPythonGPIO2ActionPerformed
-
-    private void MicroPythonGPIO4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MicroPythonGPIO4ActionPerformed
-        cmdButtonGetGPIO(4);
-    }//GEN-LAST:event_MicroPythonGPIO4ActionPerformed
-
-    private void MicroPythonGPIO5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MicroPythonGPIO5ActionPerformed
-        cmdButtonGetGPIO(5);
-    }//GEN-LAST:event_MicroPythonGPIO5ActionPerformed
-
-    private void MicroPythonGPIO9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MicroPythonGPIO9ActionPerformed
-        cmdButtonGetGPIO(9);
-    }//GEN-LAST:event_MicroPythonGPIO9ActionPerformed
-
-    private void MicroPythonGPIO10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MicroPythonGPIO10ActionPerformed
-        cmdButtonGetGPIO(10);
-    }//GEN-LAST:event_MicroPythonGPIO10ActionPerformed
-
-    private void MicroPythonGPIO12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MicroPythonGPIO12ActionPerformed
-        cmdButtonGetGPIO(12);
-    }//GEN-LAST:event_MicroPythonGPIO12ActionPerformed
-
-    private void MicroPythonGPIO13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MicroPythonGPIO13ActionPerformed
-        cmdButtonGetGPIO(13);
-    }//GEN-LAST:event_MicroPythonGPIO13ActionPerformed
-
-    private void MicroPythonGPIO14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MicroPythonGPIO14ActionPerformed
-        cmdButtonGetGPIO(14);
-    }//GEN-LAST:event_MicroPythonGPIO14ActionPerformed
-
-    private void MicroPythonGPIO15ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MicroPythonGPIO15ActionPerformed
-        cmdButtonGetGPIO(15);
-    }//GEN-LAST:event_MicroPythonGPIO15ActionPerformed
-
-    private void MicroPythonGPIO16ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MicroPythonGPIO16ActionPerformed
-        cmdButtonGetGPIO(16);
-    }//GEN-LAST:event_MicroPythonGPIO16ActionPerformed
+    private void MicroPythonGetGPIOLevel(java.awt.event.ActionEvent evt) {
+        cmdButtonGetGPIO(Integer.parseInt(evt.getActionCommand()));
+    }
 
     private void MicroPythonSSIDFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_MicroPythonSSIDFocusGained
         if (MicroPythonSSID.getText().trim().equals("SSID")) {
@@ -10983,6 +10691,7 @@ public class ESPlorer extends javax.swing.JFrame {
     private javax.swing.JLayeredPane jLayeredPane1;
     private javax.swing.JLayeredPane jLayeredPane2;
     private javax.swing.JLayeredPane jLayeredPane3;
+    private javax.swing.JLayeredPane jLayeredPane4;
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem7;
     private javax.swing.JScrollPane jScrollData;
@@ -13359,7 +13068,7 @@ public class ESPlorer extends javax.swing.JFrame {
             return;
         }
         log("Send command GPIO" + Integer.toString(gpio) + " : " + Integer.toString(value));
-        String cmd = "import pyb;p=pyb.Pin(" + Integer.toString(gpio) + ",pyb.Pin.OUT);p.value(" + Integer.toString(value) + ")";
+        String cmd = "from machine import Pin; p = Pin(" + Integer.toString(gpio) + ", Pin.OUT, value=" + Integer.toString(value) + ")";
         btnSend(cmd);
     } // cmdButtonGPIO
 
@@ -13376,7 +13085,7 @@ public class ESPlorer extends javax.swing.JFrame {
             return;
         }
         log("Send command GET GPIO" + Integer.toString(gpio));
-        String cmd = "import pyb;p=pyb.Pin(" + Integer.toString(gpio) + ",pyb.Pin.IN);p.value()";
+        String cmd = "from machine import Pin; p = Pin(" + Integer.toString(gpio) + ", Pin.IN); p.value()";
         btnSend(cmd);
     }
 
