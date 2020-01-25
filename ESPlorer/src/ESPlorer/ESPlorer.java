@@ -5,8 +5,6 @@
 package ESPlorer;
 
 import java.awt.Color;
-import java.awt.Component;
-import java.awt.event.MouseEvent;
 import java.awt.Toolkit;
 
 import java.awt.*;
@@ -22,10 +20,12 @@ import java.util.Arrays;
 import java.util.prefs.*;
 
 import java.net.*;
+import java.util.HashMap;
 
 import javax.swing.*;
 import javax.swing.filechooser.*;
 import javax.swing.Timer;
+import javax.swing.UIManager.*;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.Document;
 
@@ -47,13 +47,13 @@ public class ESPlorer extends javax.swing.JFrame {
     public static boolean pOpen = false;
     public static boolean sOpen = false;
     public static boolean portJustOpen = false;
-    public static final String version = "v0.2.0-rc5";
-    public static ArrayList<String> LAF;
-    public static ArrayList<String> LAFclass;
+    public static final String VERSION = "v0.2.0-rc5";
+    private static String laf;
+    private static String systemLaf;
     public static Preferences prefs;
     private static int FirmwareType;
 
-    private static pyFiler pyFiler = new pyFiler();
+    private static final pyFiler PYFILER = new pyFiler();
 
     /**
      * Creates new form MainWindows
@@ -72,7 +72,7 @@ public class ESPlorer extends javax.swing.JFrame {
 //            e.printStackTrace();
         }
         initComponents();
-        FinalInit();
+        finalInit();
 
     }
 
@@ -84,6 +84,7 @@ public class ESPlorer extends javax.swing.JFrame {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
+        java.awt.GridBagConstraints gridBagConstraints;
         bindingGroup = new org.jdesktop.beansbinding.BindingGroup();
 
         ContextMenuTerminal = new javax.swing.JPopupMenu();
@@ -197,36 +198,36 @@ public class ESPlorer extends javax.swing.JFrame {
         MicroPythonCommandsGPIO = new javax.swing.JLayeredPane();
         MicroPythonGPIO0_1 = new javax.swing.JButton();
         MicroPythonGPIO0_0 = new javax.swing.JButton();
+        MicroPythonGPIO0 = new javax.swing.JButton();
         MicroPythonGPIO2_1 = new javax.swing.JButton();
         MicroPythonGPIO2_0 = new javax.swing.JButton();
+        MicroPythonGPIO2 = new javax.swing.JButton();
         MicroPythonGPIO4_1 = new javax.swing.JButton();
         MicroPythonGPIO4_0 = new javax.swing.JButton();
-        MicroPythonGPIO5_0 = new javax.swing.JButton();
-        MicroPythonGPIO5_1 = new javax.swing.JButton();
-        MicroPythonGPIO9_0 = new javax.swing.JButton();
-        MicroPythonGPIO9_1 = new javax.swing.JButton();
-        MicroPythonGPIO10_0 = new javax.swing.JButton();
-        MicroPythonGPIO10_1 = new javax.swing.JButton();
-        MicroPythonGPIO12_0 = new javax.swing.JButton();
-        MicroPythonGPIO12_1 = new javax.swing.JButton();
-        MicroPythonGPIO13_0 = new javax.swing.JButton();
-        MicroPythonGPIO13_1 = new javax.swing.JButton();
-        MicroPythonGPIO14_1 = new javax.swing.JButton();
-        MicroPythonGPIO15_1 = new javax.swing.JButton();
-        MicroPythonGPIO16_1 = new javax.swing.JButton();
-        MicroPythonGPIO14_0 = new javax.swing.JButton();
-        MicroPythonGPIO15_0 = new javax.swing.JButton();
-        MicroPythonGPIO16_0 = new javax.swing.JButton();
-        MicroPythonGPIO0 = new javax.swing.JButton();
-        MicroPythonGPIO2 = new javax.swing.JButton();
         MicroPythonGPIO4 = new javax.swing.JButton();
+        MicroPythonGPIO5_1 = new javax.swing.JButton();
+        MicroPythonGPIO5_0 = new javax.swing.JButton();
         MicroPythonGPIO5 = new javax.swing.JButton();
+        MicroPythonGPIO9_1 = new javax.swing.JButton();
+        MicroPythonGPIO9_0 = new javax.swing.JButton();
         MicroPythonGPIO9 = new javax.swing.JButton();
+        MicroPythonGPIO10_1 = new javax.swing.JButton();
+        MicroPythonGPIO10_0 = new javax.swing.JButton();
         MicroPythonGPIO10 = new javax.swing.JButton();
+        MicroPythonGPIO12_1 = new javax.swing.JButton();
+        MicroPythonGPIO12_0 = new javax.swing.JButton();
         MicroPythonGPIO12 = new javax.swing.JButton();
+        MicroPythonGPIO13_1 = new javax.swing.JButton();
+        MicroPythonGPIO13_0 = new javax.swing.JButton();
         MicroPythonGPIO13 = new javax.swing.JButton();
+        MicroPythonGPIO14_1 = new javax.swing.JButton();
+        MicroPythonGPIO14_0 = new javax.swing.JButton();
         MicroPythonGPIO14 = new javax.swing.JButton();
+        MicroPythonGPIO15_1 = new javax.swing.JButton();
+        MicroPythonGPIO15_0 = new javax.swing.JButton();
         MicroPythonGPIO15 = new javax.swing.JButton();
+        MicroPythonGPIO16_1 = new javax.swing.JButton();
+        MicroPythonGPIO16_0 = new javax.swing.JButton();
         MicroPythonGPIO16 = new javax.swing.JButton();
         NodeMCUSnippets = new javax.swing.JLayeredPane();
         LeftSnippetsPane = new javax.swing.JLayeredPane();
@@ -246,6 +247,7 @@ public class ESPlorer extends javax.swing.JFrame {
         SnippetEdit13 = new javax.swing.JButton();
         SnippetEdit14 = new javax.swing.JButton();
         SnippetEdit15 = new javax.swing.JButton();
+        jLayeredPane4 = new javax.swing.JLayeredPane();
         SnippetTopPane = new javax.swing.JLayeredPane();
         SnippetName = new javax.swing.JTextField();
         SnippetSave = new javax.swing.JButton();
@@ -454,15 +456,13 @@ public class ESPlorer extends javax.swing.JFrame {
         Speed = new javax.swing.JComboBox();
         ReScan = new javax.swing.JButton();
         AutoScroll = new javax.swing.JCheckBox();
-        Port = new javax.swing.JComboBox();
+        Port = new javax.swing.JComboBox<>();
         EOL = new javax.swing.JCheckBox();
         CR = new javax.swing.JCheckBox();
         LF = new javax.swing.JCheckBox();
         DonateSmall = new javax.swing.JButton();
         TerminalOnlyCheckBox = new javax.swing.JCheckBox();
         EditorOnlyCheckBox = new javax.swing.JCheckBox();
-        RightBottomPane = new javax.swing.JLayeredPane();
-        Command = new javax.swing.JComboBox();
         RightBigPane = new javax.swing.JLayeredPane();
         RightFilesSplitPane = new javax.swing.JSplitPane();
         TerminalLogPane = new javax.swing.JLayeredPane();
@@ -507,6 +507,8 @@ public class ESPlorer extends javax.swing.JFrame {
         NodeChipID = new javax.swing.JButton();
         NodeFlashID = new javax.swing.JButton();
         NodeReset = new javax.swing.JButton();
+        RightBottomPane = new javax.swing.JLayeredPane();
+        Command = new javax.swing.JComboBox<>();
         SendCommand = new javax.swing.JButton();
         MainMenuBar = new javax.swing.JMenuBar();
         MenuFile = new javax.swing.JMenu();
@@ -568,7 +570,6 @@ public class ESPlorer extends javax.swing.JFrame {
         jSeparator12 = new javax.swing.JPopupMenu.Separator();
         MenuItemViewFontDefault = new javax.swing.JMenuItem();
         jSeparator17 = new javax.swing.JPopupMenu.Separator();
-        MenuItemViewLF1 = new javax.swing.JRadioButtonMenuItem();
         MenuLinks = new javax.swing.JMenu();
         MenuItemLinksMicroPythonDoc = new javax.swing.JMenuItem();
         MenuItemLinksNodeMCUdoc = new javax.swing.JMenuItem();
@@ -591,12 +592,12 @@ public class ESPlorer extends javax.swing.JFrame {
         MenuItemHelpAbout = new javax.swing.JMenuItem();
 
         ContextMenuTerminal.addPopupMenuListener(new javax.swing.event.PopupMenuListener() {
-            public void popupMenuCanceled(javax.swing.event.PopupMenuEvent evt) {
+            public void popupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {
+                ContextMenuTerminalPopupMenuWillBecomeVisible(evt);
             }
             public void popupMenuWillBecomeInvisible(javax.swing.event.PopupMenuEvent evt) {
             }
-            public void popupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {
-                ContextMenuTerminalPopupMenuWillBecomeVisible(evt);
+            public void popupMenuCanceled(javax.swing.event.PopupMenuEvent evt) {
             }
         });
 
@@ -837,7 +838,7 @@ public class ESPlorer extends javax.swing.JFrame {
 
         Version.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         Version.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        Version.setText(version);
+        Version.setText(VERSION);
         Version.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
         Donate.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/donate.gif"))); // NOI18N
@@ -903,12 +904,12 @@ public class ESPlorer extends javax.swing.JFrame {
         );
 
         ContextMenuESPFileLUA.addPopupMenuListener(new javax.swing.event.PopupMenuListener() {
-            public void popupMenuCanceled(javax.swing.event.PopupMenuEvent evt) {
+            public void popupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {
+                ContextMenuESPFileLUAPopupMenuWillBecomeVisible(evt);
             }
             public void popupMenuWillBecomeInvisible(javax.swing.event.PopupMenuEvent evt) {
             }
-            public void popupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {
-                ContextMenuESPFileLUAPopupMenuWillBecomeVisible(evt);
+            public void popupMenuCanceled(javax.swing.event.PopupMenuEvent evt) {
             }
         });
 
@@ -948,11 +949,9 @@ public class ESPlorer extends javax.swing.JFrame {
         setAutoRequestFocus(false);
         setBounds(new java.awt.Rectangle(0, 0, 0, 0));
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        setFocusCycleRoot(false);
+        setExtendedState(this.getExtendedState() | JFrame.MAXIMIZED_BOTH);
         setLocationByPlatform(true);
-        setMinimumSize(new java.awt.Dimension(100, 100));
         setName("ESPlorer"); // NOI18N
-        setPreferredSize(new java.awt.Dimension(1024, 768));
         addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 formFocusGained(evt);
@@ -976,18 +975,18 @@ public class ESPlorer extends javax.swing.JFrame {
             }
         });
         addWindowListener(new java.awt.event.WindowAdapter() {
-            public void windowClosed(java.awt.event.WindowEvent evt) {
-                formWindowClosed(evt);
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
             }
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 formWindowClosing(evt);
             }
-            public void windowOpened(java.awt.event.WindowEvent evt) {
-                formWindowOpened(evt);
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                formWindowClosed(evt);
             }
         });
 
-        HorizontSplit.setDividerLocation(550);
+        HorizontSplit.setDividerLocation(621);
         HorizontSplit.setMinimumSize(new java.awt.Dimension(100, 100));
         HorizontSplit.setPreferredSize(new java.awt.Dimension(768, 567));
 
@@ -1264,7 +1263,6 @@ public class ESPlorer extends javax.swing.JFrame {
         ButtonSendSelected.setToolTipText("Send selected block to ESP");
         ButtonSendSelected.setHideActionText(true);
         ButtonSendSelected.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        ButtonSendSelected.setText("Block");
         ButtonSendSelected.setMaximumSize(new java.awt.Dimension(40, 40));
         ButtonSendSelected.setMinimumSize(new java.awt.Dimension(40, 40));
         ButtonSendSelected.setPreferredSize(new java.awt.Dimension(40, 40));
@@ -1343,11 +1341,11 @@ public class ESPlorer extends javax.swing.JFrame {
             }
         });
         TextEditor.addInputMethodListener(new java.awt.event.InputMethodListener() {
-            public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
-                TextEditorCaretPositionChanged(evt);
-            }
             public void inputMethodTextChanged(java.awt.event.InputMethodEvent evt) {
                 TextEditorInputMethodTextChanged(evt);
+            }
+            public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
+                TextEditorCaretPositionChanged(evt);
             }
         });
         TextEditor.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -1363,11 +1361,11 @@ public class ESPlorer extends javax.swing.JFrame {
         FileLayeredPane.setLayout(FileLayeredPaneLayout);
         FileLayeredPaneLayout.setHorizontalGroup(
             FileLayeredPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(TextScroll, javax.swing.GroupLayout.DEFAULT_SIZE, 526, Short.MAX_VALUE)
+            .addComponent(TextScroll, javax.swing.GroupLayout.DEFAULT_SIZE, 548, Short.MAX_VALUE)
         );
         FileLayeredPaneLayout.setVerticalGroup(
             FileLayeredPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(TextScroll, javax.swing.GroupLayout.DEFAULT_SIZE, 432, Short.MAX_VALUE)
+            .addComponent(TextScroll, javax.swing.GroupLayout.DEFAULT_SIZE, 375, Short.MAX_VALUE)
         );
 
         FilesTabbedPane.addTab("NewFile", FileLayeredPane);
@@ -1516,7 +1514,6 @@ public class ESPlorer extends javax.swing.JFrame {
         FileSaveESP.setToolTipText("Send file to ESP and save into flash memory");
         FileSaveESP.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         FileSaveESP.setIconTextGap(8);
-        FileSaveESP.setMargin(new java.awt.Insets(2, 2, 2, 2));
         FileSaveESP.setMaximumSize(new java.awt.Dimension(127, 30));
         FileSaveESP.setMinimumSize(new java.awt.Dimension(127, 30));
         FileSaveESP.setPreferredSize(new java.awt.Dimension(127, 30));
@@ -1532,7 +1529,6 @@ public class ESPlorer extends javax.swing.JFrame {
         FileSendESP.setToolTipText("Send file to ESP and run  \"line by line\"");
         FileSendESP.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         FileSendESP.setIconTextGap(8);
-        FileSendESP.setMargin(new java.awt.Insets(2, 2, 2, 2));
         FileSendESP.setMaximumSize(new java.awt.Dimension(127, 30));
         FileSendESP.setMinimumSize(new java.awt.Dimension(127, 30));
         FileSendESP.setPreferredSize(new java.awt.Dimension(127, 30));
@@ -1623,6 +1619,7 @@ public class ESPlorer extends javax.swing.JFrame {
         SriptsTab.getAccessibleContext().setAccessibleName("Files");
 
         NodeMCUCommands.setOpaque(true);
+        NodeMCUCommands.setLayout(new javax.swing.BoxLayout(NodeMCUCommands, javax.swing.BoxLayout.PAGE_AXIS));
 
         CommandsMicroPython.setBorder(javax.swing.BorderFactory.createTitledBorder("MicroPython Commands"));
 
@@ -1634,8 +1631,10 @@ public class ESPlorer extends javax.swing.JFrame {
         );
         CommandsMicroPythonLayout.setVerticalGroup(
             CommandsMicroPythonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 695, Short.MAX_VALUE)
+            .addGap(0, 60, Short.MAX_VALUE)
         );
+
+        NodeMCUCommands.add(CommandsMicroPython);
 
         CommandsNodeMCU.setBorder(javax.swing.BorderFactory.createTitledBorder("NodeMCU Commands"));
 
@@ -1765,11 +1764,11 @@ public class ESPlorer extends javax.swing.JFrame {
                 .addGroup(CommandsNodeMCULayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cmdListFiles, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(cmdTimerStop, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(TimerNumber, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE))
+                    .addComponent(TimerNumber))
                 .addContainerGap())
         );
 
-        MicroPythonCommandsWiFi.setOpaque(true);
+        NodeMCUCommands.add(CommandsNodeMCU);
 
         MicroPythonSSID.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         MicroPythonSSID.setText("SSID");
@@ -1878,7 +1877,7 @@ public class ESPlorer extends javax.swing.JFrame {
                     .addComponent(MicroPythonRemoteData, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(cmdMicroPythonScan, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(95, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         MicroPythonCommandsWiFiLayout.setVerticalGroup(
             MicroPythonCommandsWiFiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1898,615 +1897,353 @@ public class ESPlorer extends javax.swing.JFrame {
                 .addComponent(MicroPythonRemoteData, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(cmdMicroPythonSendToHost)
-                .addContainerGap(374, Short.MAX_VALUE))
+                .addContainerGap(254, Short.MAX_VALUE))
         );
 
         MicroPythonCommandsTab.addTab(" WiFi ", MicroPythonCommandsWiFi);
 
-        MicroPythonCommandsGPIO.setOpaque(true);
+        MicroPythonCommandsGPIO.setLayout(new java.awt.GridLayout(11, 3));
 
         MicroPythonGPIO0_1.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         MicroPythonGPIO0_1.setText("GPIO0 -> 1");
-        MicroPythonGPIO0_1.setToolTipText("");
-        MicroPythonGPIO0_1.setMaximumSize(new java.awt.Dimension(90, 30));
-        MicroPythonGPIO0_1.setMinimumSize(new java.awt.Dimension(90, 30));
-        MicroPythonGPIO0_1.setPreferredSize(new java.awt.Dimension(90, 30));
+        MicroPythonGPIO0_1.setActionCommand("0");
         MicroPythonGPIO0_1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                MicroPythonGPIO0_1ActionPerformed(evt);
+                MicroPythonSetGPIOHigh(evt);
             }
         });
+        MicroPythonCommandsGPIO.add(MicroPythonGPIO0_1);
 
         MicroPythonGPIO0_0.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         MicroPythonGPIO0_0.setText("GPIO0 -> 0");
-        MicroPythonGPIO0_0.setToolTipText("");
-        MicroPythonGPIO0_0.setMaximumSize(new java.awt.Dimension(90, 30));
-        MicroPythonGPIO0_0.setMinimumSize(new java.awt.Dimension(90, 30));
-        MicroPythonGPIO0_0.setPreferredSize(new java.awt.Dimension(90, 30));
+        MicroPythonGPIO0_0.setActionCommand("0");
         MicroPythonGPIO0_0.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                MicroPythonGPIO0_0ActionPerformed(evt);
+                MicroPythonSetGPIOLow(evt);
             }
         });
-
-        MicroPythonGPIO2_1.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
-        MicroPythonGPIO2_1.setText("GPIO2 -> 1");
-        MicroPythonGPIO2_1.setToolTipText("");
-        MicroPythonGPIO2_1.setMaximumSize(new java.awt.Dimension(90, 30));
-        MicroPythonGPIO2_1.setMinimumSize(new java.awt.Dimension(90, 30));
-        MicroPythonGPIO2_1.setPreferredSize(new java.awt.Dimension(90, 30));
-        MicroPythonGPIO2_1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                MicroPythonGPIO2_1ActionPerformed(evt);
-            }
-        });
-
-        MicroPythonGPIO2_0.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
-        MicroPythonGPIO2_0.setText("GPIO2 -> 0");
-        MicroPythonGPIO2_0.setToolTipText("");
-        MicroPythonGPIO2_0.setMaximumSize(new java.awt.Dimension(90, 30));
-        MicroPythonGPIO2_0.setMinimumSize(new java.awt.Dimension(90, 30));
-        MicroPythonGPIO2_0.setPreferredSize(new java.awt.Dimension(90, 30));
-        MicroPythonGPIO2_0.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                MicroPythonGPIO2_0ActionPerformed(evt);
-            }
-        });
-
-        MicroPythonGPIO4_1.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
-        MicroPythonGPIO4_1.setText("GPIO4 -> 1");
-        MicroPythonGPIO4_1.setToolTipText("");
-        MicroPythonGPIO4_1.setMaximumSize(new java.awt.Dimension(90, 30));
-        MicroPythonGPIO4_1.setMinimumSize(new java.awt.Dimension(90, 30));
-        MicroPythonGPIO4_1.setPreferredSize(new java.awt.Dimension(90, 30));
-        MicroPythonGPIO4_1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                MicroPythonGPIO4_1ActionPerformed(evt);
-            }
-        });
-
-        MicroPythonGPIO4_0.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
-        MicroPythonGPIO4_0.setText("GPIO4 -> 0");
-        MicroPythonGPIO4_0.setToolTipText("");
-        MicroPythonGPIO4_0.setMaximumSize(new java.awt.Dimension(90, 30));
-        MicroPythonGPIO4_0.setMinimumSize(new java.awt.Dimension(90, 30));
-        MicroPythonGPIO4_0.setPreferredSize(new java.awt.Dimension(90, 30));
-        MicroPythonGPIO4_0.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                MicroPythonGPIO4_0ActionPerformed(evt);
-            }
-        });
-
-        MicroPythonGPIO5_0.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
-        MicroPythonGPIO5_0.setText("GPIO5 -> 0");
-        MicroPythonGPIO5_0.setToolTipText("");
-        MicroPythonGPIO5_0.setMaximumSize(new java.awt.Dimension(90, 30));
-        MicroPythonGPIO5_0.setMinimumSize(new java.awt.Dimension(90, 30));
-        MicroPythonGPIO5_0.setPreferredSize(new java.awt.Dimension(90, 30));
-        MicroPythonGPIO5_0.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                MicroPythonGPIO5_0ActionPerformed(evt);
-            }
-        });
-
-        MicroPythonGPIO5_1.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
-        MicroPythonGPIO5_1.setText("GPIO5 -> 1");
-        MicroPythonGPIO5_1.setToolTipText("");
-        MicroPythonGPIO5_1.setMaximumSize(new java.awt.Dimension(90, 30));
-        MicroPythonGPIO5_1.setMinimumSize(new java.awt.Dimension(90, 30));
-        MicroPythonGPIO5_1.setPreferredSize(new java.awt.Dimension(90, 30));
-        MicroPythonGPIO5_1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                MicroPythonGPIO5_1ActionPerformed(evt);
-            }
-        });
-
-        MicroPythonGPIO9_0.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
-        MicroPythonGPIO9_0.setText("GPIO9 -> 0");
-        MicroPythonGPIO9_0.setToolTipText("");
-        MicroPythonGPIO9_0.setMaximumSize(new java.awt.Dimension(90, 30));
-        MicroPythonGPIO9_0.setMinimumSize(new java.awt.Dimension(90, 30));
-        MicroPythonGPIO9_0.setPreferredSize(new java.awt.Dimension(90, 30));
-        MicroPythonGPIO9_0.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                MicroPythonGPIO9_0ActionPerformed(evt);
-            }
-        });
-
-        MicroPythonGPIO9_1.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
-        MicroPythonGPIO9_1.setText("GPIO9 -> 1");
-        MicroPythonGPIO9_1.setToolTipText("");
-        MicroPythonGPIO9_1.setMaximumSize(new java.awt.Dimension(90, 30));
-        MicroPythonGPIO9_1.setMinimumSize(new java.awt.Dimension(90, 30));
-        MicroPythonGPIO9_1.setPreferredSize(new java.awt.Dimension(90, 30));
-        MicroPythonGPIO9_1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                MicroPythonGPIO9_1ActionPerformed(evt);
-            }
-        });
-
-        MicroPythonGPIO10_0.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
-        MicroPythonGPIO10_0.setText("GPIO10 -> 0");
-        MicroPythonGPIO10_0.setToolTipText("");
-        MicroPythonGPIO10_0.setMaximumSize(new java.awt.Dimension(90, 30));
-        MicroPythonGPIO10_0.setMinimumSize(new java.awt.Dimension(90, 30));
-        MicroPythonGPIO10_0.setPreferredSize(new java.awt.Dimension(90, 30));
-        MicroPythonGPIO10_0.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                MicroPythonGPIO10_0ActionPerformed(evt);
-            }
-        });
-
-        MicroPythonGPIO10_1.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
-        MicroPythonGPIO10_1.setText("GPIO10 -> 1");
-        MicroPythonGPIO10_1.setToolTipText("");
-        MicroPythonGPIO10_1.setMaximumSize(new java.awt.Dimension(90, 30));
-        MicroPythonGPIO10_1.setMinimumSize(new java.awt.Dimension(90, 30));
-        MicroPythonGPIO10_1.setPreferredSize(new java.awt.Dimension(90, 30));
-        MicroPythonGPIO10_1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                MicroPythonGPIO10_1ActionPerformed(evt);
-            }
-        });
-
-        MicroPythonGPIO12_0.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
-        MicroPythonGPIO12_0.setText("GPIO12 -> 0");
-        MicroPythonGPIO12_0.setToolTipText("");
-        MicroPythonGPIO12_0.setMaximumSize(new java.awt.Dimension(90, 30));
-        MicroPythonGPIO12_0.setMinimumSize(new java.awt.Dimension(90, 30));
-        MicroPythonGPIO12_0.setPreferredSize(new java.awt.Dimension(90, 30));
-        MicroPythonGPIO12_0.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                MicroPythonGPIO12_0ActionPerformed(evt);
-            }
-        });
-
-        MicroPythonGPIO12_1.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
-        MicroPythonGPIO12_1.setText("GPIO12 -> 1");
-        MicroPythonGPIO12_1.setToolTipText("");
-        MicroPythonGPIO12_1.setMaximumSize(new java.awt.Dimension(90, 30));
-        MicroPythonGPIO12_1.setMinimumSize(new java.awt.Dimension(90, 30));
-        MicroPythonGPIO12_1.setPreferredSize(new java.awt.Dimension(90, 30));
-        MicroPythonGPIO12_1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                MicroPythonGPIO12_1ActionPerformed(evt);
-            }
-        });
-
-        MicroPythonGPIO13_0.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
-        MicroPythonGPIO13_0.setText("GPIO13 -> 0");
-        MicroPythonGPIO13_0.setToolTipText("");
-        MicroPythonGPIO13_0.setMaximumSize(new java.awt.Dimension(90, 30));
-        MicroPythonGPIO13_0.setMinimumSize(new java.awt.Dimension(90, 30));
-        MicroPythonGPIO13_0.setPreferredSize(new java.awt.Dimension(90, 30));
-        MicroPythonGPIO13_0.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                MicroPythonGPIO13_0ActionPerformed(evt);
-            }
-        });
-
-        MicroPythonGPIO13_1.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
-        MicroPythonGPIO13_1.setText("GPIO13 -> 1");
-        MicroPythonGPIO13_1.setToolTipText("");
-        MicroPythonGPIO13_1.setMaximumSize(new java.awt.Dimension(90, 30));
-        MicroPythonGPIO13_1.setMinimumSize(new java.awt.Dimension(90, 30));
-        MicroPythonGPIO13_1.setPreferredSize(new java.awt.Dimension(90, 30));
-        MicroPythonGPIO13_1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                MicroPythonGPIO13_1ActionPerformed(evt);
-            }
-        });
-
-        MicroPythonGPIO14_1.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
-        MicroPythonGPIO14_1.setText("GPIO14 -> 1");
-        MicroPythonGPIO14_1.setToolTipText("");
-        MicroPythonGPIO14_1.setMaximumSize(new java.awt.Dimension(90, 30));
-        MicroPythonGPIO14_1.setMinimumSize(new java.awt.Dimension(90, 30));
-        MicroPythonGPIO14_1.setPreferredSize(new java.awt.Dimension(90, 30));
-        MicroPythonGPIO14_1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                MicroPythonGPIO14_1ActionPerformed(evt);
-            }
-        });
-
-        MicroPythonGPIO15_1.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
-        MicroPythonGPIO15_1.setText("GPIO15 -> 1");
-        MicroPythonGPIO15_1.setToolTipText("");
-        MicroPythonGPIO15_1.setMaximumSize(new java.awt.Dimension(90, 30));
-        MicroPythonGPIO15_1.setMinimumSize(new java.awt.Dimension(90, 30));
-        MicroPythonGPIO15_1.setPreferredSize(new java.awt.Dimension(90, 30));
-        MicroPythonGPIO15_1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                MicroPythonGPIO15_1ActionPerformed(evt);
-            }
-        });
-
-        MicroPythonGPIO16_1.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
-        MicroPythonGPIO16_1.setText("GPIO16 -> 1");
-        MicroPythonGPIO16_1.setToolTipText("");
-        MicroPythonGPIO16_1.setMaximumSize(new java.awt.Dimension(90, 30));
-        MicroPythonGPIO16_1.setMinimumSize(new java.awt.Dimension(90, 30));
-        MicroPythonGPIO16_1.setPreferredSize(new java.awt.Dimension(90, 30));
-        MicroPythonGPIO16_1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                MicroPythonGPIO16_1ActionPerformed(evt);
-            }
-        });
-
-        MicroPythonGPIO14_0.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
-        MicroPythonGPIO14_0.setText("GPIO14 -> 0");
-        MicroPythonGPIO14_0.setToolTipText("");
-        MicroPythonGPIO14_0.setMaximumSize(new java.awt.Dimension(90, 30));
-        MicroPythonGPIO14_0.setMinimumSize(new java.awt.Dimension(90, 30));
-        MicroPythonGPIO14_0.setPreferredSize(new java.awt.Dimension(90, 30));
-        MicroPythonGPIO14_0.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                MicroPythonGPIO14_0ActionPerformed(evt);
-            }
-        });
-
-        MicroPythonGPIO15_0.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
-        MicroPythonGPIO15_0.setText("GPIO15 -> 0");
-        MicroPythonGPIO15_0.setToolTipText("");
-        MicroPythonGPIO15_0.setMaximumSize(new java.awt.Dimension(90, 30));
-        MicroPythonGPIO15_0.setMinimumSize(new java.awt.Dimension(90, 30));
-        MicroPythonGPIO15_0.setPreferredSize(new java.awt.Dimension(90, 30));
-        MicroPythonGPIO15_0.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                MicroPythonGPIO15_0ActionPerformed(evt);
-            }
-        });
-
-        MicroPythonGPIO16_0.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
-        MicroPythonGPIO16_0.setText("GPIO16 -> 0");
-        MicroPythonGPIO16_0.setToolTipText("");
-        MicroPythonGPIO16_0.setMaximumSize(new java.awt.Dimension(90, 30));
-        MicroPythonGPIO16_0.setMinimumSize(new java.awt.Dimension(90, 30));
-        MicroPythonGPIO16_0.setPreferredSize(new java.awt.Dimension(90, 30));
-        MicroPythonGPIO16_0.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                MicroPythonGPIO16_0ActionPerformed(evt);
-            }
-        });
+        MicroPythonCommandsGPIO.add(MicroPythonGPIO0_0);
 
         MicroPythonGPIO0.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         MicroPythonGPIO0.setText("GPIO0 ?");
-        MicroPythonGPIO0.setToolTipText("");
-        MicroPythonGPIO0.setMaximumSize(new java.awt.Dimension(90, 30));
-        MicroPythonGPIO0.setMinimumSize(new java.awt.Dimension(90, 30));
-        MicroPythonGPIO0.setPreferredSize(new java.awt.Dimension(90, 30));
+        MicroPythonGPIO0.setActionCommand("0");
         MicroPythonGPIO0.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                MicroPythonGPIO0ActionPerformed(evt);
+                MicroPythonGetGPIOLevel(evt);
             }
         });
+        MicroPythonCommandsGPIO.add(MicroPythonGPIO0);
+
+        MicroPythonGPIO2_1.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        MicroPythonGPIO2_1.setText("GPIO2 -> 1");
+        MicroPythonGPIO2_1.setActionCommand("2");
+        MicroPythonGPIO2_1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MicroPythonSetGPIOHigh(evt);
+            }
+        });
+        MicroPythonCommandsGPIO.add(MicroPythonGPIO2_1);
+
+        MicroPythonGPIO2_0.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        MicroPythonGPIO2_0.setText("GPIO2 -> 0");
+        MicroPythonGPIO2_0.setActionCommand("2");
+        MicroPythonGPIO2_0.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MicroPythonSetGPIOLow(evt);
+            }
+        });
+        MicroPythonCommandsGPIO.add(MicroPythonGPIO2_0);
 
         MicroPythonGPIO2.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         MicroPythonGPIO2.setText("GPIO2 ?");
-        MicroPythonGPIO2.setToolTipText("");
-        MicroPythonGPIO2.setMaximumSize(new java.awt.Dimension(90, 30));
-        MicroPythonGPIO2.setMinimumSize(new java.awt.Dimension(90, 30));
-        MicroPythonGPIO2.setPreferredSize(new java.awt.Dimension(90, 30));
+        MicroPythonGPIO2.setActionCommand("2");
         MicroPythonGPIO2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                MicroPythonGPIO2ActionPerformed(evt);
+                MicroPythonGetGPIOLevel(evt);
             }
         });
+        MicroPythonCommandsGPIO.add(MicroPythonGPIO2);
+
+        MicroPythonGPIO4_1.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        MicroPythonGPIO4_1.setText("GPIO4 -> 1");
+        MicroPythonGPIO4_1.setActionCommand("4");
+        MicroPythonGPIO4_1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MicroPythonSetGPIOHigh(evt);
+            }
+        });
+        MicroPythonCommandsGPIO.add(MicroPythonGPIO4_1);
+
+        MicroPythonGPIO4_0.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        MicroPythonGPIO4_0.setText("GPIO4 -> 0");
+        MicroPythonGPIO4_0.setActionCommand("4");
+        MicroPythonGPIO4_0.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MicroPythonSetGPIOLow(evt);
+            }
+        });
+        MicroPythonCommandsGPIO.add(MicroPythonGPIO4_0);
 
         MicroPythonGPIO4.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         MicroPythonGPIO4.setText("GPIO4 ?");
-        MicroPythonGPIO4.setToolTipText("");
-        MicroPythonGPIO4.setMaximumSize(new java.awt.Dimension(90, 30));
-        MicroPythonGPIO4.setMinimumSize(new java.awt.Dimension(90, 30));
-        MicroPythonGPIO4.setPreferredSize(new java.awt.Dimension(90, 30));
+        MicroPythonGPIO4.setActionCommand("4");
         MicroPythonGPIO4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                MicroPythonGPIO4ActionPerformed(evt);
+                MicroPythonGetGPIOLevel(evt);
             }
         });
+        MicroPythonCommandsGPIO.add(MicroPythonGPIO4);
+
+        MicroPythonGPIO5_1.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        MicroPythonGPIO5_1.setText("GPIO5 -> 1");
+        MicroPythonGPIO5_1.setActionCommand("5");
+        MicroPythonGPIO5_1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MicroPythonSetGPIOHigh(evt);
+            }
+        });
+        MicroPythonCommandsGPIO.add(MicroPythonGPIO5_1);
+
+        MicroPythonGPIO5_0.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        MicroPythonGPIO5_0.setText("GPIO5 -> 0");
+        MicroPythonGPIO5_0.setActionCommand("5");
+        MicroPythonGPIO5_0.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MicroPythonSetGPIOLow(evt);
+            }
+        });
+        MicroPythonCommandsGPIO.add(MicroPythonGPIO5_0);
 
         MicroPythonGPIO5.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         MicroPythonGPIO5.setText("GPIO5 ?");
-        MicroPythonGPIO5.setToolTipText("");
-        MicroPythonGPIO5.setMaximumSize(new java.awt.Dimension(90, 30));
-        MicroPythonGPIO5.setMinimumSize(new java.awt.Dimension(90, 30));
-        MicroPythonGPIO5.setPreferredSize(new java.awt.Dimension(90, 30));
+        MicroPythonGPIO5.setActionCommand("5");
         MicroPythonGPIO5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                MicroPythonGPIO5ActionPerformed(evt);
+                MicroPythonGetGPIOLevel(evt);
             }
         });
+        MicroPythonCommandsGPIO.add(MicroPythonGPIO5);
+
+        MicroPythonGPIO9_1.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        MicroPythonGPIO9_1.setText("GPIO9 -> 1");
+        MicroPythonGPIO9_1.setActionCommand("9");
+        MicroPythonGPIO9_1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MicroPythonSetGPIOHigh(evt);
+            }
+        });
+        MicroPythonCommandsGPIO.add(MicroPythonGPIO9_1);
+
+        MicroPythonGPIO9_0.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        MicroPythonGPIO9_0.setText("GPIO9 -> 0");
+        MicroPythonGPIO9_0.setActionCommand("9");
+        MicroPythonGPIO9_0.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MicroPythonSetGPIOLow(evt);
+            }
+        });
+        MicroPythonCommandsGPIO.add(MicroPythonGPIO9_0);
 
         MicroPythonGPIO9.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         MicroPythonGPIO9.setText("GPIO9 ?");
-        MicroPythonGPIO9.setToolTipText("");
-        MicroPythonGPIO9.setMaximumSize(new java.awt.Dimension(90, 30));
-        MicroPythonGPIO9.setMinimumSize(new java.awt.Dimension(90, 30));
-        MicroPythonGPIO9.setPreferredSize(new java.awt.Dimension(90, 30));
+        MicroPythonGPIO9.setActionCommand("9");
         MicroPythonGPIO9.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                MicroPythonGPIO9ActionPerformed(evt);
+                MicroPythonGetGPIOLevel(evt);
             }
         });
+        MicroPythonCommandsGPIO.add(MicroPythonGPIO9);
+
+        MicroPythonGPIO10_1.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        MicroPythonGPIO10_1.setText("GPIO10 -> 1");
+        MicroPythonGPIO10_1.setActionCommand("10");
+        MicroPythonGPIO10_1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MicroPythonSetGPIOHigh(evt);
+            }
+        });
+        MicroPythonCommandsGPIO.add(MicroPythonGPIO10_1);
+
+        MicroPythonGPIO10_0.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        MicroPythonGPIO10_0.setText("GPIO10 -> 0");
+        MicroPythonGPIO10_0.setActionCommand("10");
+        MicroPythonGPIO10_0.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MicroPythonSetGPIOLow(evt);
+            }
+        });
+        MicroPythonCommandsGPIO.add(MicroPythonGPIO10_0);
 
         MicroPythonGPIO10.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         MicroPythonGPIO10.setText("GPIO10 ?");
-        MicroPythonGPIO10.setToolTipText("");
-        MicroPythonGPIO10.setMaximumSize(new java.awt.Dimension(90, 30));
-        MicroPythonGPIO10.setMinimumSize(new java.awt.Dimension(90, 30));
-        MicroPythonGPIO10.setPreferredSize(new java.awt.Dimension(90, 30));
+        MicroPythonGPIO10.setActionCommand("10");
         MicroPythonGPIO10.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                MicroPythonGPIO10ActionPerformed(evt);
+                MicroPythonGetGPIOLevel(evt);
             }
         });
+        MicroPythonCommandsGPIO.add(MicroPythonGPIO10);
+
+        MicroPythonGPIO12_1.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        MicroPythonGPIO12_1.setText("GPIO12 -> 1");
+        MicroPythonGPIO12_1.setActionCommand("12");
+        MicroPythonGPIO12_1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MicroPythonSetGPIOHigh(evt);
+            }
+        });
+        MicroPythonCommandsGPIO.add(MicroPythonGPIO12_1);
+
+        MicroPythonGPIO12_0.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        MicroPythonGPIO12_0.setText("GPIO12 -> 0");
+        MicroPythonGPIO12_0.setActionCommand("12");
+        MicroPythonGPIO12_0.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MicroPythonSetGPIOLow(evt);
+            }
+        });
+        MicroPythonCommandsGPIO.add(MicroPythonGPIO12_0);
 
         MicroPythonGPIO12.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         MicroPythonGPIO12.setText("GPIO12 ?");
-        MicroPythonGPIO12.setToolTipText("");
-        MicroPythonGPIO12.setMaximumSize(new java.awt.Dimension(90, 30));
-        MicroPythonGPIO12.setMinimumSize(new java.awt.Dimension(90, 30));
-        MicroPythonGPIO12.setPreferredSize(new java.awt.Dimension(90, 30));
+        MicroPythonGPIO12.setActionCommand("12");
         MicroPythonGPIO12.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                MicroPythonGPIO12ActionPerformed(evt);
+                MicroPythonGetGPIOLevel(evt);
             }
         });
+        MicroPythonCommandsGPIO.add(MicroPythonGPIO12);
+
+        MicroPythonGPIO13_1.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        MicroPythonGPIO13_1.setText("GPIO13 -> 1");
+        MicroPythonGPIO13_1.setActionCommand("13");
+        MicroPythonGPIO13_1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MicroPythonSetGPIOHigh(evt);
+            }
+        });
+        MicroPythonCommandsGPIO.add(MicroPythonGPIO13_1);
+
+        MicroPythonGPIO13_0.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        MicroPythonGPIO13_0.setText("GPIO13 -> 0");
+        MicroPythonGPIO13_0.setActionCommand("13");
+        MicroPythonGPIO13_0.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MicroPythonSetGPIOLow(evt);
+            }
+        });
+        MicroPythonCommandsGPIO.add(MicroPythonGPIO13_0);
 
         MicroPythonGPIO13.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         MicroPythonGPIO13.setText("GPIO13 ?");
-        MicroPythonGPIO13.setToolTipText("");
-        MicroPythonGPIO13.setMaximumSize(new java.awt.Dimension(90, 30));
-        MicroPythonGPIO13.setMinimumSize(new java.awt.Dimension(90, 30));
-        MicroPythonGPIO13.setPreferredSize(new java.awt.Dimension(90, 30));
+        MicroPythonGPIO13.setActionCommand("13");
         MicroPythonGPIO13.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                MicroPythonGPIO13ActionPerformed(evt);
+                MicroPythonGetGPIOLevel(evt);
             }
         });
+        MicroPythonCommandsGPIO.add(MicroPythonGPIO13);
+
+        MicroPythonGPIO14_1.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        MicroPythonGPIO14_1.setText("GPIO14 -> 1");
+        MicroPythonGPIO14_1.setActionCommand("14");
+        MicroPythonGPIO14_1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MicroPythonSetGPIOHigh(evt);
+            }
+        });
+        MicroPythonCommandsGPIO.add(MicroPythonGPIO14_1);
+
+        MicroPythonGPIO14_0.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        MicroPythonGPIO14_0.setText("GPIO14 -> 0");
+        MicroPythonGPIO14_0.setActionCommand("14");
+        MicroPythonGPIO14_0.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MicroPythonSetGPIOLow(evt);
+            }
+        });
+        MicroPythonCommandsGPIO.add(MicroPythonGPIO14_0);
 
         MicroPythonGPIO14.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         MicroPythonGPIO14.setText("GPIO14 ?");
-        MicroPythonGPIO14.setToolTipText("");
-        MicroPythonGPIO14.setMaximumSize(new java.awt.Dimension(90, 30));
-        MicroPythonGPIO14.setMinimumSize(new java.awt.Dimension(90, 30));
-        MicroPythonGPIO14.setPreferredSize(new java.awt.Dimension(90, 30));
+        MicroPythonGPIO14.setActionCommand("14");
         MicroPythonGPIO14.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                MicroPythonGPIO14ActionPerformed(evt);
+                MicroPythonGetGPIOLevel(evt);
             }
         });
+        MicroPythonCommandsGPIO.add(MicroPythonGPIO14);
+
+        MicroPythonGPIO15_1.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        MicroPythonGPIO15_1.setText("GPIO15 -> 1");
+        MicroPythonGPIO15_1.setActionCommand("15");
+        MicroPythonGPIO15_1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MicroPythonSetGPIOHigh(evt);
+            }
+        });
+        MicroPythonCommandsGPIO.add(MicroPythonGPIO15_1);
+
+        MicroPythonGPIO15_0.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        MicroPythonGPIO15_0.setText("GPIO15 -> 0");
+        MicroPythonGPIO15_0.setActionCommand("15");
+        MicroPythonGPIO15_0.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MicroPythonSetGPIOLow(evt);
+            }
+        });
+        MicroPythonCommandsGPIO.add(MicroPythonGPIO15_0);
 
         MicroPythonGPIO15.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         MicroPythonGPIO15.setText("GPIO15 ?");
-        MicroPythonGPIO15.setToolTipText("");
-        MicroPythonGPIO15.setMaximumSize(new java.awt.Dimension(90, 30));
-        MicroPythonGPIO15.setMinimumSize(new java.awt.Dimension(90, 30));
-        MicroPythonGPIO15.setPreferredSize(new java.awt.Dimension(90, 30));
+        MicroPythonGPIO15.setActionCommand("15");
         MicroPythonGPIO15.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                MicroPythonGPIO15ActionPerformed(evt);
+                MicroPythonGetGPIOLevel(evt);
             }
         });
+        MicroPythonCommandsGPIO.add(MicroPythonGPIO15);
+
+        MicroPythonGPIO16_1.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        MicroPythonGPIO16_1.setText("GPIO16 -> 1");
+        MicroPythonGPIO16_1.setActionCommand("16");
+        MicroPythonGPIO16_1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MicroPythonSetGPIOHigh(evt);
+            }
+        });
+        MicroPythonCommandsGPIO.add(MicroPythonGPIO16_1);
+
+        MicroPythonGPIO16_0.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        MicroPythonGPIO16_0.setText("GPIO16 -> 0");
+        MicroPythonGPIO16_0.setActionCommand("16");
+        MicroPythonGPIO16_0.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MicroPythonSetGPIOLow(evt);
+            }
+        });
+        MicroPythonCommandsGPIO.add(MicroPythonGPIO16_0);
 
         MicroPythonGPIO16.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         MicroPythonGPIO16.setText("GPIO16 ?");
-        MicroPythonGPIO16.setToolTipText("");
-        MicroPythonGPIO16.setMaximumSize(new java.awt.Dimension(90, 30));
-        MicroPythonGPIO16.setMinimumSize(new java.awt.Dimension(90, 30));
-        MicroPythonGPIO16.setPreferredSize(new java.awt.Dimension(90, 30));
+        MicroPythonGPIO16.setActionCommand("16");
         MicroPythonGPIO16.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                MicroPythonGPIO16ActionPerformed(evt);
+                MicroPythonGetGPIOLevel(evt);
             }
         });
-
-        MicroPythonCommandsGPIO.setLayer(MicroPythonGPIO0_1, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        MicroPythonCommandsGPIO.setLayer(MicroPythonGPIO0_0, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        MicroPythonCommandsGPIO.setLayer(MicroPythonGPIO2_1, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        MicroPythonCommandsGPIO.setLayer(MicroPythonGPIO2_0, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        MicroPythonCommandsGPIO.setLayer(MicroPythonGPIO4_1, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        MicroPythonCommandsGPIO.setLayer(MicroPythonGPIO4_0, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        MicroPythonCommandsGPIO.setLayer(MicroPythonGPIO5_0, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        MicroPythonCommandsGPIO.setLayer(MicroPythonGPIO5_1, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        MicroPythonCommandsGPIO.setLayer(MicroPythonGPIO9_0, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        MicroPythonCommandsGPIO.setLayer(MicroPythonGPIO9_1, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        MicroPythonCommandsGPIO.setLayer(MicroPythonGPIO10_0, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        MicroPythonCommandsGPIO.setLayer(MicroPythonGPIO10_1, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        MicroPythonCommandsGPIO.setLayer(MicroPythonGPIO12_0, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        MicroPythonCommandsGPIO.setLayer(MicroPythonGPIO12_1, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        MicroPythonCommandsGPIO.setLayer(MicroPythonGPIO13_0, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        MicroPythonCommandsGPIO.setLayer(MicroPythonGPIO13_1, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        MicroPythonCommandsGPIO.setLayer(MicroPythonGPIO14_1, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        MicroPythonCommandsGPIO.setLayer(MicroPythonGPIO15_1, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        MicroPythonCommandsGPIO.setLayer(MicroPythonGPIO16_1, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        MicroPythonCommandsGPIO.setLayer(MicroPythonGPIO14_0, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        MicroPythonCommandsGPIO.setLayer(MicroPythonGPIO15_0, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        MicroPythonCommandsGPIO.setLayer(MicroPythonGPIO16_0, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        MicroPythonCommandsGPIO.setLayer(MicroPythonGPIO0, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        MicroPythonCommandsGPIO.setLayer(MicroPythonGPIO2, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        MicroPythonCommandsGPIO.setLayer(MicroPythonGPIO4, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        MicroPythonCommandsGPIO.setLayer(MicroPythonGPIO5, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        MicroPythonCommandsGPIO.setLayer(MicroPythonGPIO9, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        MicroPythonCommandsGPIO.setLayer(MicroPythonGPIO10, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        MicroPythonCommandsGPIO.setLayer(MicroPythonGPIO12, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        MicroPythonCommandsGPIO.setLayer(MicroPythonGPIO13, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        MicroPythonCommandsGPIO.setLayer(MicroPythonGPIO14, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        MicroPythonCommandsGPIO.setLayer(MicroPythonGPIO15, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        MicroPythonCommandsGPIO.setLayer(MicroPythonGPIO16, javax.swing.JLayeredPane.DEFAULT_LAYER);
-
-        javax.swing.GroupLayout MicroPythonCommandsGPIOLayout = new javax.swing.GroupLayout(MicroPythonCommandsGPIO);
-        MicroPythonCommandsGPIO.setLayout(MicroPythonCommandsGPIOLayout);
-        MicroPythonCommandsGPIOLayout.setHorizontalGroup(
-            MicroPythonCommandsGPIOLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(MicroPythonCommandsGPIOLayout.createSequentialGroup()
-                .addComponent(MicroPythonGPIO0_1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(MicroPythonGPIO0_0, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(MicroPythonGPIO0, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(MicroPythonCommandsGPIOLayout.createSequentialGroup()
-                .addComponent(MicroPythonGPIO2_1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(MicroPythonGPIO2_0, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(MicroPythonGPIO2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(MicroPythonCommandsGPIOLayout.createSequentialGroup()
-                .addComponent(MicroPythonGPIO4_1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(MicroPythonGPIO4_0, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(MicroPythonGPIO4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(MicroPythonCommandsGPIOLayout.createSequentialGroup()
-                .addComponent(MicroPythonGPIO5_1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(MicroPythonGPIO5_0, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(MicroPythonGPIO5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(MicroPythonCommandsGPIOLayout.createSequentialGroup()
-                .addComponent(MicroPythonGPIO9_1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(MicroPythonGPIO9_0, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(MicroPythonGPIO9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(MicroPythonCommandsGPIOLayout.createSequentialGroup()
-                .addComponent(MicroPythonGPIO10_1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(MicroPythonGPIO10_0, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(MicroPythonGPIO10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(MicroPythonCommandsGPIOLayout.createSequentialGroup()
-                .addComponent(MicroPythonGPIO12_1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(MicroPythonGPIO12_0, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(MicroPythonGPIO12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(MicroPythonCommandsGPIOLayout.createSequentialGroup()
-                .addComponent(MicroPythonGPIO13_1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(MicroPythonGPIO13_0, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(MicroPythonGPIO13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addComponent(MicroPythonGPIO14_1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addComponent(MicroPythonGPIO15_1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addComponent(MicroPythonGPIO16_1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addGroup(MicroPythonCommandsGPIOLayout.createSequentialGroup()
-                .addGap(96, 96, 96)
-                .addGroup(MicroPythonCommandsGPIOLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(MicroPythonCommandsGPIOLayout.createSequentialGroup()
-                        .addComponent(MicroPythonGPIO16_0, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(MicroPythonGPIO16, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(MicroPythonCommandsGPIOLayout.createSequentialGroup()
-                        .addComponent(MicroPythonGPIO14_0, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(MicroPythonGPIO14, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(MicroPythonCommandsGPIOLayout.createSequentialGroup()
-                        .addComponent(MicroPythonGPIO15_0, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(MicroPythonGPIO15, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-        );
-        MicroPythonCommandsGPIOLayout.setVerticalGroup(
-            MicroPythonCommandsGPIOLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(MicroPythonCommandsGPIOLayout.createSequentialGroup()
-                .addGroup(MicroPythonCommandsGPIOLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(MicroPythonGPIO0_1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(MicroPythonGPIO0_0, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(MicroPythonGPIO0, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(MicroPythonCommandsGPIOLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(MicroPythonGPIO2_1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(MicroPythonGPIO2_0, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(MicroPythonGPIO2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(MicroPythonCommandsGPIOLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(MicroPythonGPIO4_1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(MicroPythonGPIO4_0, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(MicroPythonGPIO4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(MicroPythonCommandsGPIOLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(MicroPythonGPIO5_1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(MicroPythonGPIO5_0, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(MicroPythonGPIO5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(MicroPythonCommandsGPIOLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(MicroPythonGPIO9_1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(MicroPythonGPIO9_0, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(MicroPythonGPIO9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(MicroPythonCommandsGPIOLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(MicroPythonGPIO10_1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(MicroPythonGPIO10_0, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(MicroPythonGPIO10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(MicroPythonCommandsGPIOLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(MicroPythonGPIO12_1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(MicroPythonGPIO12_0, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(MicroPythonGPIO12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(MicroPythonCommandsGPIOLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(MicroPythonCommandsGPIOLayout.createSequentialGroup()
-                        .addComponent(MicroPythonGPIO13_1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(MicroPythonGPIO14_1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(MicroPythonGPIO15_1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(MicroPythonGPIO16_1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(MicroPythonCommandsGPIOLayout.createSequentialGroup()
-                        .addComponent(MicroPythonGPIO13_0, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(MicroPythonCommandsGPIOLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(MicroPythonGPIO14_0, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(MicroPythonGPIO14, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(MicroPythonCommandsGPIOLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(MicroPythonGPIO15_0, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(MicroPythonGPIO15, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(MicroPythonCommandsGPIOLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(MicroPythonGPIO16_0, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(MicroPythonGPIO16, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(MicroPythonGPIO13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-        );
+        MicroPythonCommandsGPIO.add(MicroPythonGPIO16);
 
         MicroPythonCommandsTab.addTab(" GPIO ", MicroPythonCommandsGPIO);
 
-        NodeMCUCommands.setLayer(CommandsMicroPython, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        NodeMCUCommands.setLayer(CommandsNodeMCU, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        NodeMCUCommands.setLayer(MicroPythonCommandsTab, javax.swing.JLayeredPane.DEFAULT_LAYER);
-
-        javax.swing.GroupLayout NodeMCUCommandsLayout = new javax.swing.GroupLayout(NodeMCUCommands);
-        NodeMCUCommands.setLayout(NodeMCUCommandsLayout);
-        NodeMCUCommandsLayout.setHorizontalGroup(
-            NodeMCUCommandsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(CommandsNodeMCU)
-            .addGroup(NodeMCUCommandsLayout.createSequentialGroup()
-                .addComponent(MicroPythonCommandsTab, javax.swing.GroupLayout.PREFERRED_SIZE, 528, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(CommandsMicroPython)
-                .addGap(535, 535, 535))
-        );
-        NodeMCUCommandsLayout.setVerticalGroup(
-            NodeMCUCommandsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(NodeMCUCommandsLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(CommandsNodeMCU, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGroup(NodeMCUCommandsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(NodeMCUCommandsLayout.createSequentialGroup()
-                        .addGap(60, 60, 60)
-                        .addComponent(CommandsMicroPython, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(NodeMCUCommandsLayout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(MicroPythonCommandsTab, javax.swing.GroupLayout.PREFERRED_SIZE, 548, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
+        NodeMCUCommands.add(MicroPythonCommandsTab);
 
         TextTab.addTab("Commands", NodeMCUCommands);
 
-        NodeMCUSnippets.setOpaque(true);
+        NodeMCUSnippets.setLayout(new javax.swing.BoxLayout(NodeMCUSnippets, javax.swing.BoxLayout.LINE_AXIS));
 
-        LeftSnippetsPane.setOpaque(true);
+        LeftSnippetsPane.setMaximumSize(new java.awt.Dimension(150, 32767));
+        LeftSnippetsPane.setLayout(new java.awt.GridLayout(16, 1));
 
         SnippetEdit0.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         SnippetEdit0.setText("Edit Snippet0");
@@ -2515,6 +2252,7 @@ public class ESPlorer extends javax.swing.JFrame {
                 SnippetEdit0ActionPerformed(evt);
             }
         });
+        LeftSnippetsPane.add(SnippetEdit0);
 
         SnippetEdit1.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         SnippetEdit1.setText("Edit Snippet1");
@@ -2523,6 +2261,7 @@ public class ESPlorer extends javax.swing.JFrame {
                 SnippetEdit1ActionPerformed(evt);
             }
         });
+        LeftSnippetsPane.add(SnippetEdit1);
 
         SnippetEdit2.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         SnippetEdit2.setText("Edit Snippet2");
@@ -2531,6 +2270,7 @@ public class ESPlorer extends javax.swing.JFrame {
                 SnippetEdit2ActionPerformed(evt);
             }
         });
+        LeftSnippetsPane.add(SnippetEdit2);
 
         SnippetEdit3.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         SnippetEdit3.setText("Edit Snippet3");
@@ -2539,6 +2279,7 @@ public class ESPlorer extends javax.swing.JFrame {
                 SnippetEdit3ActionPerformed(evt);
             }
         });
+        LeftSnippetsPane.add(SnippetEdit3);
 
         SnippetEdit4.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         SnippetEdit4.setText("Edit Snippet4");
@@ -2547,6 +2288,7 @@ public class ESPlorer extends javax.swing.JFrame {
                 SnippetEdit4ActionPerformed(evt);
             }
         });
+        LeftSnippetsPane.add(SnippetEdit4);
 
         SnippetEdit5.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         SnippetEdit5.setText("Edit Snippet5");
@@ -2555,6 +2297,7 @@ public class ESPlorer extends javax.swing.JFrame {
                 SnippetEdit5ActionPerformed(evt);
             }
         });
+        LeftSnippetsPane.add(SnippetEdit5);
 
         SnippetEdit6.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         SnippetEdit6.setText("Edit Snippet6");
@@ -2563,6 +2306,7 @@ public class ESPlorer extends javax.swing.JFrame {
                 SnippetEdit6ActionPerformed(evt);
             }
         });
+        LeftSnippetsPane.add(SnippetEdit6);
 
         SnippetEdit7.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         SnippetEdit7.setText("Edit Snippet7");
@@ -2571,6 +2315,7 @@ public class ESPlorer extends javax.swing.JFrame {
                 SnippetEdit7ActionPerformed(evt);
             }
         });
+        LeftSnippetsPane.add(SnippetEdit7);
 
         SnippetEdit8.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         SnippetEdit8.setText("Edit Snippet8");
@@ -2579,6 +2324,7 @@ public class ESPlorer extends javax.swing.JFrame {
                 SnippetEdit8ActionPerformed(evt);
             }
         });
+        LeftSnippetsPane.add(SnippetEdit8);
 
         SnippetEdit9.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         SnippetEdit9.setText("Edit Snippet9");
@@ -2587,6 +2333,7 @@ public class ESPlorer extends javax.swing.JFrame {
                 SnippetEdit9ActionPerformed(evt);
             }
         });
+        LeftSnippetsPane.add(SnippetEdit9);
 
         SnippetEdit10.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         SnippetEdit10.setText("Edit Snippet10");
@@ -2595,6 +2342,7 @@ public class ESPlorer extends javax.swing.JFrame {
                 SnippetEdit10ActionPerformed(evt);
             }
         });
+        LeftSnippetsPane.add(SnippetEdit10);
 
         SnippetEdit11.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         SnippetEdit11.setText("Edit Snippet11");
@@ -2603,6 +2351,7 @@ public class ESPlorer extends javax.swing.JFrame {
                 SnippetEdit11ActionPerformed(evt);
             }
         });
+        LeftSnippetsPane.add(SnippetEdit11);
 
         SnippetEdit12.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         SnippetEdit12.setText("Edit Snippet12");
@@ -2611,6 +2360,7 @@ public class ESPlorer extends javax.swing.JFrame {
                 SnippetEdit12ActionPerformed(evt);
             }
         });
+        LeftSnippetsPane.add(SnippetEdit12);
 
         SnippetEdit13.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         SnippetEdit13.setText("Edit Snippet13");
@@ -2619,6 +2369,7 @@ public class ESPlorer extends javax.swing.JFrame {
                 SnippetEdit13ActionPerformed(evt);
             }
         });
+        LeftSnippetsPane.add(SnippetEdit13);
 
         SnippetEdit14.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         SnippetEdit14.setText("Edit Snippet14");
@@ -2627,6 +2378,7 @@ public class ESPlorer extends javax.swing.JFrame {
                 SnippetEdit14ActionPerformed(evt);
             }
         });
+        LeftSnippetsPane.add(SnippetEdit14);
 
         SnippetEdit15.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         SnippetEdit15.setText("Edit Snippet15");
@@ -2635,83 +2387,11 @@ public class ESPlorer extends javax.swing.JFrame {
                 SnippetEdit15ActionPerformed(evt);
             }
         });
+        LeftSnippetsPane.add(SnippetEdit15);
 
-        LeftSnippetsPane.setLayer(SnippetEdit0, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        LeftSnippetsPane.setLayer(SnippetEdit1, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        LeftSnippetsPane.setLayer(SnippetEdit2, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        LeftSnippetsPane.setLayer(SnippetEdit3, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        LeftSnippetsPane.setLayer(SnippetEdit4, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        LeftSnippetsPane.setLayer(SnippetEdit5, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        LeftSnippetsPane.setLayer(SnippetEdit6, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        LeftSnippetsPane.setLayer(SnippetEdit7, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        LeftSnippetsPane.setLayer(SnippetEdit8, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        LeftSnippetsPane.setLayer(SnippetEdit9, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        LeftSnippetsPane.setLayer(SnippetEdit10, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        LeftSnippetsPane.setLayer(SnippetEdit11, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        LeftSnippetsPane.setLayer(SnippetEdit12, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        LeftSnippetsPane.setLayer(SnippetEdit13, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        LeftSnippetsPane.setLayer(SnippetEdit14, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        LeftSnippetsPane.setLayer(SnippetEdit15, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        NodeMCUSnippets.add(LeftSnippetsPane);
 
-        javax.swing.GroupLayout LeftSnippetsPaneLayout = new javax.swing.GroupLayout(LeftSnippetsPane);
-        LeftSnippetsPane.setLayout(LeftSnippetsPaneLayout);
-        LeftSnippetsPaneLayout.setHorizontalGroup(
-            LeftSnippetsPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(SnippetEdit0, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(SnippetEdit1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(SnippetEdit2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(SnippetEdit3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(SnippetEdit4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(SnippetEdit5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(SnippetEdit6, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(SnippetEdit7, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(SnippetEdit8, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(SnippetEdit9, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(SnippetEdit10, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 129, Short.MAX_VALUE)
-            .addComponent(SnippetEdit11, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(SnippetEdit12, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(SnippetEdit13, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(SnippetEdit14, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(SnippetEdit15, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-        LeftSnippetsPaneLayout.setVerticalGroup(
-            LeftSnippetsPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(LeftSnippetsPaneLayout.createSequentialGroup()
-                .addComponent(SnippetEdit0, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(SnippetEdit1, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(SnippetEdit2, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(SnippetEdit3, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(SnippetEdit4, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(SnippetEdit5, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(SnippetEdit6, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(SnippetEdit7, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(SnippetEdit8, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(SnippetEdit9, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(SnippetEdit10, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(SnippetEdit11, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(SnippetEdit12, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(SnippetEdit13, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(SnippetEdit14, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(SnippetEdit15, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(252, Short.MAX_VALUE))
-        );
-
-        SnippetTopPane.setOpaque(true);
+        jLayeredPane4.setLayout(new javax.swing.BoxLayout(jLayeredPane4, javax.swing.BoxLayout.PAGE_AXIS));
 
         SnippetName.setEnabled(false);
 
@@ -2790,7 +2470,7 @@ public class ESPlorer extends javax.swing.JFrame {
                         .addComponent(SnippetRun, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(Condensed)))
-                .addContainerGap(69, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         SnippetTopPaneLayout.setVerticalGroup(
             SnippetTopPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -2806,6 +2486,8 @@ public class ESPlorer extends javax.swing.JFrame {
                     .addComponent(Condensed)))
         );
 
+        jLayeredPane4.add(SnippetTopPane);
+
         SnippetScrollPane.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         SnippetScrollPane.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
         SnippetScrollPane.setEnabled(false);
@@ -2817,29 +2499,9 @@ public class ESPlorer extends javax.swing.JFrame {
         SnippetText.setEnabled(false);
         SnippetScrollPane.setViewportView(SnippetText);
 
-        NodeMCUSnippets.setLayer(LeftSnippetsPane, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        NodeMCUSnippets.setLayer(SnippetTopPane, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        NodeMCUSnippets.setLayer(SnippetScrollPane, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane4.add(SnippetScrollPane);
 
-        javax.swing.GroupLayout NodeMCUSnippetsLayout = new javax.swing.GroupLayout(NodeMCUSnippets);
-        NodeMCUSnippets.setLayout(NodeMCUSnippetsLayout);
-        NodeMCUSnippetsLayout.setHorizontalGroup(
-            NodeMCUSnippetsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(NodeMCUSnippetsLayout.createSequentialGroup()
-                .addComponent(LeftSnippetsPane, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(NodeMCUSnippetsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(SnippetTopPane)
-                    .addComponent(SnippetScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-        );
-        NodeMCUSnippetsLayout.setVerticalGroup(
-            NodeMCUSnippetsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(NodeMCUSnippetsLayout.createSequentialGroup()
-                .addComponent(SnippetTopPane, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(SnippetScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addComponent(LeftSnippetsPane)
-        );
+        NodeMCUSnippets.add(jLayeredPane4);
 
         TextTab.addTab("Snippets", NodeMCUSnippets);
 
@@ -3315,7 +2977,7 @@ public class ESPlorer extends javax.swing.JFrame {
                 .addGroup(NodeMCUSettingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLayeredPane2)
                     .addComponent(jLayeredPane3))
-                .addContainerGap(135, Short.MAX_VALUE))
+                .addContainerGap(174, Short.MAX_VALUE))
         );
         NodeMCUSettingsLayout.setVerticalGroup(
             NodeMCUSettingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -3331,7 +2993,7 @@ public class ESPlorer extends javax.swing.JFrame {
                         .addComponent(jLayeredPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(45, 45, 45)
                 .addComponent(OptionsFileSendMode, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 134, Short.MAX_VALUE))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         TextTab.addTab("Settings", new javax.swing.ImageIcon(getClass().getResource("/resources/settings2.png")), NodeMCUSettings, "Settings for file sending"); // NOI18N
@@ -3340,11 +3002,11 @@ public class ESPlorer extends javax.swing.JFrame {
         NodeMCU.setLayout(NodeMCULayout);
         NodeMCULayout.setHorizontalGroup(
             NodeMCULayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(TextTab, javax.swing.GroupLayout.DEFAULT_SIZE, 540, Short.MAX_VALUE)
+            .addComponent(TextTab, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         NodeMCULayout.setVerticalGroup(
             NodeMCULayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(TextTab, javax.swing.GroupLayout.DEFAULT_SIZE, 712, Short.MAX_VALUE)
+            .addComponent(TextTab, javax.swing.GroupLayout.DEFAULT_SIZE, 692, Short.MAX_VALUE)
         );
 
         TextTab.getAccessibleContext().setAccessibleName("NewFile");
@@ -3423,7 +3085,7 @@ public class ESPlorer extends javax.swing.JFrame {
         });
         BasicATcommandsPane.add(UPDATE);
 
-        ATvXX.add(BasicATcommandsPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 545, 70));
+        ATvXX.add(BasicATcommandsPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         TabAT.setTabLayoutPolicy(javax.swing.JTabbedPane.SCROLL_TAB_LAYOUT);
         TabAT.setToolTipText("ESP8266 AT commands v0.20");
@@ -3466,7 +3128,6 @@ public class ESPlorer extends javax.swing.JFrame {
         WiFiStationPane.setName(""); // NOI18N
         WiFiStationPane.setOpaque(true);
 
-        cmdGetCWJAP.setFont(cmdGetCWJAP.getFont().deriveFont((float)12));
         cmdGetCWJAP.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/information.png"))); // NOI18N
         cmdGetCWJAP.setText("CWJAP? - Connection info");
         cmdGetCWJAP.setToolTipText("Query AP’s info which is connect by ESP8266");
@@ -3480,7 +3141,6 @@ public class ESPlorer extends javax.swing.JFrame {
             }
         });
 
-        cmdSetCWJAP.setFont(cmdSetCWJAP.getFont().deriveFont((float)12));
         cmdSetCWJAP.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/connect3.png"))); // NOI18N
         cmdSetCWJAP.setText("CWJAP Connect to AP");
         cmdSetCWJAP.setToolTipText("Connect to WiFi Access Point");
@@ -3709,7 +3369,7 @@ public class ESPlorer extends javax.swing.JFrame {
                 .addComponent(PingIP, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(cmdSetPING, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(142, Short.MAX_VALUE))
+                .addContainerGap(128, Short.MAX_VALUE))
         );
 
         WiFiStationPaneLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {cmdGetCIPSTA, cmdGetCWJAP, cmdSetCIPSTA, cmdSetCWQAP});
@@ -3845,7 +3505,6 @@ public class ESPlorer extends javax.swing.JFrame {
 
         cmdGetCIPAP.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         cmdGetCIPAP.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/get.png"))); // NOI18N
-        cmdGetCIPAP.setText("CIPAP Get softAP IP");
         cmdGetCIPAP.setToolTipText("Get IP address of ESP8266 softAP");
         cmdGetCIPAP.setMargin(new java.awt.Insets(2, 2, 2, 2));
         cmdGetCIPAP.setMaximumSize(new java.awt.Dimension(210, 23));
@@ -3860,7 +3519,6 @@ public class ESPlorer extends javax.swing.JFrame {
         cmdSetCIPAPMAC.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         cmdSetCIPAPMAC.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/set.png"))); // NOI18N
         cmdSetCIPAPMAC.setToolTipText("Set softAP MAC address");
-        cmdSetCIPAPMAC.setText("CIPAPMAC= Set MAC softAP");
         cmdSetCIPAPMAC.setMargin(new java.awt.Insets(2, 2, 2, 2));
         cmdSetCIPAPMAC.setMaximumSize(new java.awt.Dimension(210, 23));
         cmdSetCIPAPMAC.setMinimumSize(new java.awt.Dimension(210, 23));
@@ -3908,8 +3566,8 @@ public class ESPlorer extends javax.swing.JFrame {
 
         cmdSetCIPAP.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         cmdSetCIPAP.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/set.png"))); // NOI18N
-        cmdSetCIPAP.setToolTipText("Set softAP IP address");
         cmdSetCIPAP.setText("CIPAP= Set softAP IP");
+        cmdSetCIPAP.setToolTipText("Set softAP IP address");
         cmdSetCIPAP.setMargin(new java.awt.Insets(2, 2, 2, 2));
         cmdSetCIPAP.setMaximumSize(new java.awt.Dimension(210, 23));
         cmdSetCIPAP.setMinimumSize(new java.awt.Dimension(210, 23));
@@ -4014,7 +3672,7 @@ public class ESPlorer extends javax.swing.JFrame {
         AT_SoftAPLayout.setHorizontalGroup(
             AT_SoftAPLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(WiFisoftAPPane, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(TopWiFiAPFiller, javax.swing.GroupLayout.DEFAULT_SIZE, 535, Short.MAX_VALUE)
+            .addComponent(TopWiFiAPFiller, javax.swing.GroupLayout.DEFAULT_SIZE, 463, Short.MAX_VALUE)
         );
         AT_SoftAPLayout.setVerticalGroup(
             AT_SoftAPLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -4236,7 +3894,7 @@ public class ESPlorer extends javax.swing.JFrame {
         TCPclientBottomPane.setLayout(TCPclientBottomPaneLayout);
         TCPclientBottomPaneLayout.setHorizontalGroup(
             TCPclientBottomPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(common, javax.swing.GroupLayout.DEFAULT_SIZE, 535, Short.MAX_VALUE)
+            .addComponent(common, javax.swing.GroupLayout.DEFAULT_SIZE, 457, Short.MAX_VALUE)
             .addGroup(TCPclientBottomPaneLayout.createSequentialGroup()
                 .addComponent(UDP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -4285,7 +3943,7 @@ public class ESPlorer extends javax.swing.JFrame {
                         .addComponent(cmdCIPSENDinteractive)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(cmdSetCIPCLOSE)
-                        .addContainerGap(295, Short.MAX_VALUE))
+                        .addContainerGap(258, Short.MAX_VALUE))
                     .addComponent(jScrollData)))
         );
 
@@ -4294,7 +3952,7 @@ public class ESPlorer extends javax.swing.JFrame {
         AT_ClientLayout.setHorizontalGroup(
             AT_ClientLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(TCPclientBottomPane)
-            .addComponent(TopWiFiStaFiller1, javax.swing.GroupLayout.DEFAULT_SIZE, 535, Short.MAX_VALUE)
+            .addComponent(TopWiFiStaFiller1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         AT_ClientLayout.setVerticalGroup(
             AT_ClientLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -4514,7 +4172,7 @@ public class ESPlorer extends javax.swing.JFrame {
         AT_ServerLayout.setHorizontalGroup(
             AT_ServerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(TCPServerBottomPane, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(TCPServerTopFiller, javax.swing.GroupLayout.DEFAULT_SIZE, 535, Short.MAX_VALUE)
+            .addComponent(TCPServerTopFiller, javax.swing.GroupLayout.DEFAULT_SIZE, 463, Short.MAX_VALUE)
         );
         AT_ServerLayout.setVerticalGroup(
             AT_ServerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -4526,7 +4184,7 @@ public class ESPlorer extends javax.swing.JFrame {
 
         TabAT.addTab("TCP/IP Server", AT_Server);
 
-        ATvXX.add(TabAT, new org.netbeans.lib.awtextra.AbsoluteConstraints(2, 70, 540, 645));
+        ATvXX.add(TabAT, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 70, 440, 645));
 
         TCP_common.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Common TCP commands"));
         TCP_common.setAlignmentX(0.0F);
@@ -5250,7 +4908,7 @@ public class ESPlorer extends javax.swing.JFrame {
                 .addComponent(SendUnconfirmed, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLayeredPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 276, Short.MAX_VALUE))
+                .addGap(0, 204, Short.MAX_VALUE))
         );
 
         MacPane.setViewportView(LoRaMAC);
@@ -5369,7 +5027,7 @@ public class ESPlorer extends javax.swing.JFrame {
                     .addComponent(AppSKey))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(cmdMacGetDevAddr, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 10, Short.MAX_VALUE))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         ABPPaneLayout.setVerticalGroup(
             ABPPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -5575,7 +5233,7 @@ public class ESPlorer extends javax.swing.JFrame {
                 .addComponent(cmdMacSave, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(OTAAPane, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 317, Short.MAX_VALUE))
+                .addGap(0, 267, Short.MAX_VALUE))
         );
 
         ActivationScrollPane.setViewportView(ActivationPane);
@@ -5588,11 +5246,11 @@ public class ESPlorer extends javax.swing.JFrame {
         RN2483.setLayout(RN2483Layout);
         RN2483Layout.setHorizontalGroup(
             RN2483Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(RN2483jTab, javax.swing.GroupLayout.DEFAULT_SIZE, 544, Short.MAX_VALUE)
+            .addComponent(RN2483jTab, javax.swing.GroupLayout.DEFAULT_SIZE, 598, Short.MAX_VALUE)
         );
         RN2483Layout.setVerticalGroup(
             RN2483Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(RN2483jTab, javax.swing.GroupLayout.DEFAULT_SIZE, 716, Short.MAX_VALUE)
+            .addComponent(RN2483jTab, javax.swing.GroupLayout.DEFAULT_SIZE, 696, Short.MAX_VALUE)
         );
 
         LeftTab.addTab(" RN2483 ", RN2483);
@@ -5603,11 +5261,11 @@ public class ESPlorer extends javax.swing.JFrame {
         LeftBasePane.setLayout(LeftBasePaneLayout);
         LeftBasePaneLayout.setHorizontalGroup(
             LeftBasePaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(LeftTab, javax.swing.GroupLayout.DEFAULT_SIZE, 542, Short.MAX_VALUE)
+            .addComponent(LeftTab, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         LeftBasePaneLayout.setVerticalGroup(
             LeftBasePaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(LeftTab, javax.swing.GroupLayout.DEFAULT_SIZE, 744, Short.MAX_VALUE)
+            .addComponent(LeftTab, javax.swing.GroupLayout.DEFAULT_SIZE, 742, Short.MAX_VALUE)
         );
 
         LeftTab.getAccessibleContext().setAccessibleName("LeftTab");
@@ -5615,9 +5273,8 @@ public class ESPlorer extends javax.swing.JFrame {
         HorizontSplit.setLeftComponent(LeftBasePane);
 
         RightBasePane.setOpaque(true);
+        RightBasePane.setLayout(new javax.swing.BoxLayout(RightBasePane, javax.swing.BoxLayout.PAGE_AXIS));
 
-        LEDPanel.setMaximumSize(new java.awt.Dimension(392, 25));
-        LEDPanel.setMinimumSize(new java.awt.Dimension(392, 25));
         LEDPanel.setOpaque(true);
 
         PortOpenLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -5724,7 +5381,7 @@ public class ESPlorer extends javax.swing.JFrame {
 
         Port.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         Port.setMaximumRowCount(20);
-        Port.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "COM1", "COM3" }));
+        Port.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "COM1", "COM3" }));
         Port.setToolTipText("Serial port chooser");
         Port.setMaximumSize(new java.awt.Dimension(150, 25));
         Port.setMinimumSize(new java.awt.Dimension(150, 25));
@@ -5854,7 +5511,7 @@ public class ESPlorer extends javax.swing.JFrame {
                                     .addGroup(LEDPanelLayout.createSequentialGroup()
                                         .addComponent(LF)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(EditorOnlyCheckBox, javax.swing.GroupLayout.DEFAULT_SIZE, 70, Short.MAX_VALUE))
+                                        .addComponent(EditorOnlyCheckBox, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE))
                                     .addGroup(LEDPanelLayout.createSequentialGroup()
                                         .addComponent(CR)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -5877,7 +5534,7 @@ public class ESPlorer extends javax.swing.JFrame {
                             .addComponent(ReScan, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(LEDPanelLayout.createSequentialGroup()
                                 .addGroup(LEDPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(AutoScroll, javax.swing.GroupLayout.PREFERRED_SIZE, 19, Short.MAX_VALUE)
+                                    .addComponent(AutoScroll, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                                     .addComponent(CR)
                                     .addComponent(TerminalOnlyCheckBox))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -5902,56 +5559,7 @@ public class ESPlorer extends javax.swing.JFrame {
 
         Port.getAccessibleContext().setAccessibleName("");
 
-        RightBottomPane.setAlignmentX(0.0F);
-        RightBottomPane.setAlignmentY(0.0F);
-        RightBottomPane.setOpaque(true);
-
-        Command.setEditable(true);
-        Command.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        Command.setMaximumRowCount(20);
-        Command.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "AT", "AT+GMR", "AT+RST", "" }));
-        Command.setToolTipText("Command to send");
-        Command.setAlignmentX(0.0F);
-        Command.setAlignmentY(0.0F);
-        Command.setAutoscrolls(true);
-        Command.setEnabled(false);
-        Command.setName("Command"); // NOI18N
-        Command.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                CommandItemStateChanged(evt);
-            }
-        });
-        Command.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                CommandActionPerformed(evt);
-            }
-        });
-        Command.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                CommandKeyPressed(evt);
-            }
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                CommandKeyReleased(evt);
-            }
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                CommandKeyTyped(evt);
-            }
-        });
-
-        RightBottomPane.setLayer(Command, javax.swing.JLayeredPane.DEFAULT_LAYER);
-
-        javax.swing.GroupLayout RightBottomPaneLayout = new javax.swing.GroupLayout(RightBottomPane);
-        RightBottomPane.setLayout(RightBottomPaneLayout);
-        RightBottomPaneLayout.setHorizontalGroup(
-            RightBottomPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(Command, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-        RightBottomPaneLayout.setVerticalGroup(
-            RightBottomPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-            .addComponent(Command, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-        );
-
-        Command.getAccessibleContext().setAccessibleName("Command");
+        RightBasePane.add(LEDPanel);
 
         RightBigPane.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         RightBigPane.setOpaque(true);
@@ -6037,7 +5645,6 @@ public class ESPlorer extends javax.swing.JFrame {
         Log.setBorder(Terminal.getBorder());
         Log.setComponentPopupMenu(ContextMenuLog);
         Log.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        Log.setMargin(new java.awt.Insets(0, 0, 0, 0));
         Log.setName("Log"); // NOI18N
         Log.setNextFocusableComponent(SendCommand);
         Log.setSelectionColor(new java.awt.Color(204, 0, 0));
@@ -6064,9 +5671,9 @@ public class ESPlorer extends javax.swing.JFrame {
         );
         TerminalLogPaneLayout.setVerticalGroup(
             TerminalLogPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 421, Short.MAX_VALUE)
+            .addGap(0, 339, Short.MAX_VALUE)
             .addGroup(TerminalLogPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(RightSplitPane, javax.swing.GroupLayout.DEFAULT_SIZE, 421, Short.MAX_VALUE))
+                .addComponent(RightSplitPane, javax.swing.GroupLayout.DEFAULT_SIZE, 339, Short.MAX_VALUE))
         );
 
         RightFilesSplitPane.setLeftComponent(TerminalLogPane);
@@ -6254,9 +5861,9 @@ public class ESPlorer extends javax.swing.JFrame {
         FileManagersLayerLayout.setVerticalGroup(
             FileManagersLayerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(FileManagersLayerLayout.createSequentialGroup()
-                .addComponent(NodeFileManagerPane, javax.swing.GroupLayout.DEFAULT_SIZE, 248, Short.MAX_VALUE)
+                .addComponent(NodeFileManagerPane, javax.swing.GroupLayout.DEFAULT_SIZE, 255, Short.MAX_VALUE)
                 .addGap(6, 6, 6)
-                .addComponent(PyFileManagerPane, javax.swing.GroupLayout.DEFAULT_SIZE, 167, Short.MAX_VALUE))
+                .addComponent(PyFileManagerPane, javax.swing.GroupLayout.DEFAULT_SIZE, 174, Short.MAX_VALUE))
         );
 
         FileManagerScrollPane.setViewportView(FileManagersLayer);
@@ -6438,10 +6045,12 @@ public class ESPlorer extends javax.swing.JFrame {
         RightBigPaneLayout.setVerticalGroup(
             RightBigPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(RightBigPaneLayout.createSequentialGroup()
-                .addComponent(RightFilesSplitPane)
+                .addComponent(RightFilesSplitPane, javax.swing.GroupLayout.DEFAULT_SIZE, 343, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(RightSnippetsPane, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(RightSnippetsPane, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE))
         );
+
+        RightBasePane.add(RightBigPane);
 
         RightExtraButtons.setOpaque(true);
         RightExtraButtons.setLayout(new java.awt.FlowLayout());
@@ -6515,59 +6124,73 @@ public class ESPlorer extends javax.swing.JFrame {
         });
         RightExtraButtons.add(NodeReset);
 
+        RightBasePane.add(RightExtraButtons);
+
+        RightBottomPane.setOpaque(true);
+        RightBottomPane.setLayout(new java.awt.GridBagLayout());
+
+        Command.setEditable(true);
+        Command.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        Command.setMaximumRowCount(20);
+        Command.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "AT", "AT+GMR", "AT+RST", "" }));
+        Command.setToolTipText("Command to send");
+        Command.setAutoscrolls(true);
+        Command.setEnabled(false);
+        Command.setName("Command"); // NOI18N
+        Command.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                CommandItemStateChanged(evt);
+            }
+        });
+        Command.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CommandActionPerformed(evt);
+            }
+        });
+        Command.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                CommandKeyTyped(evt);
+            }
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                CommandKeyPressed(evt);
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                CommandKeyReleased(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridwidth = 4;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.ipady = 10;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.weightx = 1.0;
+        RightBottomPane.add(Command, gridBagConstraints);
+        Command.getAccessibleContext().setAccessibleName("Command");
+
         SendCommand.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         SendCommand.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/left.png"))); // NOI18N
+        SendCommand.setText("Send");
         SendCommand.setToolTipText("");
         SendCommand.setAlignmentY(0.0F);
         SendCommand.setEnabled(false);
-        SendCommand.setText("Send");
         SendCommand.setMargin(new java.awt.Insets(0, 0, 0, 0));
         SendCommand.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 SendCommandActionPerformed(evt);
             }
         });
-
-        RightBasePane.setLayer(LEDPanel, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        RightBasePane.setLayer(RightBottomPane, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        RightBasePane.setLayer(RightBigPane, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        RightBasePane.setLayer(RightExtraButtons, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        RightBasePane.setLayer(SendCommand, javax.swing.JLayeredPane.DEFAULT_LAYER);
-
-        javax.swing.GroupLayout RightBasePaneLayout = new javax.swing.GroupLayout(RightBasePane);
-        RightBasePane.setLayout(RightBasePaneLayout);
-        RightBasePaneLayout.setHorizontalGroup(
-            RightBasePaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(RightBasePaneLayout.createSequentialGroup()
-                .addGroup(RightBasePaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(RightBigPane)
-                    .addGroup(RightBasePaneLayout.createSequentialGroup()
-                        .addComponent(RightBottomPane)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(SendCommand, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(RightBasePaneLayout.createSequentialGroup()
-                        .addGroup(RightBasePaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(RightExtraButtons, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(LEDPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
-        );
-        RightBasePaneLayout.setVerticalGroup(
-            RightBasePaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(RightBasePaneLayout.createSequentialGroup()
-                .addGap(1, 1, 1)
-                .addComponent(LEDPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(RightBigPane)
-                .addGap(5, 5, 5)
-                .addComponent(RightExtraButtons, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(RightBasePaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(RightBottomPane, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(SendCommand, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)))
-        );
-
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 4;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.ipady = 10;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        RightBottomPane.add(SendCommand, gridBagConstraints);
         SendCommand.getAccessibleContext().setAccessibleName("");
+
+        RightBasePane.add(RightBottomPane);
 
         HorizontSplit.setRightComponent(RightBasePane);
 
@@ -7003,7 +6626,7 @@ public class ESPlorer extends javax.swing.JFrame {
         MenuView.add(MenuItemViewRightExtra);
 
         MenuItemViewDonate.setSelected(true);
-        MenuItemViewDonate.setText("<html>I already made a donation, <br />please hide dontation button at bottom right!");
+        MenuItemViewDonate.setText("<html>I'm already make donation, <br />please hide dontation button at bottom right!");
         MenuItemViewDonate.setToolTipText("Enable/disable Extra buttons panel at bottom right");
         MenuItemViewDonate.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
@@ -7090,22 +6713,9 @@ public class ESPlorer extends javax.swing.JFrame {
         MenuView.add(MenuItemViewFontDefault);
         MenuView.add(jSeparator17);
 
-        buttonGroupLF.add(MenuItemViewLF1);
-        MenuItemViewLF1.setText("Nimbus");
-        MenuItemViewLF1.setToolTipText("");
-        MenuItemViewLF1.setActionCommand("0");
-        MenuItemViewLF1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                MenuItemViewLF1ActionPerformed(evt);
-            }
-        });
-        MenuView.add(MenuItemViewLF1);
-
         MainMenuBar.add(MenuView);
 
         MenuLinks.setText("Links");
-        MenuLinks.setToolTipText("");
-        MenuLinks.setMaximumSize(new java.awt.Dimension(31, 100));
 
         MenuItemLinksMicroPythonDoc.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/micropython.png"))); // NOI18N
         MenuItemLinksMicroPythonDoc.setText("MicroPython Documentation English");
@@ -7294,7 +6904,7 @@ public class ESPlorer extends javax.swing.JFrame {
                 btnSend("print(uart.setup(0, " + nSpeed + ", 8, 0, 1, 1 ))");
                 try {
                     Thread.sleep(200L);
-                } catch (Exception e) {
+                } catch (InterruptedException e) {
                 }
             } else {
                 return;
@@ -7430,7 +7040,7 @@ public class ESPlorer extends javax.swing.JFrame {
     }
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         PortFinder();
-        this.setTitle("ESPlorer " + version + " by 4refr0nt");
+        this.setTitle("ESPlorer " + VERSION + " by 4refr0nt");
         ProgressBar.setVisible(false);
         CommandsSetNodeMCU();
         isToolbarShow();
@@ -7499,10 +7109,6 @@ public class ESPlorer extends javax.swing.JFrame {
         PortFinder();
     }//GEN-LAST:event_ReScanActionPerformed
 
-    private void CommandKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_CommandKeyTyped
-
-    }//GEN-LAST:event_CommandKeyTyped
-
     private void SendCommandActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SendCommandActionPerformed
         if (CommandEcho.isSelected()) {
             if (Terminal.getCaretOffsetFromLineStart() > 0) {
@@ -7513,21 +7119,6 @@ public class ESPlorer extends javax.swing.JFrame {
         }
         SendCommand();
     }//GEN-LAST:event_SendCommandActionPerformed
-
-    private void CommandActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CommandActionPerformed
-        //log("CommandActionPerformed " + evt.getActionCommand());
-        if ("comboBoxEdited".equals(evt.getActionCommand())) { // Hit Enter
-            SendCommand.doClick();
-        }
-    }//GEN-LAST:event_CommandActionPerformed
-
-    private void CommandKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_CommandKeyPressed
-
-    }//GEN-LAST:event_CommandKeyPressed
-
-    private void CommandKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_CommandKeyReleased
-
-    }//GEN-LAST:event_CommandKeyReleased
 
     private void ContextMenuTerminalPopupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {//GEN-FIRST:event_ContextMenuTerminalPopupMenuWillBecomeVisible
         try {
@@ -7734,7 +7325,7 @@ public class ESPlorer extends javax.swing.JFrame {
                     return;
                 }
                 FilesTabbedPane.setTitleAt(iTab, iFile.get(iTab).getName());
-            } catch (Exception ex) {
+            } catch (HeadlessException ex) {
                 JOptionPane.showMessageDialog(null, "Error, file is not open!");
                 log(ex.toString());
                 log("Open: FAIL.");
@@ -7748,7 +7339,7 @@ public class ESPlorer extends javax.swing.JFrame {
     }
 
     private boolean LoadFile() {
-        boolean success = false;
+        boolean success;
         if (isFileNew()) {
             UpdateEditorButtons();
             log("Internal error 101: FileTab is NewFile.");
@@ -7773,9 +7364,8 @@ public class ESPlorer extends javax.swing.JFrame {
             }
             TextEditor1.get(iTab).setText(sb.toString());
             success = true;
-        } catch (Exception ex) {
+        } catch (IOException ex) {
             log(ex.toString());
-//                log(ex.getStackTrace().toString());
             log("Loading " + FileName + ": FAIL.");
             UpdateEditorButtons();
             JOptionPane.showMessageDialog(null, "Error, file not load!");
@@ -7791,9 +7381,8 @@ public class ESPlorer extends javax.swing.JFrame {
             if (fis != null) {
                 fis.close();
             }
-        } catch (Exception ex) {
+        } catch (IOException ex) {
             log(ex.toString());
-//                log(ex.getStackTrace().toString());
             log("Internal error 103: can't close stream.");
         }
         if (success) {
@@ -7815,7 +7404,7 @@ public class ESPlorer extends javax.swing.JFrame {
         try {
             prefs.flush();
             success = true;
-        } catch (Exception e) {
+        } catch (BackingStoreException e) {
             log("ERROR: Can't save some setting.");
             log(e.toString());
         }
@@ -7868,7 +7457,7 @@ public class ESPlorer extends javax.swing.JFrame {
                 MenuItemEditPaste.setEnabled(true);
                 ButtonPaste.setEnabled(true);
             }
-        } catch (Exception e) {
+        } catch (HeadlessException e) {
         }
     }
 
@@ -8023,7 +7612,7 @@ public class ESPlorer extends javax.swing.JFrame {
                 + "_dir=nil";
         try {
             serialPort.removeEventListener();
-        } catch (Exception e) {
+        } catch (SerialPortException e) {
             log(e.toString());
         }
         try {
@@ -8041,13 +7630,11 @@ public class ESPlorer extends javax.swing.JFrame {
         SendLock();
         int delay = 10;
         j0();
-        taskPerformer = new ActionListener() {
-            public void actionPerformed(ActionEvent evt) {
-                if (j < sendBuf.size()) {
-                    LocalEcho = false;
-                    send(addCR(sendBuf.get(j)), false);
-                    sendPending = false;
-                }
+        taskPerformer = (ActionEvent evt) -> {
+            if (j < sendBuf.size()) {
+                LocalEcho = false;
+                send(addCR(sendBuf.get(j)), false);
+                sendPending = false;
             }
         };
         timer = new Timer(delay, taskPerformer);
@@ -8069,11 +7656,12 @@ public class ESPlorer extends javax.swing.JFrame {
         FileRenamePanel.setVisible(false);
         FileRenamePanel.setEnabled(false);
         NodeFileManagerPane.repaint();
-        FileAsButton = new ArrayList<javax.swing.JButton>();
+        FileAsButton = new ArrayList<>();
     }
 
     private class PortNodeFilesReader implements SerialPortEventListener {
 
+        @Override
         public void serialEvent(SerialPortEvent event) {
             String data;
             if (event.isRXCHAR() && event.getEventValue() > 0) {
@@ -8081,8 +7669,7 @@ public class ESPlorer extends javax.swing.JFrame {
                     data = serialPort.readString(event.getEventValue());
                     rcvBuf = rcvBuf + data;
                     rx_data = rx_data + data;
-                } catch (Exception e) {
-                    data = "";
+                } catch (SerialPortException e) {
                     log(e.toString());
                 }
                 if (rcvBuf.contains("> ")) {
@@ -8136,7 +7723,7 @@ public class ESPlorer extends javax.swing.JFrame {
                                     log("FileManager found file " + parts[0].trim());
                                 }
                             }
-                            if (FileAsButton.size() == 0) {
+                            if (FileAsButton.isEmpty()) {
                                 TerminalAdd("No files found.");
                                 TerminalAdd("\r\n----------------------------\r\n> ");
                             } else {
@@ -8149,12 +7736,12 @@ public class ESPlorer extends javax.swing.JFrame {
                             NodeFileManagerPane.repaint();
                             NodeFileManagerPane.requestFocusInWindow();
                             log("FileManager: File list parsing done, found " + FileAsButton.size() + " file(s).");
-                        } catch (Exception e) {
+                        } catch (NumberFormatException e) {
                             log(e.toString());
                         }
                         try {
                             serialPort.removeEventListener();
-                        } catch (Exception e) {
+                        } catch (SerialPortException e) {
                         }
                         serialPort.addEventListener(new PortReader(), portMask);
                         SendUnLock();
@@ -8183,15 +7770,15 @@ public class ESPlorer extends javax.swing.JFrame {
         if (size % 1024 > 0) {
             packets++;
         }
-        sendBuf = new ArrayList<String>();
-        rcvPackets = new ArrayList<String>();
-        PacketsData = new ArrayList<String>();
-        PacketsSize = new ArrayList<Integer>();
-        PacketsNum = new ArrayList<Integer>();
+        sendBuf = new ArrayList<>();
+        rcvPackets = new ArrayList<>();
+        PacketsData = new ArrayList<>();
+        PacketsSize = new ArrayList<>();
+        PacketsNum = new ArrayList<>();
         rcvFile = "";
         PacketsByte = new byte[0];
         rx_byte = new byte[0];
-        PacketsCRC = new ArrayList<Integer>();
+        PacketsCRC = new ArrayList<>();
         String cmd = "_dl=function() "
                 + "  file.open(\"" + DownloadedFileName + "\", \"r\")\n"
                 + "  local buf "
@@ -8217,9 +7804,7 @@ public class ESPlorer extends javax.swing.JFrame {
                 + "_dl() "
                 + "_dl=nil\n";
         s = cmd.split("\r?\n");
-        for (String subs : s) {
-            sendBuf.add(subs);
-        }
+        sendBuf.addAll(Arrays.asList(s));
         log("Downloader: Starting...");
         startTime = System.currentTimeMillis();
         SendLock();
@@ -8228,7 +7813,7 @@ public class ESPlorer extends javax.swing.JFrame {
         rx_byte = new byte[0];
         try {
             serialPort.removeEventListener();
-        } catch (Exception e) {
+        } catch (SerialPortException e) {
             log(e.toString());
         }
         try {
@@ -8240,12 +7825,10 @@ public class ESPlorer extends javax.swing.JFrame {
         }
         int delay = 10;
         j0();
-        taskPerformer = new ActionListener() {
-            public void actionPerformed(ActionEvent evt) {
-                if (j < sendBuf.size()) {
-                    send(addCR(sendBuf.get(j)), false);
-                    sendPending = false;
-                }
+        taskPerformer = (ActionEvent evt) -> {
+            if (j < sendBuf.size()) {
+                send(addCR(sendBuf.get(j)), false);
+                sendPending = false;
             }
         };
         timer = new Timer(delay, taskPerformer);
@@ -8255,13 +7838,12 @@ public class ESPlorer extends javax.swing.JFrame {
         timer.setInitialDelay(delay);
         WatchDog();
         timer.start();
-        return;
     }
 
     private void FileDownloadFinisher(boolean success) {
         try {
             serialPort.removeEventListener();
-        } catch (Exception e) {
+        } catch (SerialPortException e) {
             log(e.toString());
         }
         try {
@@ -8300,6 +7882,7 @@ public class ESPlorer extends javax.swing.JFrame {
 
     private class PortFileDownloader implements SerialPortEventListener {
 
+        @Override
         public void serialEvent(SerialPortEvent event) {
             String data;
             byte[] b;
@@ -8312,7 +7895,6 @@ public class ESPlorer extends javax.swing.JFrame {
                     rx_data = rx_data + data;
                     //TerminalAdd(data);
                 } catch (SerialPortException e) {
-                    data = "";
                     log(e.toString());
                 }
                 if (rcvBuf.contains("> ")) {
@@ -8493,7 +8075,7 @@ public class ESPlorer extends javax.swing.JFrame {
             //log("\r\nCRC size= " + Integer.toString(s.length)+ ", CRC="+Integer.toString(cs));
         } catch (Exception e) {
             log(e.toString());
-            log(e.getStackTrace().toString());
+            log(Arrays.toString(e.getStackTrace()));
             log("size=" + Integer.toString(s.length));
         }
         return cs;
@@ -8540,7 +8122,7 @@ public class ESPlorer extends javax.swing.JFrame {
 
     private ArrayList<String> cmdPrep(String cmd) {
         String[] str = cmd.split("\n");
-        ArrayList<String> s256 = new ArrayList<String>();
+        ArrayList<String> s256 = new ArrayList<>();
         int i = 0;
         s256.add("");
         for (String subs : str) {
@@ -8562,7 +8144,7 @@ public class ESPlorer extends javax.swing.JFrame {
             } else {
                 PortCTS.setIcon(LED_GREY);
             }
-        } catch (Exception e) {
+        } catch (SerialPortException e) {
             log(e.toString());
         }
     }
@@ -8572,12 +8154,12 @@ public class ESPlorer extends javax.swing.JFrame {
         if (doc.getLength() > TerminalMax) {
             try {
                 doc.remove(0, 1024);
-            } catch (Exception e) {
+            } catch (BadLocationException e) {
             }
         }
         try {
             doc.insertString(doc.getLength(), s, null);
-        } catch (Exception e) {
+        } catch (BadLocationException e) {
             log(e.toString());
         }
         if (AutoScroll.isSelected()) {
@@ -8593,7 +8175,7 @@ public class ESPlorer extends javax.swing.JFrame {
     }//GEN-LAST:event_MenuItemEditorSendSelectedActionPerformed
 
     private void MenuItemEditSendSelectedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuItemEditSendSelectedActionPerformed
-        int l = 0;
+        int l;
         if ((LeftTab.getSelectedIndex() == 0) && (TextTab.getSelectedIndex() == 0)) { // NodeMCU and Scripts
             try {
                 l = TextEditor1.get(iTab).getSelectedText().length();
@@ -8629,7 +8211,7 @@ public class ESPlorer extends javax.swing.JFrame {
         btnSend("file.remove(\"" + FileName + "\")");
         try {
             Thread.sleep(200L);
-        } catch (Exception e) {
+        } catch (InterruptedException e) {
         }
         FileListReload.doClick();
     }
@@ -8668,10 +8250,6 @@ public class ESPlorer extends javax.swing.JFrame {
         goLink(homepage_uri);
     }//GEN-LAST:event_HomePageActionPerformed
 
-    private void CommandItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_CommandItemStateChanged
-
-    }//GEN-LAST:event_CommandItemStateChanged
-
     private void PortItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_PortItemStateChanged
 
     }//GEN-LAST:event_PortItemStateChanged
@@ -8692,57 +8270,27 @@ public class ESPlorer extends javax.swing.JFrame {
                 prefs.put("Snippet" + n + suffix, "");
                 PrefsFlush();
             }
-            if (i == 0) {
-                ButtonSnippet0.setText(prefs.get("Snippet" + n + suffix + "name", "Snippet" + n));
-            } else if (i == 1) {
-                ButtonSnippet1.setText(prefs.get("Snippet" + n + suffix + "name", "Snippet" + n));
-            } else if (i == 2) {
-                ButtonSnippet2.setText(prefs.get("Snippet" + n + suffix + "name", "Snippet" + n));
-            } else if (i == 3) {
-                ButtonSnippet3.setText(prefs.get("Snippet" + n + suffix + "name", "Snippet" + n));
-            } else if (i == 4) {
-                ButtonSnippet4.setText(prefs.get("Snippet" + n + suffix + "name", "Snippet" + n));
-            } else if (i == 5) {
-                ButtonSnippet5.setText(prefs.get("Snippet" + n + suffix + "name", "Snippet" + n));
-            } else if (i == 6) {
-                ButtonSnippet6.setText(prefs.get("Snippet" + n + suffix + "name", "Snippet" + n));
-            } else if (i == 7) {
-                ButtonSnippet7.setText(prefs.get("Snippet" + n + suffix + "name", "Snippet" + n));
-            } else if (i == 8) {
-                ButtonSnippet8.setText(prefs.get("Snippet" + n + suffix + "name", "Snippet" + n));
-            } else if (i == 9) {
-                ButtonSnippet9.setText(prefs.get("Snippet" + n + suffix + "name", "Snippet" + n));
-            } else if (i == 10) {
-                ButtonSnippet10.setText(prefs.get("Snippet" + n + suffix + "name", "Snippet" + n));
-            } else if (i == 11) {
-                ButtonSnippet11.setText(prefs.get("Snippet" + n + suffix + "name", "Snippet" + n));
-            } else if (i == 12) {
-                ButtonSnippet12.setText(prefs.get("Snippet" + n + suffix + "name", "Snippet" + n));
-            } else if (i == 13) {
-                ButtonSnippet13.setText(prefs.get("Snippet" + n + suffix + "name", "Snippet" + n));
-            } else if (i == 14) {
-                ButtonSnippet14.setText(prefs.get("Snippet" + n + suffix + "name", "Snippet" + n));
-            } else {
-                ButtonSnippet15.setText(prefs.get("Snippet" + n + suffix + "name", "Snippet" + n));
-            }
+            JButton snippetButton = snippetButtons.get(i);
+            String newText = prefs.get("Snippet" + n + suffix + "name", "Snippet" + n);
+            snippetButton.setText(newText);
             Snippets[i] = prefs.get("Snippet" + n + suffix, "");
-            if (i == 0 && OptionMicroPython.isSelected()) {
-                if (Snippets[i].isEmpty()) {
-                    ButtonSnippet0.setText("GPIO2 1");
-                    prefs.put("Snippet" + i + suffix + "name", "GPIO2 1");
-                    Snippets[i] = "import pyb\r\n"
-                            + "pin = pyb.Pin(2, pyb.Pin.OUT)\r\n"
-                            + "pin.value(1)";
-                }
+        }
+        if (OptionMicroPython.isSelected())
+        {
+            if (Snippets[0].isEmpty())
+            {
+                ButtonSnippet0.setText("GPIO2 1");
+                prefs.put("Snippet0" + suffix + "name", "Set GPIO2 high");
+                Snippets[0] = "from machine import Pin\r\n"
+                        + "pin = Pin(2, Pin.OUT)\r\n"
+                        + "pin.value(1)";
             }
-            if (i == 1 && OptionMicroPython.isSelected()) {
-                if (Snippets[i].isEmpty()) {
-                    ButtonSnippet1.setText("GPIO2 0");
-                    prefs.put("Snippet" + i + suffix + "name", "GPIO2 0");
-                    Snippets[i] = "import pyb\r\n"
-                            + "pin = pyb.Pin(2, pyb.Pin.OUT)\r\n"
-                            + "pin.value(0)";
-                }
+            if (Snippets[1].isEmpty()) {
+                ButtonSnippet1.setText("GPIO2 0");
+                prefs.put("Snippet1" + suffix + "name", "Set GPIO2 low");
+                Snippets[1] = "from machine import Pin\r\n"
+                        + "pin = Pin(2, Pin.OUT)\r\n"
+                        + "pin.value(0)";
             }
         }
         SetSnippetEditButtonsTooltip();
@@ -9293,16 +8841,19 @@ public class ESPlorer extends javax.swing.JFrame {
         Terminal.setEOLMarkersVisible(EOL.isSelected());
     }//GEN-LAST:event_EOLItemStateChanged
 
-    private void MenuItemViewLF1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuItemViewLF1ActionPerformed
-        String lclass = LAFclass.get(Integer.parseInt(evt.getActionCommand()));
+    private void MenuItemViewLookAndFeelActionPerformed(java.awt.event.ActionEvent evt) {                                                
+        String lclass = evt.getActionCommand();
         prefs.put("LAF", lclass);
-        log("Set New LookAndFeel to:" + lclass);
-        int isExit = Dialog("New LookAndFeel skin will be appled after program restart. Exit now?", JOptionPane.YES_NO_OPTION);
-        if (isExit == JOptionPane.YES_OPTION) {
-            AppClose();
+        try {
+            UIManager.setLookAndFeel(lclass);
+            SwingUtilities.updateComponentTreeUI(this);
+            this.pack();
+            this.setExtendedState(this.getExtendedState() | JFrame.MAXIMIZED_BOTH);
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException ex) {
+            Logger.getLogger(ESPlorer.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }//GEN-LAST:event_MenuItemViewLF1ActionPerformed
-
+    }
+    
     private void MenuItemViewTerminalOnlyItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_MenuItemViewTerminalOnlyItemStateChanged
         if (MenuItemViewTerminalOnly.isSelected()) {
             MenuItemViewEditorOnly.setSelected(false);
@@ -10144,7 +9695,7 @@ public class ESPlorer extends javax.swing.JFrame {
         btnSend(cmd);
         try {
             Thread.sleep(500L);
-        } catch (Exception e) {
+        } catch (InterruptedException e) {
         }
         LocalEcho = false;
         FileListReload.doClick();
@@ -10257,140 +9808,20 @@ public class ESPlorer extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_OptionMicroPythonStateChanged
 
-    private void MicroPythonGPIO0_1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MicroPythonGPIO0_1ActionPerformed
-        cmdButtonGPIO(0, 1);
-    }//GEN-LAST:event_MicroPythonGPIO0_1ActionPerformed
+    private void MicroPythonSetGPIOHigh(java.awt.event.ActionEvent evt) {
+        cmdButtonGPIO(Integer.parseInt(evt.getActionCommand()), 1);
+    }
 
-    private void MicroPythonGPIO0_0ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MicroPythonGPIO0_0ActionPerformed
-        cmdButtonGPIO(0, 0);
-    }//GEN-LAST:event_MicroPythonGPIO0_0ActionPerformed
+    private void MicroPythonSetGPIOLow(java.awt.event.ActionEvent evt) {
+        cmdButtonGPIO(Integer.parseInt(evt.getActionCommand()), 0);
+    }
 
-    private void MicroPythonGPIO2_1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MicroPythonGPIO2_1ActionPerformed
-        cmdButtonGPIO(2, 1);
-    }//GEN-LAST:event_MicroPythonGPIO2_1ActionPerformed
-
-    private void MicroPythonGPIO2_0ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MicroPythonGPIO2_0ActionPerformed
-        cmdButtonGPIO(2, 0);
-    }//GEN-LAST:event_MicroPythonGPIO2_0ActionPerformed
-
-    private void MicroPythonGPIO4_1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MicroPythonGPIO4_1ActionPerformed
-        cmdButtonGPIO(4, 1);
-    }//GEN-LAST:event_MicroPythonGPIO4_1ActionPerformed
-
-    private void MicroPythonGPIO4_0ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MicroPythonGPIO4_0ActionPerformed
-        cmdButtonGPIO(4, 0);
-    }//GEN-LAST:event_MicroPythonGPIO4_0ActionPerformed
-
-    private void MicroPythonGPIO5_0ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MicroPythonGPIO5_0ActionPerformed
-        cmdButtonGPIO(5, 0);
-    }//GEN-LAST:event_MicroPythonGPIO5_0ActionPerformed
-
-    private void MicroPythonGPIO5_1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MicroPythonGPIO5_1ActionPerformed
-        cmdButtonGPIO(5, 1);
-    }//GEN-LAST:event_MicroPythonGPIO5_1ActionPerformed
-
-    private void MicroPythonGPIO9_0ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MicroPythonGPIO9_0ActionPerformed
-        cmdButtonGPIO(9, 0);
-    }//GEN-LAST:event_MicroPythonGPIO9_0ActionPerformed
-
-    private void MicroPythonGPIO9_1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MicroPythonGPIO9_1ActionPerformed
-        cmdButtonGPIO(9, 1);
-    }//GEN-LAST:event_MicroPythonGPIO9_1ActionPerformed
-
-    private void MicroPythonGPIO10_0ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MicroPythonGPIO10_0ActionPerformed
-        cmdButtonGPIO(10, 0);
-    }//GEN-LAST:event_MicroPythonGPIO10_0ActionPerformed
-
-    private void MicroPythonGPIO10_1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MicroPythonGPIO10_1ActionPerformed
-        cmdButtonGPIO(10, 1);
-    }//GEN-LAST:event_MicroPythonGPIO10_1ActionPerformed
-
-    private void MicroPythonGPIO12_0ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MicroPythonGPIO12_0ActionPerformed
-        cmdButtonGPIO(12, 0);
-    }//GEN-LAST:event_MicroPythonGPIO12_0ActionPerformed
-
-    private void MicroPythonGPIO12_1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MicroPythonGPIO12_1ActionPerformed
-        cmdButtonGPIO(12, 1);
-    }//GEN-LAST:event_MicroPythonGPIO12_1ActionPerformed
-
-    private void MicroPythonGPIO13_0ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MicroPythonGPIO13_0ActionPerformed
-        cmdButtonGPIO(13, 0);
-    }//GEN-LAST:event_MicroPythonGPIO13_0ActionPerformed
-
-    private void MicroPythonGPIO13_1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MicroPythonGPIO13_1ActionPerformed
-        cmdButtonGPIO(13, 1);
-    }//GEN-LAST:event_MicroPythonGPIO13_1ActionPerformed
-
-    private void MicroPythonGPIO14_1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MicroPythonGPIO14_1ActionPerformed
-        cmdButtonGPIO(14, 1);
-    }//GEN-LAST:event_MicroPythonGPIO14_1ActionPerformed
-
-    private void MicroPythonGPIO15_1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MicroPythonGPIO15_1ActionPerformed
-        cmdButtonGPIO(15, 1);
-    }//GEN-LAST:event_MicroPythonGPIO15_1ActionPerformed
-
-    private void MicroPythonGPIO16_1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MicroPythonGPIO16_1ActionPerformed
-        cmdButtonGPIO(16, 1);
-    }//GEN-LAST:event_MicroPythonGPIO16_1ActionPerformed
-
-    private void MicroPythonGPIO14_0ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MicroPythonGPIO14_0ActionPerformed
-        cmdButtonGPIO(14, 0);
-    }//GEN-LAST:event_MicroPythonGPIO14_0ActionPerformed
-
-    private void MicroPythonGPIO15_0ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MicroPythonGPIO15_0ActionPerformed
-        cmdButtonGPIO(15, 0);
-    }//GEN-LAST:event_MicroPythonGPIO15_0ActionPerformed
-
-    private void MicroPythonGPIO16_0ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MicroPythonGPIO16_0ActionPerformed
-        cmdButtonGPIO(16, 0);
-    }//GEN-LAST:event_MicroPythonGPIO16_0ActionPerformed
-
-    private void MicroPythonGPIO0ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MicroPythonGPIO0ActionPerformed
-        cmdButtonGetGPIO(0);
-    }//GEN-LAST:event_MicroPythonGPIO0ActionPerformed
-
-    private void MicroPythonGPIO2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MicroPythonGPIO2ActionPerformed
-        cmdButtonGetGPIO(2);
-    }//GEN-LAST:event_MicroPythonGPIO2ActionPerformed
-
-    private void MicroPythonGPIO4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MicroPythonGPIO4ActionPerformed
-        cmdButtonGetGPIO(4);
-    }//GEN-LAST:event_MicroPythonGPIO4ActionPerformed
-
-    private void MicroPythonGPIO5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MicroPythonGPIO5ActionPerformed
-        cmdButtonGetGPIO(5);
-    }//GEN-LAST:event_MicroPythonGPIO5ActionPerformed
-
-    private void MicroPythonGPIO9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MicroPythonGPIO9ActionPerformed
-        cmdButtonGetGPIO(9);
-    }//GEN-LAST:event_MicroPythonGPIO9ActionPerformed
-
-    private void MicroPythonGPIO10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MicroPythonGPIO10ActionPerformed
-        cmdButtonGetGPIO(10);
-    }//GEN-LAST:event_MicroPythonGPIO10ActionPerformed
-
-    private void MicroPythonGPIO12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MicroPythonGPIO12ActionPerformed
-        cmdButtonGetGPIO(12);
-    }//GEN-LAST:event_MicroPythonGPIO12ActionPerformed
-
-    private void MicroPythonGPIO13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MicroPythonGPIO13ActionPerformed
-        cmdButtonGetGPIO(13);
-    }//GEN-LAST:event_MicroPythonGPIO13ActionPerformed
-
-    private void MicroPythonGPIO14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MicroPythonGPIO14ActionPerformed
-        cmdButtonGetGPIO(14);
-    }//GEN-LAST:event_MicroPythonGPIO14ActionPerformed
-
-    private void MicroPythonGPIO15ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MicroPythonGPIO15ActionPerformed
-        cmdButtonGetGPIO(15);
-    }//GEN-LAST:event_MicroPythonGPIO15ActionPerformed
-
-    private void MicroPythonGPIO16ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MicroPythonGPIO16ActionPerformed
-        cmdButtonGetGPIO(16);
-    }//GEN-LAST:event_MicroPythonGPIO16ActionPerformed
+    private void MicroPythonGetGPIOLevel(java.awt.event.ActionEvent evt) {
+        cmdButtonGetGPIO(Integer.parseInt(evt.getActionCommand()));
+    }
 
     private void MicroPythonSSIDFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_MicroPythonSSIDFocusGained
-        if (MicroPythonSSID.getText().trim() == "SSID") {
+        if (MicroPythonSSID.getText().trim().equals("SSID")) {
             MicroPythonSSID.setText("");
         }
     }//GEN-LAST:event_MicroPythonSSIDFocusGained
@@ -10408,7 +9839,7 @@ public class ESPlorer extends javax.swing.JFrame {
     }//GEN-LAST:event_MicroPythonPASSActionPerformed
 
     private void MicroPythonPASSFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_MicroPythonPASSFocusGained
-        if (MicroPythonPASS.getText().trim() == "password") {
+        if (MicroPythonPASS.getText().trim().equals("password")) {
             MicroPythonPASS.setText("");
         }
     }//GEN-LAST:event_MicroPythonPASSFocusGained
@@ -10661,6 +10092,30 @@ public class ESPlorer extends javax.swing.JFrame {
     private void cmdSetPINGActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdSetPINGActionPerformed
         btnSend("AT+PING=\"" + PingIP.getText() + "\"");
     }//GEN-LAST:event_cmdSetPINGActionPerformed
+
+    private void CommandKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_CommandKeyTyped
+
+    }//GEN-LAST:event_CommandKeyTyped
+
+    private void CommandKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_CommandKeyReleased
+
+    }//GEN-LAST:event_CommandKeyReleased
+
+    private void CommandKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_CommandKeyPressed
+
+    }//GEN-LAST:event_CommandKeyPressed
+
+    private void CommandItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_CommandItemStateChanged
+
+    }//GEN-LAST:event_CommandItemStateChanged
+
+    private void CommandActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CommandActionPerformed
+        //log("CommandActionPerformed " + evt.getActionCommand());
+        if ("comboBoxEdited".equals(evt.getActionCommand())) { // Hit Enter
+            SendCommand.doClick();
+        }
+    }//GEN-LAST:event_CommandActionPerformed
+    
     private void NodeFileSystemInfo() {
         String cmd = "r,u,t=file.fsinfo() print(\"Total : \"..t..\" bytes\\r\\nUsed  : \"..u..\" bytes\\r\\nRemain: \"..r..\" bytes\\r\\n\") r=nil u=nil t=nil";
         LocalEcho = false;
@@ -10687,34 +10142,34 @@ public class ESPlorer extends javax.swing.JFrame {
 
     private void CommandsSetNodeMCU() {
         Command.removeAllItems();
-        Command.addItem(new String("=node.heap()"));
-        Command.addItem(new String("=node.chipid()"));
-        Command.addItem(new String("file.close()"));
-        Command.addItem(new String("file.remove(\"\")"));
-        Command.addItem(new String("dofile(\"\")"));
-        Command.addItem(new String("wifi.setmode(wifi.STATION)"));
-        Command.addItem(new String("wifi.setmode(wifi.SOFTAP)"));
-        Command.addItem(new String("wifi.setmode(wifi.STATIONAP)"));
-        Command.addItem(new String("=wifi.getmode()"));
-        Command.addItem(new String("wifi.sta.config(\"myssid\",\"mypassword\")"));
-        Command.addItem(new String("=wifi.sta.getip()"));
-        Command.addItem(new String("=wifi.ap.getip()"));
-        Command.addItem(new String("=wifi.sta.getmac()"));
-        Command.addItem(new String("=wifi.ap.getmac()"));
-        Command.addItem(new String("=wifi.sta.status()"));
-        Command.addItem(new String("=tmr.now()"));
+        Command.addItem("=node.heap()");
+        Command.addItem("=node.chipid()");
+        Command.addItem("file.close()");
+        Command.addItem("file.remove(\"\")");
+        Command.addItem("dofile(\"\")");
+        Command.addItem("wifi.setmode(wifi.STATION)");
+        Command.addItem("wifi.setmode(wifi.SOFTAP)");
+        Command.addItem("wifi.setmode(wifi.STATIONAP)");
+        Command.addItem("=wifi.getmode()");
+        Command.addItem("wifi.sta.config(\"myssid\",\"mypassword\")");
+        Command.addItem("=wifi.sta.getip()");
+        Command.addItem("=wifi.ap.getip()");
+        Command.addItem("=wifi.sta.getmac()");
+        Command.addItem("=wifi.ap.getmac()");
+        Command.addItem("=wifi.sta.status()");
+        Command.addItem("=tmr.now()");
     }
 
     private void CommandsSetMicroPython() {
         Command.removeAllItems();
-        Command.addItem(new String("import sys; print(sys.version_info)"));
+        Command.addItem("import sys; print(sys.version_info)");
     }
 
     private void CommandsSetAT() {
         Command.removeAllItems();
-        Command.addItem(new String("AT"));
-        Command.addItem(new String("AT+GMR"));
-        Command.addItem(new String("AT+RST"));
+        Command.addItem("AT");
+        Command.addItem("AT+GMR");
+        Command.addItem("AT+RST");
     }
 
     /**
@@ -10727,55 +10182,33 @@ public class ESPlorer extends javax.swing.JFrame {
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
          */
-        //private javax.swing.JRadioButtonMenuItem MenuItemViewLF2;
-        LAF = new ArrayList<String>();
-        LAFclass = new ArrayList<String>();
-        String laf;
-        prefs = Preferences.userRoot().node(nodeRoot);
+        LAFselection = new HashMap<>();
+        prefs = Preferences.userRoot().node(NODEROOT);
+        systemLaf = javax.swing.UIManager.getSystemLookAndFeelClassName();
         laf = prefs.get("LAF", "javax.swing.plaf.nimbus.NimbusLookAndFeel");
-        LAF.add("Nimbus");
-        LAFclass.add("javax.swing.plaf.nimbus.NimbusLookAndFeel");
         try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if (laf.equals(info.getClassName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    java.util.logging.Logger.getLogger(ESPlorer.class
-                            .getName()).log(java.util.logging.Level.INFO, "DEFAULT: L&F " + info.getName() + " class:" + info.getClassName());
-
-                } else {
-                    java.util.logging.Logger.getLogger(ESPlorer.class
-                            .getName()).log(java.util.logging.Level.INFO, "Installed: L&F " + info.getName() + " class:" + info.getClassName());
-                }
-                if (!"Nimbus".equals(info.getName())) {
-                    LAF.add(info.getName());
-                    LAFclass.add(info.getClassName());
-
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ESPlorer.class
-                    .getName()).log(java.util.logging.Level.INFO, null, ex);
-
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ESPlorer.class
-                    .getName()).log(java.util.logging.Level.INFO, null, ex);
-
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ESPlorer.class
-                    .getName()).log(java.util.logging.Level.INFO, null, ex);
-
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ESPlorer.class
-                    .getName()).log(java.util.logging.Level.INFO, null, ex);
+            javax.swing.UIManager.setLookAndFeel(laf);
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException ex) {
+            LOGGER.log(Level.SEVERE, null, ex);
         }
+        for (LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
+            JRadioButtonMenuItem menuItem = new JRadioButtonMenuItem();
+            boolean selected = info.getClassName().equals(laf);
+            String system = info.getClassName().equals(UIManager.getSystemLookAndFeelClassName()) ? "(System) ": "";
+            String crossplatform = info.getClassName().equals(UIManager.getCrossPlatformLookAndFeelClassName()) ? "(Cross-Platform)": "";
+            menuItem.setText(info.getName() + system + crossplatform);
+            menuItem.setSelected(selected);
+            menuItem.setActionCommand(info.getClassName());
+            LAFselection.put(info.getClassName(), menuItem);
+
+            LOGGER.log(java.util.logging.Level.INFO, selected? "Selected":"Installed" + " Look and Feel " + info.getName() + " (" + info.getClassName()+ ")");
+        }
+        
         //</editor-fold>
         try {
             /* Create and display the form */
-            java.awt.EventQueue.invokeLater(new Runnable() {
-                @Override
-                public void run() {
-                    new ESPlorer().setVisible(true);
-                }
+            java.awt.EventQueue.invokeLater(() -> {
+                new ESPlorer().setVisible(true);
             });
 
         } catch (Exception ex) {
@@ -10784,14 +10217,7 @@ public class ESPlorer extends javax.swing.JFrame {
         }
     }
 
-    private javax.swing.JRadioButtonMenuItem MenuItemViewLF2;
-    private javax.swing.JRadioButtonMenuItem MenuItemViewLF3;
-    private javax.swing.JRadioButtonMenuItem MenuItemViewLF4;
-    private javax.swing.JRadioButtonMenuItem MenuItemViewLF5;
-    private javax.swing.JRadioButtonMenuItem MenuItemViewLF6;
-    private javax.swing.JRadioButtonMenuItem MenuItemViewLF7;
-    private javax.swing.JRadioButtonMenuItem MenuItemViewLF8;
-    private javax.swing.JRadioButtonMenuItem MenuItemViewLF9;
+    private static HashMap<String, JRadioButtonMenuItem> LAFselection;
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLayeredPane ABPPane;
@@ -10850,7 +10276,7 @@ public class ESPlorer extends javax.swing.JFrame {
     private javax.swing.JButton ButtonSnippet9;
     private javax.swing.JButton ButtonUndo;
     private javax.swing.JCheckBox CR;
-    private javax.swing.JComboBox Command;
+    private javax.swing.JComboBox<String> Command;
     private javax.swing.JCheckBox CommandEcho;
     private javax.swing.JLayeredPane CommandsMicroPython;
     private javax.swing.JLayeredPane CommandsNodeMCU;
@@ -11002,7 +10428,6 @@ public class ESPlorer extends javax.swing.JFrame {
     private javax.swing.JCheckBoxMenuItem MenuItemViewEditorOnly;
     private javax.swing.JCheckBoxMenuItem MenuItemViewFileManager;
     private javax.swing.JMenuItem MenuItemViewFontDefault;
-    private javax.swing.JRadioButtonMenuItem MenuItemViewLF1;
     private javax.swing.JCheckBoxMenuItem MenuItemViewLeftExtra;
     private javax.swing.JCheckBoxMenuItem MenuItemViewLog;
     private javax.swing.JMenuItem MenuItemViewLogFontDec;
@@ -11077,7 +10502,7 @@ public class ESPlorer extends javax.swing.JFrame {
     private javax.swing.JTextField PASS;
     private javax.swing.JTextField PASSsoftAP;
     private javax.swing.JTextField PingIP;
-    private javax.swing.JComboBox Port;
+    private javax.swing.JComboBox<String> Port;
     private javax.swing.JLabel PortCTS;
     private javax.swing.JToggleButton PortDTR;
     private javax.swing.JLabel PortOpenLabel;
@@ -11266,6 +10691,7 @@ public class ESPlorer extends javax.swing.JFrame {
     private javax.swing.JLayeredPane jLayeredPane1;
     private javax.swing.JLayeredPane jLayeredPane2;
     private javax.swing.JLayeredPane jLayeredPane3;
+    private javax.swing.JLayeredPane jLayeredPane4;
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem7;
     private javax.swing.JScrollPane jScrollData;
@@ -11301,7 +10727,7 @@ public class ESPlorer extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     // Variables
-    private static final boolean DEBUG = false; // true; //false;
+    private static final boolean DEBUG = false;
     /* Files tab start */
     private ArrayList<javax.swing.JLayeredPane> FileLayeredPane1;
     private ArrayList<org.fife.ui.rsyntaxtextarea.RSyntaxTextArea> TextEditor1;
@@ -11321,9 +10747,7 @@ public class ESPlorer extends javax.swing.JFrame {
     private String UploadFileName = "";
     /* Files tab end */
     public int nSpeed = 9600;
-    public static final Logger LOGGER = Logger.getLogger(ESPlorer.class
-            .getName());
-    //  String s = new String();
+    public static final Logger LOGGER = Logger.getLogger(ESPlorer.class.getName());
     int save; // editor var
     String FileName = "script"; // without ext
     String DownloadedFileName = "";
@@ -11409,7 +10833,7 @@ public class ESPlorer extends javax.swing.JFrame {
     private static final float LOG_FONT_SIZE_MAX = 40f;
     private static final float LOG_FONT_SIZE_MIN = 5f;
     /*  Prefs */
-    private static final String nodeRoot = "/com/esp8266.ru/ESPlorer/config";
+    private static final String NODEROOT = "/com/esp8266.ru/ESPlorer/config";
     private static final String SERIAL_PORT = "serial_port";
     private static final String SERIAL_BAUD = "serial_baud";
     private static final String PATH = "path";
@@ -11457,6 +10881,7 @@ public class ESPlorer extends javax.swing.JFrame {
 
  /* Snippets */
     private static String[] Snippets = new String[16];
+    private ArrayList<JButton> snippetButtons = new ArrayList<>();
     private static int iSnippets = 0;
 
     private static final int portMask = SerialPort.MASK_RXCHAR + SerialPort.MASK_CTS;
@@ -11499,7 +10924,7 @@ public class ESPlorer extends javax.swing.JFrame {
         int i;
         Port.removeAllItems();
         if (UseCustomPortName.isSelected()) {
-            Port.addItem(makeObj(CustomPortName.getText().trim()));
+            Port.addItem(CustomPortName.getText().trim());
             Port.setSelectedIndex(Port.getItemCount() - 1);
             Port.setEnabled(false);
             Speed.setSelectedIndex(prefs.getInt(SERIAL_BAUD, 3));
@@ -11518,7 +10943,7 @@ public class ESPlorer extends javax.swing.JFrame {
             String lastPort = prefs.get(SERIAL_PORT, null);
             int port = 0;
             for (i = 0; i < portNames.length; i++) {
-                Port.addItem(makeObj(portNames[i]));
+                Port.addItem(portNames[i]);
                 if (portNames[i].equals(lastPort)) {
                     port = i;
                     log("found last saved serial port " + portNames[i]);
@@ -11532,14 +10957,6 @@ public class ESPlorer extends javax.swing.JFrame {
         log("Scan done.");
     }
 
-    private Object makeObj(final String item) {
-        return new Object() {
-            public String toString() {
-                return item;
-            }
-        };
-    }
-
     public void log(String l) {
         String log = Log.getText();
         Document doc = Log.getDocument();
@@ -11547,12 +10964,12 @@ public class ESPlorer extends javax.swing.JFrame {
         if (log.length() > LogMax) {
             try {
                 doc.remove(0, 1024);
-            } catch (Exception e) {
+            } catch (BadLocationException e) {
             }
         }
         try {
             doc.insertString(doc.getLength(), "\r\n" + l, null);
-        } catch (Exception e) {
+        } catch (BadLocationException e) {
         }
         Log.setCaretPosition(Log.getText().length());
     }
@@ -11583,7 +11000,7 @@ public class ESPlorer extends javax.swing.JFrame {
                     SerialPort.PARITY_NONE,
                     PortRTS.isSelected(),
                     PortDTR.isSelected());
-        } catch (Exception e) {
+        } catch (SerialPortException e) {
             log(e.toString());
         }
         if (!success) {
@@ -11594,19 +11011,19 @@ public class ESPlorer extends javax.swing.JFrame {
     }
 
     public boolean portOpen() {
-        boolean success = false;
         String portName = GetSerialPortName();
         nSpeed = Integer.parseInt((String) Speed.getSelectedItem());
         if (pOpen) {
             try {
                 serialPort.closePort();
-            } catch (Exception e) {
+            } catch (SerialPortException e) {
             }
         } else {
             log("Try to open port " + portName + ", baud " + Integer.toString(nSpeed) + ", 8N1");
         }
         serialPort = new SerialPort(portName);
         pOpen = false;
+        boolean success;
         try {
             success = serialPort.openPort();
             if (!success) {
@@ -11687,7 +11104,7 @@ public class ESPlorer extends javax.swing.JFrame {
         UpdateLED();
         ClearNodeFileManager();
     }
-
+    
     public void SendCommand() {
         if (SendCommand.isEnabled() == false || pOpen == false || portJustOpen) {
             log("Port not open, operation FAILED.");
@@ -11707,7 +11124,7 @@ public class ESPlorer extends javax.swing.JFrame {
             //System.out.println("Start cleaning");
             for (int lv1 = 0; lv1 < eintraege; lv1++) {
                 //System.out.print("Eintrag:" + lv1 +" : "+Command.getItemAt(lv1));
-                if (Command.getItemAt(lv1) == cmd) {
+                if (Command.getItemAt(lv1).equals(cmd)) {
                     // System.out.println(" Doppelt, entfernt!");
                     Command.removeItemAt(lv1);
                     lv1--;  // re-read this Entry because List has moved up the Follower
@@ -11768,142 +11185,21 @@ public class ESPlorer extends javax.swing.JFrame {
         btnSend(s);
     }
 
-    private void FinalInit() {
+    private void finalInit() {
         final Image im = Toolkit.getDefaultToolkit().getImage(getClass().getResource("/resources/ESP8266-64x64.png"));
         setIconImage(im);
 
         setLocationRelativeTo(null); // window centered
 
-        if (LAFclass.get(0).equals(prefs.get("LAF", ""))) {  // First for Nimbus
-            MenuItemViewLF1.setSelected(true);
-        }
-        int x = 1;
-        if (LAF.size() >= x + 1) {
-            MenuItemViewLF2 = new javax.swing.JRadioButtonMenuItem();
-            buttonGroupLF.add(MenuItemViewLF2);
-            MenuItemViewLF2.setText(LAF.get(x));
-            if (LAFclass.get(x).equals(prefs.get("LAF", ""))) {
-                MenuItemViewLF2.setSelected(true);
-            }
-            MenuItemViewLF2.setActionCommand(Integer.toString(x));
-            MenuItemViewLF2.addActionListener(new java.awt.event.ActionListener() {
-                public void actionPerformed(java.awt.event.ActionEvent evt) {
-                    MenuItemViewLF1ActionPerformed(evt);
-                }
+        for(JRadioButtonMenuItem menuItem: ESPlorer.LAFselection.values())
+        {
+            menuItem.addActionListener((java.awt.event.ActionEvent evt) -> {
+                MenuItemViewLookAndFeelActionPerformed(evt);
             });
-            MenuView.add(MenuItemViewLF2);
-        }
-        x++;
-        if (LAF.size() >= x + 1) {
-            MenuItemViewLF3 = new javax.swing.JRadioButtonMenuItem();
-            buttonGroupLF.add(MenuItemViewLF3);
-            MenuItemViewLF3.setText(LAF.get(x));
-            if (LAFclass.get(x).equals(prefs.get("LAF", ""))) {
-                MenuItemViewLF3.setSelected(true);
-            }
-            MenuItemViewLF3.setActionCommand(Integer.toString(x));
-            MenuItemViewLF3.addActionListener(new java.awt.event.ActionListener() {
-                public void actionPerformed(java.awt.event.ActionEvent evt) {
-                    MenuItemViewLF1ActionPerformed(evt);
-                }
-            });
-            MenuView.add(MenuItemViewLF3);
-        }
-        x++;
-        if (LAF.size() >= x + 1) {
-            MenuItemViewLF4 = new javax.swing.JRadioButtonMenuItem();
-            buttonGroupLF.add(MenuItemViewLF4);
-            MenuItemViewLF4.setText(LAF.get(x));
-            if (LAFclass.get(x).equals(prefs.get("LAF", ""))) {
-                MenuItemViewLF4.setSelected(true);
-            }
-            MenuItemViewLF4.setActionCommand(Integer.toString(x));
-            MenuItemViewLF4.addActionListener(new java.awt.event.ActionListener() {
-                public void actionPerformed(java.awt.event.ActionEvent evt) {
-                    MenuItemViewLF1ActionPerformed(evt);
-                }
-            });
-            MenuView.add(MenuItemViewLF4);
-        }
-        x++;
-        if (LAF.size() >= x + 1) {
-            MenuItemViewLF5 = new javax.swing.JRadioButtonMenuItem();
-            buttonGroupLF.add(MenuItemViewLF5);
-            MenuItemViewLF5.setText(LAF.get(x));
-            if (LAFclass.get(x).equals(prefs.get("LAF", ""))) {
-                MenuItemViewLF5.setSelected(true);
-            }
-            MenuItemViewLF5.setActionCommand(Integer.toString(x));
-            MenuItemViewLF5.addActionListener(new java.awt.event.ActionListener() {
-                public void actionPerformed(java.awt.event.ActionEvent evt) {
-                    MenuItemViewLF1ActionPerformed(evt);
-                }
-            });
-            MenuView.add(MenuItemViewLF5);
-        }
-        x++;
-        if (LAF.size() >= x + 1) {
-            MenuItemViewLF6 = new javax.swing.JRadioButtonMenuItem();
-            buttonGroupLF.add(MenuItemViewLF6);
-            MenuItemViewLF6.setText(LAF.get(x));
-            if (LAFclass.get(x).equals(prefs.get("LAF", ""))) {
-                MenuItemViewLF6.setSelected(true);
-            }
-            MenuItemViewLF6.setActionCommand(Integer.toString(x));
-            MenuItemViewLF6.addActionListener(new java.awt.event.ActionListener() {
-                public void actionPerformed(java.awt.event.ActionEvent evt) {
-                    MenuItemViewLF1ActionPerformed(evt);
-                }
-            });
-            MenuView.add(MenuItemViewLF6);
-        }
-        x++;
-        if (LAF.size() >= x + 1) {
-            MenuItemViewLF7 = new javax.swing.JRadioButtonMenuItem();
-            buttonGroupLF.add(MenuItemViewLF7);
-            MenuItemViewLF7.setText(LAF.get(x));
-            if (LAFclass.get(x).equals(prefs.get("LAF", ""))) {
-                MenuItemViewLF7.setSelected(true);
-            }
-            MenuItemViewLF7.setActionCommand(Integer.toString(x));
-            MenuItemViewLF7.addActionListener(new java.awt.event.ActionListener() {
-                public void actionPerformed(java.awt.event.ActionEvent evt) {
-                    MenuItemViewLF1ActionPerformed(evt);
-                }
-            });
-            MenuView.add(MenuItemViewLF7);
-        }
-        x++;
-        if (LAF.size() >= x + 1) {
-            MenuItemViewLF8 = new javax.swing.JRadioButtonMenuItem();
-            buttonGroupLF.add(MenuItemViewLF8);
-            MenuItemViewLF8.setText(LAF.get(x));
-            if (LAFclass.get(x).equals(prefs.get("LAF", ""))) {
-                MenuItemViewLF8.setSelected(true);
-            }
-            MenuItemViewLF8.setActionCommand(Integer.toString(x));
-            MenuItemViewLF8.addActionListener(new java.awt.event.ActionListener() {
-                public void actionPerformed(java.awt.event.ActionEvent evt) {
-                    MenuItemViewLF1ActionPerformed(evt);
-                }
-            });
-            MenuView.add(MenuItemViewLF8);
-        }
-        x++;
-        if (LAF.size() >= x + 1) {
-            MenuItemViewLF9 = new javax.swing.JRadioButtonMenuItem();
-            buttonGroupLF.add(MenuItemViewLF9);
-            MenuItemViewLF9.setText(LAF.get(x));
-            if (LAFclass.get(x).equals(prefs.get("LAF", ""))) {
-                MenuItemViewLF9.setSelected(true);
-            }
-            MenuItemViewLF9.setActionCommand(Integer.toString(x));
-            MenuItemViewLF9.addActionListener(new java.awt.event.ActionListener() {
-                public void actionPerformed(java.awt.event.ActionEvent evt) {
-                    MenuItemViewLF1ActionPerformed(evt);
-                }
-            });
-            MenuView.add(MenuItemViewLF9);
+            buttonGroupLF.add(menuItem);
+            MenuView.add(menuItem);
+            menuItem.setVisible(true);
+            log("LAF" + menuItem.getActionCommand());
         }
 
         LED_GREY = new javax.swing.ImageIcon(getClass().getResource("/resources/led_grey.png"));
@@ -11917,21 +11213,37 @@ public class ESPlorer extends javax.swing.JFrame {
         SnippetText.setPaintMatchedBracketPair(true);
         SnippetText.setAntiAliasingEnabled(true);
         SnippetText.setTabsEmulated(true);
+        snippetButtons.add(ButtonSnippet0);
+        snippetButtons.add(ButtonSnippet1);
+        snippetButtons.add(ButtonSnippet2);
+        snippetButtons.add(ButtonSnippet3);
+        snippetButtons.add(ButtonSnippet4);
+        snippetButtons.add(ButtonSnippet5);
+        snippetButtons.add(ButtonSnippet6);
+        snippetButtons.add(ButtonSnippet7);
+        snippetButtons.add(ButtonSnippet8);
+        snippetButtons.add(ButtonSnippet9);
+        snippetButtons.add(ButtonSnippet10);
+        snippetButtons.add(ButtonSnippet11);
+        snippetButtons.add(ButtonSnippet12);
+        snippetButtons.add(ButtonSnippet13);
+        snippetButtons.add(ButtonSnippet14);
+        snippetButtons.add(ButtonSnippet15);
 
-        FileLayeredPane1 = new ArrayList<javax.swing.JLayeredPane>();
-        TextScroll1 = new ArrayList<org.fife.ui.rtextarea.RTextScrollPane>();
-        TextEditor1 = new ArrayList<org.fife.ui.rsyntaxtextarea.RSyntaxTextArea>();
-        FileLayeredPaneLayout1 = new ArrayList<javax.swing.GroupLayout>();
-        provider = new ArrayList<CompletionProvider>();
-        ac = new ArrayList<AutoCompletion>();
-        iFile = new ArrayList<File>();
-        FileChanged = new ArrayList<Boolean>();
+        FileLayeredPane1 = new ArrayList<>();
+        TextScroll1 = new ArrayList<>();
+        TextEditor1 = new ArrayList<>();
+        FileLayeredPaneLayout1 = new ArrayList<>();
+        provider = new ArrayList<>();
+        ac = new ArrayList<>();
+        iFile = new ArrayList<>();
+        FileChanged = new ArrayList<>();
 
-        FileAsButton = new ArrayList<javax.swing.JButton>();
-        PyFileAsButton = new ArrayList<javax.swing.JButton>();
+        FileAsButton = new ArrayList<>();
+        PyFileAsButton = new ArrayList<>();
 
-        FilePopupMenu = new ArrayList<javax.swing.JPopupMenu>();
-        FilePopupMenuItem = new ArrayList<javax.swing.JMenuItem>();
+        FilePopupMenu = new ArrayList<>();
+        FilePopupMenuItem = new ArrayList<>();
 
         FilesTabbedPane.removeAll();
 
@@ -12825,7 +12137,7 @@ public class ESPlorer extends javax.swing.JFrame {
             }
         }
     }
-
+    
     private void StopSend() {
         try {
             serialPort.removeEventListener();
@@ -13756,7 +13068,7 @@ public class ESPlorer extends javax.swing.JFrame {
             return;
         }
         log("Send command GPIO" + Integer.toString(gpio) + " : " + Integer.toString(value));
-        String cmd = "import pyb;p=pyb.Pin(" + Integer.toString(gpio) + ",pyb.Pin.OUT);p.value(" + Integer.toString(value) + ")";
+        String cmd = "from machine import Pin; p = Pin(" + Integer.toString(gpio) + ", Pin.OUT, value=" + Integer.toString(value) + ")";
         btnSend(cmd);
     } // cmdButtonGPIO
 
@@ -13773,7 +13085,7 @@ public class ESPlorer extends javax.swing.JFrame {
             return;
         }
         log("Send command GET GPIO" + Integer.toString(gpio));
-        String cmd = "import pyb;p=pyb.Pin(" + Integer.toString(gpio) + ",pyb.Pin.IN);p.value()";
+        String cmd = "from machine import Pin; p = Pin(" + Integer.toString(gpio) + ", Pin.IN); p.value()";
         btnSend(cmd);
     }
 
@@ -13781,7 +13093,7 @@ public class ESPlorer extends javax.swing.JFrame {
         boolean success = false;
         log("pyFileSaveESP: Starting...");
         String[] content = TextEditor1.get(iTab).getText().split("\r?\n");
-        if (pyFiler.Put(ft, content)) {
+        if (PYFILER.Put(ft, content)) {
             pasteMode(false);
             success = SendTimerStart();
         }
@@ -13881,33 +13193,29 @@ public class ESPlorer extends javax.swing.JFrame {
         rx_data = "";
         rcvBuf = "";
         log("pyFileManager: Starting...");
-        String cmd = "import os;os.listdir('" + pyFiler.pwd() + "')";
+        String cmd = "import os;os.listdir('" + PYFILER.pwd() + "')";
         btnSend(cmd);
         WatchDogPyListDir();
     } // PyListFiles
 
     private void WatchDogPyListDir() {
-        watchDog = new ActionListener() {
-            public void actionPerformed(ActionEvent evt) {
-                //StopSend();
-                Toolkit.getDefaultToolkit().beep();
-                TerminalAdd("Waiting answer from ESP - Timeout reached. Command aborted.");
-                log("Waiting answer from ESP - Timeout reached. Command aborted.");
-                try {
-                    serialPort.removeEventListener();
-                    serialPort.addEventListener(new PortReader(), portMask);
-                } catch (Exception e) {
-                    log(e.toString());
-                }
-                SendUnLock();
+        watchDog = (ActionEvent evt) -> {
+            //StopSend();
+            Toolkit.getDefaultToolkit().beep();
+            TerminalAdd("Waiting answer from ESP - Timeout reached. Command aborted.");
+            log("Waiting answer from ESP - Timeout reached. Command aborted.");
+            try {
+                serialPort.removeEventListener();
+                serialPort.addEventListener(new PortReader(), portMask);
+            } catch (SerialPortException e) {
+                log(e.toString());
             }
+            SendUnLock();
         };
         int delay = AnswerDelay.getValue() * 1000;
         if (delay == 0) {
             delay = 300;
         }
-
-        delay = 3000;
 
         timeout = new Timer(delay, watchDog);
         timeout.setRepeats(false);
@@ -13917,6 +13225,7 @@ public class ESPlorer extends javax.swing.JFrame {
 
     private class PortPyFilesReader implements SerialPortEventListener {
 
+        @Override
         public void serialEvent(SerialPortEvent event) {
             String data;
             if (event.isRXCHAR() && event.getEventValue() > 0) {
@@ -13925,8 +13234,7 @@ public class ESPlorer extends javax.swing.JFrame {
                     rcvBuf = rcvBuf + data;
                     rx_data = rx_data + data;
                     TerminalAdd(data);
-                } catch (Exception e) {
-                    data = "";
+                } catch (SerialPortException e) {
                     log(e.toString());
                 }
                 if (rx_data.contains("']\r\n>>>")) {
@@ -13950,7 +13258,7 @@ public class ESPlorer extends javax.swing.JFrame {
                                 log("FileManager found file " + subs);
                             }
                         }
-                        if (PyFileAsButton.size() == 0) {
+                        if (PyFileAsButton.isEmpty()) {
                             TerminalAdd("No files found.");
                         }
                         TerminalAdd("\r\n----------------------------\r\n> ");
@@ -13964,11 +13272,11 @@ public class ESPlorer extends javax.swing.JFrame {
                     }
                     try {
                         serialPort.removeEventListener();
-                        serialPort.addEventListener(new PortReader(), portMask);
-                    } catch (Exception e) {
+                        serialPort.addEventListener(new ESPlorer.PortReader(), portMask);
+                    } catch (SerialPortException e) {
                         log(e.toString());
                     }
-//                    SendUnLock();
+    //                    SendUnLock();
                 }
             } else if (event.isCTS()) {
                 UpdateLedCTS();
@@ -13977,4 +13285,5 @@ public class ESPlorer extends javax.swing.JFrame {
             }
         } // serialEvent
     } // PortPyFilesReader
+
 } // ESPlorer
