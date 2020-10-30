@@ -1,14 +1,13 @@
-[![Stories in Ready](https://badge.waffle.io/4refr0nt/ESPlorer.png?label=ready&title=Ready)](https://waffle.io/4refr0nt/ESPlorer)
-ESPlorer
-========
+# ESPlorer
 
-[![Join the chat at https://gitter.im/4refr0nt/ESPlorer](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/4refr0nt/ESPlorer?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+[![Build Actions Status](https://github.com/4refr0nt/ESPlorer/workflows/build/badge.svg)](https://github.com/4refr0nt/ESPlorer/actions) [![Join the chat at https://gitter.im/4refr0nt/ESPlorer](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/4refr0nt/ESPlorer?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 #### Integrated Development Environment (IDE) for ESP8266 developers
 
 ### Package Description
 The essential multiplatforms tools for any ESP8266 developer from luatool author’s, including a LUA for NodeMCU and MicroPython. Also, all AT commands are supported.
 
-Required [JAVA](http://java.com/download) (Standard Edition - SE ver 7 and above) installed.
+Requires Java 8 or above.
+Download the latest and greatest one from [Oracle website](https://www.oracle.com/java/technologies/javase-downloads.html).
 
 ### Supported platforms
 - Windows(x86, x86-64)
@@ -21,14 +20,10 @@ Required [JAVA](http://java.com/download) (Standard Edition - SE ver 7 and above
 - Code editor color themes: default, dark, Eclipse, IDEA, Visual Studio
 - Undo/Redo editors features
 - Code Autocomplete (Ctrl+Space)
-- Smart send data to ESP8266 (without dumb send with fixed line delay), check correct answer from ESP8266 after every lines.
+- Smart send data to ESP8266 (without dumb send with fixed line delay), check correct answer from ESP8266 after every line.
 - Code snippets
 - Detailed logging
 - and more, more more…
-
-### Required libraries for build
-* [jSSC](https://code.google.com/p/java-simple-serial-connector/)
-* [rSyntaxTextArea](http://bobbylight.github.io/RSyntaxTextArea/)
 
 ### Discuss
 * [English esp8266.com](http://www.esp8266.com/viewtopic.php?f=22&t=882)
@@ -40,5 +35,17 @@ Required [JAVA](http://java.com/download) (Standard Edition - SE ver 7 and above
 ### Latest binaries download
 [esp8266.ru](http://esp8266.ru/esplorer/#download)
 
-### How to build ESPlorer from sources
-[ESPlorer build from sources](https://github.com/devyte/nodemcu-platform/wiki/How-to-build-ESPlorer-from-sources), howto from devyte
+### Build from sources
+#### Windows
+```
+mvnw.cmd clean package
+```
+#### Linux / Mac OS
+```
+./mvnw clean package
+```
+The build creates all-in-one executable `ESPlorer.jar` in the `target` folder.
+Then run the app:
+```
+java -jar target/ESPlorer.jar
+```
