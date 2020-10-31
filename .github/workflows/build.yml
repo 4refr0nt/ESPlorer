@@ -18,7 +18,7 @@ jobs:
           key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
           restore-keys: ${{ runner.os }}-m2
       - name: Build with Maven
-        run: mvn -B package
+        run: ./mvnw -B package
       - name: Prepare distribution
         run: mkdir -p dist/ESPlorer && mv target/ESPlorer.jar script/ESPlorer.{bat,sh} dist/ESPlorer
       - uses: actions/upload-artifact@v2
