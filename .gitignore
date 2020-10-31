@@ -1,6 +1,6 @@
 ESPlorer.Log
-build/
-test/
-dist/
-ESPlorer/build/built-jar.properties
-ESPlorer/nbproject/genfiles.properties
+ESPlorer.Log.lck
+.idea/
+target/
+*.iml
+nbactions.xml
