@@ -33,7 +33,7 @@ Download the latest and greatest one from [Oracle website](https://www.oracle.co
 [http://esp8266.ru/ESPlorer/](http://esp8266.ru/esplorer/)
 
 ### Latest binaries download
-[esp8266.ru](http://esp8266.ru/esplorer/#download)
+Check out [Releases](https://github.com/4refr0nt/ESPlorer/releases)
 
 ### Build from sources
 #### Windows
