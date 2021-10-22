@@ -7780,12 +7780,13 @@ public class ESPlorer extends javax.swing.JFrame {
         rx_byte = new byte[0];
         PacketsCRC = new ArrayList<>();
         String cmd = "_dl=function() "
-                + "  file.open(\"" + DownloadedFileName + "\", \"r\")\n"
+                + "  local open=file.open or io.open"
+                + "  local fh = open(\"" + DownloadedFileName + "\", \"r\")\n"
                 + "  local buf "
                 + "  local i=0 "
                 + "  local checksum\n"
                 + "  repeat "
-                + "     buf = file.read(1024) "
+                + "     buf = fh:read(1024) "
                 + "     if buf ~= nil then "
                 + "          i = i + 1 "
                 + "          checksum = 0 "
@@ -7795,9 +7796,9 @@ public class ESPlorer extends javax.swing.JFrame {
                 + "          buf='~~~'..'DATA-START~~~'..buf..'~~~'..'DATA-LENGTH~~~'..string.len(buf)..'~~~'..'DATA-N~~~'..i..'~~~'..'DATA-CRC~~~'..checksum..'~~~'..'DATA-END~~~'\n"
                 + "          uart.write(0,buf) "
                 + "     end "
-                + "     tmr.wdclr() "
+                + "     if tmr.wdclr then tmr.wdclr() end "
                 + "  until(buf == nil) "
-                + "  file.close()\n"
+                + "  fh:close()\n"
                 + "  buf='~~~'..'DATA-TOTAL-START~~~'..i..'~~~'..'DATA-TOTAL-END~~~'\n"
                 + "  uart.write(0,buf) "
                 + "end "
@@ -8085,10 +8086,12 @@ public class ESPlorer extends javax.swing.JFrame {
         String cmd = "_dump=function()\n"
                 + "  local buf\n"
                 + "  local j=0\n"
-                + "  if file.open(\"" + FileName + "\", \"r\") then\n"
+                + "  local open = file.open or io.open\n"
+                + "  local fh = open(\"" + FileName + "\", \"r\")\n"
+                + "  if fh then\n"
                 + "  print('--HexDump start')\n"
                 + "  repeat\n"
-                + "     buf=file.read(1024)\n"
+                + "     buf=fh:read(1024)\n"
                 + "     if buf~=nil then\n"
                 + "     local n \n"
                 + "     if #buf==1024 then\n"
@@ -8104,11 +8107,11 @@ public class ESPlorer extends javax.swing.JFrame {
                 + "         uart.write(0,i>#buf and'   'or string.format('%02X ',buf:byte(i)))\n"
                 + "         if i%8==0 then uart.write(0,' ')end\n"
                 + "         if i%16==0 then uart.write(0,buf:sub(i-16+1, i):gsub('%c','.'),'\\n')end\n"
-                + "         if i%128==0 then tmr.wdclr()end\n"
+                + "         if i%128==0 and tmr.wdclr then tmr.wdclr()end\n"
                 + "     end\n"
                 + "     end\n"
                 + "  until(buf==nil)\n"
-                + "  file.close()\n"
+                + "  fh:close()\n"
                 + "  print(\"\\r--HexDump done.\")\n"
                 + "  else\n"
                 + "  print(\"\\r--HexDump error: can't open file\")\n"
@@ -11120,12 +11123,11 @@ public class ESPlorer extends javax.swing.JFrame {
         //Autoclean History --ADDED by Mike, DL2ZAP --
         //if (Autoclean.isSelected()) {   // ToDo: create Checkbox "Autoclean & uncomment this line
         if (true) { // ToDo: After creating Checkbox delete this line
-            int eintraege = Command.getItemCount();
-            //System.out.println("Start cleaning");
-            for (int lv1 = 0; lv1 < eintraege; lv1++) {
+            //System.out.println("Start cleaning ");
+            for (int lv1 = 0; lv1 < Command.getItemCount(); lv1++) {
                 //System.out.print("Eintrag:" + lv1 +" : "+Command.getItemAt(lv1));
                 if (Command.getItemAt(lv1).equals(cmd)) {
-                    // System.out.println(" Doppelt, entfernt!");
+                    //System.out.println(" Doppelt, entfernt! " + lv1);
                     Command.removeItemAt(lv1);
                     lv1--;  // re-read this Entry because List has moved up the Follower
                 } else {
@@ -11134,8 +11136,7 @@ public class ESPlorer extends javax.swing.JFrame {
             }
         }
 
-        // System.out.println("Adding Command:" + cmd );
-        int eintraege = Command.getItemCount();
+        //System.out.println("Adding Command:" + cmd );
 
         Command.setSelectedIndex(Command.getItemCount() - 1); // Place Index on last Entry
         Command.addItem(cmd); // Add to History after last Position
@@ -12222,13 +12223,14 @@ public class ESPlorer extends javax.swing.JFrame {
             return nodeSaveFileESPTurbo(ft);
         }
         sendBuf.add("file.remove(\"" + ft + "\");");
-        sendBuf.add("file.open(\"" + ft + "\",\"w+\");");
-        sendBuf.add("w = file.writeline;\r\n");
+        sendBuf.add("open = file.open or io.open;");
+        sendBuf.add("fh = open(\"" + ft + "\",\"w+\");");
+        sendBuf.add("w = function (s) fh:write(s) fh:write(\"\\n\") end;\r\n");
         s = TextEditor1.get(iTab).getText().split("\r?\n");
         for (String subs : s) {
             sendBuf.add("w([==[" + subs + "]==]);");
         }
-        sendBuf.add("file.flush();file.close();");
+        sendBuf.add("fh:flush();fh:close();");
         if (FileAutoRun.isSelected()) {
             sendBuf.add("dofile(\"" + ft + "\");");
         }
@@ -12241,9 +12243,9 @@ public class ESPlorer extends javax.swing.JFrame {
     private boolean nodeSaveFileESPTurbo(String ft) {
         boolean success = false;
         log("FileSaveESP-Turbo: Try to save file to ESP in Turbo Mode...");
-        sendBuf.add("local FILE=\"" + ft + "\" file.remove(FILE) file.open(FILE,\"w+\") uart.setup(0," + Integer.toString(nSpeed) + ",8,0,1,0)");
-        sendBuf.add("ESP_Receiver=function(rcvBuf) if string.match(rcvBuf,\"^ESP_cmd_close\")==nil then file.write(string.gsub(rcvBuf, \'\\r\', \'\')) uart.write(0, \"> \") else uart.on(\"data\") ");
-        sendBuf.add("file.flush() file.close() FILE=nil rcvBuf=nil ESP_Receiver=nil uart.setup(0," + Integer.toString(nSpeed) + ",8,0,1,1) str=\"\\r\\n--Done--\\r\\n> \" print(str) str=nil collectgarbage() end end uart.on(\"data\",'\\r',ESP_Receiver,0)");
+        sendBuf.add("local FILE=\"" + ft + "\" file.remove(FILE) open=file.open or io.open; fh = open(FILE,\"w+\") uart.setup(0," + Integer.toString(nSpeed) + ",8,0,1,0)");
+        sendBuf.add("ESP_Receiver=function(rcvBuf) if string.match(rcvBuf,\"^ESP_cmd_close\")==nil then fh:write(string.gsub(rcvBuf, \'\\r\', \'\')) uart.write(0, \"> \") else uart.on(\"data\") ");
+        sendBuf.add("fh:flush() fh:close() fh=nil open=nil FILE=nil rcvBuf=nil ESP_Receiver=nil uart.setup(0," + Integer.toString(nSpeed) + ",8,0,1,1) str=\"\\r\\n--Done--\\r\\n> \" print(str) str=nil collectgarbage() end end uart.on(\"data\",'\\r',ESP_Receiver,0)");
         int pos1 = 0;
         int pos2 = 0;
         int size = 254;
@@ -12702,12 +12704,13 @@ public class ESPlorer extends javax.swing.JFrame {
         String cmd = "_up=function(n,l,ll)\n"
                 + "     local cs = 0\n"
                 + "     local i = 0\n"
+                + "     local open = file.open or io.open\n"
                 + "     print(\">\"..\" \")\n"
                 + "     uart.on(\"data\", l, function(b) \n"
                 + "          i = i + 1\n"
-                + "          file.open(\"" + UploadFileName + "\",'a+')\n"
-                + "          file.write(b)\n"
-                + "          file.close()\n"
+                + "          local fh = open(\"" + UploadFileName + "\",'a+')\n"
+                + "          fh:write(b)\n"
+                + "          fh:close()\n"
                 + "          cs=0\n"
                 + "          for j=1, l do\n"
                 + "               cs = cs + (b:byte(j)*20)%19\n"
@@ -12971,14 +12974,16 @@ public class ESPlorer extends javax.swing.JFrame {
     private void ViewFile(String fn) {
         String cmd = "_view=function()\n"
                 + "local _line\n"
-                + "if file.open(\"" + fn + "\",\"r\") then \n"
+                + "local open = file.open or io.open\n"
+                + "local fh = open(\"" + fn + "\",\"r\")\n"
+                + "if fh then \n"
                 + "    print(\"--FileView start\")\n"
-                + "    repeat _line = file.readline() \n"
+                + "    repeat _line = fh:read(1024) \n"
                 + "        if (_line~=nil) then \n"
-                + "            print(string.sub(_line,1,-2)) \n"
+                + "            uart.write(0, _line) \n"
                 + "        end \n"
                 + "    until _line==nil\n"
-                + "    file.close() \n"
+                + "    fh:close() \n"
                 + "    print(\"--FileView done.\") \n"
                 + "else\n"
                 + "  print(\"\\r--FileView error: can't open file\")\n"
