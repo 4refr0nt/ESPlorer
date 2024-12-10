@@ -6901,7 +6901,7 @@ public class ESPlorer extends javax.swing.JFrame {
         if (pOpen) { // reconnect
             if (OptionNodeMCU.isSelected() || FirmwareType == FIRMWARE_NODEMCU) {
                 log("Try to reconnect with baud " + Integer.toString(nSpeed) + "...");
-                btnSend("print(uart.setup(0, " + nSpeed + ", 8, 0, 1, 1 ))");
+                btnSend("if not console then print(uart.setup(0, " + nSpeed + ", 8, 0, 1, 1 ))end");
                 try {
                     Thread.sleep(200L);
                 } catch (InterruptedException e) {
@@ -12707,31 +12707,40 @@ public class ESPlorer extends javax.swing.JFrame {
         }
         log("sendPackets=" + Integer.toString(sendPackets.size()));
         String cmd = "_up=function(n,l,ll)\n"
-                + "     local cs = 0\n"
-                + "     local i = 0\n"
-                + "     local open = file.open or io.open\n"
+                + "     local cs,i=0,0\n"
+                + "     local open=file.open or io.open\n"
                 + "     print(\">\"..\" \")\n"
-                + "     uart.on(\"data\", l, function(b) \n"
-                + "          i = i + 1\n"
-                + "          local fh = open(\"" + UploadFileName + "\",'a+')\n"
-                + "          fh:write(b)\n"
-                + "          fh:close()\n"
-                + "          cs=0\n"
-                + "          for j=1, l do\n"
-                + "               cs = cs + (b:byte(j)*20)%19\n"
-                + "          end\n"
-                + "          uart.write(0,\"~~~CRC-\"..\"START~~~\"..cs..\"~~~CRC-\"..\"END~~~\")\n"
-                + "          if i == n then\n"
-                + "               uart.on(\"data\")\n"
-                + "          end\n"
-                + "          if i == n-1 and ll>0 then\n"
-                + "               _up(1,ll,ll)\n"
-                + "          end\n"
-                + "          end,0)\n"
+                + "     if console then\n"
+                + "       console.mode(0)\n"
+                + "       console.on(\"data\",l,function(b)\n"
+                + "         i=i+1\n"
+                + "         local fh=open(\"" + UploadFileName + "\",'a+')\n"
+                + "         fh:write(b)\n"
+                + "         fh:close()\n"
+                + "         cs=0\n"
+                + "         for j=1,l do cs=cs+(b:byte(j)*20)%19 end\n"
+                + "         console.write(\"~~~CRC-\"..\"START~~~\"..cs..\"~~~CRC-\"..\"END~~~\")\n"
+                + "         if i==n then\n"
+                + "           console.on(\"data\")\n"
+                + "           console.mode(1)\n"
+                + "         end\n"
+                + "         if i==n-1 and ll>0 then _up(1,ll,ll)end\n"
+                + "       end)\n"
+                + "     else\n"
+                + "       uart.on(\"data\",l,function(b)\n"
+                + "         i=i+1\n"
+                + "         local fh=open(\"" + UploadFileName + "\",'a+')\n"
+                + "         fh:write(b)\n"
+                + "         fh:close()\n"
+                + "         cs=0\n"
+                + "         for j=1,l do cs=cs+(b:byte(j)*20)%19 end\n"
+                + "         uart.write(0,\"~~~CRC-\"..\"START~~~\"..cs..\"~~~CRC-\"..\"END~~~\")\n"
+                + "         if i==n then uart.on(\"data\")end\n"
+                + "         if i==n-1 and ll>0 then _up(1,ll,ll)end\n"
+                + "       end,0)\n"
+                + "     end\n"
                 + "end\n"
-                + "if node.chipmodel then\n"
-                + "    uart.start(0)\n"
-                + "end\n"
+                + "if node.chipmodel and(not console)then uart.start(0)end\n"
                 + "file.remove(\"" + UploadFileName + "\")\n";
         sendBuf = cmdPrep(cmd);
         int startPackets;
@@ -12759,7 +12768,7 @@ public class ESPlorer extends javax.swing.JFrame {
             SendUnLock();
             return;
         }
-        int delay = 10;
+        int delay = 30;
         j0();
         taskPerformer = new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
@@ -12932,7 +12941,7 @@ public class ESPlorer extends javax.swing.JFrame {
                 }
                 if (j >= (sendBuf.size() + sendPackets.size())) {
                     LocalEcho = false;
-                    send(addCR("_up=nil if node.chipmodel then uart.stop(0)end"), false);
+                    send(addCR("_up=nil if node.chipmodel and (not console)then uart.stop(0)end"), false);
                     try {
                         timer.stop();
                     } catch (Exception e) {
